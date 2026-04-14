@@ -1,0 +1,16 @@
+{
+  "name": "jiaxuan-blog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "\u7a3c\u8f69\u957f\u77ed\u53e5 - Eleventy \u4e2a\u4eba\u9759\u6001\u535a\u5ba2",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "build:search": "npm run build && pagefind --site _site"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.0",
+    "@11ty/eleventy-plugin-rss": "^2.0.3",
+    "pagefind": "^1.4.0"
+  }
+}

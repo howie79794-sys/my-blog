@@ -1,0 +1,25 @@
+---
+layout: layouts/base.njk
+title: 标签索引
+permalink: /tags/
+---
+<section class="tags-page">
+  <h2>标签索引</h2>
+  <div class="tag-grid">
+    {% for group in collections.defaultTagGroups %}
+      <article class="tag-item">
+        <h3>{{ group.tag }}</h3>
+        <p>{{ group.posts.length }} 篇</p>
+        {% if group.posts.length %}
+          <ul>
+            {% for post in group.posts %}
+              <li><a href="{{ post.url }}">{{ post.data.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>还没有该标签文章。</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+</section>

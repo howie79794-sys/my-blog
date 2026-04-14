@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+title: 首页
+---
+<section class="posts-section">
+  <h2>按时间流淌</h2>
+  <div class="timeline" id="postsTimeline">
+    {% for post in collections.posts %}
+      <article
+        class="timeline-item"
+        data-tags="{{ (post.data.tags or []) | join(',') }}"
+        data-title="{{ post.data.title | lower }}"
+        data-date="{{ post.date | dateCn | lower }}"
+      >
+        <a href="{{ post.url }}" class="timeline-link">
+          <time datetime="{{ post.date | htmlDateString }}">{{ post.date | dateCn }}</time>
+          <h3>{{ post.data.title or post.page.fileSlug }}</h3>
+        </a>
+      </article>
+    {% endfor %}
+  </div>
+  <p id="noResults" class="no-results" hidden>没有匹配的文章，试试换个标签或关键词。</p>
+</section>
