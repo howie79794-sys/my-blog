@@ -2,7 +2,7 @@
   "name": "jiaxuan-blog",
   "version": "1.0.0",
   "private": true,
-  "description": "\u7a3c\u8f69\u957f\u77ed\u53e5 - Eleventy \u4e2a\u4eba\u9759\u6001\u535a\u5ba2",
+  "description": "稼轩长短句 - Eleventy 个人静态博客",
   "scripts": {
     "dev": "eleventy --serve",
     "build": "eleventy",
@@ -12,5 +12,9 @@
     "@11ty/eleventy": "^3.1.0",
     "@11ty/eleventy-plugin-rss": "^2.0.3",
     "pagefind": "^1.4.0"
-  }
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "packageManager": "npm@10.8.2"
 }
