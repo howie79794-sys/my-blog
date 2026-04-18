@@ -39,7 +39,7 @@
           <h2>标签过滤</h2>
           <div class="tag-filter" id="tagFilter">
             <button class="chip is-active" data-tag="all">全部</button>
-            {% for tag in site.defaultTags %}
+            {% for tag in collections.uniquePostTags %}
               <button class="chip" data-tag="{{ tag }}">{{ tag }}</button>
             {% endfor %}
           </div>

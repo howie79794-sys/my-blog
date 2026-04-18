@@ -10,6 +10,15 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  eleventyConfig.addCollection("uniquePostTags", function (collectionApi) {
+    const posts = collectionApi.getFilteredByGlob("src/posts/*.md");
+    const tagSet = new Set();
+    posts.forEach((post) => {
+      (post.data.tags || []).forEach((tag) => tagSet.add(tag));
+    });
+    return [...tagSet];
+  });
+
   eleventyConfig.addCollection("defaultTagGroups", function (collectionApi) {
     const posts = collectionApi
       .getFilteredByGlob("src/posts/*.md")
