@@ -7,14 +7,31 @@ title: 首页
   <div class="timeline" id="postsTimeline">
     {% for post in collections.posts %}
       <article
-        class="timeline-item"
+        class="timeline-item{% if post.data.cover %} has-cover{% endif %}"
         data-tags="{{ (post.data.tags or []) | join(',') }}"
         data-title="{{ post.data.title | lower }}"
         data-date="{{ post.date | dateCn | lower }}"
       >
         <a href="{{ post.url }}" class="timeline-link">
-          <time datetime="{{ post.date | htmlDateString }}">{{ post.date | dateCn }}</time>
-          <h3>{{ post.data.title or post.page.fileSlug }}</h3>
+          {% if post.data.cover %}
+            <span class="timeline-cover" aria-hidden="true">
+              <img src="{{ post.data.cover }}" alt="" loading="lazy" />
+            </span>
+          {% endif %}
+          <span class="timeline-body">
+            <time datetime="{{ post.date | htmlDateString }}">{{ post.date | dateCn }}</time>
+            <h3>{{ post.data.title or post.page.fileSlug }}</h3>
+            {% if post.data.excerpt %}
+              <p class="timeline-excerpt">{{ post.data.excerpt }}</p>
+            {% endif %}
+            {% if post.data.tags and post.data.tags.length %}
+              <p class="timeline-tags">
+                {% for tag in post.data.tags %}
+                  <span>#{{ tag }}</span>
+                {% endfor %}
+              </p>
+            {% endif %}
+          </span>
         </a>
       </article>
     {% endfor %}

@@ -1,43 +1,83 @@
 ---
 layout: layouts/base.njk
 ---
+{% set newer = collections.posts | newerPost(page.url) %}
+{% set older = collections.posts | olderPost(page.url) %}
+
 <p class="post-back-wrap">
   <a href="/" class="back-home-link">返回首页</a>
 </p>
 
-<article class="post-detail">
+<article class="post-detail" data-post-article>
   <header class="post-head">
     <time datetime="{{ page.date | htmlDateString }}">{{ page.date | dateCn }}</time>
     <h2>{{ title or page.fileSlug }}</h2>
-    {% if tags and tags.length %}
-      <p class="post-tags">
-        {% for tag in tags %}
-          <span>#{{ tag }}</span>
-        {% endfor %}
-      </p>
-    {% endif %}
+    <p class="post-meta">
+      <span class="reading-time">{{ content | readingTime }}</span>
+      {% if tags and tags.length %}
+        <span class="post-meta-sep">·</span>
+        <span class="post-tags-inline">
+          {% for tag in tags %}
+            <span class="post-tag">#{{ tag }}</span>
+          {% endfor %}
+        </span>
+      {% endif %}
+    </p>
   </header>
+
+  {% if cover %}
+    <figure class="post-cover">
+      <img src="{{ cover }}" alt="{{ title }}" loading="lazy" />
+    </figure>
+  {% endif %}
 
   <div class="post-content">
     {{ content | safe }}
   </div>
+
+  <p class="post-ornament" aria-hidden="true">·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</p>
 </article>
+
+{% if newer or older %}
+  <nav class="post-nav" aria-label="文章间导航">
+    {% if newer %}
+      <a class="post-nav-link post-nav-newer" href="{{ newer.url }}">
+        <span class="post-nav-label">← 更新的</span>
+        <span class="post-nav-title">{{ newer.data.title or newer.page.fileSlug }}</span>
+      </a>
+    {% else %}
+      <span class="post-nav-link post-nav-empty" aria-hidden="true"></span>
+    {% endif %}
+    {% if older %}
+      <a class="post-nav-link post-nav-older" href="{{ older.url }}">
+        <span class="post-nav-label">更早的 →</span>
+        <span class="post-nav-title">{{ older.data.title or older.page.fileSlug }}</span>
+      </a>
+    {% else %}
+      <span class="post-nav-link post-nav-empty" aria-hidden="true"></span>
+    {% endif %}
+  </nav>
+{% endif %}
 
 <section class="comments-wrap">
   <h3>评论</h3>
-  <script
-    src="https://giscus.app/client.js"
-    data-repo="{{ site.giscus.repo }}"
-    data-repo-id="{{ site.giscus.repoId }}"
-    data-category="{{ site.giscus.category }}"
-    data-category-id="{{ site.giscus.categoryId }}"
-    data-mapping="{{ site.giscus.mapping }}"
-    data-strict="{{ site.giscus.strict }}"
-    data-reactions-enabled="{{ site.giscus.reactionsEnabled }}"
-    data-emit-metadata="{{ site.giscus.emitMetadata }}"
-    data-input-position="{{ site.giscus.inputPosition }}"
-    data-lang="{{ site.giscus.lang }}"
-    crossorigin="anonymous"
-    async
-  ></script>
+  {% if site.giscus.repo and site.giscus.repo != "owner/repo" %}
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="{{ site.giscus.repo }}"
+      data-repo-id="{{ site.giscus.repoId }}"
+      data-category="{{ site.giscus.category }}"
+      data-category-id="{{ site.giscus.categoryId }}"
+      data-mapping="{{ site.giscus.mapping }}"
+      data-strict="{{ site.giscus.strict }}"
+      data-reactions-enabled="{{ site.giscus.reactionsEnabled }}"
+      data-emit-metadata="{{ site.giscus.emitMetadata }}"
+      data-input-position="{{ site.giscus.inputPosition }}"
+      data-lang="{{ site.giscus.lang }}"
+      crossorigin="anonymous"
+      async
+    ></script>
+  {% else %}
+    <p class="comments-hint">评论功能尚未配置完成（需要在 <code>src/_data/site.json</code> 里填入真实的 Giscus repo / repoId / categoryId）。</p>
+  {% endif %}
 </section>

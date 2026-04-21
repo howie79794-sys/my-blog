@@ -1,6 +1,8 @@
 (function () {
   let selectedTag = "all";
   let panelScrollBound = false;
+  let progressScrollHandler = null;
+  let themeBound = false;
 
   function initHomeFilters() {
     const searchInput = document.getElementById("postSearch");
@@ -72,6 +74,59 @@
       window.addEventListener("scroll", updatePanelState, { passive: true });
       panelScrollBound = true;
     }
+  }
+
+  function initReadingProgress() {
+    const progress = document.getElementById("readingProgress");
+    if (!progress) return;
+
+    // Clean up any previous handler before re-binding (PJAX navigation)
+    if (progressScrollHandler) {
+      window.removeEventListener("scroll", progressScrollHandler);
+      window.removeEventListener("resize", progressScrollHandler);
+      progressScrollHandler = null;
+    }
+
+    const article = document.querySelector("[data-post-article]");
+    if (!article) {
+      progress.hidden = true;
+      progress.style.width = "0%";
+      return;
+    }
+
+    progress.hidden = false;
+
+    const update = () => {
+      const rect = article.getBoundingClientRect();
+      const articleTop = rect.top + window.scrollY;
+      const articleHeight = article.offsetHeight;
+      const viewport = window.innerHeight;
+      const scrolled = window.scrollY - articleTop + viewport * 0.3;
+      const total = Math.max(1, articleHeight - viewport * 0.4);
+      const ratio = Math.min(1, Math.max(0, scrolled / total));
+      progress.style.width = (ratio * 100).toFixed(2) + "%";
+    };
+
+    update();
+    progressScrollHandler = update;
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+  }
+
+  function initThemeToggle() {
+    const btn = document.getElementById("themeToggle");
+    if (!btn) return;
+    if (themeBound) return; // header persists across PJAX; bind once
+    themeBound = true;
+
+    btn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("theme", next);
+      } catch (e) {}
+    });
   }
 
   function shouldHandleWithPjax(anchor, event) {
@@ -154,6 +209,8 @@
   function initPage() {
     initHomeFilters();
     initControlPanelState();
+    initReadingProgress();
+    initThemeToggle();
   }
 
   window.addEventListener("DOMContentLoaded", () => {

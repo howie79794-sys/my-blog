@@ -8,8 +8,20 @@
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS" href="/feed.xml" />
     <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <script>
+      // Apply theme preference as early as possible to avoid flash of wrong theme.
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var theme = stored || (prefersDark ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
+    <div id="readingProgress" class="reading-progress" hidden></div>
     <div class="grain"></div>
     <header class="site-header">
       <div class="header-inner">
@@ -18,8 +30,16 @@
         <p class="site-desc">{{ site.description }}</p>
         <nav class="header-nav">
           <a href="/">全部文章</a>
-          <a href="/tags/">标签索引</a>
+          <a href="/archive/">归档</a>
+          <a href="/tags/">标签</a>
+          <a href="/about/">关于</a>
+          <a href="/now/">现在</a>
+          <a href="/links/">友链</a>
           <a href="/feed.xml">RSS</a>
+          <button type="button" id="themeToggle" class="theme-toggle" aria-label="切换主题" title="切换明暗主题">
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
+          </button>
         </nav>
       </div>
     </header>
@@ -45,22 +65,22 @@
           </div>
         </section>
 
-        <section class="music-wrap">
-          <h2>Now Playing</h2>
-          <iframe
-            title="Apple Music player"
-            allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-            frameborder="0"
-            height="175"
-            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-            src="https://embed.music.apple.com/us/album/stuck-on-you/1440723498?i=1440723516&theme=auto"
-          ></iframe>
+        <section class="listening-wrap">
+          <h2>当下在听</h2>
+          <ul class="listening-list">
+            <!-- 👇 随手更新你最近在听的音乐 -->
+            <li><span class="track">Stuck on You</span><span class="artist">Lionel Richie</span></li>
+            <li><span class="track">City of Stars</span><span class="artist">La La Land OST</span></li>
+            <li><span class="track">River Flows in You</span><span class="artist">Yiruma</span></li>
+          </ul>
+          <p class="listening-hint">一份主观的单曲小册</p>
         </section>
       </aside>
     </div>
 
     <footer class="site-footer">
       <p>由 Eleventy 渲染 · Pagefind 搜索 · Giscus 评论</p>
+      <p class="footer-ornament">·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</p>
     </footer>
 
     <script src="/assets/js/site.js" defer></script>
