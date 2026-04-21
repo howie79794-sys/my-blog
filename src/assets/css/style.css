@@ -218,7 +218,7 @@ h2 {
 
 .search-wrap,
 .tag-filter-wrap,
-.listening-wrap,
+.music-wrap,
 .posts-section,
 .tags-page,
 .post-detail,
@@ -273,7 +273,7 @@ h2 {
 
 .control-panel .search-wrap,
 .control-panel .tag-filter-wrap,
-.control-panel .listening-wrap {
+.control-panel .music-wrap {
   position: relative;
   margin-bottom: 0.75rem;
   background: var(--paper-soft);
@@ -281,20 +281,20 @@ h2 {
   transition: border-color 220ms ease, box-shadow 220ms ease;
 }
 
-.control-panel .listening-wrap {
+.control-panel .music-wrap {
   margin-bottom: 0;
 }
 
 .control-panel .search-wrap:hover,
 .control-panel .tag-filter-wrap:hover,
-.control-panel .listening-wrap:hover {
+.control-panel .music-wrap:hover {
   border-color: #cfb78f;
   box-shadow: 0 8px 16px rgba(36, 28, 21, 0.1);
 }
 
 [data-theme="dark"] .control-panel .search-wrap:hover,
 [data-theme="dark"] .control-panel .tag-filter-wrap:hover,
-[data-theme="dark"] .control-panel .listening-wrap:hover {
+[data-theme="dark"] .control-panel .music-wrap:hover {
   border-color: #6b5d45;
 }
 
@@ -708,40 +708,13 @@ h2 {
   transform: translateY(-1px);
 }
 
-/* Listening list (replaces Apple Music iframe) */
-.listening-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.listening-list li {
-  display: flex;
-  flex-direction: column;
-  padding: 0.4rem 0;
-  border-bottom: 1px dashed var(--line-soft);
-}
-
-.listening-list li:last-child {
-  border-bottom: 0;
-}
-
-.listening-list .track {
-  font-size: 0.98rem;
-  color: var(--ink);
-}
-
-.listening-list .artist {
-  font-size: 0.82rem;
-  color: var(--muted);
-  letter-spacing: 0.02em;
-}
-
-.listening-hint {
-  margin: 0.5rem 0 0;
-  font-size: 0.82rem;
-  color: var(--muted);
-  font-style: italic;
+/* Apple Music embed */
+.music-wrap iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 /* Legacy / fallback (kept for safety) */
@@ -831,7 +804,7 @@ h2 {
 
   .search-wrap,
   .tag-filter-wrap,
-  .listening-wrap,
+  .music-wrap,
   .posts-section,
   .tags-page,
   .post-detail,
