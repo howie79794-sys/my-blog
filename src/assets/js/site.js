@@ -1,86 +1,140 @@
 (function () {
-  let selectedTag = "all";
-  let panelScrollBound = false;
+  const THEMES = ["paper", "modern", "midnight"];
+  const THEME_ICONS = { paper: "☀", modern: "◐", midnight: "☾" };
+  let activeTags = [];
   let progressScrollHandler = null;
   let themeBound = false;
+  let backToTopBound = false;
+  let backToTopHandler = null;
+
+  function getTheme() {
+    const t = document.body.getAttribute("data-theme") || "paper";
+    return THEMES.indexOf(t) !== -1 ? t : "paper";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    document.body.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch (e) {}
+    const icon = document.getElementById("themeIcon");
+    if (icon) icon.textContent = THEME_ICONS[theme] || "☀";
+    syncGiscusTheme(theme);
+  }
+
+  function syncGiscusTheme(theme) {
+    try {
+      const frame = document.querySelector("iframe.giscus-frame");
+      if (!frame) return;
+      const giscusTheme = theme === "midnight" ? "dark" : "light";
+      frame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: giscusTheme } } },
+        "https://giscus.app"
+      );
+    } catch (e) {}
+  }
+
+  function initThemeToggle() {
+    const btn = document.getElementById("themeToggle");
+    if (!btn) return;
+
+    // Set initial icon based on stored/current theme
+    const current = getTheme();
+    applyTheme(current);
+
+    if (themeBound) return; // nav persists across PJAX; bind once
+    themeBound = true;
+
+    btn.addEventListener("click", () => {
+      const now = getTheme();
+      const next = THEMES[(THEMES.indexOf(now) + 1) % THEMES.length];
+      applyTheme(next);
+    });
+  }
 
   function initHomeFilters() {
     const searchInput = document.getElementById("postSearch");
-    const filterRoot = document.getElementById("tagFilter");
-    const rows = Array.from(document.querySelectorAll(".timeline-item"));
+    const searchClear = document.getElementById("searchClear");
+    const tagRoot = document.getElementById("tagFilter");
+    const tagClear = document.getElementById("tagClear");
+    const items = Array.from(document.querySelectorAll(".tl-item"));
+    const yearSeps = Array.from(document.querySelectorAll(".year-sep"));
     const noResults = document.getElementById("noResults");
-    if (!searchInput || !filterRoot) return;
 
-    if (rows.length === 0 || !noResults) {
-      searchInput.value = "";
-      searchInput.disabled = true;
-      searchInput.placeholder = "回到首页可搜索文章";
-      filterRoot.querySelectorAll("button").forEach((node) => {
-        node.disabled = true;
-      });
-      return;
-    }
+    if (!searchInput || !tagRoot) return;
+    if (items.length === 0) return;
 
-    searchInput.disabled = false;
-    searchInput.placeholder = "输入标题或日期关键词";
-    filterRoot.querySelectorAll("button").forEach((node) => {
-      node.disabled = false;
-    });
-
-    selectedTag = "all";
+    activeTags = [];
 
     const applyFilters = () => {
-      const keyword = searchInput.value.trim().toLowerCase();
-      let shownCount = 0;
+      const keyword = (searchInput.value || "").trim().toLowerCase();
+      let shown = 0;
 
-      rows.forEach((row) => {
-        const tags = (row.dataset.tags || "").split(",").filter(Boolean);
-        const haystack = `${row.dataset.title || ""} ${row.dataset.date || ""}`;
-        const matchesTag = selectedTag === "all" || tags.includes(selectedTag);
+      items.forEach((item) => {
+        const tags = (item.dataset.tags || "").split(",").filter(Boolean);
+        const haystack = `${item.dataset.title || ""} ${item.dataset.date || ""}`.toLowerCase();
+        const matchesTag = activeTags.length === 0 || activeTags.every((t) => tags.includes(t));
         const matchesKeyword = !keyword || haystack.includes(keyword);
         const show = matchesTag && matchesKeyword;
-
-        row.style.display = show ? "block" : "none";
-        if (show) shownCount += 1;
+        item.style.display = show ? "" : "none";
+        if (show) shown += 1;
       });
 
-      noResults.hidden = shownCount !== 0;
+      // Hide year separators with no visible items under them
+      yearSeps.forEach((sep) => {
+        let next = sep.nextElementSibling;
+        let hasVisible = false;
+        while (next && !next.classList.contains("year-sep")) {
+          if (next.classList.contains("tl-item") && next.style.display !== "none") {
+            hasVisible = true;
+            break;
+          }
+          next = next.nextElementSibling;
+        }
+        sep.style.display = hasVisible ? "" : "none";
+      });
+
+      if (noResults) noResults.hidden = shown !== 0;
+      if (tagClear) tagClear.style.display = activeTags.length > 0 ? "" : "none";
+      if (searchClear) searchClear.style.display = searchInput.value ? "" : "none";
     };
 
-    filterRoot.addEventListener("click", (event) => {
-      const btn = event.target.closest("button[data-tag]");
+    tagRoot.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-tag]");
       if (!btn) return;
-
-      selectedTag = btn.dataset.tag;
-      filterRoot
-        .querySelectorAll("button")
-        .forEach((node) => node.classList.remove("is-active"));
-      btn.classList.add("is-active");
+      const tag = btn.dataset.tag;
+      const idx = activeTags.indexOf(tag);
+      if (idx === -1) activeTags.push(tag);
+      else activeTags.splice(idx, 1);
+      btn.classList.toggle("on", idx === -1);
       applyFilters();
     });
 
-    searchInput.addEventListener("input", applyFilters);
-  }
-
-  function initControlPanelState() {
-    const updatePanelState = () => {
-      const controlPanel = document.querySelector(".control-panel");
-      if (!controlPanel) return;
-      controlPanel.classList.toggle("is-scrolled", window.scrollY > 24);
-    };
-
-    updatePanelState();
-    if (!panelScrollBound) {
-      window.addEventListener("scroll", updatePanelState, { passive: true });
-      panelScrollBound = true;
+    if (tagClear) {
+      tagClear.addEventListener("click", () => {
+        activeTags = [];
+        tagRoot.querySelectorAll("button.on").forEach((b) => b.classList.remove("on"));
+        applyFilters();
+      });
     }
+
+    if (searchClear) {
+      searchClear.addEventListener("click", () => {
+        searchInput.value = "";
+        applyFilters();
+        searchInput.focus();
+      });
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    applyFilters();
   }
 
   function initReadingProgress() {
     const progress = document.getElementById("readingProgress");
     if (!progress) return;
 
-    // Clean up any previous handler before re-binding (PJAX navigation)
     if (progressScrollHandler) {
       window.removeEventListener("scroll", progressScrollHandler);
       window.removeEventListener("resize", progressScrollHandler);
@@ -113,20 +167,28 @@
     window.addEventListener("resize", update, { passive: true });
   }
 
-  function initThemeToggle() {
-    const btn = document.getElementById("themeToggle");
+  function initBackToTop() {
+    const btn = document.getElementById("backToTop");
     if (!btn) return;
-    if (themeBound) return; // header persists across PJAX; bind once
-    themeBound = true;
+
+    const update = () => {
+      if (window.scrollY > 300) btn.classList.remove("hidden");
+      else btn.classList.add("hidden");
+    };
+
+    if (backToTopBound) {
+      update();
+      return;
+    }
+    backToTopBound = true;
 
     btn.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme") || "light";
-      const next = current === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      try {
-        localStorage.setItem("theme", next);
-      } catch (e) {}
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    backToTopHandler = update;
+    window.addEventListener("scroll", update, { passive: true });
+    update();
   }
 
   function shouldHandleWithPjax(anchor, event) {
@@ -145,6 +207,7 @@
     const url = new URL(anchor.href, window.location.origin);
     if (url.origin !== window.location.origin) return false;
     if (url.pathname === window.location.pathname && url.search === window.location.search) return false;
+    if (url.pathname.endsWith(".xml")) return false;
 
     return true;
   }
@@ -184,9 +247,23 @@
     main.innerHTML = nextMain.innerHTML;
     document.title = nextDoc.title || document.title;
 
+    // Sync active nav link
+    const nextLinks = nextDoc.querySelectorAll(".nav-link");
+    const curLinks = document.querySelectorAll(".nav-link");
+    if (nextLinks.length === curLinks.length) {
+      nextLinks.forEach((nl, i) => {
+        curLinks[i].classList.toggle("active", nl.classList.contains("active"));
+      });
+    }
+
     if (!options || options.push !== false) {
       window.history.pushState({ pjax: true, url }, "", url);
     }
+
+    // Re-trigger page-enter animation
+    main.classList.remove("page-enter");
+    void main.offsetWidth;
+    main.classList.add("page-enter");
 
     window.scrollTo({ top: 0, behavior: "auto" });
     initPage();
@@ -207,10 +284,10 @@
   }
 
   function initPage() {
-    initHomeFilters();
-    initControlPanelState();
-    initReadingProgress();
     initThemeToggle();
+    initHomeFilters();
+    initReadingProgress();
+    initBackToTop();
   }
 
   window.addEventListener("DOMContentLoaded", () => {

@@ -3,21 +3,28 @@ layout: layouts/base.njk
 title: 归档
 permalink: /archive/
 ---
-<section class="posts-section">
-  <h2>归档</h2>
-  <p class="archive-meta">共 {{ collections.posts.length }} 篇文章</p>
+<div class="section-label">文章归档 · 共 {{ collections.posts.length }} 篇</div>
 
-  {% for group in collections.postsByYear %}
-    <div class="archive-year">
-      <h3 class="archive-year-title">{{ group.year }}</h3>
-      <ul class="archive-list">
-        {% for post in group.posts %}
-          <li class="archive-item">
-            <time datetime="{{ post.date | htmlDateString }}">{{ post.date | htmlDateString }}</time>
-            <a href="{{ post.url }}">{{ post.data.title or post.page.fileSlug }}</a>
-          </li>
+{% for group in collections.postsByYearMonth %}
+  <div class="arc-year">
+    <h2 class="arc-year-title">{{ group.year }} 年</h2>
+    {% for m in group.months %}
+      <div class="arc-month">
+        <div class="arc-month-title">{{ m.monthCn }}</div>
+        {% for post in m.posts %}
+          <a class="arc-art" href="{{ post.url }}">
+            <span class="arc-d">{{ post.date.getDate() }}日</span>
+            <span class="arc-t">{{ post.data.title or post.page.fileSlug }}</span>
+            {% if post.data.tags and post.data.tags.length %}
+              <span class="arc-tags">
+                {% for tag in post.data.tags %}
+                  <span class="arc-tag">{{ tag }}</span>
+                {% endfor %}
+              </span>
+            {% endif %}
+          </a>
         {% endfor %}
-      </ul>
-    </div>
-  {% endfor %}
-</section>
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}

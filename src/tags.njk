@@ -3,23 +3,30 @@ layout: layouts/base.njk
 title: 标签索引
 permalink: /tags/
 ---
-<section class="tags-page">
-  <h2>标签索引</h2>
-  <div class="tag-grid">
-    {% for group in collections.defaultTagGroups %}
-      <article class="tag-item">
-        <h3>{{ group.tag }}</h3>
-        <p>{{ group.posts.length }} 篇</p>
-        {% if group.posts.length %}
-          <ul>
-            {% for post in group.posts %}
-              <li><a href="{{ post.url }}">{{ post.data.title }}</a></li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p>还没有该标签文章。</p>
-        {% endif %}
-      </article>
-    {% endfor %}
+<div class="section-label">标签索引</div>
+
+{% for tag in collections.uniquePostTags %}
+  {% set posts = collections.posts | selectattr("data.tags", "contains", tag) %}
+  {% set tagPosts = [] %}
+  {% for post in collections.posts %}
+    {% if tag in (post.data.tags or []) %}
+      {% set tagPosts = (tagPosts.push(post), tagPosts) %}
+    {% endif %}
+  {% endfor %}
+  <div class="tag-group">
+    <h2 class="tag-group-title">
+      {{ tag }}
+      <span class="tag-group-count">{{ tagPosts.length }} 篇</span>
+    </h2>
+    <ul class="tag-group-list">
+      {% for post in tagPosts %}
+        <li>
+          <a href="{{ post.url }}">
+            <span class="d">{{ post.date | htmlDateString }}</span>
+            <span class="t">{{ post.data.title or post.page.fileSlug }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
-</section>
+{% endfor %}

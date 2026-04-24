@@ -5,84 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% if title %}{{ title }} · {% endif %}{{ site.title }}</title>
     <meta name="description" content="{{ description or site.description }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&family=ZCOOL+XiaoWei&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS" href="/feed.xml" />
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
     <script>
-      // Apply theme preference as early as possible to avoid flash of wrong theme.
+      // Apply theme preference early to avoid flash of wrong theme.
+      // Three-theme cycle: paper (default) → modern → midnight.
       (function () {
         try {
           var stored = localStorage.getItem("theme");
-          var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-          var theme = stored || (prefersDark ? "dark" : "light");
+          var valid = ["paper", "modern", "midnight"];
+          var theme = valid.indexOf(stored) !== -1 ? stored : "paper";
+          document.body && document.body.setAttribute("data-theme", theme);
+          // body may not exist yet — fallback via documentElement, re-apply on DOMContentLoaded.
           document.documentElement.setAttribute("data-theme", theme);
+          document.addEventListener("DOMContentLoaded", function () {
+            document.body.setAttribute("data-theme", theme);
+          });
         } catch (e) {}
       })();
     </script>
   </head>
-  <body>
-    <div id="readingProgress" class="reading-progress" hidden></div>
-    <div class="grain"></div>
-    <header class="site-header">
-      <div class="header-inner">
-        <p class="site-kicker">词风记事簿</p>
-        <h1><a href="/">{{ site.title }}</a></h1>
-        <p class="site-desc">{{ site.description }}</p>
-        <nav class="header-nav">
-          <a href="/">全部文章</a>
-          <a href="/archive/">归档</a>
-          <a href="/tags/">标签</a>
-          <a href="/about/">关于</a>
-          <a href="/now/">现在</a>
-          <a href="/links/">友链</a>
-          <a href="/feed.xml">RSS</a>
-          <button type="button" id="themeToggle" class="theme-toggle" aria-label="切换主题" title="切换明暗主题">
-            <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
-            <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
+  <body data-theme="paper">
+    <div id="readingProgress" class="read-prog" hidden></div>
+
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="nav-title" href="/">{{ site.title }}</a>
+        <div class="nav-links">
+          <a href="/" class="nav-link{% if page.url == '/' %} active{% endif %}">首页</a>
+          <a href="/about/" class="nav-link{% if '/about/' in page.url %} active{% endif %}">关于</a>
+          <a href="/archive/" class="nav-link{% if '/archive/' in page.url %} active{% endif %}">归档</a>
+          <button
+            type="button"
+            id="themeToggle"
+            class="icon-btn"
+            aria-label="切换主题"
+            title="切换主题（纸 / 摩登 / 午夜）"
+          >
+            <span id="themeIcon" aria-hidden="true">☀</span>
           </button>
-        </nav>
+        </div>
       </div>
-    </header>
+    </nav>
 
-    <div class="page-shell">
-      <main id="pjax-root">
-        {{ content | safe }}
-      </main>
-
-      <aside class="control-panel">
-        <section class="search-wrap">
-          <h2>搜索</h2>
-          <input id="postSearch" class="search-input" type="search" placeholder="输入标题或日期关键词" />
-        </section>
-
-        <section class="tag-filter-wrap">
-          <h2>标签过滤</h2>
-          <div class="tag-filter" id="tagFilter">
-            <button class="chip is-active" data-tag="all">全部</button>
-            {% for tag in collections.uniquePostTags %}
-              <button class="chip" data-tag="{{ tag }}">{{ tag }}</button>
-            {% endfor %}
-          </div>
-        </section>
-
-        <section class="music-wrap">
-          <h2>Now Playing</h2>
-          <iframe
-            title="Apple Music player"
-            allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-            frameborder="0"
-            height="175"
-            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-            src="https://embed.music.apple.com/us/album/stuck-on-you/1440723498?i=1440723516&theme=auto"
-          ></iframe>
-        </section>
-      </aside>
-    </div>
+    <main id="pjax-root" class="main page-enter">
+      {{ content | safe }}
+    </main>
 
     <footer class="site-footer">
-      <p>由 Eleventy 渲染 · Pagefind 搜索 · Giscus 评论</p>
+      <p>{{ site.title }} · 由 Eleventy 渲染 · Giscus 评论</p>
       <p class="footer-ornament">·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</p>
     </footer>
+
+    <button type="button" id="backToTop" class="btt hidden" aria-label="回到顶部" title="回到顶部">↑</button>
 
     <script src="/assets/js/site.js" defer></script>
   </body>

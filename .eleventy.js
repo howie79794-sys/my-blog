@@ -19,6 +19,49 @@ module.exports = function (eleventyConfig) {
     return [...tagSet];
   });
 
+  eleventyConfig.addCollection("postsByYearMonth", function (collectionApi) {
+    const posts = collectionApi
+      .getFilteredByGlob("src/posts/*.md")
+      .sort((a, b) => b.date - a.date);
+    // Nested structure: [{ year, months: [{ month: 'MM', monthCn, posts: [...] }] }]
+    const yearMap = new Map();
+    posts.forEach((post) => {
+      const year = post.date.getFullYear();
+      const month = String(post.date.getMonth() + 1).padStart(2, "0");
+      if (!yearMap.has(year)) yearMap.set(year, new Map());
+      const monthMap = yearMap.get(year);
+      if (!monthMap.has(month)) monthMap.set(month, []);
+      monthMap.get(month).push(post);
+    });
+    const cnMonths = [
+      "",
+      "一月",
+      "二月",
+      "三月",
+      "四月",
+      "五月",
+      "六月",
+      "七月",
+      "八月",
+      "九月",
+      "十月",
+      "十一月",
+      "十二月"
+    ];
+    return [...yearMap.entries()]
+      .sort((a, b) => b[0] - a[0])
+      .map(([year, monthMap]) => ({
+        year,
+        months: [...monthMap.entries()]
+          .sort((a, b) => b[0].localeCompare(a[0]))
+          .map(([month, monthPosts]) => ({
+            month,
+            monthCn: cnMonths[parseInt(month, 10)],
+            posts: monthPosts
+          }))
+      }));
+  });
+
   eleventyConfig.addCollection("postsByYear", function (collectionApi) {
     const posts = collectionApi
       .getFilteredByGlob("src/posts/*.md")
@@ -58,6 +101,32 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("htmlDateString", (dateObj) => {
     if (!dateObj) return "";
     return dateObj.toISOString().slice(0, 10);
+  });
+
+  const CN_MONTHS = [
+    "",
+    "一月",
+    "二月",
+    "三月",
+    "四月",
+    "五月",
+    "六月",
+    "七月",
+    "八月",
+    "九月",
+    "十月",
+    "十一月",
+    "十二月"
+  ];
+
+  eleventyConfig.addFilter("monthCn", (dateObj) => {
+    if (!dateObj) return "";
+    return CN_MONTHS[dateObj.getMonth() + 1];
+  });
+
+  eleventyConfig.addFilter("dayCn", (dateObj) => {
+    if (!dateObj) return "";
+    return `${dateObj.getDate()}日`;
   });
 
   // Reading-time estimate:

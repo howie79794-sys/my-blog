@@ -4,26 +4,21 @@ layout: layouts/base.njk
 {% set newer = collections.posts | newerPost(page.url) %}
 {% set older = collections.posts | olderPost(page.url) %}
 
-<p class="post-back-wrap">
-  <a href="/" class="back-home-link">返回首页</a>
-</p>
+<a class="back-btn" href="/">← 返回列表</a>
 
-<article class="post-detail" data-post-article>
-  <header class="post-head">
+<article data-post-article>
+  <h1 class="art-h1">{{ title or page.fileSlug }}</h1>
+  <div class="art-meta">
     <time datetime="{{ page.date | htmlDateString }}">{{ page.date | dateCn }}</time>
-    <h2>{{ title or page.fileSlug }}</h2>
-    <p class="post-meta">
-      <span class="reading-time">{{ content | readingTime }}</span>
-      {% if tags and tags.length %}
-        <span class="post-meta-sep">·</span>
-        <span class="post-tags-inline">
-          {% for tag in tags %}
-            <span class="post-tag">#{{ tag }}</span>
-          {% endfor %}
-        </span>
-      {% endif %}
-    </p>
-  </header>
+    <span>·</span>
+    <span>{{ content | readingTime }}</span>
+    {% if tags and tags.length %}
+      <span>·</span>
+      {% for tag in tags %}
+        <span class="m-tag">{{ tag }}</span>
+      {% endfor %}
+    {% endif %}
+  </div>
 
   {% if cover %}
     <figure class="post-cover">
@@ -31,36 +26,36 @@ layout: layouts/base.njk
     </figure>
   {% endif %}
 
-  <div class="post-content">
+  <div class="art-body">
     {{ content | safe }}
   </div>
 
-  <p class="post-ornament" aria-hidden="true">·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</p>
+  <div class="art-divider" aria-hidden="true">·&nbsp;·&nbsp;·</div>
 </article>
 
 {% if newer or older %}
-  <nav class="post-nav" aria-label="文章间导航">
+  <nav class="art-nav" aria-label="文章间导航">
     {% if newer %}
-      <a class="post-nav-link post-nav-newer" href="{{ newer.url }}">
-        <span class="post-nav-label">← 更新的</span>
-        <span class="post-nav-title">{{ newer.data.title or newer.page.fileSlug }}</span>
+      <a class="art-nav-btn" href="{{ newer.url }}">
+        <span class="anb-dir">← 上一篇</span>
+        <span class="anb-title">{{ newer.data.title or newer.page.fileSlug }}</span>
       </a>
     {% else %}
-      <span class="post-nav-link post-nav-empty" aria-hidden="true"></span>
+      <span class="art-nav-btn empty-slot" aria-hidden="true"></span>
     {% endif %}
     {% if older %}
-      <a class="post-nav-link post-nav-older" href="{{ older.url }}">
-        <span class="post-nav-label">更早的 →</span>
-        <span class="post-nav-title">{{ older.data.title or older.page.fileSlug }}</span>
+      <a class="art-nav-btn next" href="{{ older.url }}">
+        <span class="anb-dir">下一篇 →</span>
+        <span class="anb-title">{{ older.data.title or older.page.fileSlug }}</span>
       </a>
     {% else %}
-      <span class="post-nav-link post-nav-empty" aria-hidden="true"></span>
+      <span class="art-nav-btn empty-slot" aria-hidden="true"></span>
     {% endif %}
   </nav>
 {% endif %}
 
-<section class="comments-wrap">
-  <h3>评论</h3>
+<section class="cmt-section">
+  <h3 class="cmt-hd">评论</h3>
   {% if site.giscus.repo and site.giscus.repo != "owner/repo" %}
     <script
       src="https://giscus.app/client.js"
@@ -73,11 +68,12 @@ layout: layouts/base.njk
       data-reactions-enabled="{{ site.giscus.reactionsEnabled }}"
       data-emit-metadata="{{ site.giscus.emitMetadata }}"
       data-input-position="{{ site.giscus.inputPosition }}"
+      data-theme="preferred_color_scheme"
       data-lang="{{ site.giscus.lang }}"
       crossorigin="anonymous"
       async
     ></script>
   {% else %}
-    <p class="comments-hint">评论功能尚未配置完成（需要在 <code>src/_data/site.json</code> 里填入真实的 Giscus repo / repoId / categoryId）。</p>
+    <p class="empty">评论功能尚未配置完成（需要在 <code>src/_data/site.json</code> 里填入真实的 Giscus repo / repoId / categoryId）。</p>
   {% endif %}
 </section>

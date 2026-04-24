@@ -2,39 +2,58 @@
 layout: layouts/base.njk
 title: 首页
 ---
-<section class="posts-section">
-  <h2>按时间流淌</h2>
-  <div class="timeline" id="postsTimeline">
-    {% for post in collections.posts %}
+<section class="profile-card">
+  <div class="profile-av">稼</div>
+  <div class="profile-info">
+    <div class="profile-name">{{ site.title }}</div>
+    <div class="profile-line">{{ site.description }}</div>
+    <a class="profile-more" href="/about/">关于我 →</a>
+  </div>
+</section>
+
+<div class="section-label">文章</div>
+
+<div class="search-wrap">
+  <span class="search-ico" aria-hidden="true">⌕</span>
+  <input id="postSearch" class="search-input" type="search" placeholder="输入标题或日期关键词" />
+  <button type="button" id="searchClear" class="search-clear" style="display:none" aria-label="清除搜索">✕</button>
+</div>
+
+<div class="tags-row" id="tagFilter">
+  {% for tag in collections.uniquePostTags %}
+    <button type="button" class="tag-pill" data-tag="{{ tag }}">{{ tag }}</button>
+  {% endfor %}
+  <button type="button" id="tagClear" class="tag-clear-btn" style="display:none">清除筛选</button>
+</div>
+
+<div class="tl-wrap">
+  {% for group in collections.postsByYear %}
+    <div class="year-sep">{{ group.year }} 年</div>
+    {% for post in group.posts %}
       <article
-        class="timeline-item{% if post.data.cover %} has-cover{% endif %}"
+        class="tl-item"
         data-tags="{{ (post.data.tags or []) | join(',') }}"
         data-title="{{ post.data.title | lower }}"
         data-date="{{ post.date | dateCn | lower }}"
       >
-        <a href="{{ post.url }}" class="timeline-link">
-          {% if post.data.cover %}
-            <span class="timeline-cover" aria-hidden="true">
-              <img src="{{ post.data.cover }}" alt="" loading="lazy" />
-            </span>
-          {% endif %}
-          <span class="timeline-body">
-            <time datetime="{{ post.date | htmlDateString }}">{{ post.date | dateCn }}</time>
-            <h3>{{ post.data.title or post.page.fileSlug }}</h3>
-            {% if post.data.excerpt %}
-              <p class="timeline-excerpt">{{ post.data.excerpt }}</p>
-            {% endif %}
-            {% if post.data.tags and post.data.tags.length %}
-              <p class="timeline-tags">
-                {% for tag in post.data.tags %}
-                  <span>#{{ tag }}</span>
-                {% endfor %}
-              </p>
-            {% endif %}
-          </span>
-        </a>
+        <div class="tl-date">
+          <span class="tl-date-month">{{ post.date | monthCn }}</span>
+          <span class="tl-date-day">{{ post.date | dayCn }}</span>
+        </div>
+        <a class="tl-title" href="{{ post.url }}">{{ post.data.title or post.page.fileSlug }}</a>
+        {% if post.data.excerpt %}
+          <p class="tl-excerpt">{{ post.data.excerpt }}</p>
+        {% endif %}
+        <div class="tl-meta">
+          {% for tag in (post.data.tags or []) %}
+            <span class="m-tag">{{ tag }}</span>
+          {% endfor %}
+          {% if post.data.tags and post.data.tags.length %}<span class="m-rt">·</span>{% endif %}
+          <span class="m-rt">{{ post.templateContent | readingTime }}</span>
+        </div>
       </article>
     {% endfor %}
-  </div>
-  <p id="noResults" class="no-results" hidden>没有匹配的文章，试试换个标签或关键词。</p>
-</section>
+  {% endfor %}
+</div>
+
+<p id="noResults" class="empty" hidden>没有匹配的文章，试试换个标签或关键词。</p>
