@@ -7,7 +7,7 @@ permalink: /about/
 <div class="section-label">关于博主</div>
 
 <div class="about-hero">
-  <div class="about-av" aria-hidden="true">稼</div>
+  <div class="about-av"><img src="/assets/images/avatar.jpg" alt="稼轩头像" /></div>
   <div>
     <div class="about-name">稼轩</div>
     <div class="about-line">{{ site.description }}</div>
