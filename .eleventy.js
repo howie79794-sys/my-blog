@@ -3,6 +3,7 @@ const rssPlugin = require("@11ty/eleventy-plugin-rss");
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+  eleventyConfig.addPassthroughCopy({ "src/health-board": "health-board" });
 
   eleventyConfig.addCollection("posts", function (collectionApi) {
     return collectionApi

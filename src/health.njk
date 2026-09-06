@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+title: 健康
+permalink: /health/
+---
+<style>
+  .hdb-embed{margin:0 auto;max-width:1240px;padding:6px 18px 0}
+  .hdb-frame{width:100%;height:calc(100vh - 170px);min-height:520px;border:0;border-radius:18px;
+    display:block;background:#F0EFEB}
+  @media (max-width:720px){
+    .hdb-embed{padding:6px 6px 0}
+    .hdb-frame{height:calc(100vh - 200px);min-height:460px;border-radius:12px}
+  }
+</style>
+<div class="hdb-embed">
+  <iframe class="hdb-frame" src="/health-board/" title="健康看板"></iframe>
+</div>
