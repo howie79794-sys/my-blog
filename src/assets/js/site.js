@@ -212,6 +212,28 @@
     return true;
   }
 
+  // innerHTML-inserted <script> nodes never execute (HTML spec).
+  // Re-create them in document order so swapped-in pages keep working;
+  // external scripts are awaited one-by-one so inline code sees its libs.
+  async function activateScripts(container) {
+    const scripts = Array.from(container.querySelectorAll("script"));
+    for (const old of scripts) {
+      const s = document.createElement("script");
+      for (const a of Array.from(old.attributes)) s.setAttribute(a.name, a.value);
+      if (old.src) {
+        await new Promise((resolve) => {
+          s.onload = s.onerror = () => resolve();
+          old.replaceWith(s);
+        });
+      } else {
+        // Wrap in IIFE: top-level const/let in a classic script create
+        // document-level lexical bindings that would collide on re-entry
+        s.textContent = "(function () {" + old.textContent + "\n})();";
+        old.replaceWith(s);
+      }
+    }
+  }
+
   async function navigateWithPjax(url, options) {
     const main = document.getElementById("pjax-root");
     if (!main) {
@@ -245,6 +267,7 @@
     }
 
     main.innerHTML = nextMain.innerHTML;
+    activateScripts(main); // re-activate scripts killed by innerHTML swap
     document.title = nextDoc.title || document.title;
 
     // Sync active nav link
