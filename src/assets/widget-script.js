@@ -123,6 +123,40 @@ function drawSpark(vals, w, h) {
   return ctx.getImage()
 }
 
+
+// 7 日缺口柱状图（正=缺口绿向上，负=超支红向下，零轴偏下）
+function drawBars(vals, w, h) {
+  const vs = vals.slice(-7).map(v => v == null ? 0 : v)
+  const lbls = (d.deficit14?.labels || []).slice(-7)
+  if (vs.every(v => v === 0)) return { img: null, lbls }
+  const ctx = new DrawContext()
+  ctx.size = new Size(w, h)
+  ctx.opaque = false
+  ctx.respectsScreenScale = true
+  const maxAbs = Math.max(...vs.map(v => Math.abs(v)), 100)
+  const gap = 3, bw = (w - gap * 6) / 7
+  const axis = h * 0.72          // 零轴位置
+  const up = h * 0.66, down = h * 0.26
+  // 零轴
+  ctx.setLineWidth(1)
+  ctx.setStrokeColor(new Color(FAINT))
+  let p = new Path()
+  p.addLine(new Point(0, axis), new Point(w, axis))
+  ctx.addPath(p); ctx.strokePath()
+  for (let i = 0; i < 7; i++) {
+    const v = vs[i]
+    if (!v) continue
+    const bh = Math.max(2, Math.abs(v) / maxAbs * (v > 0 ? up : down))
+    const x = i * (bw + gap)
+    const y = v > 0 ? axis - bh : axis
+    let rp = new Path()
+    rp.addRoundedRect(new Rect(x, y, bw, bh), 1.5, 1.5)
+    ctx.setFillColor(new Color(v > 0 ? GREEN : RED))
+    ctx.addPath(rp); ctx.fillPath()
+  }
+  return { img: ctx.getImage(), lbls }
+}
+
 // ── 组装 ──
 const w = new ListWidget()
 w.backgroundColor = new Color(PAPER)
@@ -209,30 +243,46 @@ if (fam === 'small') {
   info.addSpacer()
 
   if (fam === 'large') {
-    // 缺口折线
+    // ── 7 日缺口柱状图 ──
     w.addSpacer(12)
     const t1 = hrow(w)
-    txt(t1, '每日缺口 14 天', { size: 8.5, color: MUTED })
+    txt(t1, '近 7 日缺口', { size: 8.5, color: MUTED })
     t1.addSpacer()
     if (d.deficit != null) {
-      txt(t1, '当日 ' + (d.deficit >= 0 ? '+' : '') + fmt(d.deficit), { size: 8.5, bold: true, color: d.deficit >= 0 ? GREEN : RED })
+      txt(t1, '昨日 ' + (d.deficit >= 0 ? '+' : '') + fmt(d.deficit), { size: 8.5, bold: true, color: d.deficit >= 0 ? GREEN : RED })
     } else if ((d.week_days || 0) > 0) {
-      txt(t1, '本周 ' + fmt(d.week_deficit) + ' kcal · ' + d.week_days + '天', { size: 8.5, bold: true, color: (d.week_deficit || 0) >= 0 ? GREEN : RED })
+      txt(t1, '本周 ' + fmt(d.week_deficit) + ' · ' + d.week_days + '天', { size: 8.5, bold: true, color: (d.week_deficit || 0) >= 0 ? GREEN : RED })
     } else {
-      txt(t1, '自 ' + (d.date || '') + ' 起记录', { size: 8.5, color: MUTED })
+      txt(t1, '记录中', { size: 8.5, color: MUTED })
     }
     w.addSpacer(3)
-    const sp1 = drawSpark(d.deficit14?.values || [], WW, 32)
-    if (sp1) addImg(w, sp1, WW, 32)
-    else txt(w, '记录积累中 · 每日 10:30 补齐当日缺口', { size: 8, color: FAINT })
-    w.addSpacer(10)
-    // 底部两行，不再挤一行
-    txt(w, (d.steps ? '步数 ' + d.steps.date + ' ' + fmt(d.steps.n) : '步数 —')
-        + '　·　' + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼'),
-        { size: 8.5, color: MUTED })
+    const bars = drawBars(d.deficit14?.values || [], WW, 44)
+    if (bars.img) {
+      addImg(w, bars.img, WW, 44)
+      w.addSpacer(1)
+      const bl = hrow(w)
+      bl.spacing = 3
+      const bw2 = Math.floor((WW - 3 * 6) / 7)
+      bars.lbls.forEach(l => { const bs = bl.addStack(); bs.size = new Size(bw2, 0); bs.layoutHorizontally(); txt(bs, l, { size: 7, color: FAINT }) })
+    } else {
+      txt(w, '记录积累中 · 明日起每日 10:30 长出一根柱', { size: 8, color: FAINT })
+    }
+
+    // ── 减脂进度条 ──
+    w.addSpacer(12)
+    const wt = hrow(w)
+    txt(wt, '减脂进度 ' + (d.weight_start || 73) + ' → ' + (d.weight_goal || 67) + 'kg', { size: 8.5, color: MUTED })
+    wt.addSpacer()
+    const prog = d.weight != null && d.weight_start ? Math.max(0, Math.min(1, (d.weight_start - d.weight) / (d.weight_start - (d.weight_goal || 67)))) : 0
+    txt(wt, d.weight != null ? (d.weight_start - d.weight).toFixed(1) + 'kg · ' + Math.round(prog * 100) + '%' : '待首次称重', { size: 8.5, bold: true, color: d.weight != null ? GREEN : FAINT })
     w.addSpacer(3)
-    txt(w, '全部指标为 ' + (d.data_date || '—') + ' · 每日 10:30 更新 · →',
-        { size: 8.5, color: FAINT })
+    addImg(w, drawBar(prog, GREEN, WW, 8), WW, 8)
+    w.addSpacer(2)
+    txt(w, (d.weight != null ? '当前 ' + d.weight + 'kg (' + (d.weight_date || '') + ')' : '每周日晨称重入健康 App · 周一 10:30 上板') + ' · 日目标缺口 ' + (d.target_daily || 400) + ' kcal', { size: 7.5, color: FAINT })
+
+    // ── 底部 ──
+    w.addSpacer(8)
+    txt(w, '步 ' + (d.steps ? d.steps.date + ' ' + fmt(d.steps.n) : '—') + ' · ' + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼') + ' · 全部指标为 ' + (d.data_date || '—') + ' · →', { size: 8, color: FAINT })
   } else {
     w.addSpacer(4)
     txt(w, (d.steps ? '步 ' + fmt(d.steps.n) : '步 —') + ' · '
