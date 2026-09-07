@@ -8,7 +8,7 @@
 const URL_DATA = 'https://my-blog-howie79.vercel.app/assets/widget.json'
 const URL_SITE = 'https://my-blog-howie79.vercel.app/health/'
 
-const PAPER = '#F6F4ED', INK = '#1C1C1A', MUTED = '#8F8E88', FAINT = '#B8B5A9',
+const PAPER = '#F6F4ED', INK = '#1C1C1A', MUTED = '#6F6D63', FAINT = '#8A887E',
       BAR_BG = '#E6E3D6',
       GREEN = '#2B8A3E', RED = '#D9480F', AMBER = '#E8590C'
 
@@ -165,27 +165,27 @@ w.url = URL_SITE
 
 // 头部（全尺寸通用）
 const head = hrow(w)
-txt(head, '健康看板', { size: 12.5, bold: true })
+txt(head, '健康看板', { size: 13.5, bold: true })
 head.addSpacer(5)
-txt(head, '昨日 ' + (d.data_date || ''), { size: 10, color: MUTED })
+txt(head, '昨日 ' + (d.data_date || ''), { size: 11, color: MUTED })
 head.addSpacer()
-txt(head, (stale ? '⚠ ' : '') + (d.verdict || ''), { size: 10, bold: true, color: verdictColor })
+txt(head, (stale ? '⚠ ' : '') + (d.verdict || ''), { size: 11, bold: true, color: verdictColor })
 w.addSpacer(7)
 addImg(w, drawBar(0, PAPER, WW, 1), WW, 1)   // 分隔线
 w.addSpacer(8)
 
 if (fam === 'small') {
   const big = left == null ? '—' : (left >= 0 ? '剩 ' + fmt(left) : '超 ' + fmt(-left))
-  txt(w, big + ' kcal', { size: 18, bold: true, color: left != null && left < 0 ? RED : GREEN })
-  txt(w, '摄入 ' + fmt(kcal) + ' kcal', { size: 9.5, color: MUTED })
+  txt(w, big + ' kcal', { size: 20, bold: true, color: left != null && left < 0 ? RED : GREEN })
+  txt(w, '摄入 ' + fmt(kcal) + ' kcal', { size: 10.5, color: MUTED })
   w.addSpacer(4)
   addImg(w, drawBar(kcalPct, kcalPct > 1 ? RED : GREEN, WW, 7), WW, 7)
   w.addSpacer(6)
-  txt(w, '蛋白 ' + Math.round(prot) + 'g' + (protOk ? ' ✓' : ''), { size: 10.5, bold: protOk, color: protOk ? INK : AMBER })
+  txt(w, '蛋白 ' + Math.round(prot) + 'g' + (protOk ? ' ✓' : ''), { size: 11.5, bold: protOk, color: protOk ? INK : AMBER })
   w.addSpacer(2)
   addImg(w, drawBar(protPct, protOk ? GREEN : AMBER, WW, 7), WW, 7)
   w.addSpacer(6)
-  txt(w, '睡 ' + (d.sleep_h ?? '—') + 'h · 昨耗 ' + fmt(d.burn_last), { size: 9, color: MUTED })
+  txt(w, '睡 ' + (d.sleep_h ?? '—') + 'h · 昨耗 ' + fmt(d.burn_last), { size: 10, color: MUTED })
 } else {
   // ── 双栏：热量 | 蛋白 ──
   const cols = w.addStack()
@@ -193,52 +193,52 @@ if (fam === 'small') {
   cols.spacing = 16
 
   const L = vcol(cols)
-  txt(L, '摄入 ' + (d.data_date || ''), { size: 8.5, color: MUTED })
+  txt(L, '摄入 ' + (d.data_date || ''), { size: 10.5, color: MUTED })
   L.addSpacer(2)
   const lv = hrow(L)
   lv.spacing = 3
-  txt(lv, kcal == null ? '—' : fmt(kcal), { size: 22, bold: true, color: kcal == null ? FAINT : INK })
-  txt(lv, kcal == null ? '' : 'kcal', { size: 9.5, color: MUTED })
+  txt(lv, kcal == null ? '—' : fmt(kcal), { size: 24, bold: true, color: kcal == null ? MUTED : INK })
+  txt(lv, kcal == null ? '' : 'kcal', { size: 10.5, color: MUTED })
   L.addSpacer(4)
   addImg(L, drawBar(kcalPct, kcalPct > 1 ? RED : (left >= 0 ? GREEN : AMBER), COLW, 8), COLW, 8)
   L.addSpacer(3)
   txt(L, kcal == null ? '未记录'
         : (left >= 0 ? '剩余 ' + fmt(left) : '超 ' + fmt(-left)),
-      { size: 10, bold: true, color: kcal == null ? FAINT : left >= 0 ? GREEN : RED })
+      { size: 11, bold: true, color: kcal == null ? MUTED : left >= 0 ? GREEN : RED })
 
   const Rt = vcol(cols)
-  txt(Rt, '蛋白 ' + (d.data_date || ''), { size: 8.5, color: MUTED })
+  txt(Rt, '蛋白 ' + (d.data_date || ''), { size: 10.5, color: MUTED })
   Rt.addSpacer(2)
   const rv = hrow(Rt)
   rv.spacing = 3
-  txt(rv, prot == null ? '—' : String(Math.round(prot)), { size: 22, bold: true, color: prot == null ? FAINT : INK })
-  txt(rv, prot == null ? '' : 'g', { size: 9.5, color: MUTED })
+  txt(rv, prot == null ? '—' : String(Math.round(prot)), { size: 24, bold: true, color: prot == null ? MUTED : INK })
+  txt(rv, prot == null ? '' : 'g', { size: 10.5, color: MUTED })
   Rt.addSpacer(4)
   addImg(Rt, drawBar(protPct, protOk ? GREEN : AMBER, COLW, 8), COLW, 8)
   Rt.addSpacer(3)
   txt(Rt, prot == null ? '未记录'
         : (protOk ? '✓ 达标' : '差 ' + Math.max(0, Math.round((d.protein_lo || 0) - prot)) + 'g'),
-      { size: 10, bold: true, color: prot == null ? FAINT : protOk ? GREEN : AMBER })
+      { size: 11, bold: true, color: prot == null ? MUTED : protOk ? GREEN : AMBER })
 
   // ── 指标行：全部是昨日(数据日)身体指标，标注清楚 ──
   w.addSpacer(10)
-  txt(w, '身体指标 · ' + (d.data_date || '—'), { size: 8, color: FAINT })
+  txt(w, '身体指标 · ' + (d.data_date || '—'), { size: 9, color: MUTED })
   w.addSpacer(3)
   const info = hrow(w)
   const cell = (label, val, valColor) => {
     const c = info.addStack(); c.layoutVertically()
-    txt(c, String(val), { size: 12.5, bold: true, color: valColor || INK })
+    txt(c, String(val), { size: 13.5, bold: true, color: valColor || INK })
     c.addSpacer(1)
-    txt(c, label, { size: 8, color: MUTED })
+    txt(c, label, { size: 9, color: MUTED })
   }
   cell('睡眠', (d.sleep_h ?? '—') + 'h', (d.sleep_h ?? 9) >= 7 ? GREEN : AMBER)
-  info.addSpacer(11)
+  info.addSpacer(10)
   cell('静息', d.rhr ?? '—', (d.rhr ?? 99) <= (d.rhr_base ?? 63) ? GREEN : RED)
-  info.addSpacer(11)
+  info.addSpacer(10)
   cell('HRV', d.hrv ?? '—', (d.hrv ?? 0) >= (d.hrv_base ?? 1) ? GREEN : AMBER)
-  info.addSpacer(11)
+  info.addSpacer(10)
   cell('消耗', fmt(d.burn_last))
-  info.addSpacer(11)
+  info.addSpacer(10)
   cell('体重', d.weight != null ? d.weight + 'kg' : '—')
   info.addSpacer()
 
@@ -246,14 +246,14 @@ if (fam === 'small') {
     // ── 7 日缺口柱状图 ──
     w.addSpacer(12)
     const t1 = hrow(w)
-    txt(t1, '近 7 日缺口', { size: 8.5, color: MUTED })
+    txt(t1, '近 7 日缺口', { size: 10.5, color: MUTED })
     t1.addSpacer()
     if (d.deficit != null) {
-      txt(t1, '昨日 ' + (d.deficit >= 0 ? '+' : '') + fmt(d.deficit), { size: 8.5, bold: true, color: d.deficit >= 0 ? GREEN : RED })
+      txt(t1, '昨日 ' + (d.deficit >= 0 ? '+' : '') + fmt(d.deficit), { size: 9.5, bold: true, color: d.deficit >= 0 ? GREEN : RED })
     } else if ((d.week_days || 0) > 0) {
-      txt(t1, '本周 ' + fmt(d.week_deficit) + ' · ' + d.week_days + '天', { size: 8.5, bold: true, color: (d.week_deficit || 0) >= 0 ? GREEN : RED })
+      txt(t1, '本周 ' + fmt(d.week_deficit) + ' · ' + d.week_days + '天', { size: 9.5, bold: true, color: (d.week_deficit || 0) >= 0 ? GREEN : RED })
     } else {
-      txt(t1, '记录中', { size: 8.5, color: MUTED })
+      txt(t1, '记录中', { size: 10.5, color: MUTED })
     }
     w.addSpacer(3)
     const bars = drawBars(d.deficit14?.values || [], WW, 44)
@@ -263,31 +263,31 @@ if (fam === 'small') {
       const bl = hrow(w)
       bl.spacing = 3
       const bw2 = Math.floor((WW - 3 * 6) / 7)
-      bars.lbls.forEach(l => { const bs = bl.addStack(); bs.size = new Size(bw2, 0); bs.layoutHorizontally(); txt(bs, l, { size: 7, color: FAINT }) })
+      bars.lbls.forEach(l => { txt(bl, l, { size: 8, color: MUTED }); bl.addSpacer(5) })
     } else {
-      txt(w, '记录积累中 · 明日起每日 10:30 长出一根柱', { size: 8, color: FAINT })
+      txt(w, '记录积累中 · 明日起每日 10:30 长出一根柱', { size: 9, color: MUTED })
     }
 
     // ── 减脂进度条 ──
     w.addSpacer(6); w.addSpacer()
     const wt = hrow(w)
-    txt(wt, '减脂进度 ' + (d.weight_start || 73) + ' → ' + (d.weight_goal || 67) + 'kg', { size: 8.5, color: MUTED })
+    txt(wt, '减脂进度 ' + (d.weight_start || 73) + ' → ' + (d.weight_goal || 67) + 'kg', { size: 10.5, color: MUTED })
     wt.addSpacer()
     const prog = d.weight != null && d.weight_start ? Math.max(0, Math.min(1, (d.weight_start - d.weight) / (d.weight_start - (d.weight_goal || 67)))) : 0
-    txt(wt, d.weight != null ? (d.weight_start - d.weight).toFixed(1) + 'kg · ' + Math.round(prog * 100) + '%' : '待首次称重', { size: 8.5, bold: true, color: d.weight != null ? GREEN : FAINT })
+    txt(wt, d.weight != null ? (d.weight_start - d.weight).toFixed(1) + 'kg · ' + Math.round(prog * 100) + '%' : '待首次称重', { size: 9.5, bold: true, color: d.weight != null ? GREEN : MUTED })
     w.addSpacer(3)
     addImg(w, drawBar(prog, GREEN, WW, 8), WW, 8)
     w.addSpacer(2)
-    txt(w, (d.weight != null ? '当前 ' + d.weight + 'kg (' + (d.weight_date || '') + ')' : '每周日晨称重入健康 App · 周一 10:30 上板') + ' · 日目标缺口 ' + (d.target_daily || 400) + ' kcal', { size: 7.5, color: FAINT })
+    txt(w, (d.weight != null ? '当前 ' + d.weight + 'kg (' + (d.weight_date || '') + ')' : '每周日晨称重入健康 App · 周一 10:30 上板') + ' · 日目标缺口 ' + (d.target_daily || 400) + ' kcal', { size: 8.5, color: MUTED })
 
     // ── 底部 ──
     w.addSpacer(6); w.addSpacer()
-    txt(w, '步 ' + (d.steps ? d.steps.date + ' ' + fmt(d.steps.n) : '—') + ' · ' + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼') + ' · 全部指标为 ' + (d.data_date || '—') + ' · →', { size: 8, color: FAINT })
+    txt(w, '步 ' + (d.steps ? d.steps.date + ' ' + fmt(d.steps.n) : '—') + ' · ' + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼') + ' · 全部指标为 ' + (d.data_date || '—') + ' · →', { size: 9, color: MUTED })
   } else {
     w.addSpacer()
     txt(w, (d.steps ? '步 ' + fmt(d.steps.n) : '步 —') + ' · '
         + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼') + ' · →',
-        { size: 8.5, color: FAINT, line: 1 })
+        { size: 9.5, color: MUTED, line: 1 })
   }
 }
 
