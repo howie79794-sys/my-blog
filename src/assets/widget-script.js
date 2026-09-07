@@ -159,7 +159,7 @@ if (fam === 'small') {
   cols.spacing = 16
 
   const L = vcol(cols)
-  txt(L, '热量 INTAKE', { size: 8.5, color: MUTED })
+  txt(L, '今日摄入 ' + (d.date || ''), { size: 8.5, color: MUTED })
   L.addSpacer(2)
   const lv = hrow(L)
   lv.spacing = 3
@@ -173,7 +173,7 @@ if (fam === 'small') {
       { size: 10, bold: true, color: left >= 0 ? GREEN : RED })
 
   const Rt = vcol(cols)
-  txt(Rt, '蛋白 PROTEIN', { size: 8.5, color: MUTED })
+  txt(Rt, '今日蛋白 ' + (d.date || ''), { size: 8.5, color: MUTED })
   Rt.addSpacer(2)
   const rv = hrow(Rt)
   rv.spacing = 3
@@ -186,8 +186,10 @@ if (fam === 'small') {
         : '还差 ' + Math.max(0, Math.round((d.protein_lo || 0) - prot)) + 'g',
       { size: 10, bold: true, color: protOk ? GREEN : AMBER })
 
-  // ── 指标行（5 格，短标签保证不溢出）──
+  // ── 指标行：全部是昨日(数据日)身体指标，标注清楚 ──
   w.addSpacer(10)
+  txt(w, '昨日身体 · ' + (d.data_date || '—'), { size: 8, color: FAINT })
+  w.addSpacer(3)
   const info = hrow(w)
   const cell = (label, val, valColor) => {
     const c = info.addStack(); c.layoutVertically()
@@ -212,16 +214,22 @@ if (fam === 'small') {
     const t1 = hrow(w)
     txt(t1, '每日缺口 14 天', { size: 8.5, color: MUTED })
     t1.addSpacer()
-    txt(t1, '本周 ' + fmt(d.week_deficit) + ' kcal', { size: 8.5, bold: true, color: (d.week_deficit || 0) >= 0 ? GREEN : RED })
+    if ((d.week_days || 0) > 0) {
+      txt(t1, '本周 ' + fmt(d.week_deficit) + ' kcal · ' + d.week_days + '天', { size: 8.5, bold: true, color: (d.week_deficit || 0) >= 0 ? GREEN : RED })
+    } else {
+      txt(t1, '自 ' + (d.date || '') + ' 起记录', { size: 8.5, color: MUTED })
+    }
     w.addSpacer(3)
-    addImg(w, drawSpark(d.deficit14?.values || [], WW, 32), WW, 32)
+    const sp1 = drawSpark(d.deficit14?.values || [], WW, 32)
+    if (sp1) addImg(w, sp1, WW, 32)
+    else txt(w, '记录积累中 · 每日 10:30 补齐当日缺口', { size: 8, color: FAINT })
     w.addSpacer(10)
     // 底部两行，不再挤一行
     txt(w, (d.steps ? '步数 ' + d.steps.date + ' ' + fmt(d.steps.n) : '步数 —')
         + '　·　' + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼'),
         { size: 8.5, color: MUTED })
     w.addSpacer(3)
-    txt(w, '数据日 ' + (d.data_date || '—') + ' · 目标体重 ' + (d.weight_goal || '—') + 'kg · 点开看板 →',
+    txt(w, '健康数据 ' + (d.data_date || '—') + ' · 摄入记录 ' + (d.date || '—') + ' 起 · 体重目标 ' + (d.weight_goal || '—') + 'kg · →',
         { size: 8.5, color: FAINT })
   } else {
     w.addSpacer(4)
