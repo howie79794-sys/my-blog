@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/style.css" />
+    {% if pwa_meta %}{{ pwa_meta | safe }}{% endif %}
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS" href="/feed.xml" />
     <script>
       // Apply theme preference early to avoid flash of wrong theme.

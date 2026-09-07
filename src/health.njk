@@ -2,13 +2,18 @@
 layout: layouts/base.njk
 title: 健康
 permalink: /health/
+pwa_meta: >-
+  <meta name="apple-mobile-web-app-capable" content="yes"><meta
+  name="apple-mobile-web-app-status-bar-style" content="default"><meta
+  name="apple-mobile-web-app-title" content="健康看板"><link rel="apple-touch-icon"
+  href="/assets/health-icon.png">
 ---
 <style>
   /* 健康页全宽：覆盖博客 .main 的 780px 内容栏 */
   .main { max-width: none; padding: 74px 0 40px; }
 </style>
 <div class="hdb">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="/assets/health-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   .hdb{--bg:#F0EFEB;--ink:#1D3D5B;--muted:#5E7F9B;--faint:#B9C9D7;--grid:#DEE5EB;--zone:#E7EAEE}
   .hdb{background:var(--bg);font-family:'Inter','PingFang SC','Hiragino Sans GB',sans-serif;color:var(--ink);padding:40px 24px;-webkit-font-smoothing:antialiased}
