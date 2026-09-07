@@ -38,12 +38,12 @@ if (!d) {
 if (!d) { fail('拉不到数据\n挂 VPN 后在 Scriptable 里点运行') ; }
 
 // ── 派生值 ──
-const kcal = d.kcal ?? 0
+const kcal = d.kcal
 const left = d.kcal_left
-const prot = d.protein ?? 0
-const protPct = d.protein_hi ? prot / d.protein_hi : 0
+const prot = d.protein
+const protPct = (prot == null || !d.protein_hi) ? 0 : prot / d.protein_hi
 const protOk = d.protein_lo ? prot >= d.protein_lo : false
-const kcalPct = Math.min(1, kcal / (d.kcal_goal_hi || 1800))
+const kcalPct = kcal == null ? 0 : Math.min(1, kcal / (d.kcal_goal_hi || 1800))
 const fmt = n => (n == null ? '—' : Math.round(n).toLocaleString('en-US'))
 const verdictColor = d.verdict === '恢复良好' ? GREEN : (d.verdict === '恢复亏欠' ? RED : AMBER)
 
@@ -269,7 +269,7 @@ if (fam === 'small') {
     }
 
     // ── 减脂进度条 ──
-    w.addSpacer(12)
+    w.addSpacer(6); w.addSpacer()
     const wt = hrow(w)
     txt(wt, '减脂进度 ' + (d.weight_start || 73) + ' → ' + (d.weight_goal || 67) + 'kg', { size: 8.5, color: MUTED })
     wt.addSpacer()
@@ -281,10 +281,10 @@ if (fam === 'small') {
     txt(w, (d.weight != null ? '当前 ' + d.weight + 'kg (' + (d.weight_date || '') + ')' : '每周日晨称重入健康 App · 周一 10:30 上板') + ' · 日目标缺口 ' + (d.target_daily || 400) + ' kcal', { size: 7.5, color: FAINT })
 
     // ── 底部 ──
-    w.addSpacer(8)
+    w.addSpacer(6); w.addSpacer()
     txt(w, '步 ' + (d.steps ? d.steps.date + ' ' + fmt(d.steps.n) : '—') + ' · ' + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼') + ' · 全部指标为 ' + (d.data_date || '—') + ' · →', { size: 8, color: FAINT })
   } else {
-    w.addSpacer(4)
+    w.addSpacer()
     txt(w, (d.steps ? '步 ' + fmt(d.steps.n) : '步 —') + ' · '
         + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼') + ' · →',
         { size: 8.5, color: FAINT, line: 1 })
