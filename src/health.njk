@@ -1012,7 +1012,8 @@ obsReveal('gpsroute',s=>{
 (()=>{
 if(!DATA.recovery)return;
 const R=DATA.recovery;
-setCardTitle('recov-title',`今日身体状态 · ${R.verdict}`,'recovery');
+const md=R.sleep_day?`${+R.sleep_day.slice(5,7)}.${+R.sleep_day.slice(8,10)} `:'';
+setCardTitle('recov-title',`${md}身体状态 · ${R.verdict}`,'recovery');
 document.getElementById('recov-sub').textContent=R.bits.join(' · ')||'数据不足';
 const last=a=>{for(let i=a.length-1;i>=0;i--)if(a[i]!=null)return a[i];return null};
 const cell=(lab,val,base)=>`<div class="rc"><div class="l">${lab}</div><div class="v">${val}</div><div class="d">基线 ${base}</div></div>`;
