@@ -18,7 +18,7 @@ const WW = fam === 'small' ? 141 : 316
 const COLW = Math.floor((WW - 16) / 2)   // 双栏时每栏宽
 
 // ── 拉数据（失败回退缓存）──
-let d = null, stale = false
+let d = null, stale = false, lastErr = null
 try {
   const req = new Request(URL_DATA)
   req.timeoutInterval = 15
@@ -27,7 +27,7 @@ try {
     const fm = FileManager.local()
     fm.writeString(fm.joinPath(fm.documentsDirectory(), 'health_widget.json'), JSON.stringify(d))
   }
-} catch (e) {}
+} catch (e) { lastErr = 'fetch: ' + (e.message || e) }
 if (!d) {
   try {
     const fm = FileManager.local()
@@ -153,7 +153,6 @@ function drawBars(vals, w, h) {
   p.addLine(new Point(0, axis), new Point(w, axis))
   ctx.addPath(p); ctx.strokePath()
   ctx.setFont(Font.mediumSystemFont(8))
-  ctx.textAligned = TextAlignment.center
   for (let i = 0; i < n; i++) {
     const v = vs[i]
     const x = i * (bw + gap)
@@ -165,15 +164,19 @@ function drawBars(vals, w, h) {
       ctx.setFillColor(new Color(v > 0 ? GREEN : RED))
       ctx.addPath(rp); ctx.fillPath()
     }
-    // 日期标签：与柱同槽位居中；最后一格=数据日，加深强调
+    // 日期标签：与柱同槽位，手动居中（DrawContext 无 textAligned 属性，TextAlignment
+    // 枚举也不保证全局存在——2026-09-08 大号组件 ReferenceError 事故，改为估宽定位）
+    const lbl = lbls[i] || ''
+    const est = lbl.length * 4.6
     ctx.setTextColor(new Color(i === n - 1 ? MUTED : FAINT))
-    ctx.drawText(lbls[i] || '', new Point(x + bw / 2, h - LBL + 2))
+    ctx.drawText(lbl, new Point(x + (bw - est) / 2, h - LBL + 2))
   }
   return { img: ctx.getImage(), lbls }
 }
 
 // ── 组装 ──
 const w = new ListWidget()
+try {
 w.backgroundColor = new Color(PAPER)
 w.setPadding(12, 12, 10, 12)
 w.url = URL_SITE
@@ -299,6 +302,9 @@ if (fam === 'small') {
         + (d.workout ? d.workout.name + ' ' + d.workout.dur_min + '分' : '无锻炼') + ' · →',
         { size: 9.5, color: MUTED, line: 1 })
   }
+} catch (e) {
+  fail('渲染异常\n[' + (e.message || e) + ']')
+  throw new Error('done')
 }
 
 if (!config.runsInWidget) {
@@ -309,13 +315,19 @@ if (!config.runsInWidget) {
     nf.schedule()
   } catch (e) {}
 }
-Script.setWidget(w)
+try {
+  Script.setWidget(w)
+} catch (e) {
+  fail('setWidget 异常\n[' + (e.message || e) + ']')
+  throw new Error('done')
+}
 Script.complete()
 
 function fail(msg) {
   const fw = new ListWidget()
   fw.backgroundColor = new Color(PAPER)
-  const t = fw.addText(msg)
+  const full = msg + (lastErr ? '\n[' + lastErr + ']' : '')
+  const t = fw.addText(full)
   t.textColor = new Color(RED); t.font = Font.systemFont(11)
   Script.setWidget(fw)
   Script.complete()
