@@ -124,35 +124,50 @@ function drawSpark(vals, w, h) {
 }
 
 
-// 7 日缺口柱状图（正=缺口绿向上，负=超支红向下，零轴偏下）
+// 7 日缺口柱状图（正=缺口绿向上，负=超支红向下，零轴偏下；日期标签画进 canvas 与柱同坐标系对齐）
 function drawBars(vals, w, h) {
-  const vs = vals.slice(-7).map(v => v == null ? 0 : v)
-  const lbls = (d.deficit14?.labels || []).slice(-7)
+  const labels = d.deficit14?.labels || []
+  // 取到数据日（data_date）为止的最后 ≤7 个完整日——今天占位桶恒 null，不进图
+  // 注意格式差：data_date="09/07"（带前导零）vs labels="9/7"，须归一化后匹配
+  const norm = s => { const p = String(s).split('/'); return p.length === 2 ? `${parseInt(p[0])}/${parseInt(p[1])}` : '' }
+  let endIdx = labels.findIndex(l => norm(l) === norm(d.data_date))
+  if (endIdx < 0) endIdx = labels.length - 2
+  const start = Math.max(0, endIdx - 6)
+  const lbls = labels.slice(start, endIdx + 1)
+  const vs = vals.slice(start, endIdx + 1).map(v => v == null ? 0 : v)
+  const n = Math.max(lbls.length, 1)
   if (vs.every(v => v === 0)) return { img: null, lbls }
   const ctx = new DrawContext()
   ctx.size = new Size(w, h)
   ctx.opaque = false
   ctx.respectsScreenScale = true
+  const LBL = 12, ch = h - LBL                     // 底部标签区 / 柱区
   const maxAbs = Math.max(...vs.map(v => Math.abs(v)), 100)
-  const gap = 3, bw = (w - gap * 6) / 7
-  const axis = h * 0.72          // 零轴位置
-  const up = h * 0.66, down = h * 0.26
+  const gap = 3, bw = (w - gap * (n - 1)) / n
+  const axis = LBL + ch * 0.72                     // 零轴位置
+  const up = ch * 0.66, down = ch * 0.26
   // 零轴
   ctx.setLineWidth(1)
   ctx.setStrokeColor(new Color(FAINT))
   let p = new Path()
   p.addLine(new Point(0, axis), new Point(w, axis))
   ctx.addPath(p); ctx.strokePath()
-  for (let i = 0; i < 7; i++) {
+  ctx.setFont(Font.mediumSystemFont(8))
+  ctx.textAligned = TextAlignment.center
+  for (let i = 0; i < n; i++) {
     const v = vs[i]
-    if (!v) continue
-    const bh = Math.max(2, Math.abs(v) / maxAbs * (v > 0 ? up : down))
     const x = i * (bw + gap)
-    const y = v > 0 ? axis - bh : axis
-    let rp = new Path()
-    rp.addRoundedRect(new Rect(x, y, bw, bh), 1.5, 1.5)
-    ctx.setFillColor(new Color(v > 0 ? GREEN : RED))
-    ctx.addPath(rp); ctx.fillPath()
+    if (v) {
+      const bh = Math.max(2, Math.abs(v) / maxAbs * (v > 0 ? up : down))
+      const y = v > 0 ? axis - bh : axis
+      let rp = new Path()
+      rp.addRoundedRect(new Rect(x, y, bw, bh), 1.5, 1.5)
+      ctx.setFillColor(new Color(v > 0 ? GREEN : RED))
+      ctx.addPath(rp); ctx.fillPath()
+    }
+    // 日期标签：与柱同槽位居中；最后一格=数据日，加深强调
+    ctx.setTextColor(new Color(i === n - 1 ? MUTED : FAINT))
+    ctx.drawText(lbls[i] || '', new Point(x + bw / 2, h - LBL + 2))
   }
   return { img: ctx.getImage(), lbls }
 }
@@ -249,21 +264,16 @@ if (fam === 'small') {
     txt(t1, '近 7 日缺口', { size: 10.5, color: MUTED })
     t1.addSpacer()
     if (d.deficit != null) {
-      txt(t1, '昨日 ' + (d.deficit >= 0 ? '+' : '') + fmt(d.deficit), { size: 9.5, bold: true, color: d.deficit >= 0 ? GREEN : RED })
+      txt(t1, (d.data_date || '') + ' ' + (d.deficit >= 0 ? '+' : '') + fmt(d.deficit), { size: 9.5, bold: true, color: d.deficit >= 0 ? GREEN : RED })
     } else if ((d.week_days || 0) > 0) {
       txt(t1, '本周 ' + fmt(d.week_deficit) + ' · ' + d.week_days + '天', { size: 9.5, bold: true, color: (d.week_deficit || 0) >= 0 ? GREEN : RED })
     } else {
       txt(t1, '记录中', { size: 10.5, color: MUTED })
     }
     w.addSpacer(3)
-    const bars = drawBars(d.deficit14?.values || [], WW, 44)
+    const bars = drawBars(d.deficit14?.values || [], WW, 56)
     if (bars.img) {
-      addImg(w, bars.img, WW, 44)
-      w.addSpacer(1)
-      const bl = hrow(w)
-      bl.spacing = 3
-      const bw2 = Math.floor((WW - 3 * 6) / 7)
-      bars.lbls.forEach(l => { txt(bl, l, { size: 8, color: MUTED }); bl.addSpacer(5) })
+      addImg(w, bars.img, WW, 56)
     } else {
       txt(w, '记录积累中 · 明日起每日 10:30 长出一根柱', { size: 9, color: MUTED })
     }
