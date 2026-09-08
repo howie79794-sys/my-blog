@@ -153,7 +153,6 @@ function drawBars(vals, w, h) {
   p.addLine(new Point(0, axis), new Point(w, axis))
   ctx.addPath(p); ctx.strokePath()
   ctx.setFont(Font.mediumSystemFont(8))
-  ctx.textAligned = TextAlignment.center
   for (let i = 0; i < n; i++) {
     const v = vs[i]
     const x = i * (bw + gap)
@@ -165,9 +164,11 @@ function drawBars(vals, w, h) {
       ctx.setFillColor(new Color(v > 0 ? GREEN : RED))
       ctx.addPath(rp); ctx.fillPath()
     }
-    // 日期标签：与柱同槽位居中；最后一格=数据日，加深强调
+    // 日期标签：与柱同槽位，手动居中（DrawContext 不支持 textAligned，2026-09-08 真机 ReferenceError 改）
+    const lbl = lbls[i] || ''
+    const est = lbl.length * 4.6
     ctx.setTextColor(new Color(i === n - 1 ? MUTED : FAINT))
-    ctx.drawText(lbls[i] || '', new Point(x + bw / 2, h - LBL + 2))
+    ctx.drawText(lbl, new Point(x + (bw - est) / 2, h - LBL + 2))
   }
   return { img: ctx.getImage(), lbls }
 }
