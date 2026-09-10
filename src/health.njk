@@ -1121,9 +1121,11 @@ obsReveal('protchart',()=>{
 (()=>{
 if(!DATA.weight)return;
 const Wt=DATA.weight;
-setCardTitle('wt-title',Wt.latest?`体重 · 最新 ${Wt.latest.kg} kg`:'体重 · 待首个数据点','weight');
+const extra=Wt.bmi?` · BMI ${Wt.bmi}`:'';
+const extra2=Wt.body_fat_pct?` · 体脂 ${Wt.body_fat_pct}%`:'';
+setCardTitle('wt-title',Wt.latest?`体重 · 最新 ${Wt.latest.kg} kg${extra}${extra2}`:'体重 · 待首个数据点','weight');
 document.getElementById('wt-sub').textContent=Wt.latest
-  ?`目标 ${Wt.goal} kg · 起点 ${Wt.start} kg · 已降 ${(Wt.start-Wt.latest.kg).toFixed(1)} kg · 周日晨记录`
+  ?`目标 ${Wt.goal} kg · 起点 ${Wt.start} kg · 当前 ${Wt.latest.kg} kg · 差 ${Wt.latest.kg>Wt.start?'+':''}${(Wt.latest.kg-Wt.start).toFixed(1)} kg · 周日晨记录${Wt.bmi_date?` · BMI/体脂 ${Wt.bmi_date.slice(5).replace('-','/')}`:''}`
   :'每周日晨在健康 App 记录 · 数据点将随每日导出自动上图';
 obsReveal('wtchart',()=>{
   const svg=document.getElementById('wtchart');svg.innerHTML='';
