@@ -1,3 +1,4 @@
+;(async () => {
 const fm = FileManager.local()
 const CACHE = fm.joinPath(fm.documentsDirectory(), 'aihot-data.json')
 const URL_SITE = 'https://aihot.news/all'
@@ -44,7 +45,6 @@ if (config.runsInWidget) {
 
 if (!data) { try { data = JSON.parse(fm.readString(CACHE)) } catch (e) {} }
 
-;(async () => {
 // ── App 内运行：拉数据写缓存 ──
 if (!config.runsInWidget) {
   const API = 'https://aihot.news/api/v1/items?mode=all&window=24h&limit=40'
@@ -104,48 +104,75 @@ if (!data || !data.pages || !data.pages.length) {
   w.url = URL_SITE
   if (config.runsInWidget) { Script.setWidget(w); Script.complete() } else { await w.present(); Script.complete() }
 } else {
-  const head = w.addStack()
-  head.layoutHorizontally()
-  const badge = head.addText('⚡ AIHOT')
-  badge.font = Font.mediumSystemFont(13)
-  badge.textColor = new Color(CYAN)
-  head.addSpacer(6)
-  const upd = head.addText((data.updated || '') + ' · ' + (data.pages.length) + '屏')
-  upd.font = Font.systemFont(9)
-  upd.textColor = new Color(FAINT)
-
-  // 按分钟轮换屏：每 2 分钟换一屏（系统约 15 分钟刷一次，每次都换）
+  // 按分钟轮换屏：每 2 分钟换一屏
   const totalScreens = data.pages.length
   const idx = Math.floor(Date.now() / 120000) % Math.max(1, totalScreens)
   const items = data.pages[idx] || []
+
+  // ── 编辑部风格渲染 ──
+  const head = w.addStack()
+  head.layoutHorizontally()
+  head.bottomAlignContent()
+  const brand = head.addText('AIHOT')
+  brand.font = Font.boldSystemFont(14)
+  brand.textColor = new Color('#111110')
+  head.addSpacer(8)
+  const tag = head.addText('AI 快讯')
+  tag.font = Font.mediumSystemFont(9)
+  tag.textColor = new Color('#8A887E')
+  tag.minimumScaleFactor = 0.8
+  head.addSpacer()
+  const date = head.addText(data.updated || '')
+  date.font = Font.mediumSystemFont(10)
+  date.textColor = new Color('#8A887E')
+
+  w.addSpacer(8)
+  const rule = w.addStack()
+  rule.size = new Size(0, 1.5)
+  rule.backgroundColor = new Color('#111110')
+  rule.cornerRadius = 0.75
+  w.addSpacer(10)
+
   for (let i = 0; i < items.length; i++) {
     const it = items[i]
-    w.addSpacer(6)
-    const row = w.addStack()
-    row.layoutHorizontally()
-    row.spacing = 5
-    const mark = row.addText(it.sel ? '★' : '·')
-    mark.font = Font.systemFont(11)
-    mark.textColor = new Color(it.sel ? CYAN : FAINT)
-    const col = row.addStack()
-    col.layoutVertically()
-    const title = col.addText(it.title)
-    title.font = i === 0 ? Font.semiboldSystemFont(13) : Font.mediumSystemFont(12)
-    title.textColor = new Color(INK)
+    const title = w.addText(it.title)
+    title.font = i === 0 ? Font.boldSystemFont(13) : Font.mediumSystemFont(12)
+    title.textColor = new Color(it.sel && i === 0 ? '#0E7490' : '#1C1C1A')
     title.lineLimit = 2
+    if (i === 0 && it.sel) {
+      // 头条精选：标题下加一行青色小标
+      const sel = w.addText('精选')
+      sel.font = Font.mediumSystemFont(9)
+      sel.textColor = new Color('#0E7490')
+      sel.minimumScaleFactor = 0.8
+    }
     if (it.sum) {
-      const s = col.addText(it.sum)
+      const s = w.addText(it.sum)
       s.font = Font.systemFont(10)
-      s.textColor = new Color(MUTED)
+      s.textColor = new Color('#98968C')
       s.lineLimit = 1
     }
+    if (i < items.length - 1) {
+      w.addSpacer(7)
+      const hr = w.addStack()
+      hr.size = new Size(0, 0.5)
+      hr.backgroundColor = new Color('#E6E3DA')
+      hr.cornerRadius = 0.25
+      w.addSpacer(7)
+    }
   }
+
   w.addSpacer()
-  const foot = w.addText('屏 ' + (idx + 1) + '/' + totalScreens + ' · 自动轮换')
-  foot.font = Font.systemFont(9)
-  foot.textColor = new Color(FAINT)
+  const foot = w.addStack()
+  foot.layoutHorizontally()
+  const src2 = foot.addText('aihot.news')
+  src2.font = Font.mediumSystemFont(9)
+  src2.textColor = new Color('#B5B3A9')
+  foot.addSpacer()
+  const pg = foot.addText((idx + 1) + ' / ' + totalScreens)
+  pg.font = Font.mediumSystemFont(10)
+  pg.textColor = new Color('#0E7490')
   w.url = (items[0] && items[0].url) || URL_SITE
   if (config.runsInWidget) { Script.setWidget(w); Script.complete() } else { await w.present(); Script.complete() }
 }
-
 })()
