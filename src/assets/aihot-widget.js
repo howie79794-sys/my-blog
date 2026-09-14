@@ -100,7 +100,7 @@ w.backgroundColor = new Color(PAPER)
 if (!data || !data.pages || !data.pages.length) {
   const t0 = w.addText('AIHOT 缓存为空\n打开 App 点 ▶️ 先拉一次数据')
   t0.font = Font.systemFont(11)
-  t0.textColor = new Color(MUTED)
+  t0.textColor = new Color('#98968C')
   w.url = URL_SITE
   if (config.runsInWidget) { Script.setWidget(w); Script.complete() } else { await w.present(); Script.complete() }
 } else {
@@ -109,69 +109,92 @@ if (!data || !data.pages || !data.pages.length) {
   const idx = Math.floor(Date.now() / 120000) % Math.max(1, totalScreens)
   const items = data.pages[idx] || []
 
-  // ── 编辑部风格渲染 ──
+  // ── 杂志深色风渲染 v11 ──
+  w.backgroundColor = new Color('#1C1C1E')
+
   const head = w.addStack()
   head.layoutHorizontally()
   head.bottomAlignContent()
   const brand = head.addText('AIHOT')
-  brand.font = Font.boldSystemFont(14)
-  brand.textColor = new Color('#111110')
+  brand.font = Font.boldSystemFont(15)
+  brand.textColor = new Color('#FFFFFF')
   head.addSpacer(8)
   const tag = head.addText('AI 快讯')
   tag.font = Font.mediumSystemFont(9)
-  tag.textColor = new Color('#8A887E')
+  tag.textColor = new Color('#8E8E93')
   tag.minimumScaleFactor = 0.8
   head.addSpacer()
   const date = head.addText(data.updated || '')
   date.font = Font.mediumSystemFont(10)
-  date.textColor = new Color('#8A887E')
+  date.textColor = new Color('#8E8E93')
 
   w.addSpacer(8)
   const rule = w.addStack()
-  rule.size = new Size(0, 1.5)
-  rule.backgroundColor = new Color('#111110')
-  rule.cornerRadius = 0.75
-  w.addSpacer(10)
+  rule.size = new Size(0, 0.5)
+  rule.backgroundColor = new Color('#3A3A3C')
+  rule.cornerRadius = 0.25
+  w.addSpacer(9)
 
   for (let i = 0; i < items.length; i++) {
     const it = items[i]
-    const title = w.addText(it.title)
-    title.font = i === 0 ? Font.boldSystemFont(13) : Font.mediumSystemFont(12)
-    title.textColor = new Color(it.sel && i === 0 ? '#0E7490' : '#1C1C1A')
-    title.lineLimit = 2
-    if (i === 0 && it.sel) {
-      // 头条精选：标题下加一行青色小标
-      const sel = w.addText('精选')
-      sel.font = Font.mediumSystemFont(9)
-      sel.textColor = new Color('#0E7490')
-      sel.minimumScaleFactor = 0.8
-    }
-    if (it.sum) {
-      const s = w.addText(it.sum)
-      s.font = Font.systemFont(10)
-      s.textColor = new Color('#98968C')
-      s.lineLimit = 1
+    if (it.sel && i === 0) {
+      // ★ 精选头条：星标 + 白粗标题 + 橙色"精选"标签
+      const starRow = w.addStack()
+      starRow.layoutHorizontally()
+      starRow.spacing = 4
+      const star = starRow.addText('★')
+      star.font = Font.systemFont(10)
+      star.textColor = new Color('#FF9F0A')
+      const selTag = starRow.addText('精选')
+      selTag.font = Font.mediumSystemFont(9)
+      selTag.textColor = new Color('#FF9F0A')
+      w.addSpacer(2)
+      const t = w.addText(it.title)
+      t.font = Font.boldSystemFont(13)
+      t.textColor = new Color('#FFFFFF')
+      t.lineLimit = 2
+      if (it.sum) {
+        const s = w.addText(it.sum)
+        s.font = Font.systemFont(10)
+        s.textColor = new Color('#98968C')
+        s.lineLimit = 1
+      }
+    } else {
+      const t = w.addText(it.title)
+      t.font = Font.mediumSystemFont(12)
+      t.textColor = new Color('#E5E5EA')
+      t.lineLimit = 2
+      if (it.sum) {
+        const s = w.addText(it.sum)
+        s.font = Font.systemFont(9)
+        s.textColor = new Color('#7C7C80')
+        s.lineLimit = 1
+      }
     }
     if (i < items.length - 1) {
-      w.addSpacer(7)
+      w.addSpacer(6)
       const hr = w.addStack()
       hr.size = new Size(0, 0.5)
-      hr.backgroundColor = new Color('#E6E3DA')
+      hr.backgroundColor = new Color('#2C2C2E')
       hr.cornerRadius = 0.25
-      w.addSpacer(7)
+      w.addSpacer(6)
     }
   }
 
   w.addSpacer()
   const foot = w.addStack()
   foot.layoutHorizontally()
-  const src2 = foot.addText('aihot.news')
+  const dot = foot.addText('●')
+  dot.font = Font.systemFont(7)
+  dot.textColor = new Color('#FF9F0A')
+  const src2 = foot.addText(' aihot.news')
   src2.font = Font.mediumSystemFont(9)
-  src2.textColor = new Color('#B5B3A9')
+  src2.textColor = new Color('#636366')
   foot.addSpacer()
   const pg = foot.addText((idx + 1) + ' / ' + totalScreens)
   pg.font = Font.mediumSystemFont(10)
-  pg.textColor = new Color('#0E7490')
+  pg.textColor = new Color('#FF9F0A')
+
   w.url = (items[0] && items[0].url) || URL_SITE
   if (config.runsInWidget) { Script.setWidget(w); Script.complete() } else { await w.present(); Script.complete() }
 }
