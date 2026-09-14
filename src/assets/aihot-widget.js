@@ -33,7 +33,7 @@ try {
 
 const pages = (data && data.pages) || []
 const fam = config.widgetFamily
-const isLarge = fam === 'large'
+const isLarge = fam === 'large' || fam === undefined  // App 内运行也按大号预览
 
 // 每页条数按组件型号自适应
 const perPage = isLarge ? 6 : 3
@@ -122,13 +122,18 @@ function fmtScreen(idx) {
 }
 
 // ── 轮播 Timeline：每 10 秒一屏，共 screenCount 屏后保持末屏 ──
-const timeline = new Timeline()
-const present = new Date()
-for (let i = 0; i < screenCount; i++) {
-  const t = new Date(present.getTime() + i * 10000)
-  timeline.insertEntry(fmtScreen(i), t)
+if (config.runsInWidget) {
+  const timeline = new Timeline()
+  const present = new Date()
+  for (let i = 0; i < screenCount; i++) {
+    const t = new Date(present.getTime() + i * 10000)
+    timeline.insertEntry(fmtScreen(i), t)
+  }
+  // 末屏后留 30s 空档（系统会保持最后一帧或刷新）
+  Script.setWidget(timeline)
+} else {
+  // App 内点 ▶️ 运行：直接预览第一屏（验证脚本是否正常）
+  await fmtScreen(0).present()
 }
-// 末屏后留 30s 空档（系统会保持最后一帧或刷新）
-Script.setWidget(timeline)
 Script.complete()
 })()
