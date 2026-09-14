@@ -5,7 +5,44 @@ const INK = '#1C1C1A', MUTED = '#6F6D63', FAINT = '#9A988E',
       LINE = '#E4E1D4', PAPER = '#F6F4ED', CYAN = '#0E7490'
 
 let data = null
-try { data = JSON.parse(fm.readString(CACHE)) } catch (e) {}
+
+// ── widget 模式：先试拉最新数据（4s 超时，失败静默回退缓存）──
+if (config.runsInWidget) {
+  try {
+    async function fetchJSON(url) {
+      const r = new Request(url)
+      r.timeoutInterval = 4
+      r.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData
+      return await r.loadJSON()
+    }
+    const fresh = await fetchJSON('https://aihot.news/api/v1/items?mode=all&window=24h&limit=40')
+    const items = (fresh && fresh.items) || []
+    const norm = items.filter(i => (i.title || '').trim()).map(i => ({
+      title: i.title.slice(0, 80),
+      sum: (i.summary || '').slice(0, 120),
+      url: (i.links && (i.links.aihot || i.links.original)) || 'https://aihot.news/all',
+      score: i.score || 0,
+      sel: !!i.selected,
+      agg: false,
+    }))
+    if (norm.length) {
+      const pool = norm.sort((a, b) => (a.sel === b.sel ? b.score - a.score : (a.sel ? -1 : 1)))
+      const pages = []
+      for (let i = 0; i < Math.min(pool.length, 18); i += 6) pages.push(pool.slice(i, i + 6))
+      const now = new Date()
+      data = {
+        source: '全部动态 24h · 精选浮头',
+        updated: (now.getMonth() + 1) + '-' + now.getDate() + ' ' +
+          (now.getHours() < 10 ? '0' : '') + now.getHours() + ':' +
+          (now.getMinutes() < 10 ? '0' : '') + now.getMinutes(),
+        pages: pages,
+      }
+      try { fm.writeString(CACHE, JSON.stringify(data)) } catch (e) {}
+    }
+  } catch (e) {}
+}
+
+if (!data) { try { data = JSON.parse(fm.readString(CACHE)) } catch (e) {} }
 
 ;(async () => {
 // ── App 内运行：拉数据写缓存 ──
