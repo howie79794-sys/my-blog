@@ -11,9 +11,8 @@ let data = null
 if (config.runsInWidget) {
   try {
     async function fetchJSON(url) {
-      const r = new Request(url)
+      const r = new Request(url + (url.indexOf('?') > -1 ? '&' : '?') + 't=' + Date.now())
       r.timeoutInterval = 4
-      r.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData
       return await r.loadJSON()
     }
     const fresh = await fetchJSON('https://aihot.news/api/v1/items?mode=all&window=24h&limit=40')
