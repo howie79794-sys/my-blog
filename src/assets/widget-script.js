@@ -201,7 +201,7 @@ if (fam === 'small') {
   w.addSpacer(2)
   addImg(w, drawBar(protPct, protOk ? GREEN : AMBER, WW, 7), WW, 7)
   w.addSpacer(6)
-  txt(w, '睡 ' + (d.sleep_h ?? '—') + 'h · 昨耗 ' + fmt(d.burn_last), { size: 10, color: MUTED })
+  txt(w, '睡 ' + (d.sleep_h ?? '—') + 'h' + (d.sleep_date ? '（' + d.sleep_date + '醒）' : '') + ' · 昨耗 ' + fmt(d.burn_last), { size: 10, color: MUTED })
 } else {
   // ── 双栏：热量 | 蛋白 ──
   const cols = w.addStack()
@@ -247,7 +247,7 @@ if (fam === 'small') {
     c.addSpacer(1)
     txt(c, label, { size: 9, color: MUTED })
   }
-  cell('睡眠', (d.sleep_h ?? '—') + 'h', (d.sleep_h ?? 9) >= 7 ? GREEN : AMBER)
+  cell('睡眠' + (d.sleep_date ? '·' + d.sleep_date + '醒' : ''), (d.sleep_h ?? '—') + 'h', (d.sleep_h ?? 9) >= 7 ? GREEN : AMBER)
   info.addSpacer(10)
   cell('静息', d.rhr ?? '—', (d.rhr ?? 99) <= (d.rhr_base ?? 63) ? GREEN : RED)
   info.addSpacer(10)
