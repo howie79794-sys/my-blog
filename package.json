@@ -14,7 +14,7 @@
     "pagefind": "^1.4.0"
   },
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "packageManager": "npm@10.8.2"
 }
