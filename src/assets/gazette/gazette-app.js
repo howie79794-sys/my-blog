@@ -67,27 +67,8 @@
       var lead = aiItems[0];
       var zhTitle = lead.title_zh || lead.title;
       var enLine = (lead.lang === 'en' && lead.title_zh) ? '<div class="lead-en">'+esc(lead.title)+'</div>' : '';
-      frontHtml = '<article class="lead" data-src="'+esc(lead.source)+'">'
-        +'<div class="kicker"><span class="kk">头条 · LEAD STORY</span><span class="sc">'+esc(SEC_META.ai.zh)+' · '+esc(lead.source)+'</span></div>'
-        +'<h2><a href="'+esc(lead.url)+'" target="_blank" rel="noopener">'+esc(zhTitle)+'</a></h2>'
-        +enLine
-        +(lead.summary?'<p class="summary">'+esc(lead.summary)+'</p>':'')
-        +'<div class="meta"><span class="src">'+esc(lead.source)+'</span><span class="dt">'+esc(fmtDT(lead.published))+'</span><a href="'+esc(lead.url)+'" target="_blank" rel="noopener">阅读原文 ↗</a></div>'
-        +'</article>';
-      var briefs = aiItems.slice(1,7);
-      if(briefs.length){
-        frontHtml += '<aside class="briefsbox"><div class="bb-h">今日要闻<span class="bb-en">TOP BRIEFS · AI</span></div><ul>'
-          + briefs.map(function(it){
-              return '<li data-src="'+esc(it.source)+'"><a href="'+esc(it.url)+'" target="_blank" rel="noopener"><div class="t">'+esc(it.title_zh || it.title)+'</div><div class="m"><span class="src">'+esc(it.source)+'</span><span class="dt">'+esc(fmtDT(it.published))+'</span></div></a></li>';
-            }).join('') + '</ul></aside>';
-      }
-      var more = aiItems.slice(7);
-      if(more.length){
-        aiExtraHtml = '<div class="ai-extra"><div class="vmore" style="border-top:none;margin-top:0;padding-top:0;"><span class="vm-h">AI 快讯 · MORE IN ARTIFICIAL INTELLIGENCE</span><ol class="cols2">'
-          + more.map(function(it){
-              return '<li data-src="'+esc(it.source)+'"><a href="'+esc(it.url)+'" target="_blank" rel="noopener"><div class="t">'+esc(it.title_zh || it.title)+'</div><div class="m"><span class="src">'+esc(it.source)+'</span><span class="dt">'+esc(fmtDT(it.published))+'</span></div></a></li>';
-            }).join('') + '</ol></div></div>';
-      }
+      var frontHtml = '';
+      var more = [];
     }
     var front = document.getElementById('sec-ai');
     front.innerHTML = frontHtml;
