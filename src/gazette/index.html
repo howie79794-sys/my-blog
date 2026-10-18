@@ -267,18 +267,32 @@ body.hide-others .sec-hidden{display:none!important;}
 
 <style>
 /* v0.6 shell extras */
+/* v1.1 masthead signature + dateblock */
+.masthead-sig .sig{font-family:"Zapfino","Snell Roundhand",cursive;font-size:.94em;
+  color:#1F1A14;letter-spacing:.01em;padding-right:.06em}
+.masthead-sig .poss{font-family:Georgia,serif;font-style:italic;font-size:.62em;color:#C04A2A;margin:0 .1em 0 .06em}
+.m-dateblock{text-align:left;line-height:1.55;font-family:var(--sans);font-size:10.5px;color:#8A857A;letter-spacing:.08em}
+.m-dateblock .db-g{color:#1F1A14;font-weight:600;font-size:11px}
+.m-dateblock .db-l{color:#C04A2A}
 #load-status{display:none;margin:14px 0 0;padding:10px 16px;border:1px dashed var(--accent);
   color:var(--accent-dark);font-family:var(--sans);font-size:12px;letter-spacing:.05em;background:var(--card);}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="m-top"><span>VOL. I · NO. 003</span><span class="mid">ALL THE TABS THAT ARE FIT TO OPEN</span><span>PRICE: ONE OPEN TAB</span></div>
+  <div class="m-top">
+    <div class="m-dateblock">
+      <div class="db-g">2026 年 10 月 18 日</div>
+      <div class="db-l">农历九月初九 · 丙午马年</div>
+      <div class="db-c">二〇二六年十月十八日</div>
+    </div>
+    <span class="mid">ALL THE TABS THAT ARE FIT TO OPEN</span><span>PRICE: ONE OPEN TAB</span>
+  </div>
   <header class="masthead">
-    <h1>HOWIE <em>Gazette</em></h1>
+    <h1 class="masthead-sig"><span class="sig">Gordon Zhuang</span><span class="poss">’s</span> <em>Gazette</em></h1>
     <div class="m-quote">「每一个新标签页，都值得一份好报纸。」</div>
     <div class="m-date">
-      <span>2026年10月18日 · 星期日 · 农历九月初八</span>
+      <span>2026年10月18日 · 星期日 · 农历九月初九</span>
       <span class="mid">MORNING EDITION · 早刊</span>
       <span class="right">Weather: Fair · 宜开新标签页</span>
     </div>

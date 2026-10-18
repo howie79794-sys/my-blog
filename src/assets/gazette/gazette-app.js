@@ -48,7 +48,22 @@
   function render(DATA){
     if(!DATA || !DATA.items || !DATA.items.length) return;
     var items = DATA.items, AI = DATA.aihot || {};
-    var main = document.getElementById('main');
+    /* v1.1 dateblock fill */
+  try {
+    var db = DATA.dateblock;
+    if (db) {
+      var g = document.querySelector('.m-dateblock .db-g');
+      var l = document.querySelector('.m-dateblock .db-l');
+      var c = document.querySelector('.m-dateblock .db-c');
+      if (g) g.textContent = db.gregorian + ' · ' + db.weekday;
+      if (l) l.textContent = db.lunar.replace(' (马年)', ' · ') + '年';
+      if (c) c.textContent = db.chinese;
+      var mdate = document.querySelector('.m-date span');
+      if (mdate && db.gregorian) mdate.textContent = db.gregorian.replace(/ /g, '') + ' · ' + db.weekday;
+    }
+  } catch (e) {}
+
+var main = document.getElementById('main');
     /* idempotent: remove previous dynamic sections + ai-extra + src-empty before re-render */
     if(__rendered){
       main.querySelectorAll('.ai-extra, section.vcol:not([id^="sec-aihot"]), .texgrid').forEach(function(el){ el.remove(); });
