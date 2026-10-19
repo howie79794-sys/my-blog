@@ -217,7 +217,7 @@ var main = document.getElementById('main');
       var d = new Date(f.publishedAt||'');
       var ok = !isNaN(d);
       var d1 = ok ? p2(d.getDate()) : '—';
-      var d2 = ok ? (d.getMonth()+1)+'月 · '+p2(d.getHours())+':'+p2(d.getMinutes()) : '';
+      var d2 = ok ? (d.getMonth()+1)+'月 '+p2(d.getHours())+':'+p2(d.getMinutes()) : '';
       var dayKey = ok ? d.toDateString() : '';
       var dayBreak = (dayKey && dayKey!==lastDay) ? ' tl-daybreak' : '';
       if(dayKey) lastDay = dayKey;
