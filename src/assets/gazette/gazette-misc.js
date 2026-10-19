@@ -1,7 +1,6 @@
 
 /* ================= v0.4 source filter ================= */
 (function(){
-  var items = document.querySelectorAll('[data-src],[data-src-extra]');
   // empty-state el
   var main = document.getElementById('main');
   var empty = document.createElement('div');
@@ -11,6 +10,8 @@
   function apply(filter){
     var count=0;
     document.body.classList.toggle('hide-others', filter!=='ALL');
+    /* v1.2: re-query each time — AIHOT timeline/hot/daily items are rendered dynamically */
+    var items = document.querySelectorAll('[data-src],[data-src-extra]');
     items.forEach(function(el){
       var s = el.getAttribute('data-src') || el.getAttribute('data-src-extra');
       var show = (filter==='ALL') || (s===filter);

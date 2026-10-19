@@ -24,6 +24,11 @@
     return (d.getMonth()+1)+'/'+d.getDate()+' '+p2(d.getHours())+':'+p2(d.getMinutes()); }
   function fmtD(iso){ if(!iso) return ''; var d=new Date(iso); if(isNaN(d)) return '';
     return (d.getMonth()+1)+'/'+p2(d.getDate()); }
+  /* v1.2: source field may be {name:...} or string; links.original/aihot preferred */
+  function srcName(s){ if(!s) return ''; if(typeof s==='object') return s.name||''; return String(s); }
+  function itemUrl(it){ if(!it) return '#';
+    if(it.links){ if(it.links.original) return it.links.original; if(it.links.aihot) return it.links.aihot; }
+    return it.url || (it.attribution && it.attribution.url) || '#'; }
 
   /* ============ data cache (localStorage primary, IndexedDB mirror) ============ */
   function lsGet(){ try{ var s=localStorage.getItem(CACHE_KEY); return s?JSON.parse(s):null; }catch(e){ return null; } }
@@ -138,7 +143,9 @@ var main = document.getElementById('main');
     main.insertAdjacentHTML('beforeend', aiExtraHtml + html);
 
     /* ---- AIHOT modules ---- */
-    renderHot(AI); renderSelected(AI); renderDaily(AI);
+    renderFeed(AI); renderHot(AI); renderSelected(AI); renderDaily(AI);
+    initAihotTabs();
+    if(!document.body.getAttribute('data-aihot-view')) setAihotView('feed');
 
     /* ---- snav (dynamic) ---- */
     renderSnav(items, AI);
@@ -157,11 +164,12 @@ var main = document.getElementById('main');
     var ol = document.getElementById('ah-hot'); if(!ol || !AI.hot) return;
     ol.innerHTML = AI.hot.map(function(h){
       var t3 = h.rank<=3 ? ' top3':'';
-      var names = (h.sourceNames||[]).join(' / ');
-      return '<li><a class="hot-row'+t3+'" data-src="AIHOT" href="'+esc(h.url)+'" target="_blank" rel="noopener" title="'+esc(names)+'">'
+      var names = (h.sourceNames||[]).map(function(n){ return srcName(n); }).join(' / ');
+      var src = srcName(h.source);
+      return '<li><a class="hot-row'+t3+'" data-src="AIHOT" href="'+esc(itemUrl(h))+'" target="_blank" rel="noopener" title="'+esc(names)+'">'
         +'<span class="hr-rank">'+(h.rank<10?'0':'')+h.rank+'</span>'
         +'<span class="hr-main"><span class="hr-title">'+esc(h.title)+'</span>'
-        +'<span class="hr-sub">'+esc(h.source)+' · '+(h.signalCount||0)+' 信号 · '+(h.participantCount||0)+' 参与 · 最新 '+fmtDT(h.latestAt)+'</span></span>'
+        +'<span class="hr-sub">'+esc(src)+' · '+(h.signalCount||0)+' 信号 · '+(h.participantCount||0)+' 参与 · 最新 '+fmtDT(h.latestAt)+'</span></span>'
         +'<span class="hr-badge">'+(h.sourceCount||1)+' 家源</span></a></li>';
     }).join('');
     var n=document.getElementById('ah-hot-n'); if(n) n.textContent = AI.hot.length+' 条 · 前三加重';
@@ -180,41 +188,124 @@ var main = document.getElementById('main');
           +'<div class="sr-reason">'+esc(s.reason)+'</div>' : '';
       return '<li><div class="sel-row" data-src="AIHOT">'
         +'<span class="sr-score'+hi+'">'+esc(s.score)+'</span>'
-        +'<div class="sr-main"><a class="sr-title" href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title)+'</a>'
-        +'<div class="sr-meta"><span>'+esc(s.source)+'</span>'+cat+'<span>'+fmtD(s.publishedAt)+'</span></div>'
+        +'<div class="sr-main"><a class="sr-title" href="'+esc(itemUrl(s))+'" target="_blank" rel="noopener">'+esc(s.title)+'</a>'
+        +'<div class="sr-meta"><span>'+esc(srcName(s.source))+'</span>'+cat+'<span>'+fmtD(s.publishedAt)+'</span></div>'
         +reason+'</div></div></li>';
     }).join('');
-    ol.addEventListener('click', function(e){
-      var b = e.target.closest('.sr-flag'); if(!b) return;
-      var row = b.closest('.sel-row');
-      var open = row.classList.toggle('open');
-      b.setAttribute('aria-expanded', open);
-      b.textContent = open ? '理由 ▴' : '理由 ▾';
-    });
+    if(!ol.__flagBound){
+      ol.addEventListener('click', function(e){
+        var b = e.target.closest('.sr-flag'); if(!b) return;
+        var row = b.closest('.sel-row');
+        var open = row.classList.toggle('open');
+        b.setAttribute('aria-expanded', open);
+        b.textContent = open ? '理由 ▴' : '理由 ▾';
+      });
+      ol.__flagBound = true;
+    }
     var n=document.getElementById('ah-sel-n'); if(n) n.textContent = sel.length+' 条 · 按 score 排序';
+  }
+
+  /* ---- AIHOT timeline card stream (v1.2) ---- */
+  function tlHtml(list, label){
+    if(!list || !list.length) return '';
+    list = list.slice().sort(function(a,b){
+      var da=new Date(a.publishedAt||0), db=new Date(b.publishedAt||0);
+      return db-da || (b.score||0)-(a.score||0); });
+    var maxScore = list.reduce(function(m,x){return Math.max(m,x.score||0);},0);
+    var lastDay = '';
+    var html = '<ol class="ah-timeline">' + list.map(function(f){
+      var d = new Date(f.publishedAt||'');
+      var ok = !isNaN(d);
+      var d1 = ok ? p2(d.getDate()) : '—';
+      var d2 = ok ? (d.getMonth()+1)+'月 · '+p2(d.getHours())+':'+p2(d.getMinutes()) : '';
+      var dayKey = ok ? d.toDateString() : '';
+      var dayBreak = (dayKey && dayKey!==lastDay) ? ' tl-daybreak' : '';
+      if(dayKey) lastDay = dayKey;
+      var selCls = f.selected ? '' : ' tl-plain';
+      var score = (f.score!=null) ? f.score : '';
+      var scoreCls = (f.score||0) >= Math.max(maxScore-8, (maxScore||0)*0.85) ? '' : ' lo';
+      var selTag = f.selected ? '<span class="tl-sel">精选</span>' : '';
+      var cat = f.category ? '<span class="tl-cat">'+esc(f.category)+'</span>' : '';
+      var flag = f.reason ? '<button type="button" class="tl-flag" aria-expanded="false">理由 ▾</button>' : '';
+      return '<li class="tl-card'+selCls+dayBreak+'" data-src="AIHOT">'
+        +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
+        +'<div class="tl-dot" aria-hidden="true"></div>'
+        +'<div class="tl-body">'
+          +'<div class="tl-head"><a class="tl-title" href="'+esc(itemUrl(f))+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
+          +(score!==''?'<span class="tl-score'+scoreCls+'">SCORE '+esc(score)+'</span>':'')+'</div>'
+          +'<div class="tl-tags">'+selTag+cat+'<span class="tl-src">'+esc(srcName(f.source))+'</span>'+flag+'</div>'
+          +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
+          +(f.reason?'<div class="tl-reason">'+esc(f.reason)+'</div>':'')
+        +'</div></li>';
+    }).join('') + '</ol>';
+    html += '<div class="ah-more">— '+esc(label)+' · 共 '+list.length+' 条 · 按时间倒序 —</div>';
+    return html;
+  }
+  function renderFeed(AI){
+    var wrap = document.getElementById('ah-feedwrap'); if(!wrap) return;
+    var feedList = (AI.feed && AI.feed.length) ? AI.feed : [];
+    if(!feedList.length && AI.selected && AI.selected.length){
+      feedList = AI.selected.map(function(s){ var c={}; for(var k in s) c[k]=s[k]; c.selected=true; return c; });
+    }
+    var selList = (AI.selected||[]).map(function(s){ var c={}; for(var k in s) c[k]=s[k]; c.selected=true; return c; });
+    wrap.innerHTML = ''
+      + '<div class="tl-group tl-group-feed">'+tlHtml(feedList,'AIHOT 时间线 · 全部动态')+'</div>'
+      + '<div class="tl-group tl-group-sel">'+tlHtml(selList,'AIHOT 精选')+'</div>';
+    if(!wrap.__flagBound){
+      wrap.addEventListener('click', function(e){
+        var b = e.target.closest('.tl-flag'); if(!b) return;
+        var card = b.closest('.tl-card');
+        var open = card.classList.toggle('open');
+        b.setAttribute('aria-expanded', open);
+        b.textContent = open ? '理由 ▴' : '理由 ▾';
+      });
+      wrap.__flagBound = true;
+    }
+  }
+
+  /* ---- AIHOT sub-view switching (v1.2): feed / selected / daily ---- */
+  function setAihotView(v){
+    document.body.setAttribute('data-aihot-view', v||'');
+    document.querySelectorAll('#ah-tabs .ah-tab').forEach(function(t){
+      var on = t.getAttribute('data-ahview')===v;
+      t.classList.toggle('on', on);
+    });
+    document.querySelectorAll('.snav-sub .snav-subitem').forEach(function(t){
+      var on = t.getAttribute('data-ahview')===v;
+      t.classList.toggle('on', on);
+    });
+  }
+  function initAihotTabs(){
+    var tabs = document.getElementById('ah-tabs'); if(!tabs || tabs.__bound) return; tabs.__bound = true;
+    tabs.addEventListener('click', function(e){
+      var b = e.target.closest('.ah-tab'); if(!b) return;
+      setAihotView(b.getAttribute('data-ahview'));
+    });
   }
 
   /* ---- AIHOT yesterday's daily ---- */
   function renderDaily(AI){
     var box = document.getElementById('ah-daily'); if(!box || !AI.daily) return;
-    var D = AI.daily, html = '';
+    var D = (AI.daily.report) ? AI.daily.report : AI.daily;   /* v1.2: schema nests under report */
+    var html = '';
     html += '<div class="yd-datebar"><span>AIHOT DAILY · 昨日 AI 日报</span><span class="yd-d">'+esc(D.date)+'</span></div>';
+    var dailyUrl = (D.links && D.links.aihot) || D.url || '';
     html += '<div class="yd-lead"><div class="yk">头条 · LEAD</div><h3>'
-      +(D.url?'<a href="'+esc(D.url)+'" target="_blank" rel="noopener">'+esc(D.lead.title)+'</a>':esc(D.lead.title))
+      +(dailyUrl?'<a href="'+esc(dailyUrl)+'" target="_blank" rel="noopener">'+esc(D.lead.title)+'</a>':esc(D.lead.title))
       +'</h3><p>'+esc(D.lead.leadParagraph)+'</p></div>';
     html += '<div class="yd-grid">' + D.sections.map(function(sec){
       return '<div class="yd-sec"><h5>'+esc(sec.label)+'<span class="n">'+sec.items.length+' 条</span></h5><ul>'
         + sec.items.map(function(it){
-          return '<li data-src="AIHOT"><a class="t" href="'+esc(it.url)+'" target="_blank" rel="noopener">'+esc(it.title)+'</a>'
+          return '<li data-src="AIHOT"><a class="t" href="'+esc(itemUrl(it))+'" target="_blank" rel="noopener">'+esc(it.title)+'</a>'
             +(it.summary?'<span class="s">'+esc(it.summary)+'</span>':'')
-            +'<span class="m">'+esc(it.source)+'</span></li>';
+            +'<span class="m">'+esc(srcName(it.source))+'</span></li>';
         }).join('') + '</ul></div>';
     }).join('') + '</div>';
     html += '<div class="yd-flashes"><span class="vm-h">快讯 · FLASHES</span><ol>'
       + D.flashes.map(function(f){
         return '<li data-src="AIHOT"><span class="f-d">'+fmtD(f.publishedAt)+'</span>'
-          +'<a class="f-t" href="'+esc(f.url)+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
-          +'<span class="f-s">'+esc(f.source)+'</span></li>';
+          +'<a class="f-t" href="'+esc(itemUrl(f))+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
+          +'<span class="f-s">'+esc(srcName(f.source))+'</span></li>';
       }).join('') + '</ol></div>';
     box.innerHTML = html;
     var cnt = D.sections.reduce(function(a,s){return a+s.items.length;},0);
@@ -240,8 +331,30 @@ var main = document.getElementById('main');
     order.forEach(function(src){
       var display = zhNames[src] || src;
       badges += '<button class="snav-item" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="false"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+counts[src]+'</span></button>';
+      /* v1.2: AIHOT second-level menu */
+      if(src==='AIHOT'){
+        var feedN = (AI.feed && AI.feed.length) ? AI.feed.length : (AI.selected||[]).length;
+        badges += '<div class="snav-sub">'
+          +'<button class="snav-subitem on" data-ahview="feed" type="button"><span class="sb-n">全部动态</span><span class="sb-badge">'+feedN+'</span></button>'
+          +'<button class="snav-subitem" data-ahview="selected" type="button"><span class="sb-n">精选</span><span class="sb-badge">'+(AI.selected||[]).length+'</span></button>'
+          +'<button class="snav-subitem" data-ahview="daily" type="button"><span class="sb-n">日报</span><span class="sb-badge">'+(AI.daily?'1':'0')+'</span></button>'
+          +'</div>';
+      }
     });
     nav.innerHTML = '<div class="snav-h">SOURCES · 信源</div>' + badges;
+    /* sub-item clicks: only switch AIHOT view, never the source filter */
+    if(!nav.__subBound){
+      nav.addEventListener('click', function(e){
+        var sub = e.target.closest('.snav-subitem'); if(!sub) return;
+        e.stopPropagation();
+        var aihotBtn = nav.querySelector('.snav-item[data-filter="AIHOT"]');
+        /* make sure the AIHOT source filter is active so its sections are visible */
+        if(aihotBtn && !aihotBtn.classList.contains('on')) aihotBtn.click();
+        setAihotView(sub.getAttribute('data-ahview'));
+        window.scrollTo({top:0,behavior:'smooth'});
+      }, true);
+      nav.__subBound = true;
+    }
   }
 
   /* ---- footer ---- */
