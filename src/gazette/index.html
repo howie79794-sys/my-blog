@@ -293,7 +293,7 @@ body[data-aihot-view] .snav-item[data-filter="AIHOT"] .sn-badge{display:none;}
 .tl-dot::before{content:"";position:absolute;left:50%;transform:translateX(-50%);top:24px;width:11px;height:11px;
   border-radius:50%;background:var(--paper);border:2.5px solid var(--accent);z-index:2;}
 .tl-card.tl-plain .tl-dot::before{border-color:var(--rule);}
-.tl-body{flex:1;min-width:0;background:var(--card);border:1px solid var(--rule);
+.tl-body{flex:1;min-width:0;background:var(--card);border:1px solid var(--rule);border-radius:12px;
   padding:14px 18px 12px;box-shadow:0 2px 6px rgba(140,110,70,.10);transition:transform .2s,box-shadow .2s;}
 .tl-body:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(140,110,70,.18);}
 .tl-head{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;}
@@ -328,16 +328,21 @@ body[data-view="AIHOT"][data-aihot-view="feed"] #sec-aihot-pulse,
 body[data-view="AIHOT"][data-aihot-view="feed"] #sec-aihot-daily,
 body[data-view="AIHOT"][data-aihot-view="feed"] #sec-aihot-selected{display:none;}
 body[data-view="AIHOT"][data-aihot-view="selected"] #sec-aihot-pulse,
-body[data-view="AIHOT"][data-aihot-view="selected"] #sec-aihot-daily,
-body[data-view="AIHOT"][data-aihot-view="selected"] #sec-aihot-feed{display:none;}
+[data-aihot-view="selected"] #sec-aihot-daily,
+[data-aihot-view="selected"] #sec-aihot-selected{display:none;}
+/* v1.2.1: selected view reuses #sec-aihot-feed wrap, showing only the timeline sel group */
+[data-aihot-view="selected"] .tl-group-feed{display:none;}
+body[data-aihot-view="selected"] .tl-group-sel{display:block !important;}
 body[data-view="AIHOT"][data-aihot-view="daily"] #sec-aihot-pulse,
 body[data-view="AIHOT"][data-aihot-view="daily"] #sec-aihot-selected,
 body[data-view="AIHOT"][data-aihot-view="daily"] #sec-aihot-feed{display:none;}
 /* timeline group switching inside #ah-feedwrap (also gated to AIHOT filter) */
 body[data-view="AIHOT"][data-aihot-view="feed"] .tl-group-sel{display:none;}
 body[data-view="AIHOT"][data-aihot-view="selected"] .tl-group-feed{display:none;}
-body:not([data-view="AIHOT"]) .tl-group-sel{display:none;}
+body:not([data-view="AIHOT"]):not([data-aihot-view="selected"]) .tl-group-sel{display:none;}
 body[data-view="AIHOT"][data-aihot-view="daily"] .tl-group-sel{display:none;}
+body[data-aihot-view="daily"] .tl-group-feed{display:none !important;}
+body[data-aihot-view="daily"] .tl-group-sel{display:none !important;}
 
 </style>
 </head>
