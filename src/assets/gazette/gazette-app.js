@@ -327,13 +327,17 @@ var main = document.getElementById('main');
       return counts[b]-counts[a] || order.indexOf(a)-order.indexOf(b);
     });
     var zhNames = {'AIHOT':'AIHOT','Hacker News':'Hacker News','The Verge':'The Verge','sspai':'少数派','Pitchfork':'Pitchfork','BBC Football':'BBC Football','Sky Sports':'Sky Sports','Hypebeast':'Hypebeast','Highsnobiety':'Highsnobiety','FT中文网':'FT中文网','The Economist':'The Economist','BBC中文':'BBC中文'};
-    var badges = '<button class="snav-item on" data-filter="ALL" type="button" role="tab" aria-selected="true"><span class="sn-name">📰 全部 <em>整份报纸</em></span><span class="sn-badge">'+items.length+'</span></button>';
+    var feedN0 = (AI.feed && AI.feed.length) ? AI.feed.length : 0;
+    var nonAi = items.filter(function(it){return it.source!=='AIHOT';}).length;
+    var allN = nonAi + feedN0;
+    var badges = '<button class="snav-item on" data-filter="ALL" type="button" role="tab" aria-selected="true"><span class="sn-name">📰 全部 <em>整份报纸</em></span><span class="sn-badge">'+allN+'</span></button>';
     order.forEach(function(src){
       var display = zhNames[src] || src;
-      badges += '<button class="snav-item" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="false"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+counts[src]+'</span></button>';
+      var bN = (src==='AIHOT' && feedN0) ? feedN0 : counts[src];
+      badges += '<button class="snav-item" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="false"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+bN+'</span></button>';
       /* v1.2: AIHOT second-level menu */
       if(src==='AIHOT'){
-        var feedN = (AI.feed && AI.feed.length) ? AI.feed.length : (AI.selected||[]).length;
+        var feedN = feedN0 || (AI.selected||[]).length;
         badges += '<div class="snav-sub">'
           +'<button class="snav-subitem on" data-ahview="feed" type="button"><span class="sb-n">全部动态</span><span class="sb-badge">'+feedN+'</span></button>'
           +'<button class="snav-subitem" data-ahview="selected" type="button"><span class="sb-n">精选</span><span class="sb-badge">'+(AI.selected||[]).length+'</span></button>'
