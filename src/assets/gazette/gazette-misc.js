@@ -1,7 +1,6 @@
-
-/* ================= v0.4 source filter ================= */
+/* ================= v0.4 source filter · v1.3 fix C/B ================= */
 (function(){
-  // empty-state el
+  'use strict';
   var main = document.getElementById('main');
   var empty = document.createElement('div');
   empty.className='src-empty'; empty.textContent='此信源本日暂无更多内容 · NOTHING MORE HERE TODAY';
@@ -19,7 +18,6 @@
       if(show) count++;
     });
     // hide containers whose every item hidden: catcol ol, briefsbox ul, strip, vmore ol, front, sections
-    ['ol','ul'].forEach(function(){});
     document.querySelectorAll('.catcol ol, .briefsbox ul, .vmore ol, .strip').forEach(function(list){
       var vis = list.querySelector('li:not(.dimmed), a.card:not(.dimmed)');
       var host = list.closest('.catcol, .briefsbox, .vmore, .vcol') || list.parentElement;
@@ -48,9 +46,11 @@
       var vis = b.querySelector('li:not(.dimmed)');
       b.classList.toggle('sec-hidden', !vis);
     });
-    // empty state
+    // empty state (bug C: single source of truth, re-runs after every render via
+    // window.__applySourceFilter so the ghost banner never survives real content)
     empty.style.display = count===0 ? 'block' : 'none';
   }
+  window.__applySourceFilter = apply;   /* gazette-app.js render() calls this after each render */
 
   var nav = document.getElementById('snav');
   nav.addEventListener('click', function(e){
@@ -60,6 +60,14 @@
     });
     var f = btn.getAttribute('data-filter');
     document.body.setAttribute('data-view', f==='ALL' ? '' : f);
+    /* bug B: leaving the AIHOT source filter resets the AIHOT sub-view to feed,
+       otherwise stale [data-aihot-view=daily] CSS rules keep hiding the timeline */
+    if(f!=='AIHOT' && document.body.getAttribute('data-aihot-view') && document.body.getAttribute('data-aihot-view')!=='feed'){
+      document.body.setAttribute('data-aihot-view','feed');
+      document.querySelectorAll('.ah-tab, .snav-subitem').forEach(function(t){
+        t.classList.toggle('on', t.getAttribute('data-ahview')==='feed');
+      });
+    }
     apply(f);
     window.scrollTo({top:0,behavior:'smooth'});
   });

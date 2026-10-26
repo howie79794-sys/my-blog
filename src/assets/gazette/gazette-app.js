@@ -30,6 +30,49 @@
     if(it.links){ if(it.links.original) return it.links.original; if(it.links.aihot) return it.links.aihot; }
     return it.url || (it.attribution && it.attribution.url) || '#'; }
 
+  /* ============ P1-1: unified source metadata ============
+     AIHOT source names arrive in several shapes.  Parse them into
+     structured fields so every module prints the same three languages:
+       "X：番茄 (@shao_meng)"   → 平台：X · 作者：番茄 (@shao_meng)
+       "公众号：火山引擎"        → 公众号：火山引擎
+       "IT之家·人工智能"        → 来源：IT之家
+       "Hacker News：AI 热帖"   → 来源：Hacker News
+     Returns {kind:'platform'|'wechat'|'source', platform, name, handle}. */
+  function parseSource(raw){
+    var s = srcName(raw);
+    var out = {kind:'source', platform:'', name:'', handle:''};
+    if(!s) return out;
+    var m = s.match(/^公众号[：:]\s*(.+)$/);
+    if(m){ out.kind='wechat'; out.platform='公众号'; out.name = m[1].trim(); return out; }
+    m = s.match(/^[Xx][：:]\s*(.+)$/);
+    if(m){
+      out.kind='platform'; out.platform='X';
+      var rest = m[1].trim();
+      var h = rest.match(/[（(]\s*(@[^）)]+?)[）)]\s*$/);
+      if(h){ out.name = rest.slice(0,h.index).trim(); out.handle = h[1]; }
+      else out.name = rest;
+      return out;
+    }
+    /* official media / blog / RSS — strip the trailing note and the
+       section suffix, keep the outlet name */
+    var name = s.replace(/[（(][^）)]*[）)]\s*$/,'').trim();
+    var dot = name.split('·')[0].trim();  if(dot) name = dot;
+    var col = name.split(/[：:]/)[0].trim(); if(col) name = col;
+    var blog = name.replace(/博客$/,'').trim(); if(blog) name = blog;
+    out.kind='source'; out.name = name;
+    return out;
+  }
+  /* one meta line for every module — pure text, fields joined by · */
+  function metaInner(raw){
+    var p = parseSource(raw);
+    if(p.kind === 'platform'){
+      var who = p.name + (p.handle ? ' ('+p.handle+')' : '');
+      return '<b>平台：</b>'+esc(p.platform)+'<span class="sep"> · </span><b>作者：</b>'+esc(who);
+    }
+    if(p.kind === 'wechat') return '<b>公众号：</b>'+esc(p.name);
+    return '<b>来源：</b>'+esc(p.name);
+  }
+
   /* ============ data cache (localStorage primary, IndexedDB mirror) ============ */
   function lsGet(){ try{ var s=localStorage.getItem(CACHE_KEY); return s?JSON.parse(s):null; }catch(e){ return null; } }
   function lsSet(d){ try{ var s=JSON.stringify(d); if(s.length<=LS_MAX) localStorage.setItem(CACHE_KEY,s); }catch(e){} }
@@ -53,7 +96,11 @@
   function render(DATA){
     if(!DATA || !DATA.items || !DATA.items.length) return;
     var items = DATA.items, AI = DATA.aihot || {};
-    /* v1.1 dateblock fill */
+    /* v1.1 dateblock fill
+       P0-4: the date block is exactly three designed lines —
+         ① 公历 + 星期（黑，600） ② 农历（砖红） ③ 中文大写（浅灰）
+       The old version mixed 公历+星期 / 农历 / 中文大写 with near-identical
+       font sizes, so it read as debug output. */
   try {
     var db = DATA.dateblock;
     if (db) {
@@ -61,37 +108,34 @@
       var l = document.querySelector('.m-dateblock .db-l');
       var c = document.querySelector('.m-dateblock .db-c');
       if (g) g.textContent = db.gregorian + ' · ' + db.weekday;
-      if (l) l.textContent = db.lunar.replace(' (马年)', ' · ') + '年';
+      if (l) {
+        var rawL = db.lunar || '';
+        var zod = /(鼠|牛|虎|兔|龙|蛇|马|羊|猴|鸡|狗|猪)年/.exec(rawL);
+        var core = rawL.replace(/\s*\([^)]*\)/, '').replace(/^[二〇零一二三四五六七八九]+年\s*/, '');
+        l.textContent = '农历' + core.replace(/\s+/, ' · ') + (zod ? ' · ' + zod[1] + '年' : '');
+      }
       if (c) c.textContent = db.chinese;
       var mdate = document.querySelector('.m-date span');
-      if (mdate && db.gregorian) mdate.textContent = db.gregorian.replace(/ /g, '') + ' · ' + db.weekday;
+      /* P0-4: the issue bar carries a natural-date issue number only.
+         The weekday / lunar date already live in the top-left date block —
+         printing them in both places made the corner read like debug output. */
+      if (mdate && db.gregorian){
+        var digits = String(db.gregorian).replace(/\D/g,'');
+        mdate.textContent = db.gregorian.replace(/ /g,'') + ' · NO.' + digits;
+      }
     }
   } catch (e) {}
 
 var main = document.getElementById('main');
-    /* idempotent: remove previous dynamic sections + ai-extra + src-empty before re-render */
-    if(__rendered){
-      main.querySelectorAll('.ai-extra, section.vcol:not([id^="sec-aihot"]), .texgrid').forEach(function(el){ el.remove(); });
-      var em = main.querySelector('.src-empty'); if(em) em.remove();
-    }
-    __rendered = true;
+/* idempotent: remove previous dynamic sections before re-render.
+   NOTE: .src-empty is owned by gazette-misc.js — never remove it here;
+   just make sure it is hidden while real content exists (bug C ghost empty-state). */
+main.querySelectorAll('.ai-extra, section.vcol:not([id^="sec-aihot"]), .texgrid').forEach(function(el){ el.remove(); });
+__rendered = true;
 
     /* group items by section */
     var groups = {};
     items.forEach(function(it){ (groups[it.section] = groups[it.section] || []).push(it); });
-
-    /* ---- AI front: lead + briefsbox + ai-extra ---- */
-    var aiItems = (groups.ai || []).slice().sort(function(a,b){ return (b.score||0)-(a.score||0); });
-    var frontHtml = '', aiExtraHtml = '';
-    if(aiItems.length){
-      var lead = aiItems[0];
-      var zhTitle = lead.title_zh || lead.title;
-      var enLine = (lead.lang === 'en' && lead.title_zh) ? '<div class="lead-en">'+esc(lead.title)+'</div>' : '';
-      var frontHtml = '';
-      var more = [];
-    }
-    var front = document.getElementById('sec-ai');
-    front.innerHTML = frontHtml;
 
     /* ---- sections after the AIHOT modules: rail sections (with images) + texgrids ---- */
     var html = '';
@@ -110,7 +154,7 @@ var main = document.getElementById('main');
               return '<a class="card" data-src-extra="'+esc(it.source)+'" href="'+esc(it.url)+'" target="_blank" rel="noopener" draggable="false">'
                 +'<div class="cimg"><img src="'+it.image_data+'" alt="'+esc(zh)+'" loading="lazy"></div>'
                 +'<div class="cbody"><div class="ct-zh">'+esc(zh)+'</div>'+en
-                +'<div class="ct-src">'+esc(it.source)+'</div></div></a>';
+                +'<div class="ct-src">'+metaInner(it.source)+'</div></div></a>';
             }).join('') + '</div></div></div>';
         var moreHtml = '';
         if(rest.length){
@@ -119,7 +163,7 @@ var main = document.getElementById('main');
                 var zh = it.title_zh || it.title;
                 var tz = (it.lang === 'en' && it.title_zh) ? '<div class="tz-line">'+esc(it.title)+'</div>' : '';
                 return '<li data-src="'+esc(it.source)+'"><a href="'+esc(it.url)+'" target="_blank" rel="noopener"><div class="t">'+esc(zh)+'</div>'+tz
-                  +'<div class="m"><span class="src">'+esc(it.source)+'</span><span class="dt">'+esc(fmtDT(it.published))+'</span></div></a></li>';
+                  +'<div class="m"><span class="src">'+metaInner(it.source)+'</span><span class="sep"> · </span><span class="dt">'+esc(fmtDT(it.published))+'</span></div></a></li>';
               }).join('') + '</ol></div>';
         }
         html += '<section class="vcol" id="sec-'+sec+'">'+head+rail+moreHtml+'</section>';
@@ -134,13 +178,13 @@ var main = document.getElementById('main');
                   var zh = it.title_zh || it.title;
                   var tz = (it.lang === 'en' && it.title_zh) ? '<div class="tz-line">'+esc(it.title)+'</div>' : '';
                   return '<li data-src="'+esc(it.source)+'"><a href="'+esc(it.url)+'" target="_blank" rel="noopener"><div class="t">'+esc(zh)+'</div>'+tz
-                    +'<div class="li-m"><span>'+esc(it.source)+'</span>'+(it.published?' · <span>'+esc(fmtD(it.published))+'</span>':'')+'</div></a></li>';
+                    +'<div class="li-m"><span>'+metaInner(it.source)+'</span>'+(it.published?'<span class="sep"> · </span><span>'+esc(fmtD(it.published))+'</span>':'')+'</div></a></li>';
                 }).join('') + '</ol></div>';
           }).join('') + '</div>';
       }
     });
-    /* insert: rail/texgrid sections after AIHOT modules (before </main>), ai-extra right after front */
-    main.insertAdjacentHTML('beforeend', aiExtraHtml + html);
+    /* insert: rail/texgrid sections after AIHOT modules (before </main>) */
+    main.insertAdjacentHTML('beforeend', html);
 
     /* ---- AIHOT modules ---- */
     renderFeed(AI); renderHot(AI); renderSelected(AI); renderDaily(AI);
@@ -157,6 +201,9 @@ var main = document.getElementById('main');
     document.querySelectorAll('.rail').forEach(initRail);
     window.__rails = Array.from(document.querySelectorAll('.rail'));
     initScrollSpy();
+
+    /* ---- re-run source filter so .src-empty visibility matches real count (bug C) ---- */
+    if(typeof window.__applySourceFilter === 'function') window.__applySourceFilter(document.body.getAttribute('data-view') || 'ALL');
   }
 
   /* ---- AIHOT hot list ---- */
@@ -169,7 +216,7 @@ var main = document.getElementById('main');
       return '<li><a class="hot-row'+t3+'" data-src="AIHOT" href="'+esc(itemUrl(h))+'" target="_blank" rel="noopener" title="'+esc(names)+'">'
         +'<span class="hr-rank">'+(h.rank<10?'0':'')+h.rank+'</span>'
         +'<span class="hr-main"><span class="hr-title">'+esc(h.title)+'</span>'
-        +'<span class="hr-sub">'+esc(src)+' · '+(h.signalCount||0)+' 信号 · '+(h.participantCount||0)+' 参与 · 最新 '+fmtDT(h.latestAt)+'</span></span>'
+        +'<span class="hr-sub">'+metaInner(h.source)+'<span class="sep"> · </span>'+(h.signalCount||0)+' 信号<span class="sep"> · </span>'+(h.participantCount||0)+' 参与<span class="sep"> · </span>最新 '+fmtDT(h.latestAt)+'</span></span>'
         +'<span class="hr-badge">'+(h.sourceCount||1)+' 家源</span></a></li>';
     }).join('');
     var n=document.getElementById('ah-hot-n'); if(n) n.textContent = AI.hot.length+' 条 · 前三加重';
@@ -181,15 +228,20 @@ var main = document.getElementById('main');
     var sel = AI.selected;
     var max = sel.reduce(function(m,x){return Math.max(m,x.score||0);},0);
     ol.innerHTML = sel.map(function(s){
+      /* P1-4: only the top scores keep the solid brick chip */
       var hi = (s.score||0)>=max-2 ? ' hi':'';
       var cat = s.category ? '<span class="cat">'+esc(s.category)+'</span>' : '';
       var reason = s.reason
         ? '<button type="button" class="sr-flag" aria-expanded="false">理由 ▾</button>'
           +'<div class="sr-reason">'+esc(s.reason)+'</div>' : '';
+      /* P1-1: same structured meta language as the timeline cards */
+      var meta = '<span>'+metaInner(s.source)+'</span>'
+        + (cat ? '<span class="sep">·</span>'+cat : '')
+        + '<span class="sep">·</span><span>'+fmtD(s.publishedAt)+'</span>';
       return '<li><div class="sel-row" data-src="AIHOT">'
         +'<span class="sr-score'+hi+'">'+esc(s.score)+'</span>'
         +'<div class="sr-main"><a class="sr-title" href="'+esc(itemUrl(s))+'" target="_blank" rel="noopener">'+esc(s.title)+'</a>'
-        +'<div class="sr-meta"><span>'+esc(srcName(s.source))+'</span>'+cat+'<span>'+fmtD(s.publishedAt)+'</span></div>'
+        +'<div class="sr-meta">'+meta+'</div>'
         +reason+'</div></div></li>';
     }).join('');
     if(!ol.__flagBound){
@@ -223,17 +275,23 @@ var main = document.getElementById('main');
       if(dayKey) lastDay = dayKey;
       var selCls = f.selected ? '' : ' tl-plain';
       var score = (f.score!=null) ? f.score : '';
-      var scoreCls = (f.score||0) >= Math.max(maxScore-8, (maxScore||0)*0.85) ? '' : ' lo';
+      /* P1-4: only the top band keeps the solid brick fill; the rest is a
+         quiet tint chip so the badge never outshouts the headline. */
+      var scoreCls = (f.score||0) >= Math.max(maxScore-8, (maxScore||0)*0.85) ? ' hi' : '';
       var selTag = f.selected ? '<span class="tl-sel">精选</span>' : '';
       var cat = f.category ? '<span class="tl-cat">'+esc(f.category)+'</span>' : '';
       var flag = f.reason ? '<button type="button" class="tl-flag" aria-expanded="false">理由 ▾</button>' : '';
+      /* P1-1 + P1-2 ③: source / platform / author are PLAIN TEXT (no second
+         link — the headline already links out; a duplicate tab stop per card
+         would triple the keyboard path through 112 cards). */
+      var srcText = metaInner(f.source);
       return '<li class="tl-card'+selCls+dayBreak+'" data-src="AIHOT">'
         +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
         +'<div class="tl-dot" aria-hidden="true"></div>'
         +'<div class="tl-body">'
           +'<div class="tl-head"><a class="tl-title" href="'+esc(itemUrl(f))+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
           +(score!==''?'<span class="tl-score'+scoreCls+'">SCORE '+esc(score)+'</span>':'')+'</div>'
-          +'<div class="tl-tags">'+selTag+cat+'<span class="tl-src">'+esc(srcName(f.source))+'</span>'+flag+'</div>'
+          +'<div class="tl-tags">'+selTag+cat+'<span class="tl-src">'+srcText+'</span>'+flag+'</div>'
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
           +(f.reason?'<div class="tl-reason">'+esc(f.reason)+'</div>':'')
         +'</div></li>';
@@ -260,6 +318,22 @@ var main = document.getElementById('main');
         b.textContent = open ? '理由 ▴' : '理由 ▾';
       });
       wrap.__flagBound = true;
+    }
+    /* P2-2: hovering a card lights up its timeline node + date/time.
+       The CSS :hover rule covers the common case; this JS class makes the
+       linkage explicit and survives engines that drop :hover on non-links. */
+    if(!wrap.__linkBound){
+      wrap.addEventListener('mouseover', function(e){
+        var card = e.target.closest('.tl-card'); if(!card) return;
+        if(card.__linked) return;
+        card.__linked = true; card.classList.add('tl-linked');
+      });
+      wrap.addEventListener('mouseout', function(e){
+        var card = e.target.closest('.tl-card'); if(!card) return;
+        if(e.relatedTarget && card.contains(e.relatedTarget)) return;
+        card.__linked = false; card.classList.remove('tl-linked');
+      });
+      wrap.__linkBound = true;
     }
   }
 
@@ -298,14 +372,14 @@ var main = document.getElementById('main');
         + sec.items.map(function(it){
           return '<li data-src="AIHOT"><a class="t" href="'+esc(itemUrl(it))+'" target="_blank" rel="noopener">'+esc(it.title)+'</a>'
             +(it.summary?'<span class="s">'+esc(it.summary)+'</span>':'')
-            +'<span class="m">'+esc(srcName(it.source))+'</span></li>';
-        }).join('') + '</ul></div>';
+            +'<span class="m">'+metaInner(it.source)+'</span></li>';
+        }).join('')+'</ul></div>';
     }).join('') + '</div>';
     html += '<div class="yd-flashes"><span class="vm-h">快讯 · FLASHES</span><ol>'
       + D.flashes.map(function(f){
         return '<li data-src="AIHOT"><span class="f-d">'+fmtD(f.publishedAt)+'</span>'
           +'<a class="f-t" href="'+esc(itemUrl(f))+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
-          +'<span class="f-s">'+esc(srcName(f.source))+'</span></li>';
+          +'<span class="f-s">'+metaInner(f.source)+'</span></li>';
       }).join('') + '</ol></div>';
     box.innerHTML = html;
     var cnt = D.sections.reduce(function(a,s){return a+s.items.length;},0);
@@ -330,18 +404,24 @@ var main = document.getElementById('main');
     var feedN0 = (AI.feed && AI.feed.length) ? AI.feed.length : 0;
     var nonAi = items.filter(function(it){return it.source!=='AIHOT';}).length;
     var allN = nonAi + feedN0;
-    var badges = '<button class="snav-item on" data-filter="ALL" type="button" role="tab" aria-selected="true"><span class="sn-name">📰 全部 <em>整份报纸</em></span><span class="sn-badge">'+allN+'</span></button>';
+    /* preserve the currently selected source filter + AIHOT sub-view across re-renders */
+    var curView = document.body.getAttribute('data-view') || 'ALL';
+    var curAihot = document.body.getAttribute('data-aihot-view') || 'feed';
+    /* P2-4: the left rail's first row filters by *source* — it must not be
+       called 全部动态, which is the AIHOT timeline tab.  全部信源 = "all
+       outlets"; the AIHOT tab keeps 全部动态 untouched. */
+    var badges = '<button class="snav-item'+(curView==='ALL'?' on':'')+'" data-filter="ALL" type="button" role="tab" aria-selected="'+(curView==='ALL')+'"><span class="sn-name">📰 全部信源 <em>整份报纸</em></span><span class="sn-badge">'+allN+'</span></button>';
     order.forEach(function(src){
       var display = zhNames[src] || src;
       var bN = (src==='AIHOT' && feedN0) ? feedN0 : counts[src];
-      badges += '<button class="snav-item" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="false"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+bN+'</span></button>';
+      badges += '<button class="snav-item'+(src===curView?' on':'')+'" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="'+(src===curView)+'"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+bN+'</span></button>';
       /* v1.2: AIHOT second-level menu */
       if(src==='AIHOT'){
         var feedN = feedN0 || (AI.selected||[]).length;
         badges += '<div class="snav-sub">'
-          +'<button class="snav-subitem on" data-ahview="feed" type="button"><span class="sb-n">全部动态</span><span class="sb-badge">'+feedN+'</span></button>'
-          +'<button class="snav-subitem" data-ahview="selected" type="button"><span class="sb-n">精选</span><span class="sb-badge">'+(AI.selected||[]).length+'</span></button>'
-          +'<button class="snav-subitem" data-ahview="daily" type="button"><span class="sb-n">日报</span><span class="sb-badge">'+(AI.daily?'1':'0')+'</span></button>'
+          +'<button class="snav-subitem'+(curAihot==='feed'?' on':'')+'" data-ahview="feed" type="button"><span class="sb-n">全部动态</span><span class="sb-badge">'+feedN+'</span></button>'
+          +'<button class="snav-subitem'+(curAihot==='selected'?' on':'')+'" data-ahview="selected" type="button"><span class="sb-n">精选</span><span class="sb-badge">'+(AI.selected||[]).length+'</span></button>'
+          +'<button class="snav-subitem'+(curAihot==='daily'?' on':'')+'" data-ahview="daily" type="button"><span class="sb-n">日报</span><span class="sb-badge">'+(AI.daily?'1':'0')+'</span></button>'
           +'</div>';
       }
     });
@@ -369,7 +449,7 @@ var main = document.getElementById('main');
       var t = DATA.generated_at ? new Date(DATA.generated_at) : null;
       function p(x){return (x<10?'0':'')+x;}
       var ts = (t && !isNaN(t)) ? t.getFullYear()+'-'+p(t.getMonth()+1)+'-'+p(t.getDate())+' '+p(t.getHours())+':'+p(t.getMinutes()) : '—';
-      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v0.6 壳版 · 远程 JSON + 缓存 + seed 降级';
+      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.3 · 远程 JSON + 缓存 + seed 降级';
     }
     var el = document.getElementById('aihot-ftime');
     if(el && AI.fetchedAt){ var d=new Date(AI.fetchedAt);
@@ -428,12 +508,10 @@ var main = document.getElementById('main');
 
   /* ============ loader ============ */
   function boot(){
-    /* 0. embedded seed snapshot (first-open offline content) */
-    if(!window.DATA){
-      var seedEl = document.getElementById('gazette-seed');
-      if(seedEl){ try{ window.DATA = JSON.parse(seedEl.textContent); }catch(e){} }
-    }
-    /* 1. window.DATA (debug or seed) */
+    /* 0. seed snapshot: gazette-seed.js is an external file that assigns
+       window.DATA directly (MV3 CSP forbids inline <script> JSON blocks),
+       so nothing to parse here — window.DATA is either set or undefined. */
+    /* 1. window.DATA (seed assignment or debug override) */
     if(window.DATA){ render(window.DATA); lsSet(window.DATA); idbSet(window.DATA); }
     /* 2. cache first-paint */
     var cached = lsGet();
