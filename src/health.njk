@@ -95,7 +95,12 @@ pwa_meta: >-
 .rc .v{font-size:20px;font-weight:800;color:#1D3D5B;margin-top:3px}
 .rc .d{font-size:9px;color:#A6B6C4;margin-top:2px}
 .wklist{display:flex;flex-direction:column;gap:7px;margin-top:6px}
-.wkrow{display:grid;grid-template-columns:34px 1fr 62px 88px 44px 74px;align-items:center;gap:6px;border:1px solid #DEE5EB;border-radius:9px;padding:7px 10px;font-size:11px}
+.wkrow{display:grid;grid-template-columns:34px minmax(0,1fr) 62px 88px 44px 74px;align-items:center;gap:6px;border:1px solid #DEE5EB;border-radius:9px;padding:7px 10px;font-size:11px}
+@media (max-width:640px){
+  .wkrow{grid-template-columns:34px minmax(0,1fr) 44px 74px;row-gap:4px}
+  .wkrow .zm{grid-column:2 / -1;font-size:10px;flex-wrap:wrap}
+  .wkrow .hr{grid-column:1 / -1}
+}
 .wkrow .d{font-weight:700;color:#5E7F9B}
 .wkrow .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wkrow .zm{display:flex;align-items:center;gap:5px;font-size:10px;color:#6E6D66}
@@ -339,10 +344,19 @@ function setCardTitle(id,text,glossKey){
   const h=document.getElementById(id);
   h.textContent=text;
   h.className='tip';
+  h.setAttribute('tabindex','0');
+  h.setAttribute('role','button');
+  h.setAttribute('aria-expanded','false');
   const mk=document.createElement('i');mk.className='mk';mk.textContent='ⓘ';
   const g=document.createElement('span');g.className='gloss';g.innerHTML=GLOSS[glossKey]||'';
   h.appendChild(mk);h.appendChild(g);
-  h.addEventListener('click',e=>{e.stopPropagation();h.classList.toggle('open')});
+  const toggle=()=>{const on=h.classList.toggle('open');h.setAttribute('aria-expanded',on?'true':'false');};
+  h.addEventListener('click',e=>{e.stopPropagation();toggle();});
+  h.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();toggle();}
+    else if(e.key==='Escape'){h.classList.remove('open');h.setAttribute('aria-expanded','false');}
+  });
+  h.addEventListener('blur',()=>{h.classList.remove('open');h.setAttribute('aria-expanded','false');});
 }
 
 // ── 00 近三天（昨天/前天/大前天切换）──
