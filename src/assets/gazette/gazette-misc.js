@@ -37,7 +37,11 @@
       if(!vis) v.style.borderTop='none'; else v.style.borderTop='';
     });
     // section-level: front / ai-extra / vcol / texgrid — hide if no visible item AND no visible lead
+    // v1.3.1 fix: #sec-aihot-daily 的 lead/日期条不带 data-src，在 daily 视图被误判为空 → 整块消失。
+    // AIHOT 三个子视图的正确显隐由 newtab.html 的 [data-view][data-aihot-view] CSS 管，
+    // 这里的 sec-hidden 只处理「按信源过滤后确实没内容」的其他区块。
     document.querySelectorAll('.front,.ai-extra,.vcol,.texgrid').forEach(function(sec){
+      if (sec.id === 'sec-aihot-daily') return;   /* daily 视图永远由 CSS 控制 */
       var vis = sec.querySelector('[data-src]:not(.dimmed),[data-src-extra]:not(.dimmed)');
       sec.classList.toggle('sec-hidden', !vis);
     });
