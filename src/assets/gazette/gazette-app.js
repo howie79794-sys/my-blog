@@ -406,6 +406,9 @@ __rendered = true;
       var kindTag = f.kind==='flash'
         ? '<span class="tl-cat">快讯</span>'
         : '<span class="tl-cat">深度</span>';
+      var echoTag = f.echo >= 2
+        ? '<span class="tl-cat tl-echo">' + (f.echo>=3?'三源共振':'多源共振') + '</span>'
+        : '';
       var href = f.url || '';
       var titleHtml = href
         ? '<a class="tl-title" href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
@@ -415,7 +418,8 @@ __rendered = true;
         +'<div class="tl-dot" aria-hidden="true"></div>'
         +'<div class="tl-body">'
           +'<div class="tl-head">'+titleHtml+'</div>'
-          +'<div class="tl-tags">'+kindTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
+          +'<div class="tl-tags">'+kindTag+echoTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
+          +(f.reason?'<div class="tl-reason">◈ '+esc(f.reason)+'</div>':'')
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
         +'</div></li>';
     }).join('') + '</ol>';
