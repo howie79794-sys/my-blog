@@ -194,16 +194,6 @@ __rendered = true;
     /* ---- snav (dynamic) ---- */
     renderSnav(items, AI);
 
-    /* data version badge: 右下角显示数据快照时间（诊断缓存用） */
-    (function(){
-      var old2 = document.getElementById('gz-data-badge'); if(old2) old2.remove();
-      var b = document.createElement('div');
-      b.id = 'gz-data-badge';
-      b.style.cssText = 'position:fixed;right:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font:10px monospace;padding:3px 7px;border-radius:4px;z-index:9999;pointer-events:none;';
-      var fn = DATA.finnews||{}; var fi = fn.items||[];
-      b.textContent = 'data:' + (DATA.generated_at||'?').slice(5,16) + ' fin:' + (fn.fetchedAt||'?').slice(5,16) + ' reason:' + fi.filter(function(x){return x.reason}).length;
-      document.body.appendChild(b);
-    })();
 
     /* ---- footer ---- */
     stampFooter(DATA, AI, items);
@@ -400,6 +390,16 @@ __rendered = true;
   /* ---- FIN NEWS: 金融快讯时间瀑布（同花顺 flash + Wind 深度/公告）---- */
   function renderFinnews(DATA){
     var wrap = document.getElementById('fn-feedwrap'); if(!wrap) return;
+    if(!wrap.__flagBound){
+      wrap.addEventListener('click', function(e){
+        var b = e.target.closest('.tl-flag'); if(!b) return;
+        var card = b.closest('.tl-card');
+        var open = card.classList.toggle('open');
+        b.setAttribute('aria-expanded', open);
+        b.textContent = open ? '理由 ▴' : '理由 ▾';
+      });
+      wrap.__flagBound = true;
+    }
     var FN = (DATA && DATA.finnews) || {};
     var list = FN.items || [];
     var nEl = document.getElementById('fn-n');
@@ -421,16 +421,17 @@ __rendered = true;
         ? '<span class="tl-cat tl-echo">' + (f.echo>=3?'三源共振':'多源共振') + '</span>'
         : '';
       var href = f.url || '';
-      var titleHtml = href
+      var titleHtml = (href
         ? '<a class="tl-title" href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
-        : '<span class="tl-title" style="cursor:default">'+esc(f.title)+'</span>';
+        : '<span class="tl-title" style="cursor:default">'+esc(f.title)+'</span>')
+        + (f.reason ? '<button type="button" class="tl-flag" aria-expanded="false">理由 ▾</button>' : '');
       return '<li class="tl-card tl-plain'+dayBreak+'" data-src="FIN NEWS">'
         +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
         +'<div class="tl-dot" aria-hidden="true"></div>'
         +'<div class="tl-body">'
           +'<div class="tl-head">'+titleHtml+'</div>'
           +'<div class="tl-tags">'+kindTag+echoTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
-          +(f.reason?'<div class="tl-freason">◈ '+esc(f.reason)+'</div>':'')
+          +(f.reason?'<div class="tl-reason">'+esc(f.reason)+'</div>':'')
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
         +'</div></li>';
     }).join('') + '</ol>';
