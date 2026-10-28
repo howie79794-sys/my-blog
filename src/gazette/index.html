@@ -384,6 +384,13 @@ body[data-view="AIHOT"][data-aihot-view="daily"] .tl-group-feed,
 body[data-view="AIHOT"][data-aihot-view="daily"] .tl-group-sel{display:none !important;}
 /* non-AIHOT source views: timeline "selected" mirror group never shows */
 body:not([data-view="AIHOT"]) .tl-group-sel{display:none;}
+/* v1.4.1 fix: single-source views other than AIHOT show ONLY their own
+   sections — hide the whole AIHOT skeleton (tabs, empty feed frame, daily)
+   so FIN NEWS starts directly at its own board (user rule 2026-10-28) */
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-feed,
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-pulse,
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-selected,
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-daily{display:none;}
 
 /* ================= filter mechanics + view transitions ================= */
 .src-empty{display:none;padding:48px 8px;text-align:center;font-family:var(--display);font-style:italic;

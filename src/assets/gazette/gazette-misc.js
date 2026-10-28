@@ -66,10 +66,21 @@
     document.body.setAttribute('data-view', f==='ALL' ? '' : f);
     /* bug B: leaving the AIHOT source filter resets the AIHOT sub-view to feed,
        otherwise stale [data-aihot-view=daily] CSS rules keep hiding the timeline */
-    if(f!=='AIHOT' && document.body.getAttribute('data-aihot-view') && document.body.getAttribute('data-aihot-view')!=='feed'){
-      document.body.setAttribute('data-aihot-view','feed');
-      document.querySelectorAll('.ah-tab, .snav-subitem').forEach(function(t){
-        t.classList.toggle('on', t.getAttribute('data-ahview')==='feed');
+    if(f!=='AIHOT'){
+      if(document.body.getAttribute('data-aihot-view') && document.body.getAttribute('data-aihot-view')!=='feed'){
+        document.body.setAttribute('data-aihot-view','feed');
+        document.querySelectorAll('.ah-tab').forEach(function(t){
+          t.classList.toggle('on', t.getAttribute('data-ahview')==='feed');
+        });
+      }
+      /* v1.4.1 fix: leaving AIHOT always de-highlights the whole sub-menu —
+         only one rail selection may be lit at a time (user rule 2026-10-28) */
+      document.querySelectorAll('.snav-subitem').forEach(function(t){ t.classList.remove('on'); });
+    } else {
+      /* returning to AIHOT: re-light the sub-item matching the live sub-view */
+      var av = document.body.getAttribute('data-aihot-view') || 'feed';
+      document.querySelectorAll('.snav-subitem').forEach(function(t){
+        t.classList.toggle('on', t.getAttribute('data-ahview')===av);
       });
     }
     apply(f);
