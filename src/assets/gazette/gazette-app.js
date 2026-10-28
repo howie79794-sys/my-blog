@@ -562,8 +562,10 @@ __rendered = true;
     if(!cached && !window.DATA){
       idbGet().then(function(d){ if(d && !document.querySelector('.strip')){ render(d); } });
     }
-    /* 3. fetch remote */
-    fetch(REMOTE_URL, {cache:'no-cache'})
+    /* 3. fetch remote — cache-bust with seed's generated_at so a new deploy
+       (new seed => new query param) always bypasses the browser disk cache */
+    var bust = (window.DATA && window.DATA.generated_at) ? encodeURIComponent(window.DATA.generated_at) : '0';
+    fetch(REMOTE_URL + '?t=' + bust, {cache:'no-cache'})
       .then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
       .then(function(d){
         if(!d || !d.items || !d.items.length) throw new Error('bad payload');
