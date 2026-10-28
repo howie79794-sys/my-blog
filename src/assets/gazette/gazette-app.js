@@ -455,10 +455,6 @@ __rendered = true;
       var bN = (src==='AIHOT' && feedN0) ? feedN0 : counts[src];
       badges += '<button class="snav-item'+(src===curView?' on':'')+'" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="'+(src===curView)+'"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+bN+'</span></button>';
       /* v1.2: AIHOT second-level menu */
-      /* v1.3.2: FIN NEWS rail item right after the AIHOT group (no sub-menu) */
-      if(src==='AIHOT'){
-        badges += '<button class="snav-item'+(curView==='FIN NEWS'?' on':'')+'" data-filter="FIN NEWS" type="button" role="tab" aria-selected="'+(curView==='FIN NEWS')+'"><span class="sn-name">💰 FIN NEWS<i>同花顺 + Wind</i></span><span class="sn-badge">'+fnN+'</span></button>';
-      }
       if(src==='AIHOT'){
         var feedN = feedN0 || (AI.selected||[]).length;
         badges += '<div class="snav-sub">'
@@ -466,6 +462,9 @@ __rendered = true;
           +'<button class="snav-subitem'+(curAihot==='selected'?' on':'')+'" data-ahview="selected" type="button"><span class="sb-n">精选</span><span class="sb-badge">'+(AI.selected||[]).length+'</span></button>'
           +'<button class="snav-subitem'+(curAihot==='daily'?' on':'')+'" data-ahview="daily" type="button"><span class="sb-n">日报</span><span class="sb-badge">'+(AI.daily?'1':'0')+'</span></button>'
           +'</div>';
+        /* v1.4.1: FIN NEWS as a top-level rail item AFTER the AIHOT sub-menu
+           (sibling of AIHOT, below 日报) — user-approved placement */
+        badges += '<button class="snav-item'+(curView==='FIN NEWS'?' on':'')+'" data-filter="FIN NEWS" type="button" role="tab" aria-selected="'+(curView==='FIN NEWS')+'"><span class="sn-name">💰 FIN NEWS<i>同花顺 + Wind</i></span><span class="sn-badge">'+fnN+'</span></button>';
       }
     });
     nav.innerHTML = '<div class="snav-h">SOURCES · 信源</div>' + badges;
