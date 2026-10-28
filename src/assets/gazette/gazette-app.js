@@ -187,7 +187,7 @@ __rendered = true;
     main.insertAdjacentHTML('beforeend', html);
 
     /* ---- AIHOT modules ---- */
-    renderFeed(AI); renderHot(AI); renderSelected(AI); renderDaily(AI);
+    renderFeed(AI); renderHot(AI); renderSelected(AI); renderDaily(AI); renderFinnews(DATA);
     initAihotTabs();
     if(!document.body.getAttribute('data-aihot-view')) setAihotView('feed');
 
@@ -386,7 +386,44 @@ __rendered = true;
     var n=document.getElementById('ah-daily-n'); if(n) n.textContent = D.date+' · '+D.sections.length+' 栏 '+cnt+' 条 · 快讯 '+D.flashes.length+' 条';
   }
 
-  /* ---- sidebar source nav ---- */
+  /* ---- FIN NEWS: 金融快讯时间瀑布（同花顺 flash + Wind 深度/公告）---- */
+  function renderFinnews(DATA){
+    var wrap = document.getElementById('fn-feedwrap'); if(!wrap) return;
+    var FN = (DATA && DATA.finnews) || {};
+    var list = FN.items || [];
+    var nEl = document.getElementById('fn-n');
+    if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 同花顺+Wind') : '今日安静，无快讯';
+    if(!list.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">金融快讯暂无数据</div>'; return; }
+    var lastDay = '';
+    var html = '<ol class="tl-list">' + list.map(function(f){
+      var d = f.published ? new Date(f.published) : null;
+      var ok = !isNaN(d);
+      var d1 = ok ? p2(d.getDate()) : '—';
+      var d2 = ok ? (d.getMonth()+1)+'月 '+p2(d.getHours())+':'+p2(d.getMinutes()) : '';
+      var dayKey = ok ? d.toDateString() : '';
+      var dayBreak = (dayKey && dayKey!==lastDay) ? ' tl-daybreak' : '';
+      if(dayKey) lastDay = dayKey;
+      var kindTag = f.kind==='flash'
+        ? '<span class="tl-cat">快讯</span>'
+        : '<span class="tl-cat">深度</span>';
+      var href = f.url || '';
+      var titleHtml = href
+        ? '<a class="tl-title" href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
+        : '<span class="tl-title" style="cursor:default">'+esc(f.title)+'</span>';
+      return '<li class="tl-card tl-plain'+dayBreak+'" data-src="FIN NEWS">'
+        +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
+        +'<div class="tl-dot" aria-hidden="true"></div>'
+        +'<div class="tl-body">'
+          +'<div class="tl-head">'+titleHtml+'</div>'
+          +'<div class="tl-tags">'+kindTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
+          +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
+        +'</div></li>';
+    }).join('') + '</ol>';
+    html += '<div class="ah-more">— FIN NEWS · 共 '+list.length+' 条 · 同花顺快讯流 + Wind 深度检索 · 按时间倒序 —</div>';
+    wrap.innerHTML = html;
+  }
+
+/* ---- sidebar source nav ---- */
   function renderSnav(items, AI){
     var nav = document.getElementById('snav'); if(!nav) return;
     var counts = {}, order = [];
@@ -404,6 +441,8 @@ __rendered = true;
     var feedN0 = (AI.feed && AI.feed.length) ? AI.feed.length : 0;
     var nonAi = items.filter(function(it){return it.source!=='AIHOT';}).length;
     var allN = nonAi + feedN0;
+    var fnN = ((window.DATA && window.DATA.finnews && window.DATA.finnews.items) || []).length;
+    allN += fnN;
     /* preserve the currently selected source filter + AIHOT sub-view across re-renders */
     var curView = document.body.getAttribute('data-view') || 'ALL';
     var curAihot = document.body.getAttribute('data-aihot-view') || 'feed';
@@ -416,6 +455,10 @@ __rendered = true;
       var bN = (src==='AIHOT' && feedN0) ? feedN0 : counts[src];
       badges += '<button class="snav-item'+(src===curView?' on':'')+'" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="'+(src===curView)+'"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+bN+'</span></button>';
       /* v1.2: AIHOT second-level menu */
+      /* v1.3.2: FIN NEWS rail item right after the AIHOT group (no sub-menu) */
+      if(src==='AIHOT'){
+        badges += '<button class="snav-item'+(curView==='FIN NEWS'?' on':'')+'" data-filter="FIN NEWS" type="button" role="tab" aria-selected="'+(curView==='FIN NEWS')+'"><span class="sn-name">💰 FIN NEWS<i>同花顺 + Wind</i></span><span class="sn-badge">'+fnN+'</span></button>';
+      }
       if(src==='AIHOT'){
         var feedN = feedN0 || (AI.selected||[]).length;
         badges += '<div class="snav-sub">'
