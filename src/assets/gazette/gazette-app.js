@@ -392,7 +392,7 @@ __rendered = true;
     var FN = (DATA && DATA.finnews) || {};
     var list = FN.items || [];
     var nEl = document.getElementById('fn-n');
-    if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 同花顺+Wind') : '今日安静，无快讯';
+    if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 三源聚合') : '今日安静，无快讯';
     if(!list.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">金融快讯暂无数据</div>'; return; }
     var lastDay = '';
     var html = '<ol class="tl-list">' + list.map(function(f){
@@ -464,7 +464,7 @@ __rendered = true;
           +'</div>';
         /* v1.4.1: FIN NEWS as a top-level rail item AFTER the AIHOT sub-menu
            (sibling of AIHOT, below 日报) — user-approved placement */
-        badges += '<button class="snav-item'+(curView==='FIN NEWS'?' on':'')+'" data-filter="FIN NEWS" type="button" role="tab" aria-selected="'+(curView==='FIN NEWS')+'"><span class="sn-name">💰 FIN NEWS<i>同花顺 + Wind</i></span><span class="sn-badge">'+fnN+'</span></button>';
+        badges += '<button class="snav-item'+(curView==='FIN NEWS'?' on':'')+'" data-filter="FIN NEWS" type="button" role="tab" aria-selected="'+(curView==='FIN NEWS')+'"><span class="sn-name">💰 FIN NEWS<i>同花顺 · Wind · 东财</i></span><span class="sn-badge">'+fnN+'</span></button>';
       }
     });
     nav.innerHTML = '<div class="snav-h">SOURCES · 信源</div>' + badges;
