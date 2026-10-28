@@ -194,6 +194,17 @@ __rendered = true;
     /* ---- snav (dynamic) ---- */
     renderSnav(items, AI);
 
+    /* data version badge: 右下角显示数据快照时间（诊断缓存用） */
+    (function(){
+      var old2 = document.getElementById('gz-data-badge'); if(old2) old2.remove();
+      var b = document.createElement('div');
+      b.id = 'gz-data-badge';
+      b.style.cssText = 'position:fixed;right:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font:10px monospace;padding:3px 7px;border-radius:4px;z-index:9999;pointer-events:none;';
+      var fn = DATA.finnews||{}; var fi = fn.items||[];
+      b.textContent = 'data:' + (DATA.generated_at||'?').slice(5,16) + ' fin:' + (fn.fetchedAt||'?').slice(5,16) + ' reason:' + fi.filter(function(x){return x.reason}).length;
+      document.body.appendChild(b);
+    })();
+
     /* ---- footer ---- */
     stampFooter(DATA, AI, items);
 
@@ -419,7 +430,7 @@ __rendered = true;
         +'<div class="tl-body">'
           +'<div class="tl-head">'+titleHtml+'</div>'
           +'<div class="tl-tags">'+kindTag+echoTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
-          +(f.reason?'<div class="tl-reason">◈ '+esc(f.reason)+'</div>':'')
+          +(f.reason?'<div class="tl-freason">◈ '+esc(f.reason)+'</div>':'')
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
         +'</div></li>';
     }).join('') + '</ol>';
@@ -554,6 +565,12 @@ __rendered = true;
 
   /* ============ loader ============ */
   function boot(){
+    window.addEventListener('error', function(e){
+      var d = document.createElement('div');
+      d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#8a1c1c;color:#fff;font:12px monospace;padding:6px 10px;z-index:99999;white-space:pre-wrap;';
+      d.textContent = 'JS ERROR: ' + (e.message||'') + ' @ ' + (e.filename||'').split('/').pop() + ':' + e.lineno;
+      document.body && document.body.appendChild(d);
+    });
     /* 0. seed snapshot: gazette-seed.js is an external file that assigns
        window.DATA directly (MV3 CSP forbids inline <script> JSON blocks),
        so nothing to parse here — window.DATA is either set or undefined. */
