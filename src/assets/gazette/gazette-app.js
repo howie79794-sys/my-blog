@@ -397,7 +397,7 @@ __rendered = true;
     var lastDay = '';
     var html = '<ol class="tl-list">' + list.map(function(f){
       var d = f.published ? new Date(f.published) : null;
-      var ok = !isNaN(d);
+      var ok = !!(d && !isNaN(d.getTime()));
       var d1 = ok ? p2(d.getDate()) : '—';
       var d2 = ok ? (d.getMonth()+1)+'月 '+p2(d.getHours())+':'+p2(d.getMinutes()) : '';
       var dayKey = ok ? d.toDateString() : '';
