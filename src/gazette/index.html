@@ -292,6 +292,10 @@ body[data-aihot-view] .snav-item[data-filter="AIHOT"] .sn-badge{display:none;}
 .tl-flag:hover,.sr-flag:hover{color:var(--accent-dark);background-color:var(--accent-wash);
   box-shadow:inset 0 0 0 1px var(--rule);}
 .tl-flag:focus-visible,.sr-flag:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+/* v1.5.1: FIN NEWS 理由按钮展开态 */
+#sec-finnews .tl-card.open .tl-flag{color:#B14427 !important;background-color:rgba(177,68,39,.07) !important;box-shadow:inset 0 0 0 1px #B14427 !important;}
+#sec-finnews .tl-card .tl-reason{display:none;}
+#sec-finnews .tl-card.open .tl-reason{display:block;}
 .tl-card.open .tl-flag,.sel-row.open .sr-flag{color:var(--accent);background-color:var(--accent-wash);
   box-shadow:inset 0 0 0 1px var(--accent);}
 .ah-more{text-align:center;font-family:var(--display);font-style:italic;font-size:13px;color:var(--faint);
@@ -516,8 +520,8 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261029c"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261029c"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261029c"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261029d"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261029d"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261029d"></script>
 </body>
 </html>

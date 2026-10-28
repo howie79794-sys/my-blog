@@ -421,16 +421,16 @@ __rendered = true;
         ? '<span class="tl-cat tl-echo">' + (f.echo>=3?'三源共振':'多源共振') + '</span>'
         : '';
       var href = f.url || '';
-      var titleHtml = (href
+      var titleHtml = href
         ? '<a class="tl-title" href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
-        : '<span class="tl-title" style="cursor:default">'+esc(f.title)+'</span>')
-        + (f.reason ? '<button type="button" class="tl-flag" aria-expanded="false">理由 ▾</button>' : '');
+        : '<span class="tl-title" style="cursor:default">'+esc(f.title)+'</span>';
+      var flag = f.reason ? '<button type="button" class="tl-flag" aria-expanded="false">理由 ▾</button>' : '';
       return '<li class="tl-card tl-plain'+dayBreak+'" data-src="FIN NEWS">'
         +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
         +'<div class="tl-dot" aria-hidden="true"></div>'
         +'<div class="tl-body">'
           +'<div class="tl-head">'+titleHtml+'</div>'
-          +'<div class="tl-tags">'+kindTag+echoTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
+          +'<div class="tl-tags">'+kindTag+echoTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span>'+flag+'</div>'
           +(f.reason?'<div class="tl-reason">'+esc(f.reason)+'</div>':'')
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
         +'</div></li>';
