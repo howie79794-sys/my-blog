@@ -436,11 +436,8 @@ __rendered = true;
     var catCounts = {};
     list.forEach(function(f){ var c = f.category || 'headline'; catCounts[c] = (catCounts[c]||0)+1; });
     if(!FN_CATS.some(function(c){return c.key===curCat;})) curCat = 'flash';
-    if(!catCounts[curCat]) { /* 当前档空则回落到第一档有数据的 */
-      curCat = (FN_CATS.filter(function(c){return catCounts[c.key];})[0]||FN_CATS[0]).key;
-      document.body.setAttribute('data-fn-cat', curCat);
-      syncFnCatUI(curCat);
-    }
+    /* v1.6.6: 去掉空档自动回落——用户点哪档就显示哪档（含标题），空了显示空态提示 */
+    if(!catCounts[curCat]) { /* 空档保持选择，renderFinnews 下方有空态分支 */ }
     var shown = list.filter(function(f){ return (f.category||'headline')===curCat; });
     var nEl = document.getElementById('fn-n');
     if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 三源聚合') : '今日安静，无快讯';
