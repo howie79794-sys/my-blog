@@ -95,6 +95,8 @@
   var __rendered = false;
   function render(DATA){
     if(!DATA || !DATA.items || !DATA.items.length) return;
+    /* v1.6: fetch 到的新数据同步回 window.DATA，保证子菜单切换等交互读到最新 */
+    window.DATA = DATA;
     var items = DATA.items, AI = DATA.aihot || {};
     /* v1.1 dateblock fill
        P0-4: the date block is exactly three designed lines —
@@ -388,6 +390,17 @@ __rendered = true;
   }
 
   /* ---- FIN NEWS: 金融快讯时间瀑布（同花顺 flash + Wind 深度/公告）---- */
+  /* v1.6: 4 档分类子菜单（快讯/要闻/公告/研究），照 AIHOT snav-sub 同构 */
+  var FN_CATS = [
+    {key:'flash',    zh:'快讯', hint:'同花顺 · 实时电报流'},
+    {key:'headline', zh:'要闻', hint:'编辑精选 · 重大事件'},
+    {key:'filing',   zh:'公告', hint:'披露文件 · 重组/要约'},
+    {key:'research', zh:'研究', hint:'研报 · 深度解读'}
+  ];
+  function setFnCat(cat){
+    document.body.setAttribute('data-fn-cat', cat);
+    renderFinnews(window.DATA);
+  }
   function renderFinnews(DATA){
     var wrap = document.getElementById('fn-feedwrap'); if(!wrap) return;
     if(!wrap.__flagBound){
@@ -402,11 +415,33 @@ __rendered = true;
     }
     var FN = (DATA && DATA.finnews) || {};
     var list = FN.items || [];
+    /* v1.6 分类过滤 + 子菜单条 */
+    var curCat = document.body.getAttribute('data-fn-cat') || 'flash';
+    var catCounts = {};
+    list.forEach(function(f){ var c = f.category || 'headline'; catCounts[c] = (catCounts[c]||0)+1; });
+    if(!FN_CATS.some(function(c){return c.key===curCat;})) curCat = 'flash';
+    if(!catCounts[curCat]) { /* 当前档空则回落到第一档有数据的 */ curCat = (FN_CATS.filter(function(c){return catCounts[c.key];})[0]||FN_CATS[0]).key; }
+    var shown = list.filter(function(f){ return (f.category||'headline')===curCat; });
     var nEl = document.getElementById('fn-n');
     if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 三源聚合') : '今日安静，无快讯';
+    /* 子菜单条（放 feedwrap 顶部，独立于左侧栏） */
+    var subBar = document.getElementById('fn-subbar');
+    if(subBar){
+      subBar.innerHTML = FN_CATS.map(function(c){
+        return '<button class="snav-subitem'+(curCat===c.key?' on':'')+'" data-fncat="'+c.key+'" type="button" title="'+esc(c.zh+' · '+c.hint)+'"><span class="sb-n">'+c.zh+'</span><span class="sb-badge">'+(catCounts[c.key]||0)+'</span></button>';
+      }).join('');
+      if(!subBar.__bound){
+        subBar.addEventListener('click', function(e){
+          var b = e.target.closest('[data-fncat]'); if(!b) return;
+          setFnCat(b.getAttribute('data-fncat'));
+        });
+        subBar.__bound = true;
+      }
+    }
     if(!list.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">金融快讯暂无数据</div>'; return; }
+    if(!shown.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">「'+esc((FN_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||curCat)+'」暂无内容</div>'; return; }
     var lastDay = '';
-    var html = '<ol class="tl-list">' + list.map(function(f){
+    var html = '<ol class="tl-list">' + shown.map(function(f){
       var d = f.published ? new Date(f.published) : null;
       var ok = !!(d && !isNaN(d.getTime()));
       var d1 = ok ? p2(d.getDate()) : '—';
@@ -435,7 +470,7 @@ __rendered = true;
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
         +'</div></li>';
     }).join('') + '</ol>';
-    html += '<div class="ah-more">— FIN NEWS · 共 '+list.length+' 条 · 同花顺快讯流 + Wind 深度检索 · 按时间倒序 —</div>';
+    html += '<div class="ah-more">— FIN NEWS · 共 '+list.length+' 条 · 当前「'+esc((FN_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||'')+'」'+shown.length+' 条 · 同花顺快讯 + Wind 深度 + 东财要闻 · 按时间倒序 —</div>';
     wrap.innerHTML = html;
   }
 
@@ -507,7 +542,7 @@ __rendered = true;
       var t = DATA.generated_at ? new Date(DATA.generated_at) : null;
       function p(x){return (x<10?'0':'')+x;}
       var ts = (t && !isNaN(t)) ? t.getFullYear()+'-'+p(t.getMonth()+1)+'-'+p(t.getDate())+' '+p(t.getHours())+':'+p(t.getMinutes()) : '—';
-      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.3 · 远程 JSON + 缓存 + seed 降级';
+      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.6 · 远程 JSON + 缓存 + seed 降级';
     }
     var el = document.getElementById('aihot-ftime');
     if(el && AI.fetchedAt){ var d=new Date(AI.fetchedAt);
