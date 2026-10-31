@@ -292,10 +292,12 @@ body[data-aihot-view] .snav-item[data-filter="AIHOT"] .sn-badge{display:none;}
 .tl-flag:hover,.sr-flag:hover{color:var(--accent-dark);background-color:var(--accent-wash);
   box-shadow:inset 0 0 0 1px var(--rule);}
 .tl-flag:focus-visible,.sr-flag:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+/* v1.7: FASHIONABLE LIFE 英文原题行（tz-line 同构） */
+#sec-fashion .fs-en{font-family:var(--sans);font-size:10.5px;color:var(--faint);margin:2px 0 4px;letter-spacing:.02em;}
 /* v1.5.1: FIN NEWS 理由按钮展开态 */
-#sec-finnews .tl-card.open .tl-flag{color:#B14427 !important;background-color:rgba(177,68,39,.07) !important;box-shadow:inset 0 0 0 1px #B14427 !important;}
-#sec-finnews .tl-card .tl-reason{display:none;}
-#sec-finnews .tl-card.open .tl-reason{display:block;}
+#sec-finnews .tl-card.open .tl-flag,#sec-fashion .tl-card.open .tl-flag{color:#B14427 !important;background-color:rgba(177,68,39,.07) !important;box-shadow:inset 0 0 0 1px #B14427 !important;}
+#sec-finnews .tl-card .tl-reason,#sec-fashion .tl-card .tl-reason{display:none;}
+#sec-finnews .tl-card.open .tl-reason,#sec-fashion .tl-card.open .tl-reason{display:block;}
 .tl-card.open .tl-flag,.sel-row.open .sr-flag{color:var(--accent);background-color:var(--accent-wash);
   box-shadow:inset 0 0 0 1px var(--accent);}
 .ah-more{text-align:center;font-family:var(--display);font-style:italic;font-size:13px;color:var(--faint);
@@ -396,6 +398,10 @@ body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-feed,
 body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-pulse,
 body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-selected,
 body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-daily{display:none;}
+/* v1.7: FASHIONABLE LIFE 板块视图互斥（同 v1.4.1 规则：单源视图只显示自己的板） */
+body[data-view="FIN NEWS"] #sec-fashion{display:none;}
+body[data-view="FASHION"] #sec-finnews{display:none;}
+body[data-view]:not([data-view=""]):not([data-view="FASHION"]) #sec-fashion{display:none;}
 
 /* ================= filter mechanics + view transitions ================= */
 .src-empty{display:none;padding:48px 8px;text-align:center;font-family:var(--display);font-style:italic;
@@ -511,6 +517,10 @@ body.hide-others .sec-hidden{display:none!important;}
         <div class="vhead"><span class="vh-zh">金融快讯</span><span class="vh-en">FIN NEWS · MARKETS</span><span class="vh-n" id="fn-n"></span></div>
         <div class="ah-feedwrap" id="fn-feedwrap"></div>
       </section>
+      <section class="ah" id="sec-fashion">
+        <div class="vhead"><span class="vh-zh">潮流生活</span><span class="vh-en">FASHIONABLE LIFE · STYLE</span><span class="vh-n" id="fs-n"></span></div>
+        <div class="ah-feedwrap" id="fs-feedwrap"></div>
+      </section>
       <div id="load-status">数据加载失败，显示缓存</div>
     </main>
   </div>
@@ -520,8 +530,8 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261101g"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261101g"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261101g"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261101h"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261101h"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261101h"></script>
 </body>
 </html>

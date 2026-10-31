@@ -189,7 +189,7 @@ __rendered = true;
     main.insertAdjacentHTML('beforeend', html);
 
     /* ---- AIHOT modules ---- */
-    renderFeed(AI); renderHot(AI); renderSelected(AI); renderDaily(AI); renderFinnews(DATA);
+    renderFeed(AI); renderHot(AI); renderSelected(AI); renderDaily(AI); renderFinnews(DATA); renderFashion(DATA);
     initAihotTabs();
     if(!document.body.getAttribute('data-aihot-view')) setAihotView('feed');
 
@@ -496,6 +496,55 @@ __rendered = true;
     wrap.innerHTML = html;
   }
 
+/* ---- FASHIONABLE LIFE: 潮流生活时间瀑布（HYPEBEAST 全文 + NOWRE现客）---- */
+  function renderFashion(DATA){
+    var wrap = document.getElementById('fs-feedwrap'); if(!wrap) return;
+    if(!wrap.__flagBound){
+      wrap.addEventListener('click', function(e){
+        var b = e.target.closest('.tl-flag'); if(!b) return;
+        var card = b.closest('.tl-card');
+        var open = card.classList.toggle('open');
+        b.setAttribute('aria-expanded', open);
+        b.textContent = open ? '理由 ▴' : '理由 ▾';
+      });
+      wrap.__flagBound = true;
+    }
+    var FS = (DATA && DATA.fashion) || {};
+    var list = FS.items || [];
+    var nEl = document.getElementById('fs-n');
+    if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 双源聚合') : '今日安静，无更新';
+    if(!list.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">潮流生活暂无数据</div>'; return; }
+    var lastDay = '';
+    var html = '<ol class="tl-list">' + list.map(function(f){
+      var d = f.published ? new Date(f.published) : null;
+      var ok = !!(d && !isNaN(d.getTime()));
+      var d1 = ok ? p2(d.getDate()) : '—';
+      var d2 = ok ? (d.getMonth()+1)+'月 '+p2(d.getHours())+':'+p2(d.getMinutes()) : '';
+      var dayKey = ok ? d.toDateString() : '';
+      var dayBreak = (dayKey && dayKey!==lastDay) ? ' tl-daybreak' : '';
+      if(dayKey) lastDay = dayKey;
+      var kindTag = f.kind==='article'
+        ? '<span class="tl-cat">全文</span>'
+        : '<span class="tl-cat">简讯</span>';
+      var href = f.url || '';
+      var titleHtml = href
+        ? '<a class="tl-title" href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
+        : '<span class="tl-title" style="cursor:default">'+esc(f.title)+'</span>';
+      /* HYPEBEAST 英文条目：中文标题下方展示英文原题（tz-line 同构样式） */
+      var enLine = f.title_en ? '<div class="fs-en">'+esc(f.title_en)+'</div>' : '';
+      return '<li class="tl-card tl-plain'+dayBreak+'" data-src="FASHION">'
+        +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
+        +'<div class="tl-dot" aria-hidden="true"></div>'
+        +'<div class="tl-body">'
+          +'<div class="tl-head">'+titleHtml+'</div>'+enLine
+          +'<div class="tl-tags">'+kindTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
+          +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
+        +'</div></li>';
+    }).join('') + '</ol>';
+    html += '<div class="ah-more">— FASHIONABLE LIFE · 共 '+list.length+' 条 · HYPEBEAST 全文 + NOWRE现客 · 按时间倒序 —</div>';
+    wrap.innerHTML = html;
+  }
+
 /* ---- sidebar source nav ---- */
   function renderSnav(items, AI){
     var nav = document.getElementById('snav'); if(!nav) return;
@@ -515,7 +564,8 @@ __rendered = true;
     var nonAi = items.filter(function(it){return it.source!=='AIHOT';}).length;
     var allN = nonAi + feedN0;
     var fnN = ((window.DATA && window.DATA.finnews && window.DATA.finnews.items) || []).length;
-    allN += fnN;
+    var fsN2 = ((window.DATA && window.DATA.fashion && window.DATA.fashion.items) || []).length;
+    allN += fnN + fsN2;
     /* preserve the currently selected source filter + AIHOT sub-view across re-renders */
     var curView = document.body.getAttribute('data-view') || 'ALL';
     var curAihot = document.body.getAttribute('data-aihot-view') || 'feed';
@@ -550,6 +600,9 @@ __rendered = true;
           +'<button class="snav-subitem'+(curFnCat==='filing'?' on':'')+'" data-fncat="filing" type="button"><span class="sb-n">公告</span><span class="sb-badge">'+(fnCounts.filing||0)+'</span></button>'
           +'<button class="snav-subitem'+(curFnCat==='research'?' on':'')+'" data-fncat="research" type="button"><span class="sb-n">研究</span><span class="sb-badge">'+(fnCounts.research||0)+'</span></button>'
           +'</div>';
+        /* v1.7: FASHIONABLE LIFE 一级菜单（无二级），置于 FIN NEWS 之后 */
+        var fsN = ((window.DATA && window.DATA.fashion && window.DATA.fashion.items) || []).length;
+        badges += '<button class="snav-item'+(curView==='FASHION'?' on':'')+'" data-filter="FASHION" type="button" role="tab" aria-selected="'+(curView==='FASHION')+'"><span class="sn-name">👕 FASHIONABLE LIFE<i>HYPEBEAST · NOWRE现客</i></span><span class="sn-badge">'+fsN+'</span></button>';
       }
     });
     nav.innerHTML = '<div class="snav-h">SOURCES · 信源</div>' + badges;
