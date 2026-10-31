@@ -195,6 +195,8 @@ __rendered = true;
 
     /* ---- snav (dynamic) ---- */
     renderSnav(items, AI);
+    /* v1.6.4: 初始渲染后同步 FIN NEWS 子菜单选中态+标题（默认 flash 档） */
+    try{ syncFnCatUI(document.body.getAttribute('data-fn-cat') || 'flash'); }catch(e){}
 
 
     /* ---- footer ---- */
@@ -347,7 +349,7 @@ __rendered = true;
       var on = t.getAttribute('data-ahview')===v;
       t.classList.toggle('on', on);
     });
-    document.querySelectorAll('.snav-sub .snav-subitem').forEach(function(t){
+    document.querySelectorAll('.snav-subitem[data-ahview]').forEach(function(t){
       var on = t.getAttribute('data-ahview')===v;
       t.classList.toggle('on', on);
     });
@@ -392,13 +394,27 @@ __rendered = true;
   /* ---- FIN NEWS: 金融快讯时间瀑布（同花顺 flash + Wind 深度/公告）---- */
   /* v1.6: 4 档分类子菜单（快讯/要闻/公告/研究），照 AIHOT snav-sub 同构 */
   var FN_CATS = [
-    {key:'flash',    zh:'快讯', hint:'同花顺 · 实时电报流'},
-    {key:'headline', zh:'要闻', hint:'编辑精选 · 重大事件'},
-    {key:'filing',   zh:'公告', hint:'披露文件 · 重组/要约'},
-    {key:'research', zh:'研究', hint:'研报 · 深度解读'}
+    {key:'flash',    zh:'快讯', en:'FLASH · REALTIME', hint:'同花顺 · 实时电报流'},
+    {key:'headline', zh:'要闻', en:'HEADLINES · EDITORS', hint:'编辑精选 · 重大事件'},
+    {key:'filing',   zh:'公告', en:'FILINGS · DISCLOSURE', hint:'披露文件 · 重组/要约'},
+    {key:'research', zh:'研究', en:'RESEARCH · INSIGHT', hint:'研报 · 深度解读'}
   ];
+  function syncFnCatUI(cat){
+    /* v1.6.4: 侧栏子菜单选中态 + 内容区标题 随档位同步（setAihotView 同构） */
+    document.querySelectorAll('.snav-subitem[data-fncat]').forEach(function(t){
+      t.classList.toggle('on', t.getAttribute('data-fncat')===cat);
+    });
+    var sec = document.getElementById('sec-finnews');
+    if(sec){
+      var zh = sec.querySelector('.vh-zh'), en = sec.querySelector('.vh-en');
+      var meta = FN_CATS.filter(function(c){return c.key===cat;})[0];
+      if(zh && meta) zh.textContent = '金融快讯 · ' + meta.zh;
+      if(en && meta) en.textContent = meta.en;
+    }
+  }
   function setFnCat(cat){
     document.body.setAttribute('data-fn-cat', cat);
+    syncFnCatUI(cat);
     renderFinnews(window.DATA);
   }
   function renderFinnews(DATA){
@@ -420,7 +436,11 @@ __rendered = true;
     var catCounts = {};
     list.forEach(function(f){ var c = f.category || 'headline'; catCounts[c] = (catCounts[c]||0)+1; });
     if(!FN_CATS.some(function(c){return c.key===curCat;})) curCat = 'flash';
-    if(!catCounts[curCat]) { /* 当前档空则回落到第一档有数据的 */ curCat = (FN_CATS.filter(function(c){return catCounts[c.key];})[0]||FN_CATS[0]).key; }
+    if(!catCounts[curCat]) { /* 当前档空则回落到第一档有数据的 */
+      curCat = (FN_CATS.filter(function(c){return catCounts[c.key];})[0]||FN_CATS[0]).key;
+      document.body.setAttribute('data-fn-cat', curCat);
+      syncFnCatUI(curCat);
+    }
     var shown = list.filter(function(f){ return (f.category||'headline')===curCat; });
     var nEl = document.getElementById('fn-n');
     if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 三源聚合') : '今日安静，无快讯';
