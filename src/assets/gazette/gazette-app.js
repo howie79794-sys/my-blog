@@ -516,14 +516,36 @@ __rendered = true;
         /* v1.4.1: FIN NEWS as a top-level rail item AFTER the AIHOT sub-menu
            (sibling of AIHOT, below 日报) — user-approved placement */
         badges += '<button class="snav-item'+(curView==='FIN NEWS'?' on':'')+'" data-filter="FIN NEWS" type="button" role="tab" aria-selected="'+(curView==='FIN NEWS')+'"><span class="sn-name">💰 FIN NEWS<i>同花顺 · Wind · 东财</i></span><span class="sn-badge">'+fnN+'</span></button>';
+        /* v1.6.1: FIN NEWS second-level sub-menu under the rail item
+           (same pattern as AIHOT's 全部动态/精选/日报) — 快讯/要闻/公告/研究 */
+        var fnItems = (window.DATA && window.DATA.finnews && window.DATA.finnews.items) || [];
+        var fnCounts = {};
+        fnItems.forEach(function(f){ var c = f.category || 'headline'; fnCounts[c] = (fnCounts[c]||0)+1; });
+        var curFnCat = document.body.getAttribute('data-fn-cat') || 'flash';
+        badges += '<div class="snav-sub">'
+          +'<button class="snav-subitem'+(curFnCat==='flash'?' on':'')+'" data-fncat="flash" type="button"><span class="sb-n">快讯</span><span class="sb-badge">'+(fnCounts.flash||0)+'</span></button>'
+          +'<button class="snav-subitem'+(curFnCat==='headline'?' on':'')+'" data-fncat="headline" type="button"><span class="sb-n">要闻</span><span class="sb-badge">'+(fnCounts.headline||0)+'</span></button>'
+          +'<button class="snav-subitem'+(curFnCat==='filing'?' on':'')+'" data-fncat="filing" type="button"><span class="sb-n">公告</span><span class="sb-badge">'+(fnCounts.filing||0)+'</span></button>'
+          +'<button class="snav-subitem'+(curFnCat==='research'?' on':'')+'" data-fncat="research" type="button"><span class="sb-n">研究</span><span class="sb-badge">'+(fnCounts.research||0)+'</span></button>'
+          +'</div>';
       }
     });
     nav.innerHTML = '<div class="snav-h">SOURCES · 信源</div>' + badges;
-    /* sub-item clicks: only switch AIHOT view, never the source filter */
+    /* sub-item clicks: AIHOT view switchers (data-ahview) or FIN NEWS
+       category switchers (data-fncat) — never the source filter */
     if(!nav.__subBound){
       nav.addEventListener('click', function(e){
         var sub = e.target.closest('.snav-subitem'); if(!sub) return;
         e.stopPropagation();
+        var fnCat = sub.getAttribute('data-fncat');
+        if(fnCat){
+          /* FIN NEWS sub-menu: make sure the FIN NEWS view is active, then switch category */
+          var fnBtn = nav.querySelector('.snav-item[data-filter="FIN NEWS"]');
+          if(fnBtn && !fnBtn.classList.contains('on')) fnBtn.click();
+          setFnCat(fnCat);
+          window.scrollTo({top:0,behavior:'smooth'});
+          return;
+        }
         var aihotBtn = nav.querySelector('.snav-item[data-filter="AIHOT"]');
         /* make sure the AIHOT source filter is active so its sections are visible */
         if(aihotBtn && !aihotBtn.classList.contains('on')) aihotBtn.click();
@@ -542,7 +564,7 @@ __rendered = true;
       var t = DATA.generated_at ? new Date(DATA.generated_at) : null;
       function p(x){return (x<10?'0':'')+x;}
       var ts = (t && !isNaN(t)) ? t.getFullYear()+'-'+p(t.getMonth()+1)+'-'+p(t.getDate())+' '+p(t.getHours())+':'+p(t.getMinutes()) : '—';
-      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.6 · 远程 JSON + 缓存 + seed 降级';
+      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.6.1 · 远程 JSON + 缓存 + seed 降级';
     }
     var el = document.getElementById('aihot-ftime');
     if(el && AI.fetchedAt){ var d=new Date(AI.fetchedAt);
