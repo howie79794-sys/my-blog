@@ -444,8 +444,13 @@ __rendered = true;
     var html = '<ol class="tl-list">' + shown.map(function(f){
       var d = f.published ? new Date(f.published) : null;
       var ok = !!(d && !isNaN(d.getTime()));
+      /* v1.6.2: 无精确时间（Wind 公告/研报只有日期）→ 降级用 dateHint 显示日期 */
+      if(!ok && f.dateHint){
+        var hd = new Date(String(f.dateHint).replace(/[-/年]/g,'-').replace(/月/g,'-').replace(/日/g,''));
+        if(!isNaN(hd.getTime())){ d = hd; ok = true; }
+      }
       var d1 = ok ? p2(d.getDate()) : '—';
-      var d2 = ok ? (d.getMonth()+1)+'月 '+p2(d.getHours())+':'+p2(d.getMinutes()) : '';
+      var d2 = ok ? (f.published ? (d.getMonth()+1)+'月 '+p2(d.getHours())+':'+p2(d.getMinutes()) : (d.getMonth()+1)+'月'+p2(d.getDate())+'日') : '';
       var dayKey = ok ? d.toDateString() : '';
       var dayBreak = (dayKey && dayKey!==lastDay) ? ' tl-daybreak' : '';
       if(dayKey) lastDay = dayKey;
@@ -564,7 +569,7 @@ __rendered = true;
       var t = DATA.generated_at ? new Date(DATA.generated_at) : null;
       function p(x){return (x<10?'0':'')+x;}
       var ts = (t && !isNaN(t)) ? t.getFullYear()+'-'+p(t.getMonth()+1)+'-'+p(t.getDate())+' '+p(t.getHours())+':'+p(t.getMinutes()) : '—';
-      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.6.1 · 远程 JSON + 缓存 + seed 降级';
+      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.6.2 · 远程 JSON + 缓存 + seed 降级';
     }
     var el = document.getElementById('aihot-ftime');
     if(el && AI.fetchedAt){ var d=new Date(AI.fetchedAt);
