@@ -512,7 +512,7 @@ __rendered = true;
     var FS = (DATA && DATA.fashion) || {};
     var list = FS.items || [];
     var nEl = document.getElementById('fs-n');
-    if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 双源聚合') : '今日安静，无更新';
+    if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 双源滚动池') : '今日安静，无更新';
     if(!list.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">潮流生活暂无数据</div>'; return; }
     var lastDay = '';
     var html = '<ol class="tl-list">' + list.map(function(f){
@@ -544,7 +544,7 @@ __rendered = true;
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
         +'</div></li>';
     }).join('') + '</ol>';
-    html += '<div class="ah-more">— FASHIONABLE LIFE · 共 '+list.length+' 条 · HYPEBEAST 全文 + NOWRE现客 · 按时间倒序 —</div>';
+    html += '<div class="ah-more">— FASHIONABLE LIFE · 共 '+list.length+' 条（近 7 天滚动池）· HYPEBEAST 全文 + NOWRE现客 · 按时间倒序 —</div>';
     wrap.innerHTML = html;
   }
 
