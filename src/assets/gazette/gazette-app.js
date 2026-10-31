@@ -408,7 +408,7 @@ __rendered = true;
     if(sec){
       var zh = sec.querySelector('.vh-zh'), en = sec.querySelector('.vh-en');
       var meta = FN_CATS.filter(function(c){return c.key===cat;})[0];
-      if(zh && meta) zh.textContent = '金融快讯 · ' + meta.zh;
+      if(zh && meta) zh.textContent = '金融·' + meta.zh;
       if(en && meta) en.textContent = meta.en;
     }
   }
