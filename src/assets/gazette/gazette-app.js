@@ -532,10 +532,13 @@ __rendered = true;
         : '<span class="tl-title" style="cursor:default">'+esc(f.title)+'</span>';
       /* HYPEBEAST 英文条目：中文标题下方展示英文原题（tz-line 同构样式） */
       var enLine = f.title_en ? '<div class="fs-en">'+esc(f.title_en)+'</div>' : '';
+      /* v1.7.1: 头图（HYPEBEAST CDN / NOWRE 原文页抓取），点击同跳原文 */
+      var imgHtml = f.image ? '<a class="fs-img" href="'+esc(href||'#')+'" target="_blank" rel="noopener"><img src="'+esc(f.image)+'" alt="" loading="lazy" referrerpolicy="no-referrer"></a>' : '';
       return '<li class="tl-card tl-plain'+dayBreak+'" data-src="FASHION">'
         +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
         +'<div class="tl-dot" aria-hidden="true"></div>'
         +'<div class="tl-body">'
+          +imgHtml
           +'<div class="tl-head">'+titleHtml+'</div>'+enLine
           +'<div class="tl-tags">'+kindTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
