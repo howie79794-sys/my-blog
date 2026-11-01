@@ -40,26 +40,12 @@ a{color:inherit;}
 
 /* ================= masthead (v1.3.1) =================
    Explicit three layers, spaced with the scale tokens:
-     ① 标语条 .m-top        (border-bottom rule)
-     ② 报头主体 .masthead   (签名体行 → 引语 → 期号条)
-     ③ 期号/天气条 .m-date  (thick ink rule)
+     ① (removed v1.9.3: 顶部标语条 .m-top —— 日期块移入天气栏)
+     ① 报头主体 .masthead   (签名体行 → 引语 → 期号条)
+     ② 期号/天气条 .m-date  (thick ink rule)
    The Zapfino signature has very long ascenders/descenders, so the
    signature line owns a tall line-box (1.5) + 10px bottom padding and
    the quote sits ≥32px below it — no more stroke/subtitle collision. */
-.m-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
-  font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--accent);border-bottom:1px solid var(--rule);padding-bottom:var(--s4);}
-.m-top .mid{color:var(--faint);letter-spacing:.2em;text-align:center;flex:1;padding-top:var(--s4);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-/* P0-4 date block: 3 lines, each with its own size/colour so it reads as a
-   designed block instead of a debug dump.  db-g 公历+星期 / db-l 农历砖红 /
-   db-c 中文大写浅灰. */
-.m-dateblock{display:flex;flex-direction:column;gap:6px;text-align:left;line-height:1.5;
-  font-family:var(--sans);letter-spacing:.06em;}
-.m-dateblock .db-g{color:var(--ink);font-weight:600;font-size:12.5px;letter-spacing:.04em;}
-.m-dateblock .db-l{color:var(--accent);font-size:11.5px;}
-.m-dateblock .db-c{color:var(--faint);font-size:10px;letter-spacing:.14em;}
-/* v1.9: masthead layout now grid — see .masthead rules in the weather block below */
 /* P0-1: the signature line must CONTAIN the Zapfino ink, not just the
    line box.  Zapfino's ascent+descent is ~3.2em (measured 132+95px at
    71px), so line-height 1.05 let the descender of "Zhuang" punch ~44px
@@ -86,7 +72,13 @@ a{color:inherit;}
 .m-quote{font-size:clamp(13px,1.95cqw,15px);}
 .wx{align-self:center;text-align:left;border-right:1px solid var(--rule);
   padding:6px var(--s5) 6px 0;display:flex;flex-direction:column;gap:10px;}
-.wx-h{font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);}
+/* v1.9.3: date block lives at the top of the weather column (top strip removed).
+   Bottom rule separates 日期 from 天气 — two stacked almanac entries, one column. */
+.wx .m-dateblock{gap:4px;padding-bottom:9px;border-bottom:1px solid var(--rule-soft);}
+.wx .m-dateblock .db-g{font-size:13px;}
+.wx .m-dateblock .db-l{font-size:11.5px;}
+.wx .m-dateblock .db-c{font-size:10px;}
+.wx-h{font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);margin-top:2px;}
 .wx-today{display:flex;align-items:center;gap:12px;}
 .wx-today svg{width:34px;height:34px;flex:none;}
 .wx-now .t{font-family:var(--display);font-size:30px;font-weight:700;color:var(--ink);line-height:1;}
@@ -471,7 +463,6 @@ body.hide-others .sec-hidden{display:none!important;}
   .m-center{container-type:normal;}
   .wx{border-right:none;border-top:1px solid var(--rule);padding:var(--s4) 0 0;margin-top:var(--s4);}
   .wrap{padding:20px 18px 52px;}
-  .m-top .mid{display:none;}
   .vmore ol.cols2{columns:1;}
   .hot-list{columns:1;}
   .yd-grid{grid-template-columns:1fr;}
@@ -491,25 +482,19 @@ body.hide-others .sec-hidden{display:none!important;}
   .tl-title{grid-column:1;grid-row:1;min-width:0;overflow-wrap:anywhere;}
   .tl-score{grid-column:1;grid-row:2;justify-self:start;margin-top:0;}
   /* masthead top strip: keep the date block on one line, drop the price tag */
-  .m-top{font-size:10px;letter-spacing:.1em;}
-  .m-top > span:last-child{display:none;}
   .m-dateblock .db-g{white-space:nowrap;}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="m-top">
-    <div class="m-dateblock">
-      <div class="db-g">2026 年 10 月 26 日</div>
-      <div class="db-l">农历九月十七 · 丙午马年</div>
-      <div class="db-c">二〇二六年十月廿六日</div>
-    </div>
-    <span class="mid">ALL THE TABS THAT ARE FIT TO OPEN</span>
-    <span>PRICE: ONE OPEN TAB</span>
-  </div>
   <header class="masthead">
-    <aside class="wx" id="wx" aria-label="天气预报">
+    <aside class="wx" id="wx" aria-label="日期与天气预报">
+      <div class="m-dateblock">
+        <div class="db-g">2026 年 11 月 1 日</div>
+        <div class="db-l">农历九月廿三 · 丙午马年</div>
+        <div class="db-c">二〇二六年十一月一日</div>
+      </div>
       <div class="wx-h">Weather · 天气</div>
       <div id="wx-body"></div>
     </aside>
@@ -526,7 +511,6 @@ body.hide-others .sec-hidden{display:none!important;}
   <div class="layout">
     <nav class="snav" id="snav" aria-label="信源导航">
       <div class="snav-h">SOURCES · 信源</div>
-      <button class="snav-item" data-filter="ALL" type="button" role="tab" aria-selected="false"><span class="sn-name">📰 全部 <em>整份报纸</em></span><span class="sn-badge">70</span></button>
       <button class="snav-item" data-filter="AIHOT" type="button" role="tab" aria-selected="false"><span class="sn-name">AIHOT<i>EN · X/API</i></span><span class="sn-badge">12</span></button>
     </nav>
     <main class="main" id="main">
@@ -574,8 +558,8 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261102c"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261102c"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261102c"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261102d"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261102d"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261102d"></script>
 </body>
 </html>

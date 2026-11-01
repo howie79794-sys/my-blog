@@ -212,7 +212,7 @@ __rendered = true;
     initScrollSpy();
 
     /* ---- re-run source filter so .src-empty visibility matches real count (bug C) ---- */
-    if(typeof window.__applySourceFilter === 'function') window.__applySourceFilter(document.body.getAttribute('data-view') || 'ALL');
+    if(typeof window.__applySourceFilter === 'function') window.__applySourceFilter(document.body.getAttribute('data-view') || 'AIHOT');
   }
 
   /* ---- AIHOT hot list ---- */
@@ -682,12 +682,10 @@ __rendered = true;
     var fsN2 = ((window.DATA && window.DATA.fashion && window.DATA.fashion.items) || []).length;
     allN += fnN + fsN2;
     /* preserve the currently selected source filter + AIHOT sub-view across re-renders */
-    var curView = document.body.getAttribute('data-view') || 'ALL';
+    var curView = document.body.getAttribute('data-view') || 'AIHOT';   /* v1.9.3: ALL 视图移除，默认落在 AIHOT */
     var curAihot = document.body.getAttribute('data-aihot-view') || 'feed';
-    /* P2-4: the left rail's first row filters by *source* — it must not be
-       called 全部动态, which is the AIHOT timeline tab.  全部信源 = "all
-       outlets"; the AIHOT tab keeps 全部动态 untouched. */
-    var badges = '<button class="snav-item'+(curView==='ALL'?' on':'')+'" data-filter="ALL" type="button" role="tab" aria-selected="'+(curView==='ALL')+'"><span class="sn-name">📰 全部信源 <em>整份报纸</em></span><span class="sn-badge">'+allN+'</span></button>';
+    /* v1.9.3: 「全部信源」菜单已移除（用户 2026-11-01）——三大板块直接从 AIHOT 开始 */
+    var badges = '';
     /* v1.8: 精简为三大板块——只渲染 AIHOT（含 FIN NEWS/FASHION 的挂载），
        其余历史静态信源（The Verge/sspai/Pitchfork/BBC Football 等）不再出菜单 */
     order.forEach(function(src){

@@ -98,5 +98,10 @@
     apply(f);
     window.scrollTo({top:0,behavior:'smooth'});
   });
-  apply('ALL');
+  /* v1.9.3: 默认视图 = AIHOT（全部信源菜单已移除）——首屏即 AIHOT 视图 */
+  (function(){
+    var first = nav.querySelector('.snav-item');
+    if (first && !document.body.getAttribute('data-view')) first.click();
+    else apply(document.body.getAttribute('data-view') || 'AIHOT');
+  })();
 })();
