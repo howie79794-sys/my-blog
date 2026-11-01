@@ -75,10 +75,10 @@
       }
       /* v1.4.1 fix: leaving AIHOT always de-highlights the whole sub-menu —
          only one rail selection may be lit at a time (user rule 2026-10-28) */
-      /* v1.6.4 fix: leaving AIHOT only de-highlights AIHOT sub-items (data-ahview);
-         FIN NEWS category sub-items (data-fncat) keep their selection */
-      document.querySelectorAll('.snav-subitem[data-ahview]').forEach(function(t){ t.classList.remove('on'); });
-      /* v1.6.4: returning to FIN NEWS — re-light its live category sub-item */
+      /* v1.8.2 fix: mutual exclusion — only the CURRENT view's sub-menu group
+         may stay lit. FIN NEWS categories no longer survive into AIHOT view
+         (and vice versa); FIN NEWS became a standalone page in v1.4.1. */
+      document.querySelectorAll('.snav-subitem').forEach(function(t){ t.classList.remove('on'); });
       if(f==='FIN NEWS'){
         var fc = document.body.getAttribute('data-fn-cat');
         if(fc) document.querySelectorAll('.snav-subitem[data-fncat]').forEach(function(t){
@@ -86,8 +86,10 @@
         });
       }
     } else {
-      /* returning to AIHOT: re-light the sub-item matching the live sub-view
-         (v1.6.4: only AIHOT items — FIN NEWS data-fncat keeps its own selection) */
+      /* returning to AIHOT: clear the other group's sub-items first, then
+         re-light the sub-item matching the live sub-view
+         (v1.8.2: mutual exclusion — FIN NEWS categories must not survive) */
+      document.querySelectorAll('.snav-subitem[data-fncat]').forEach(function(t){ t.classList.remove('on'); });
       var av = document.body.getAttribute('data-aihot-view') || 'feed';
       document.querySelectorAll('.snav-subitem[data-ahview]').forEach(function(t){
         t.classList.toggle('on', t.getAttribute('data-ahview')===av);

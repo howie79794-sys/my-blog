@@ -59,7 +59,7 @@ a{color:inherit;}
 .m-dateblock .db-g{color:var(--ink);font-weight:600;font-size:12.5px;letter-spacing:.04em;}
 .m-dateblock .db-l{color:var(--accent);font-size:11.5px;}
 .m-dateblock .db-c{color:var(--faint);font-size:10px;letter-spacing:.14em;}
-.masthead{text-align:center;padding:var(--s8) 0 0;}
+/* v1.9: masthead layout now grid — see .masthead rules in the weather block below */
 /* P0-1: the signature line must CONTAIN the Zapfino ink, not just the
    line box.  Zapfino's ascent+descent is ~3.2em (measured 132+95px at
    71px), so line-height 1.05 let the descender of "Zhuang" punch ~44px
@@ -74,6 +74,27 @@ a{color:inherit;}
 .masthead-sig .poss{font-family:Georgia,serif;font-style:italic;font-size:.62em;color:var(--accent);margin:0 .1em 0 .06em;}
 .m-quote{font-family:var(--display);font-style:italic;font-size:15px;color:var(--dim);
   margin:var(--s6) 0 var(--s6);letter-spacing:.02em;line-height:1.6;}
+/* ---- v1.9 masthead weather column (left of the signature line) ---- */
+/* 报纸天气小栏：与签名行同高，砖红细规线分隔，继承纸/墨/砖红语言。
+   布局：.masthead 改为 grid（左 20% 天气 | 中 auto 签名+引语），期号条仍全宽 */
+.masthead{display:grid;grid-template-columns:minmax(168px,22%) 1fr;column-gap:var(--s6);text-align:center;padding:var(--s8) 0 0;}
+.masthead .m-date{grid-column:1 / -1;}
+.masthead .m-center{min-width:0;}
+.wx{align-self:center;text-align:left;border-right:1px solid var(--rule);
+  padding:6px var(--s5) 6px 0;display:flex;flex-direction:column;gap:10px;}
+.wx-h{font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);}
+.wx-today{display:flex;align-items:center;gap:12px;}
+.wx-today svg{width:34px;height:34px;flex:none;}
+.wx-now .t{font-family:var(--display);font-size:30px;font-weight:700;color:var(--ink);line-height:1;}
+.wx-now .c{font-family:var(--sans);font-size:11.5px;color:var(--dim);line-height:1.55;}
+.wx-days{display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--rule-soft);padding-top:9px;}
+.wx-row{display:flex;align-items:center;gap:8px;font-family:var(--sans);font-size:11.5px;color:var(--dim);}
+.wx-row .d{width:30px;flex:none;color:var(--ink);font-weight:600;letter-spacing:.04em;}
+.wx-row svg{width:15px;height:15px;flex:none;}
+.wx-row .w{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wx-row .tp{flex:none;font-variant-numeric:tabular-nums;color:var(--ink);}
+.wx-row .tp i{font-style:normal;color:var(--faint);padding:0 1px;}
+.wx-city{font-family:var(--display);font-style:italic;font-size:11px;color:var(--accent);}
 .m-date{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
   border-top:2.5px solid var(--ink);border-bottom:1px solid var(--rule);
   padding:var(--s3) 2px;margin-top:0;font-size:12.5px;color:var(--dim);}
@@ -441,6 +462,9 @@ body.hide-others .sec-hidden{display:none!important;}
 }
 @media (max-width:960px){
   .masthead h1{font-size:46px;}
+  /* v1.9: weather column drops below the signature on narrow screens */
+  .masthead{display:block;}
+  .wx{border-right:none;border-top:1px solid var(--rule);padding:var(--s4) 0 0;margin-top:var(--s4);}
   .wrap{padding:20px 18px 52px;}
   .m-top .mid{display:none;}
   .vmore ol.cols2{columns:1;}
@@ -480,8 +504,14 @@ body.hide-others .sec-hidden{display:none!important;}
     <span>PRICE: ONE OPEN TAB</span>
   </div>
   <header class="masthead">
-    <h1 class="masthead-sig"><span class="sig">Gordon Zhuang</span><span class="poss">’s</span> <em>Gazette</em></h1>
-    <div class="m-quote">「每一个新标签页，都值得一份好报纸。」</div>
+    <aside class="wx" id="wx" aria-label="天气预报">
+      <div class="wx-h">Weather · 天气</div>
+      <div id="wx-body"></div>
+    </aside>
+    <div class="m-center">
+      <h1 class="masthead-sig"><span class="sig">Gordon Zhuang</span><span class="poss">’s</span> <em>Gazette</em></h1>
+      <div class="m-quote">「每一个新标签页，都值得一份好报纸。」</div>
+    </div>
     <div class="m-date">
       <span>2026年10月26日 · NO.20261026</span>
       <span class="mid">MORNING EDITION · 早刊</span>
@@ -518,6 +548,12 @@ body.hide-others .sec-hidden{display:none!important;}
 
       <section class="ah" id="sec-finnews">
         <div class="vhead"><span class="vh-zh">金融快讯</span><span class="vh-en">FIN NEWS · MARKETS</span><span class="vh-n" id="fn-n"></span></div>
+        <div class="ah-tabs" id="fn-tabs">
+          <button type="button" class="ah-tab" data-fncat="flash">快讯<span class="tn">FLASH</span></button>
+          <button type="button" class="ah-tab" data-fncat="headline">要闻<span class="tn">HEADLINES</span></button>
+          <button type="button" class="ah-tab" data-fncat="filing">公告<span class="tn">FILINGS</span></button>
+          <button type="button" class="ah-tab" data-fncat="research">研究<span class="tn">RESEARCH</span></button>
+        </div>
         <div class="ah-feedwrap" id="fn-feedwrap"></div>
       </section>
       <section class="ah" id="sec-fashion">
@@ -533,8 +569,8 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261101i"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261101i"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261101i"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261102a"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261102a"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261102a"></script>
 </body>
 </html>

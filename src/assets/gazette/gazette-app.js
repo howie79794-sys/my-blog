@@ -192,7 +192,9 @@ __rendered = true;
 
     /* ---- AIHOT modules ---- */
     renderFeed(AI); renderHot(AI); renderSelected(AI); renderDaily(AI); renderFinnews(DATA); renderFashion(DATA);
+    renderWeather(DATA);
     initAihotTabs();
+    initFnTabs();
     if(!document.body.getAttribute('data-aihot-view')) setAihotView('feed');
 
     /* ---- snav (dynamic) ---- */
@@ -364,6 +366,58 @@ __rendered = true;
     });
   }
 
+  /* ---- FIN NEWS category tabs (v1.8.1): mirror of ah-tabs, above the fn feed ---- */
+  function initFnTabs(){
+    var tabs = document.getElementById('fn-tabs'); if(!tabs || tabs.__bound) return; tabs.__bound = true;
+    tabs.addEventListener('click', function(e){
+      var b = e.target.closest('.ah-tab'); if(!b) return;
+      setFnCat(b.getAttribute('data-fncat'));
+    });
+  }
+
+  /* ---- WEATHER: 报头天气小栏（v1.9，数据来自 gazette-news.json p.weather，高德源）----
+     图标为内联手绘风 SVG（单描边墨色，报纸版画语言；不使用 emoji）。 */
+  var WX_ICONS = {
+    sun:   '<circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="1.6"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="2.4" x2="12" y2="4.6"/><line x1="12" y1="19.4" x2="12" y2="21.6"/><line x1="2.4" y1="12" x2="4.6" y2="12"/><line x1="19.4" y1="12" x2="21.6" y2="12"/><line x1="5.2" y1="5.2" x2="6.8" y2="6.8"/><line x1="17.2" y1="17.2" x2="18.8" y2="18.8"/><line x1="18.8" y1="5.2" x2="17.2" y2="6.8"/><line x1="6.8" y1="17.2" x2="5.2" y2="18.8"/></g>',
+    partly:'<circle cx="8.2" cy="8.2" r="3.4" fill="none" stroke="currentColor" stroke-width="1.6"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="8.2" y1="1.6" x2="8.2" y2="3.2"/><line x1="1.6" y1="8.2" x2="3.2" y2="8.2"/><line x1="3.4" y1="3.4" x2="4.6" y2="4.6"/><line x1="13" y1="3.4" x2="11.8" y2="4.6"/></g><path d="M7 17.5a3.8 3.8 0 0 1 7.5-.9 3 3 0 1 1 .7 5.9H8a2.9 2.9 0 0 1-1-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
+    cloud: '<path d="M6.5 18.5a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.6 1.2 3.4 3.4 0 1 1-.4 6.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
+    rain:  '<path d="M6.5 14.5a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.6 1.2 3.4 3.4 0 1 1-.4 6.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="8.4" y1="17.5" x2="7.4" y2="20.8"/><line x1="12.4" y1="17.5" x2="11.4" y2="20.8"/><line x1="16.4" y1="17.5" x2="15.4" y2="20.8"/></g>',
+    snow:  '<path d="M6.5 14.5a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.6 1.2 3.4 3.4 0 1 1-.4 6.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><line x1="8.2" y1="18.2" x2="8.2" y2="20.6"/><line x1="7" y1="19.4" x2="9.4" y2="19.4"/><line x1="12.2" y1="18.2" x2="12.2" y2="20.6"/><line x1="11" y1="19.4" x2="13.4" y2="19.4"/><line x1="16.2" y1="18.2" x2="16.2" y2="20.6"/><line x1="15" y1="19.4" x2="17.4" y2="19.4"/></g>',
+    thunder:'<path d="M6.5 14.5a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.6 1.2 3.4 3.4 0 1 1-.4 6.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.8 15.5l-2.6 3.6h2.2l-1.4 3.7 4.4-4.8h-2.3l1.6-2.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>',
+    fog:   '<path d="M6.5 13a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.6 1.2A3.4 3.4 0 1 1 17.3 13z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="6.5" y1="16.3" x2="17.5" y2="16.3"/><line x1="8.5" y1="19.3" x2="15.5" y2="19.3"/></g>'
+  };
+  function wxSvg(icon, cls){
+    return '<svg class="'+(cls||'')+'" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'+(WX_ICONS[icon]||WX_ICONS.cloud)+'</svg>';
+  }
+  function renderWeather(DATA){
+    var box = document.getElementById('wx-body'); if(!box) return;
+    var W = (DATA && DATA.weather) || null;
+    if(!W || !W.casts || !W.casts.length){
+      box.innerHTML = '<div class="wx-now"><div class="c">天气数据暂缺 · 每日报纸随数据管线更新</div></div>';
+      return;
+    }
+    var t = W.casts[0];
+    var todayHtml =
+      '<div class="wx-today">'
+        +wxSvg(t.icon)
+        +'<div class="wx-now">'
+          +'<div class="t">'+esc(t.nighttemp)+'–'+esc(t.daytemp)+'°</div>'
+          +'<div class="c">'+esc(t.zh)+' · '+esc(t.week_zh||'')+'</div>'
+        +'</div>'
+      +'</div>';
+    var rowsHtml = W.casts.slice(1).map(function(c){
+      return '<div class="wx-row">'
+        +'<span class="d">'+esc(c.week_zh||c.date.slice(5))+'</span>'
+        +wxSvg(c.icon)
+        +'<span class="w">'+esc(c.zh)+'</span>'
+        +'<span class="tp">'+esc(c.nighttemp)+'<i>–</i>'+esc(c.daytemp)+'°</span>'
+      +'</div>';
+    }).join('');
+    box.innerHTML = todayHtml
+      + (rowsHtml ? '<div class="wx-days">'+rowsHtml+'</div>' : '')
+      + '<div class="wx-city">'+esc(W.city||'')+' · 高德天气</div>';
+  }
+
   /* ---- AIHOT yesterday's daily ---- */
   function renderDaily(AI){
     var box = document.getElementById('ah-daily'); if(!box || !AI.daily) return;
@@ -402,8 +456,12 @@ __rendered = true;
     {key:'research', zh:'研究', en:'RESEARCH · INSIGHT', hint:'研报 · 深度解读'}
   ];
   function syncFnCatUI(cat){
-    /* v1.6.4: 侧栏子菜单选中态 + 内容区标题 随档位同步（setAihotView 同构） */
+    /* v1.6.4: 侧栏子菜单选中态 + 内容区标题 随档位同步（setAihotView 同构）
+       v1.8.1: 内容区顶部 ah-tabs 页签同步选中态（替代旧的 fn-subbar 死代码） */
     document.querySelectorAll('.snav-subitem[data-fncat]').forEach(function(t){
+      t.classList.toggle('on', t.getAttribute('data-fncat')===cat);
+    });
+    document.querySelectorAll('#fn-tabs .ah-tab').forEach(function(t){
       t.classList.toggle('on', t.getAttribute('data-fncat')===cat);
     });
     var sec = document.getElementById('sec-finnews');
@@ -443,20 +501,7 @@ __rendered = true;
     var shown = list.filter(function(f){ return (f.category||'headline')===curCat; });
     var nEl = document.getElementById('fn-n');
     if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 三源聚合') : '今日安静，无快讯';
-    /* 子菜单条（放 feedwrap 顶部，独立于左侧栏） */
-    var subBar = document.getElementById('fn-subbar');
-    if(subBar){
-      subBar.innerHTML = FN_CATS.map(function(c){
-        return '<button class="snav-subitem'+(curCat===c.key?' on':'')+'" data-fncat="'+c.key+'" type="button" title="'+esc(c.zh+' · '+c.hint)+'"><span class="sb-n">'+c.zh+'</span><span class="sb-badge">'+(catCounts[c.key]||0)+'</span></button>';
-      }).join('');
-      if(!subBar.__bound){
-        subBar.addEventListener('click', function(e){
-          var b = e.target.closest('[data-fncat]'); if(!b) return;
-          setFnCat(b.getAttribute('data-fncat'));
-        });
-        subBar.__bound = true;
-      }
-    }
+    if(typeof initFnTabs === 'function') initFnTabs();   /* v1.8.1: bind category tabs (idempotent) */
     if(!list.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">金融快讯暂无数据</div>'; return; }
     if(!shown.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">「'+esc((FN_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||curCat)+'」暂无内容</div>'; return; }
     var lastDay = '';
@@ -589,10 +634,12 @@ __rendered = true;
       /* v1.2: AIHOT second-level menu */
       if(src==='AIHOT'){
         var feedN = feedN0 || (AI.selected||[]).length;
+        /* v1.8.2: AIHOT sub-items light up ONLY in AIHOT view (mutual exclusion) */
+        var curAihotLit = (curView==='AIHOT') ? curAihot : null;
         badges += '<div class="snav-sub">'
-          +'<button class="snav-subitem'+(curAihot==='feed'?' on':'')+'" data-ahview="feed" type="button"><span class="sb-n">全部动态</span><span class="sb-badge">'+feedN+'</span></button>'
-          +'<button class="snav-subitem'+(curAihot==='selected'?' on':'')+'" data-ahview="selected" type="button"><span class="sb-n">精选</span><span class="sb-badge">'+(AI.selected||[]).length+'</span></button>'
-          +'<button class="snav-subitem'+(curAihot==='daily'?' on':'')+'" data-ahview="daily" type="button"><span class="sb-n">日报</span><span class="sb-badge">'+(AI.daily?'1':'0')+'</span></button>'
+          +'<button class="snav-subitem'+(curAihotLit==='feed'?' on':'')+'" data-ahview="feed" type="button"><span class="sb-n">全部动态</span><span class="sb-badge">'+feedN+'</span></button>'
+          +'<button class="snav-subitem'+(curAihotLit==='selected'?' on':'')+'" data-ahview="selected" type="button"><span class="sb-n">精选</span><span class="sb-badge">'+(AI.selected||[]).length+'</span></button>'
+          +'<button class="snav-subitem'+(curAihotLit==='daily'?' on':'')+'" data-ahview="daily" type="button"><span class="sb-n">日报</span><span class="sb-badge">'+(AI.daily?'1':'0')+'</span></button>'
           +'</div>';
         /* v1.4.1: FIN NEWS as a top-level rail item AFTER the AIHOT sub-menu
            (sibling of AIHOT, below 日报) — user-approved placement */
@@ -602,7 +649,9 @@ __rendered = true;
         var fnItems = (window.DATA && window.DATA.finnews && window.DATA.finnews.items) || [];
         var fnCounts = {};
         fnItems.forEach(function(f){ var c = f.category || 'headline'; fnCounts[c] = (fnCounts[c]||0)+1; });
-        var curFnCat = document.body.getAttribute('data-fn-cat') || 'flash';
+        /* v1.8.2: FIN NEWS sub-items light up ONLY in FIN NEWS view (mutual
+           exclusion with AIHOT sub-menu — one lit group at a time) */
+        var curFnCat = (curView==='FIN NEWS') ? (document.body.getAttribute('data-fn-cat') || 'flash') : null;
         badges += '<div class="snav-sub">'
           +'<button class="snav-subitem'+(curFnCat==='flash'?' on':'')+'" data-fncat="flash" type="button"><span class="sb-n">快讯</span><span class="sb-badge">'+(fnCounts.flash||0)+'</span></button>'
           +'<button class="snav-subitem'+(curFnCat==='headline'?' on':'')+'" data-fncat="headline" type="button"><span class="sb-n">要闻</span><span class="sb-badge">'+(fnCounts.headline||0)+'</span></button>'
