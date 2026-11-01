@@ -66,7 +66,7 @@ a{color:inherit;}
    below the box and land on the quote.  line-height 3.2 makes the box
    exactly as tall as the ink → no collision, and no extra white space
    above the signature because the ink fills the box. */
-.masthead h1{font-family:var(--display);font-weight:900;font-size:76px;letter-spacing:.045em;
+.masthead h1{font-family:var(--display);font-weight:900;letter-spacing:.045em;   /* v1.9.2: font-size moved to cqw clamp above */
   line-height:3.2;color:var(--ink);padding-bottom:0;}
 .masthead h1 em{font-style:italic;color:var(--accent);}
 .masthead-sig .sig{font-family:"Zapfino","Snell Roundhand",cursive;font-size:.94em;line-height:3.2;
@@ -76,10 +76,14 @@ a{color:inherit;}
   margin:var(--s6) 0 var(--s6);letter-spacing:.02em;line-height:1.6;}
 /* ---- v1.9 masthead weather column (left of the signature line) ---- */
 /* 报纸天气小栏：与签名行同高，砖红细规线分隔，继承纸/墨/砖红语言。
-   布局：.masthead 改为 grid（左 20% 天气 | 中 auto 签名+引语），期号条仍全宽 */
-.masthead{display:grid;grid-template-columns:minmax(168px,22%) 1fr;column-gap:var(--s6);text-align:center;padding:var(--s8) 0 0;}
+   布局：.masthead 改为 grid（左 20% 天气 | 中 auto 签名+引语），期号条仍全宽
+   v1.9.2 自适应：① 天气列封顶 240px（14 寸屏不再吞掉签名空间）
+   ② .m-center 是 container，签名/引语字号用 cqw 缩放 —— Gazette 永远单行 */
+.masthead{display:grid;grid-template-columns:minmax(150px,min(22%,240px)) 1fr;column-gap:var(--s6);text-align:center;padding:var(--s8) 0 0;}
 .masthead .m-date{grid-column:1 / -1;}
-.masthead .m-center{min-width:0;}
+.masthead .m-center{min-width:0;container-type:inline-size;}
+.masthead h1{font-size:clamp(34px,6.7cqw,76px);}   /* 6.7% ≈ 1/14.8: measured sig width = fs×14.2 → always single line */
+.m-quote{font-size:clamp(13px,1.95cqw,15px);}
 .wx{align-self:center;text-align:left;border-right:1px solid var(--rule);
   padding:6px var(--s5) 6px 0;display:flex;flex-direction:column;gap:10px;}
 .wx-h{font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);}
@@ -461,9 +465,10 @@ body.hide-others .sec-hidden{display:none!important;}
   .main{width:100%;max-width:100%;overflow-x:clip;}
 }
 @media (max-width:960px){
-  .masthead h1{font-size:46px;}
+  .masthead h1{font-size:46px;}   /* v1.9.2: block layout below 960px — cqw off, fixed size back */
   /* v1.9: weather column drops below the signature on narrow screens */
   .masthead{display:block;}
+  .m-center{container-type:normal;}
   .wx{border-right:none;border-top:1px solid var(--rule);padding:var(--s4) 0 0;margin-top:var(--s4);}
   .wrap{padding:20px 18px 52px;}
   .m-top .mid{display:none;}
@@ -569,8 +574,8 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261102b"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261102b"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261102b"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261102c"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261102c"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261102c"></script>
 </body>
 </html>
