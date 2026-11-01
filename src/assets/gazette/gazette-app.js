@@ -396,6 +396,69 @@ __rendered = true;
       box.innerHTML = '<div class="wx-now"><div class="c">天气数据暂缺 · 每日报纸随数据管线更新</div></div>';
       return;
     }
+    renderWeatherData(W);
+    /* v1.9.1 方案A预埋: 用户授权定位后，用 Open-Meteo 按用户实际位置覆盖管线数据
+       (管线数据 = 作者城市兜底；定位数据 = 每个用户自己的城市)。静默失败保留兜底。 */
+    enhanceWeatherWithGeo();
+  }
+  /* Open-Meteo weather_code (WMO) -> 管线 icon 键 */
+  function wxIconFromCode(code){
+    if(code === 0) return 'sun';
+    if(code === 1 || code === 2) return 'partly';
+    if(code === 3) return 'cloud';
+    if(code >= 45 && code <= 48) return 'fog';
+    if(code >= 51 && code <= 67) return 'rain';
+    if(code >= 71 && code <= 77) return 'snow';
+    if(code >= 80 && code <= 82) return 'rain';
+    if(code >= 85 && code <= 86) return 'snow';
+    if(code >= 95) return 'thunder';
+    return 'cloud';
+  }
+  var WX_WEEK_ZH = ['周日','周一','周二','周三','周四','周五','周六'];
+  function wxWeekZh(dateStr){
+    var d = new Date(dateStr + 'T12:00:00');
+    return isNaN(d.getTime()) ? '' : WX_WEEK_ZH[d.getDay()];
+  }
+  function enhanceWeatherWithGeo(){
+    if(!navigator.geolocation) return;
+    var done = false;
+    navigator.geolocation.getCurrentPosition(function(pos){
+      if(done) return; done = true;
+      var lat = pos.coords.latitude, lon = pos.coords.longitude;
+      var u = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon
+        + '&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4';
+      fetch(u).then(function(r){ return r.json(); }).then(function(d){
+        if(!d || !d.daily || !d.daily.time || !d.daily.time.length) return;
+        var casts = d.daily.time.map(function(t, i){
+          var code = d.daily.weather_code[i];
+          var zhMap = {0:'晴',1:'晴',2:'多云',3:'阴',45:'雾',48:'雾',51:'毛毛雨',53:'小雨',55:'大雨',
+                       61:'小雨',63:'中雨',65:'大雨',66:'雨夹雪',67:'雨夹雪',71:'小雪',73:'中雪',75:'大雪',
+                       80:'阵雨',81:'阵雨',82:'强阵雨',85:'小雪',86:'大雪',95:'雷阵雨',96:'雷阵雨',97:'雷阵雨'};
+          return {
+            date: t, week: '', week_zh: wxWeekZh(t),
+            zh: zhMap[code] || '多云', day: '', night: '',
+            daytemp: String(Math.round(d.daily.temperature_2m_max[i])),
+            nighttemp: String(Math.round(d.daily.temperature_2m_min[i])),
+            icon: wxIconFromCode(code)
+          };
+        });
+        /* 城市名: bigdatacloud 反查（免 key），失败显示「本地」 */
+        var gu = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + lat
+               + '&longitude=' + lon + '&localityLanguage=zh';
+        fetch(gu).then(function(r){ return r.json(); }).then(function(g){
+          renderWeatherData({
+            city: (g && (g.city || g.locality || g.principalSubdivision)) || '本地',
+            casts: casts, src: 'geo'
+          });
+        }).catch(function(){
+          renderWeatherData({city: '本地', casts: casts, src: 'geo'});
+        });
+      }).catch(function(){ /* 静默: 保留管线兜底 */ });
+    }, function(){ /* 用户拒绝授权或超时: 保留管线兜底 */ },
+    {timeout: 8000, maximumAge: 30 * 60 * 1000});
+  }
+  function renderWeatherData(W){
+    var box = document.getElementById('wx-body'); if(!box) return;
     var t = W.casts[0];
     var todayHtml =
       '<div class="wx-today">'
@@ -413,9 +476,10 @@ __rendered = true;
         +'<span class="tp">'+esc(c.nighttemp)+'<i>–</i>'+esc(c.daytemp)+'°</span>'
       +'</div>';
     }).join('');
+    var srcTag = W.src === 'geo' ? ' · 定位' : ' · 高德天气';
     box.innerHTML = todayHtml
       + (rowsHtml ? '<div class="wx-days">'+rowsHtml+'</div>' : '')
-      + '<div class="wx-city">'+esc(W.city||'')+' · 高德天气</div>';
+      + '<div class="wx-city">'+esc(W.city||'')+srcTag+'</div>';
   }
 
   /* ---- AIHOT yesterday's daily ---- */
