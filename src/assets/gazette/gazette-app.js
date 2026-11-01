@@ -139,10 +139,12 @@ __rendered = true;
     var groups = {};
     items.forEach(function(it){ (groups[it.section] = groups[it.section] || []).push(it); });
 
-    /* ---- sections after the AIHOT modules: rail sections (with images) + texgrids ---- */
+    /* ---- sections after the AIHOT modules: rail sections (with images) + texgrids ----
+       v1.8: 旧静态板块（music/football/tech/finance/society 等非 ai 的 items section）停用，
+       数据里即使还有这些 items 也不渲染——页面只保留 AIHOT/FIN NEWS/FASHIONABLE LIFE */
     var html = '';
     SEC_ORDER.forEach(function(sec){
-      if(sec === 'ai' || !groups[sec]) return;
+      if(sec !== 'ai' || !groups[sec]) return;
       var list = groups[sec];
       var meta = SEC_META[sec] || {zh:sec, en:sec.toUpperCase()};
       var withImg = list.filter(function(it){ return it.image_data; });
@@ -564,8 +566,9 @@ __rendered = true;
     });
     var zhNames = {'AIHOT':'AIHOT','Hacker News':'Hacker News','The Verge':'The Verge','sspai':'少数派','Pitchfork':'Pitchfork','BBC Football':'BBC Football','Sky Sports':'Sky Sports','Hypebeast':'Hypebeast','Highsnobiety':'Highsnobiety','FT中文网':'FT中文网','The Economist':'The Economist','BBC中文':'BBC中文'};
     var feedN0 = (AI.feed && AI.feed.length) ? AI.feed.length : 0;
-    var nonAi = items.filter(function(it){return it.source!=='AIHOT';}).length;
-    var allN = nonAi + feedN0;
+    /* v1.8: 旧静态源（The Verge 等）不再计入"全部信源"——只有 AIHOT 精选 + FIN + FASHION */
+    var aiSel = items.filter(function(it){return it.source==='AIHOT';}).length;
+    var allN = aiSel + feedN0;
     var fnN = ((window.DATA && window.DATA.finnews && window.DATA.finnews.items) || []).length;
     var fsN2 = ((window.DATA && window.DATA.fashion && window.DATA.fashion.items) || []).length;
     allN += fnN + fsN2;
@@ -576,7 +579,10 @@ __rendered = true;
        called 全部动态, which is the AIHOT timeline tab.  全部信源 = "all
        outlets"; the AIHOT tab keeps 全部动态 untouched. */
     var badges = '<button class="snav-item'+(curView==='ALL'?' on':'')+'" data-filter="ALL" type="button" role="tab" aria-selected="'+(curView==='ALL')+'"><span class="sn-name">📰 全部信源 <em>整份报纸</em></span><span class="sn-badge">'+allN+'</span></button>';
+    /* v1.8: 精简为三大板块——只渲染 AIHOT（含 FIN NEWS/FASHION 的挂载），
+       其余历史静态信源（The Verge/sspai/Pitchfork/BBC Football 等）不再出菜单 */
     order.forEach(function(src){
+      if(src !== 'AIHOT') return;
       var display = zhNames[src] || src;
       var bN = (src==='AIHOT' && feedN0) ? feedN0 : counts[src];
       badges += '<button class="snav-item'+(src===curView?' on':'')+'" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="'+(src===curView)+'"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+bN+'</span></button>';
@@ -636,13 +642,18 @@ __rendered = true;
 
   /* ---- footer ---- */
   function stampFooter(DATA, AI, items){
-    var nImg = items.filter(function(i){return i.image_data;}).length;
+    /* v1.8: 只统计 AIHOT 精选 + FIN + FASHION 三板块条数/图文 */
+    var aiItems = items.filter(function(i){return i.source==='AIHOT';});
+    var fnS = ((window.DATA&&window.DATA.finnews&&window.DATA.finnews.items)||[]);
+    var fsS = ((window.DATA&&window.DATA.fashion&&window.DATA.fashion.items)||[]);
+    var count = aiItems.length + fnS.length + fsS.length;
+    var nImg = aiItems.filter(function(i){return i.image_data;}).length + fsS.filter(function(i){return i.image;}).length;
     var f2 = document.getElementById('f-meta');
     if(f2){
       var t = DATA.generated_at ? new Date(DATA.generated_at) : null;
       function p(x){return (x<10?'0':'')+x;}
       var ts = (t && !isNaN(t)) ? t.getFullYear()+'-'+p(t.getMonth()+1)+'-'+p(t.getDate())+' '+p(t.getHours())+':'+p(t.getMinutes()) : '—';
-      f2.textContent = '数据更新于 '+ts+' · 共 '+items.length+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.6.2 · 远程 JSON + 缓存 + seed 降级';
+      f2.textContent = '数据更新于 '+ts+' · 共 '+count+' 条 · '+nImg+' 图文 · The Morning Tab 浅色版 v1.8 · 远程 JSON + 缓存 + seed 降级';
     }
     var el = document.getElementById('aihot-ftime');
     if(el && AI.fetchedAt){ var d=new Date(AI.fetchedAt);
@@ -651,8 +662,15 @@ __rendered = true;
     }
     var fs = document.getElementById('f-sources');
     if(fs){
-      var set=[]; items.forEach(function(i){ if(set.indexOf(i.source)<0) set.push(i.source); });
-      fs.textContent = '数据源（'+set.length+' 家）：'+set.join(' · ');
+      /* v1.8: 只报三大板块的管线源，不再列旧静态源 */
+      var set=[];
+      items.forEach(function(i){ if(i.source==='AIHOT' && set.indexOf(i.source)<0) set.push(i.source); });
+      var fnS = ((window.DATA&&window.DATA.finnews&&window.DATA.finnews.items)||[]);
+      var fsS = ((window.DATA&&window.DATA.fashion&&window.DATA.fashion.items)||[]);
+      var finSrc = []; fnS.forEach(function(i){ if(finSrc.indexOf(i.source)<0) finSrc.push(i.source); });
+      var fsnSrc = []; fsS.forEach(function(i){ if(fsnSrc.indexOf(i.source)<0) fsnSrc.push(i.source); });
+      var all = set.concat(finSrc).concat(fsnSrc);
+      fs.textContent = '数据源（'+all.length+' 家）：'+all.join(' · ');
     }
   }
 
