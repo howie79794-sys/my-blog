@@ -420,7 +420,10 @@ body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-selected
 body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-daily{display:none;}
 /* v1.7: FASHIONABLE LIFE 板块视图互斥（同 v1.4.1 规则：单源视图只显示自己的板） */
 body[data-view="FIN NEWS"] #sec-fashion{display:none;}
-body[data-view="FASHION"] #sec-finnews{display:none;}
+/* v1.9.4 fix: FIN NEWS 同样互斥——非 FIN NEWS 视图（含 AIHOT·日报）不再显示金融快讯板块。
+   原规则只写了 FASHION 视图下隐藏（v1.4.1 时 FIN NEWS 曾是 AIHOT 报纸的一个版面，
+   独立成版后规则没跟上 → AIHOT·日报视图右侧混出金融快讯） */
+body[data-view]:not([data-view=""]):not([data-view="FIN NEWS"]) #sec-finnews{display:none;}
 body[data-view]:not([data-view=""]):not([data-view="FASHION"]) #sec-fashion{display:none;}
 
 /* ================= filter mechanics + view transitions ================= */
@@ -558,8 +561,8 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261102d"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261102d"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261102d"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261102e"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261102e"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261102e"></script>
 </body>
 </html>
