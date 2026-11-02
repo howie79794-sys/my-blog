@@ -85,11 +85,18 @@
           t.classList.toggle('on', t.getAttribute('data-fncat')===fc);
         });
       }
+      if(f==='FASHION'){
+        /* v2: FASHION categories — same mutual-exclusion pattern as FIN NEWS */
+        var gc = document.body.getAttribute('data-fs-cat') || 'all';
+        document.querySelectorAll('.snav-subitem[data-fscat]').forEach(function(t){
+          t.classList.toggle('on', t.getAttribute('data-fscat')===gc);
+        });
+      }
     } else {
-      /* returning to AIHOT: clear the other group's sub-items first, then
+      /* returning to AIHOT: clear the other groups' sub-items first, then
          re-light the sub-item matching the live sub-view
          (v1.8.2: mutual exclusion — FIN NEWS categories must not survive) */
-      document.querySelectorAll('.snav-subitem[data-fncat]').forEach(function(t){ t.classList.remove('on'); });
+      document.querySelectorAll('.snav-subitem[data-fncat], .snav-subitem[data-fscat]').forEach(function(t){ t.classList.remove('on'); });
       var av = document.body.getAttribute('data-aihot-view') || 'feed';
       document.querySelectorAll('.snav-subitem[data-ahview]').forEach(function(t){
         t.classList.toggle('on', t.getAttribute('data-ahview')===av);

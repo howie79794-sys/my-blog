@@ -607,7 +607,36 @@ __rendered = true;
     wrap.innerHTML = html;
   }
 
-/* ---- FASHIONABLE LIFE: 潮流生活时间瀑布（HYPEBEAST 全文 + NOWRE现客）---- */
+/* ---- FASHIONABLE LIFE: 潮流生活时间瀑布（HYPEBEAST 全文 + 华丽志 + NOWRE现客）---- */
+  /* v2: 五档主题分类（GLM 管线分类），交互与 FIN NEWS 四档同构 */
+  var FS_CATS = [
+    {key:'all',      zh:'全部动态', en:'ALL'},
+    {key:'sneaker',  zh:'球鞋',     en:'SNEAKERS'},
+    {key:'runway',   zh:'秀场服饰', en:'RUNWAY'},
+    {key:'collab',   zh:'联名合作', en:'COLLABS'},
+    {key:'brand',    zh:'品牌动态', en:'BRANDS'},
+    {key:'culture',  zh:'生活方式', en:'CULTURE'},
+  ];
+  function syncFsCatUI(cat){
+    document.querySelectorAll('.snav-subitem[data-fscat]').forEach(function(t){
+      t.classList.toggle('on', t.getAttribute('data-fscat')===cat);
+    });
+    document.querySelectorAll('#fs-tabs .ah-tab').forEach(function(t){
+      t.classList.toggle('on', t.getAttribute('data-fscat')===cat);
+    });
+  }
+  function setFsCat(cat){
+    document.body.setAttribute('data-fs-cat', cat||'all');
+    syncFsCatUI(cat||'all');
+    renderFashion(window.DATA);
+  }
+  function initFsTabs(){
+    var tabs = document.getElementById('fs-tabs'); if(!tabs || tabs.__bound) return; tabs.__bound = true;
+    tabs.addEventListener('click', function(e){
+      var b = e.target.closest('.ah-tab'); if(!b) return;
+      setFsCat(b.getAttribute('data-fscat'));
+    });
+  }
   function renderFashion(DATA){
     var wrap = document.getElementById('fs-feedwrap'); if(!wrap) return;
     if(!wrap.__flagBound){
@@ -622,11 +651,38 @@ __rendered = true;
     }
     var FS = (DATA && DATA.fashion) || {};
     var list = FS.items || [];
+    /* v2: 分类过滤（data-fs-cat，默认 all）+ 计数 */
+    var curCat = document.body.getAttribute('data-fs-cat') || 'all';
+    var catCounts = {};
+    list.forEach(function(f){ var c = f.category || 'culture'; catCounts[c] = (catCounts[c]||0)+1; });
+    var shown = (curCat === 'all') ? list : list.filter(function(f){ return (f.category || 'culture') === curCat; });
+    if(!document.getElementById('fs-tabs')){
+      /* 首次渲染写入页签（含计数徽标） */
+      var tabsEl = document.createElement('div');
+      tabsEl.className = 'ah-tabs'; tabsEl.id = 'fs-tabs';
+      tabsEl.innerHTML = FS_CATS.map(function(c){
+        var badge = c.key === 'all' ? list.length : (catCounts[c.key] || 0);
+        return '<button type="button" class="ah-tab'+(curCat===c.key?' on':'')+'" data-fscat="'+c.key+'">'+c.zh+'<span class="tn">'+c.en+'</span></button>';
+      }).join('');
+      var vhead = wrap.parentElement.querySelector('.vhead');
+      if(vhead) vhead.insertAdjacentElement('afterend', tabsEl); else wrap.parentElement.insertBefore(tabsEl, wrap);
+      initFsTabs();
+    } else {
+      /* 已存在：刷新选中态与计数 */
+      document.querySelectorAll('#fs-tabs .ah-tab').forEach(function(t){
+        var k = t.getAttribute('data-fscat');
+        t.classList.toggle('on', k === curCat);
+      });
+    }
     var nEl = document.getElementById('fs-n');
     if(nEl) nEl.textContent = list.length ? (list.length + ' 条 · 三源滚动池') : '今日安静，无更新';
     if(!list.length){ wrap.innerHTML = '<div class="src-empty" style="display:block">潮流生活暂无数据</div>'; return; }
+    if(!shown.length){
+      var zhName = (FS_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh || curCat;
+      wrap.innerHTML = '<div class="src-empty" style="display:block">「'+esc(zhName)+'」暂无内容</div>'; return;
+    }
     var lastDay = '';
-    var html = '<ol class="tl-list">' + list.map(function(f){
+    var html = '<ol class="tl-list">' + shown.map(function(f){
       var d = f.published ? new Date(f.published) : null;
       var ok = !!(d && !isNaN(d.getTime()));
       var d1 = ok ? p2(d.getDate()) : '—';
@@ -655,7 +711,7 @@ __rendered = true;
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
         +'</div></li>';
     }).join('') + '</ol>';
-    html += '<div class="ah-more">— FASHIONABLE LIFE · 共 '+list.length+' 条（近 7 天滚动池）· HYPEBEAST + 华丽志 + NOWRE现客 · 按时间倒序 —</div>';
+    html += '<div class="ah-more">— FASHIONABLE LIFE · 共 '+list.length+' 条（近 7 天滚动池）· 当前「'+esc((FS_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||'')+'」'+shown.length+' 条 · 按时间倒序 —</div>';
     wrap.innerHTML = html;
   }
 
@@ -720,9 +776,21 @@ __rendered = true;
           +'<button class="snav-subitem'+(curFnCat==='filing'?' on':'')+'" data-fncat="filing" type="button"><span class="sb-n">公告</span><span class="sb-badge">'+(fnCounts.filing||0)+'</span></button>'
           +'<button class="snav-subitem'+(curFnCat==='research'?' on':'')+'" data-fncat="research" type="button"><span class="sb-n">研究</span><span class="sb-badge">'+(fnCounts.research||0)+'</span></button>'
           +'</div>';
-        /* v1.7: FASHIONABLE LIFE 一级菜单（无二级），置于 FIN NEWS 之后 */
-        var fsN = ((window.DATA && window.DATA.fashion && window.DATA.fashion.items) || []).length;
+        /* v2: FASHIONABLE LIFE 一级菜单 + 五档主题二级菜单（与 FIN NEWS 同构） */
+        var fsList = (window.DATA && window.DATA.fashion && window.DATA.fashion.items) || [];
+        var fsN = fsList.length;
+        var fsCounts = {all: fsN};
+        fsList.forEach(function(f){ var c = f.category || 'culture'; fsCounts[c] = (fsCounts[c]||0)+1; });
+        var curFsCat = (curView==='FASHION') ? (document.body.getAttribute('data-fs-cat') || 'all') : null;
         badges += '<button class="snav-item'+(curView==='FASHION'?' on':'')+'" data-filter="FASHION" type="button" role="tab" aria-selected="'+(curView==='FASHION')+'"><span class="sn-name">👕 FASHIONABLE LIFE<i>HYPEBEAST · 华丽志 · NOWRE现客</i></span><span class="sn-badge">'+fsN+'</span></button>';
+        badges += '<div class="snav-sub">'
+          +'<button class="snav-subitem'+(curFsCat==='all'?' on':'')+'" data-fscat="all" type="button"><span class="sb-n">全部动态</span><span class="sb-badge">'+(fsCounts.all||0)+'</span></button>'
+          +'<button class="snav-subitem'+(curFsCat==='sneaker'?' on':'')+'" data-fscat="sneaker" type="button"><span class="sb-n">球鞋</span><span class="sb-badge">'+(fsCounts.sneaker||0)+'</span></button>'
+          +'<button class="snav-subitem'+(curFsCat==='runway'?' on':'')+'" data-fscat="runway" type="button"><span class="sb-n">秀场服饰</span><span class="sb-badge">'+(fsCounts.runway||0)+'</span></button>'
+          +'<button class="snav-subitem'+(curFsCat==='collab'?' on':'')+'" data-fscat="collab" type="button"><span class="sb-n">联名合作</span><span class="sb-badge">'+(fsCounts.collab||0)+'</span></button>'
+          +'<button class="snav-subitem'+(curFsCat==='brand'?' on':'')+'" data-fscat="brand" type="button"><span class="sb-n">品牌动态</span><span class="sb-badge">'+(fsCounts.brand||0)+'</span></button>'
+          +'<button class="snav-subitem'+(curFsCat==='culture'?' on':'')+'" data-fscat="culture" type="button"><span class="sb-n">生活方式</span><span class="sb-badge">'+(fsCounts.culture||0)+'</span></button>'
+          +'</div>';
       }
     });
     nav.innerHTML = '<div class="snav-h">SOURCES · 信源</div>' + badges;
@@ -738,6 +806,15 @@ __rendered = true;
           var fnBtn = nav.querySelector('.snav-item[data-filter="FIN NEWS"]');
           if(fnBtn && !fnBtn.classList.contains('on')) fnBtn.click();
           setFnCat(fnCat);
+          window.scrollTo({top:0,behavior:'smooth'});
+          return;
+        }
+        var fsCat = sub.getAttribute('data-fscat');
+        if(fsCat){
+          /* v2: FASHION sub-menu — same pattern as FIN NEWS */
+          var fsBtn = nav.querySelector('.snav-item[data-filter="FASHION"]');
+          if(fsBtn && !fsBtn.classList.contains('on')) fsBtn.click();
+          setFsCat(fsCat);
           window.scrollTo({top:0,behavior:'smooth'});
           return;
         }
