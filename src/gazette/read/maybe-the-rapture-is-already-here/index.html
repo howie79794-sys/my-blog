@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maybe the Rapture is already here · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 科技 · 中国观察</div>
+    <h1 class="title">Maybe the Rapture is already here</h1>
+    <div class="byline">
+      <span class="author">诺亚·史密斯</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.noahpinion.blog/p/maybe-the-rapture-is-already-here" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-09 · 1585 words</span>
+    </div>
+    <div class="body"><figure><a href="https://substackcdn.com/image/fetch/$s_!WgDI!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff1adda31-08f7-48de-a13a-dab9ec2ced33_918x653.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!WgDI!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff1adda31-08f7-48de-a13a-dab9ec2ced33_918x653.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>Back when I was a teenager, a lot of people were very into <a href="https://en.wikipedia.org/wiki/Left_Behind" target="_blank" rel="noopener">the </a><em><a href="https://en.wikipedia.org/wiki/Left_Behind" target="_blank" rel="noopener">Left Behind</a></em><a href="https://en.wikipedia.org/wiki/Left_Behind" target="_blank" rel="noopener"> series</a>. Evangelical Christianity was still very strong in those days, especially in Texas, and <em>Left Behind</em> blew up by putting Christian eschatology into page-turning airport-bookstore-novel form. People really believed that the stories in those novels weren’t just stories — they were glimpses of a very real future event. <a href="https://en.wikipedia.org/wiki/Rapture" target="_blank" rel="noopener">The Rapture</a> — Jesus Christ’s gathering of the faithful to Heaven before the end of the world — is something that believers expect is going to happen one of these days.</p><p>Sometimes, these days, I feel as if it’s already happened. I look around at American culture and I wonder: Where did everybody go?</p><p>The mass culture of my youth is long gone. 76 million people watched the last episode of Seinfeld in 1998; fewer than 20 million watched the last episode of <em>Game of Thrones</em> two decades later. Right now I can’t even think of what an appropriate comparison would be. What’s the show that everyone watches? </p><p>In the 2010s, mass culture was replaced by meme culture. Everyone knew this photo and what it represented:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!vVWj!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F008a8669-a333-49ec-b15e-154e60c8ddeb_998x561.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!vVWj!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F008a8669-a333-49ec-b15e-154e60c8ddeb_998x561.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>Social media feeds — Twitter and the Facebook wall — turned American society into a sort of digital hive mind. Feeling yourself being absorbed into that great unified consciousness could be an agonizing experience — mobs constantly punished any deviation from conformity, quirky unique subcultures were devoured and metabolized, everyone was forced into a cell with people they had spent their lives trying to escape. The hunt for virality was everything. Viral memes were the thoughts that drifted through the mind of the social media Borg. </p><p>There are almost no memes left. For so many years there was a steady drumbeat of images and phrases that people passed around among each other ad infinitum; now, I can’t even think of the last one that really made the rounds. Twitter — now X — has not died but is diminished in scope and relevance. At times it feels like a ghost town. </p><p>Where did everybody go? I would like to think that they’re offline, living as we lived in the Before Times, running through sunlit fields blasting each other with Super Soakers or playing Dungeons and Dragons in their living rooms. Or perhaps they’re in Signal and WhatsApp chats and Discord channels, talking with their friends in the comfort and safety of privacy. I would like to think that they rejected the digital hive mind for the ancient ways of individuality and <a href="https://en.wikipedia.org/wiki/Dunbar%27s_number" target="_blank" rel="noopener">Dunbar’s Number</a>. </p><p>But my bet is that they’re just watching short form video. Over the last few years, the entire internet has steadily <a href="https://www.infinitescroll.us/p/the-carcinization-of-content" target="_blank" rel="noopener">carcinized</a> into a single type of app/website/media/entertainment — a vertically scrolling feed full of short video clips. Vine invented it, TikTok popularized it, and now every other site has copied this one dominant, all-conquering format. Already, vertical short-form video feeds are more dominant than every form of media except for social media itself:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!ESZH!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9c4e74a3-784e-4129-8c9f-38281b1c5a78_1217x628.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!ESZH!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9c4e74a3-784e-4129-8c9f-38281b1c5a78_1217x628.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://www.ampereanalysis.com/insight/daily-use-of-short-form-social-media-exceeds-streaming-tv-and-gaming" target="_blank" rel="noopener">Ampere</a></figcaption></figure><p>But even this significantly understates the change. The term “social media” used to mean people writing things to each other or sending images on Facebook or Twitter; now, it’s mostly used to mean people watching videos:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!Ju8w!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbb8c3564-79e8-42bc-912c-9d59ec1c4311_832x522.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!Ju8w!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbb8c3564-79e8-42bc-912c-9d59ec1c4311_832x522.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: John Burn-Murdoch</figcaption></figure><p>Even the long-form video sites, like YouTube, are <a href="https://www.theatlantic.com/podcasts/2026/04/how-short-form-clips-took-over-the-internet/686922/" target="_blank" rel="noopener">increasingly just short-form sites showing a bunch of clips</a>. This shift has basically killed the original use of social media, turning it from a town square or conversation room into a form of purely passive entertainment:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!B3fS!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F83e7103b-8f2c-46b0-b44e-56b1fa64dd0d_1067x686.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!B3fS!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F83e7103b-8f2c-46b0-b44e-56b1fa64dd0d_1067x686.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: John Burn-Murdoch</figcaption></figure><p>I am not part of this trend. I had TikTok on my phone for a year or so, but I could never get into it; in 2021 I deleted the app. The videos all felt like some kind of bland snack that you keep eating even though you don’t really like it — everything seemed optimized to make you swipe to the next thing, like the programming in those hundreds of channels that only existed so that satellite TV could brag that it had 700 channels. </p><p>Mass culture is often absorbing; meme culture is delightful and horrifying in turn. Short-form video <a href="https://www.noahpinion.blog/p/a-few-cultural-thoughts" target="_blank" rel="noopener">feels to me like anesthesia</a>; the swiping is the point, not the content. As Jerry Seinfeld once said, “Men don’t care what’s on TV. They only care what else is on TV.” I suppose I’m the exception.</p><p>So here I am, alone at the end of culture. I feel like one of the people from the <em>Left Behind</em> series, waking up to find most of the people around me taken to digital Heaven. </p><p>Have you ever heard of “heavenbanning”? It’s not a real thing…yet. It’s <a href="https://x.com/nearcyan/status/1532076277947330561" target="_blank" rel="noopener">the hypothetical idea</a> that social media platforms could neutralize obstreperous users by replacing their entire feed with AI content that flatters and agrees with them. You’d think you’re interacting with other human beings, and that everybody just happens to love you and think you’re brilliant, while in reality you’re in solitary confinement with an LLM.</p><p>It’s possible to think of vertical short-form video feeds as a kind of heavenbanning. Your feed is curated by AI, tailored to your own preferences. The videos you see <a href="https://uk.pcmag.com/social-media/151013/most-tiktok-users-even-younger-ones-rarely-post-videos" target="_blank" rel="noopener">aren’t made by anyone you know</a>, or (probably) by anyone you’ll ever meet. The people you know in real life don’t see the same videos you do, unless you share them. Eventually the world blurs together and you lose track of time:</p><blockquote><p>Researchers at several universities in China, in a study involving <a href="https://www.sciencedirect.com/science/article/abs/pii/S0747563226001202?via%3Dihub" target="_blank" rel="noopener">more than 1,500 high-school students</a>, found that their future time perspective was damaged by a steady diet of such short-form videos…Now, [short-form videos are] also making us less able to plan for the future, or even care about it. </p></blockquote><p>Right now, short-form videos are mostly made by would-be human influencers or clipped from human-made long-form videos that few people actually watch. But in the very near future, much of what you see in your TikTok or Reels feed could be AI-generated. And as the cost of compute drops, AI will be able to generate <em>personalized</em> videos for everyone — content tailored not necessarily to delight you, but to keep you engaged, to keep you swiping, to keep you making in-app purchases. </p><p>When I was a kid, I used to wonder what all the dead people were doing in Heaven for all of those countless eons. Now I know what they’re doing. They’re <em>swiping</em>. </p><p>I think about the <a href="https://en.wikipedia.org/wiki/Great_Filter" target="_blank" rel="noopener">Great Filter</a> sometimes. We’ve searched the skies for signs of alien intelligence for many decades, and found nothing — natural or artificial. The Great Filter is one possible explanation for the silence of the cosmos — it’s the idea that there’s some dread <em>Thing</em> in the Universe that destroys sentient species before they can spread out to the stars. </p><p>There are plenty of hypotheses as to what the Great Filter might be. Perhaps every sentient species destroys itself with nukes or bioweapons. Perhaps AI always tends to wipe out its organic creators before retreating into inaccessible virtual worlds. Perhaps there’s a race of killer robots silently cruising between the stars, slaughtering every organic species that looks like it might one day rise to become a threat. </p><p>Or perhaps it’s the smartphone. In previous decades, fertility decline was due to couples choosing to have fewer children; now, it’s increasingly about people never forming couples at all. The isolating effects of social media are one obvious culprit; it’s very hard to conceive a child while you’re on your phone.<a href="#footnote-1" target="_blank" rel="noopener">1</a> <a href="https://www.nber.org/papers/w35310" target="_blank" rel="noopener">Myers and Hooper</a> (2026) found that “access to the iPhone reduced births by 4.5–8.0% at ages 15–19 and 3.2–6.6% at ages 20–24”. <a href="https://epc2026.eaps.nl/abstracts/261102" target="_blank" rel="noopener">Breen et al. (2026)</a> found that “the expansion of 3G coverage [in Nigeria] during the study period led to a decline in fertility, corresponding to a 7% reduction in the annual probability of a woman having a birth.” </p><p>Given the timing and the microeconomic evidence, <a href="https://www.noahpinion.blog/p/are-you-finally-ready-to-admit-its" target="_blank" rel="noopener">smartphones are the likeliest explanation</a> for why instead of leveling out near 2, the total fertility rate in rich countries — and, increasingly, in middle-income countries — has busted right through that floor and headed down toward zero. Smartphones at least help to explain why <a href="https://x.com/elanbechor/status/2102584316547178582" target="_blank" rel="noopener">Latin America</a> now has <a href="https://x.com/onlmaps/status/2105380583664648338" target="_blank" rel="noopener">an even lower birth rate</a> than the EU. </p><p>Even without vertical short-form video, social media might still be enough to shrink the human race. Online interactions substitute for offline ones, but only one of the two can make a baby. But it’s hard to deny that vertical short-form video is <a href="https://www.derekthompson.org/p/why-everything-became-television" target="_blank" rel="noopener">even more isolating than other online activities</a> — in the case of heavenbanning, it’s almost solipsistic. At least on X you can meet your mutuals. In the brave new world of AI-generated personalized short-form content, your “mutuals” will be made of matrices and computer chips. </p><p>Personally, I don’t like vertical short-form video because I think it’s pretty boring. But the fact that it could represent the euthanasia of our species seems like an additional downside. Perhaps it’s in the fundamental nature of intelligence to hack its own reward function — to find a way to give up striving and building and loving, and to simply <a href="https://en.wikipedia.org/wiki/Brain_stimulation_reward#Strength_of_drive" target="_blank" rel="noopener">hit the dopamine button</a> until it starves itself ecstatically to death. </p><p>The next time you look at the night sky, you should wonder if instead of star empires and unearthly paradises, it’s simply a vast graveyard of short-form video fans. Such an outcome would be much gentler, but hardly less cataclysmic, than the end of Revelation. </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.noahpinion.blog/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.noahpinion.blog/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.noahpinion.blog/p/maybe-the-rapture-is-already-here?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.noahpinion.blog/p/maybe-the-rapture-is-already-here?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p><a href="#footnote-anchor-1" target="_blank" rel="noopener">1</a><p>But not impossible, of course.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.noahpinion.blog/p/maybe-the-rapture-is-already-here" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

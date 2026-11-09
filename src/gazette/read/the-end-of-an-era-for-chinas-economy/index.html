@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The end of an era for China&#x27;s economy · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 科技 · 中国观察</div>
+    <h1 class="title">The end of an era for China&#x27;s economy</h1>
+    <div class="byline">
+      <span class="author">诺亚·史密斯</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.noahpinion.blog/p/the-end-of-an-era-for-chinas-economy" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-16 · 818 words</span>
+    </div>
+    <div class="body"><figure><a href="https://substackcdn.com/image/fetch/$s_!0blH!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc7367e8f-c521-4145-96b7-629f981adf85_960x690.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!0blH!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc7367e8f-c521-4145-96b7-629f981adf85_960x690.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo by World Economic Forum via <a href="https://commons.wikimedia.org/wiki/File:Zhu_Rongji_-_World_Economic_Forum_Annual_Meeting_1986_%28European_Management_Symposium%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure><p>Zhu Rongji has passed away at the age of 97. He was not the only architect of the economic reforms that have made China a modern powerhouse — Deng Xiaoping, Zhou Enlai, Chen Yun, and others were all important — but Zhu was perhaps the most skilled, versatile, and far-sighted. He presided over China’s greatest era of reform and opening up — 1991 to 2003 — and handled both macroeconomic and microeconomic policy with a skill that perhaps no other Chinese leader has ever matched.</p><p>In many ways, Zhu was the man who really <a href="https://press-files.anu.edu.au/downloads/press/n4267/html/ch18.xhtml?page=27&referer=" target="_blank" rel="noopener">made China a capitalist country</a>. The privatization of state-owned enterprises had begun earlier, but Zhu <a href="https://www.nytimes.com/2026/08/12/world/asia/zhu-rongji-dead.html" target="_blank" rel="noopener">continued and accelerated it</a>. He was the main champion of <a href="https://en.wikipedia.org/wiki/China_and_the_World_Trade_Organization" target="_blank" rel="noopener">China’s successful drive to join the WTO</a>, which supercharged China’s export industries and led to a massive wave of foreign investment; he also engaged in a deregulation program to lure foreign businesses to manufacture things in China. </p><p>When the Asian financial crisis of 1997 led to a wave of bad loans, Zhu bailed out the banks, and growth quickly resumed. And Zhu also devised <a href="https://en.wikipedia.org/wiki/Tax-Sharing_Reform_of_China_in_1994" target="_blank" rel="noopener">the most important tax reform</a> in China’s modern history, transferring large amounts of local government revenue to the central government, while simultaneously letting local governments do things like borrow more money and sell more leases on land to fund their own activities. </p><p>There is no question in my mind that Zhu ought to be remembered as one of history’s great heroes. When he entered office, East Asia had 1.22 billion people living on less than $3 a day (in 2021 dollars) — more than half the world’s total. By the time Xi Jinping became China’s top leader, that number was one-sixth of what it had been:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!yRVr!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F44ca0060-ad67-452b-bfd5-76736db80df5_1020x730.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!yRVr!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F44ca0060-ad67-452b-bfd5-76736db80df5_1020x730.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://ourworldindata.org/grapher/projections-extreme-poverty-wb" target="_blank" rel="noopener">OWID</a></figcaption></figure><p>This is the biggest and fastest decrease in absolute poverty that the human race has ever seen. Zhu didn’t do it alone, of course, but the economic model he devised was so effective at generating rapid growth that he deserves more credit than perhaps any individual other than Deng Xiaoping. The list of people who have done more to decrease aggregate human suffering is short indeed. </p><p>China is no longer the growth powerhouse it was in those earlier years. According to official statistics, over the last 15 years, China’s growth rate has fallen to 5% — less than half of what it was in Zhu’s time:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!dLOH!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe786155e-aedd-4757-a92e-25ecc478a3a6_904x723.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!dLOH!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe786155e-aedd-4757-a92e-25ecc478a3a6_904x723.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?end=2025&locations=CN&start=1991" target="_blank" rel="noopener">World Bank</a></figcaption></figure><p>Some independent estimates <a href="https://rhg.com/research/chinas-economy-rightsizing-2025-looking-ahead-to-2026/" target="_blank" rel="noopener">put the growth rate much lower</a> — maybe 2-3%. China is going through a difficult economic time right now, and its leaders <a href="https://www.aeaweb.org/articles?id=10.1257/mac.20150074" target="_blank" rel="noopener">have a tradition</a> of “smoothing” official numbers by understating growth during booms and overstating it during busts. </p><p>Some amount of slowdown is to be expected. China is a much richer country than it was when Zhu left office — maybe <a href="https://ourworldindata.org/grapher/gdp-per-capita-worldbank?tab=line&country=~CHN" target="_blank" rel="noopener">five times richer</a>. When Zhu ended his historic tenure in 2003, China was about as rich as Tanzania or Zambia is now. Today, it’s closer to Argentina or the Dominican Republic. A country can’t keep growing at supercharged rates forever; eventually, technological catch-up and capital deepening run their course, and a country is forced to grow based more on innovation and improved efficiency. </p><p>To be fair, Xi Jinping has taken some serious steps toward making that transition. His government has designed a “new national system” of research and development that tries to <a href="https://www.noahpinion.blog/p/china-has-invented-a-whole-new-way" target="_blank" rel="noopener">coordinate the entire supply chain of innovation</a>, all the way from government-funded research labs to private companies putting products on the shelves. He has unleashed the most expensive and extensive <a href="https://rhg.com/research/chinas-next-generation-industrial-policy/" target="_blank" rel="noopener">system of industrial subsidies</a> in world history, promoting essentially every advanced manufacturing industry in existence, as well as AI. These policies may be unorthodox, but their goal is the right one — they’re aimed at pushing China past middle-income status by replacing catch-up growth with frontier innovation.</p><p>Whether Xi’s policies have been <em>effective</em> at this goal is less clear. There’s actually a big debate over whether Chinese total factor productivity — a measure of overall economic efficiency — grew in the 2010s. The Penn World Tables, which had until recently shown a severe slowdown in TFP growth, recently <a href="https://www.bbvaresearch.com/wp-content/uploads/2026/07/China-Productivity-Challenge-A-Shift-Share-Analysis-edi.pdf" target="_blank" rel="noopener">changed their assumptions</a> and now report very healthy annualized growth of over 2% throughout the 2010s. Other sources, such as <a href="https://www.conference-board.org/pdf_free/TED-SummaryTables-Charts-sep2025.pdf" target="_blank" rel="noopener">the Conference Board</a> and <a href="https://muse.jhu.edu/article/848481" target="_blank" rel="noopener">Brandt et al. (2022)</a>, still think there was a slowdown, and peg the rate at around 1%. But everyone agrees that China’s TFP growth <a href="https://x.com/JesusFerna7026/status/2007129679979790752" target="_blank" rel="noopener">has been slowing over time</a>, and that Xi’s “industrial policy for everything” hasn’t managed to re-accelerate it so far.<a href="#footnote-1" target="_blank" rel="noopener">1</a> </p><p>In fact, a lot of people are noting that China now appears to have a “two-speed” or “k-shaped” economy — split between a high-tech manufacturing sector that’s increasingly the envy of the world, and a broader economy that’s still mired in the aftermath of the country’s epic real estate bust.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.noahpinion.blog/p/the-end-of-an-era-for-chinas-economy" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

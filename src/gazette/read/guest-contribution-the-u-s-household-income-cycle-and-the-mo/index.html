@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guest Contribution: “The U.S. Household-Income Cycle and the Motio Rule” · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">Guest Contribution: “The U.S. Household-Income Cycle and the Motio Rule”</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/08/guest-contribution-the-u-s-household-income-cycle-and-the-motio-rule" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-26 · 1065 words</span>
+    </div>
+    <div class="body"><p><em>Today we present a guest post written by </em><a href="https://www.linkedin.com/in/matias-scaglione/" target="_blank" rel="noopener"><em>Matías Scaglione</em></a> <em>and <a href="https://motioresearch.com/about/" target="_blank" rel="noopener">Romina Soria</a> of </em><a href="https://motioresearch.com/" target="_blank" rel="noopener"><em>Motio Research</em></a><em>, an independent research firm focused on measuring and analyzing U.S. household income. </em></p>
+
+
+<p>Household income is central to economic well-being, but it is largely absent from the set of indicators used to monitor the U.S. economy at monthly frequency. Official household-income estimates are annual and published with a substantial lag. At Motio Research, we have been publishing monthly estimates of U.S. household income since <a href="https://econbrowser.com/archives/2024/03/guest-contribution-a-monthly-series-of-u-s-household-income-data" target="_blank" rel="noopener">December 2023</a>, using Current Population Survey (CPS) microdata and covering the period since March 2010.</p>
+<p>On August 11, <a href="https://motioresearch.com/the-motio-rule/" target="_blank" rel="noopener">we announced</a> a new household-income series that follows the same methodology as our public series but uses reported-only income data throughout, excluding Census-imputed income values. This allows the series to extend back to January 1994, providing a long historical record for evaluating household-income behavior across multiple business-cycle episodes.</p>
+<p>The historical series reveals a pattern that motivated what we call the <strong>Motio Rule</strong>, a U.S. recession warning indicator based on deterioration in household-income momentum following a mature expansion.</p>
+<p><strong>Household-income momentum</strong></p>
+<p>The new series measures the year-over-year percentage change in the three-month moving average of real median household income. The underlying household-income estimates are not seasonally adjusted and are converted to real values using the not seasonally adjusted CPI-U. The CPS and CPI inputs are not subject to routine historical revision. We call this measure <strong>household-income momentum</strong>.</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/08/motiofig.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/08/motiofig.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p>Across the longer historical record, the series shows a clear pattern: sustained positive momentum characterizes household-income expansions, while deterioration in momentum during and following mature expansions preceded the 2001 and 2007–09 U.S. recessions.</p>
+<p>The pandemic recession did not follow a conventional business-cycle pattern. In addition, pandemic-related nonresponse bias affected CPS household-income estimates. The affected observations are shown for continuity but excluded from the analytical warning record.</p>
+<p>An interactive version of the momentum chart is available <a href="https://motioresearch.com/dashboard/" target="_blank" rel="noopener">here</a>.</p>
+<strong>The household-income cycle</strong>
+<p>We distinguish between two confirmed phases—expansion and contraction—and two transitional phases—candidate expansion and candidate contraction.</p>
+<p>Following a confirmed contraction, a <strong>candidate expansion</strong> begins with the first nonnegative momentum reading. It becomes a <strong>confirmed expansion</strong> when consecutive nonnegative readings sum to at least +2.5 percentage points. Following a confirmed expansion, a <strong>candidate contraction</strong> begins with the first negative reading. It becomes a <strong>confirmed contraction</strong> when consecutive negative readings reach a combined depth of at least 2.5 percentage points.</p>
+<p>Candidate phases are provisional. If a candidate reaches its threshold, the confirmed phase is dated from the first month of the candidate phase. If momentum reverses sign before the threshold is reached, the candidate fails and the cycle returns to the preceding confirmed phase.</p>
+<p>Beginning in its 24th month, a confirmed expansion becomes <strong>mature </strong>once at least 21 of the latest 24 readings are nonnegative.</p>
+<strong>The Motio Rule</strong>
+<p><strong>Following a mature household-income expansion, a U.S. recession warning is triggered the first time household-income momentum is negative for at least two consecutive months and the negative readings have a combined depth of at least 0.5 percentage point. </strong></p>
+<p>A Motio Rule warning is a dated event, not an ongoing state. Only one warning may be issued following a given mature expansion.</p>
+<p>If the warning conditions are met after the NBER has already declared a recession, the deterioration remains part of the household-income cycle, but no Motio Rule warning is issued.</p>
+<strong>2001</strong>
+<p>The first observable expansion began and was confirmed in March 1995 and became mature in February 1997. A candidate contraction began in January 2001. A second negative reading in February brought cumulative deterioration to 0.69 percentage point, triggering a recession warning.</p>
+<p>The February 2001 warning occurred one month before the March business-cycle peak subsequently determined by the NBER. The NBER did not announce that peak until November 26, 2001.</p>
+<p>The candidate contraction failed when momentum turned positive in April, and the cycle returned to the mature expansion. A new candidate contraction began in March 2002 and became a confirmed contraction in May, after a cumulative deterioration of 2.8 percentage points. Negative momentum ultimately persisted for 43 consecutive months.</p>
+<strong>2007</strong>
+<p>The next expansion began in October 2005, was confirmed in May 2006, and became mature in September 2007. A candidate contraction began in November. A second negative reading in December brought cumulative deterioration to 0.82 percentage point, triggering a recession warning.</p>
+<p>The December 2007 warning coincided with the business-cycle peak subsequently determined by the NBER. The NBER did not announce that peak until December 1, 2008.</p>
+<p>The candidate contraction failed when momentum turned positive in January 2008, and the cycle returned to the mature expansion. A new candidate contraction began in August 2008 and was confirmed in October, when cumulative deterioration reached 2.8 percentage points. Negative momentum ultimately persisted for 47 consecutive months.</p>
+<strong>The post-pandemic period</strong>
+<p>A candidate expansion began in July 2022 and became a confirmed expansion in December, when cumulative positive momentum reached 2.8 percentage points. A candidate contraction began in January 2023 and became a confirmed contraction in July, before the expansion had become mature. The episode therefore could not generate a Motio Rule warning.</p>
+<p>A new candidate expansion began in October 2023 and became a confirmed expansion in December. A mild candidate contraction began in April 2025 but failed when momentum turned positive in June, after cumulative deterioration of only 0.14 percentage point. The cycle returned to the confirmed expansion, which became mature in September.</p>
+<p>As of <strong>July 2026</strong>, household-income momentum stood at <strong>+0.17 percent</strong>, down from +1.1 percent in June and +2.3 percent in May. The May-to-July slowdown was unusually abrupt. After excluding pandemic-affected observations, June and July recorded the two largest one-month declines in the household-income momentum series. The deterioration was faster than immediately before either the 2001 or 2007 warning. Unlike in those episodes, however, momentum remained positive through July. The cycle therefore remained in a mature expansion: no candidate contraction began, and no Motio Rule warning was issued.</p>
+
+<p>The evidence is limited. The series includes only two conventional recessions, and we used both to develop the Motio Rule. Still, both recessions were preceded by the same striking pattern: <strong>household-income momentum weakened steadily in a mature expansion and then turned negative near a business-cycle peak</strong>.</p>
+<p>Household income is clearly central to economic well-being. The evidence presented here suggests that it should also occupy a central place in the assessment of the U.S. business cycle.</p>
+
+
+<p><em>This post written by <strong>Matías Scaglione</strong> and <strong>Romina Soria</strong>.</em></p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/08/guest-contribution-the-u-s-household-income-cycle-and-the-motio-rule" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

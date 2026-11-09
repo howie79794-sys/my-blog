@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Good Idea or Bad Idea: Private equity for pension plans? · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Good Idea or Bad Idea: Private equity for pension plans?</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/good-idea-or-bad-idea-private-equity-for-pension-plans/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-24 · 1538 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Private equity performance is commonly evaluated using measures such as internal rates of return, cash multiples, and public market equivalents. But these measures do not necessarily answer the question that matters most to an institutional investor:<br />Did private equity improve this investor’s portfolio after accounting for the risks it already carried?</p>
+
+
+
+<p class="wp-block-paragraph">A high private equity return may reflect genuine manager skill, compensation for bearing greater risk, or simply access to investments unavailable to other investors. This paper develops an investor-specific framework for separating these explanations and applies it to U.S. public pension plans.</p>
+
+
+
+Private equity for pension plans? Evaluating private equity performance from an investor’s perspective
+
+
+
+<ul class="wp-block-list">
+<li>Arthur G. Korteweg, Stavros Panageas, Anand Systla</li>
+
+
+
+<li>Journal of Financial Economics, 2026</li>
+
+
+
+<li>A version of this paper can be found <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4300673" target="_blank" rel="noopener">here</a></li>
+
+
+
+<li>Want to read our summaries of academic finance papers? Check out our <a href="https://alphaarchitect.com/category/architect-academic-insights/academic-research-insight/" target="_blank" rel="noopener">Academic Research Insight</a> category</li>
+</ul>
+
+
+
+Key Academic Insights
+
+
+
+<p class="wp-block-paragraph"><strong>Private equity should be evaluated from the investor’s perspective</strong><br />Traditional private equity performance measures generally compare a fund with a common public market benchmark. The authors argue that this one-size-fits-all approach overlooks meaningful differences among investors. Pension plans hold different combinations of stocks, bonds, and other assets, operate under different constraints, and may value private equity cash flows differently. The paper therefore evaluates each private equity investment using the return on the pension plan’s own portfolio rather than relying exclusively on the public equity market.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>IRR does not distinguish alpha from risk</strong><br />A high internal rate of return does not necessarily indicate superior investment performance. It may simply compensate the investor for assuming greater risk. To address this problem, the authors separate private equity returns into two components: compensation for risk and an investor-specific alpha. This decomposition makes it possible to determine whether private equity genuinely expands the investor’s opportunity set or merely adds exposure to risks that could potentially be obtained elsewhere.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Investor-specific performance measures</strong><br />The authors develop the Investor Portfolio Equivalent, or IPE, and its more general version, the Generalized Investor Portfolio Equivalent, or GIPE. The IPE discounts a private equity fund’s cash flows using the pension plan’s own portfolio return. The GIPE additionally accounts for differences in risk aversion. A positive GIPE indicates that a marginal allocation to the private equity investment would improve the pension plan’s objective after accounting for both its existing portfolio and its tolerance for risk.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The average pension plan did not benefit from more private equity</strong><br />Across all pension plan and private equity fund combinations, the average GIPE is close to zero and statistically insignificant. This suggests that the representative public pension plan would not have improved its portfolio by simply increasing its allocation to the average private equity fund. The result differs sharply from the more favorable conclusion obtained using the simpler IPE measure, demonstrating how assumptions about investor risk aversion can materially affect performance evaluation.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Buyout funds are the important exception</strong><br />Among the private equity strategies studied, buyout funds are the only category with a positive and statistically significant average GIPE. This suggests that, historically, buyout funds gave public pension plans access to investment opportunities that improved their portfolios after accounting for risk. However, the corresponding annualized alpha is positive but not statistically significant, so the evidence should not be interpreted as proof of persistent or universally available manager alpha.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Venture capital underperformed after adjusting for risk</strong><br />Venture capital funds have a negative and statistically significant GIPE. At first glance, this suggests that they reduced value for the average pension plan. However, venture capital also performed better than a mimicking strategy invested in publicly traded small-growth stocks. This means that venture capital’s weak absolute result partly reflects the historically poor performance of its closest public-market style exposure rather than an unequivocal failure of venture capital managers.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Pension plans do not show market-timing skill</strong><br />The study finds no meaningful evidence that pension plans successfully time when to enter or exit private equity. Plans were not systematically more active in vintages that subsequently generated higher returns or alpha. This finding challenges the idea that institutional investors can improve results by tactically increasing commitments when private equity opportunities appear especially attractive.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Access matters more than selection skill</strong><br />The private equity funds chosen by pension plans outperform the average fund from the same vintage. However, this advantage largely disappears when the analysis focuses on follow-on funds from managers with whom the pension plan already had a relationship or on first-time funds that were more broadly accessible. The evidence therefore suggests that pension plans’ apparent selection ability comes primarily from privileged access to successful managers rather than a superior ability to identify winners from the full opportunity set.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Underfunded plans take more risk without earning more alpha</strong><br />Underfunded pension plans tend to obtain higher private equity returns by accepting greater risk rather than by earning superior risk-adjusted performance. In some cases, they earn lower alpha. This pattern is consistent with “gambling for resurrection,” in which a financially stressed pension plan increases risk in the hope of improving its funding position. Higher reported returns are therefore not necessarily evidence of better investment decisions.</p>
+
+
+
+Practical Applications for Investment Advisors
+
+
+
+<p class="wp-block-paragraph"><strong>Evaluate alternatives in the context of the total portfolio</strong></p>
+
+
+
+<p class="wp-block-paragraph">An alternative investment should not be judged solely by its stand-alone return or by comparison with a generic market index. Its value depends on how it interacts with the investor’s existing holdings, liabilities, constraints, and risk tolerance. Advisors should therefore ask whether an allocation improves the total portfolio rather than whether the fund reports an impressive IRR.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Separate risk-taking from investment skill</strong><br />Higher returns do not automatically demonstrate superior <a href="https://alphaarchitect.com/a-framework-for-investment-manager-selection-stick-to-the-facts/" target="_blank" rel="noopener">manager selection</a>. When evaluating private equity portfolios, advisors should distinguish the portion of return attributable to systematic risk from genuine alpha. This is especially important when clients compare illiquid strategies with public investments that may carry different leverage, sector, size, or style exposures.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Access is an investment resource</strong><br />Strong historical results may depend on access to scarce, capacity-constrained managers rather than an investor’s ability to select funds. This distinction is crucial because access is not easily scalable or transferable. An investor without established relationships should not assume that industry-level or elite-manager performance is representative of the opportunities actually available.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Governance belongs in private equity due diligence</strong><br />Private equity outcomes depend not only on fund characteristics but also on the incentives and decision-making structures of the investor. Advisors should examine approval processes, political influences, conflicts of interest, local investment mandates, consultant incentives, and the accountability of investment committees. Weak governance can turn a high-return allocation into a poor risk-adjusted decision.</p>
+
+
+
+How to Explain This to Clients
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“Private equity should not be evaluated simply by asking whether it earned a high return. A high return may come from taking more risk, and the same investment may be attractive for one portfolio but unnecessary for another.</p>
+
+
+
+<p class="wp-block-paragraph">This study evaluates private equity from the perspective of each pension plan’s existing portfolio. It finds that the average pension plan would not have benefited from simply allocating more to private equity, although buyout funds performed better than other strategies.</p>
+
+
+
+<p class="wp-block-paragraph">The strongest pension plan results appear to come mainly from access to successful managers, not an exceptional ability to identify them in advance. The study also finds that underfunded or weakly governed plans sometimes earned higher returns only because they took more risk.</p>
+
+
+
+<p class="wp-block-paragraph">The lesson is that private equity can add value, but the decision depends on the investor’s portfolio, access, governance, and ability to distinguish genuine alpha from compensation for risk.”</p>
+</blockquote>
+
+
+
+The Most Important Chart from the Paper
+
+
+
+<p class="wp-block-paragraph">Figure 2 provides the clearest visual summary of the paper’s central result. It compares the Investor Portfolio Equivalent with the Generalized Investor Portfolio Equivalent across fund vintage years for all private equity funds and separately for buyout, venture capital, and real estate.</p>
+
+
+
+<figure class="aligncenter size-fusion-600"><img src="https://alphaarchitect.com/wp-content/uploads/2026/08/2026-08-05-21_41_01-ssrn-4300673.pdf-600x558.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+Abstract
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<h3 id="h-" class="wp-block-heading"></h3>
+
+
+
+<p class="wp-block-paragraph">This paper evaluates private equity performance using stochastic discount factors derived from the portfolios of individual investors. The authors introduce the Investor Portfolio Equivalent and the Generalized Investor Portfolio Equivalent, which measure whether a private equity investment improves a pension plan’s portfolio after accounting for its existing asset allocation and risk aversion. Applying the framework to U.S. public pension plans and North American buyout, venture capital, and real estate funds, the authors find that the average pension plan would not have benefited from broadly increasing its private equity allocation. Buyout funds are the principal exception, while venture capital underperforms on an investor-adjusted basis. Pension plans invest in funds with above-average performance, but this advantage is primarily attributable to access to successful managers rather than superior selection or market-timing skill. Underfunded plans and plans with weaker governance structures tend to take greater private equity risk without earning higher risk-adjusted returns. The results demonstrate that private equity performance depends on the investor’s portfolio, constraints, access, and governance, and that raw returns alone provide an incomplete measure of investment success.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</blockquote>
+<p><a href="https://alphaarchitect.com/good-idea-or-bad-idea-private-equity-for-pension-plans/" target="_blank" rel="noopener">Good Idea or Bad Idea: Private equity for pension plans?</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/good-idea-or-bad-idea-private-equity-for-pension-plans/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

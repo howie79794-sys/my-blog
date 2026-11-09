@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI should assist advisors, but AI is NOT a fiduciary · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">AI should assist advisors, but AI is NOT a fiduciary</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/llm-fiduciary/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-10 · 1053 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Large language models can generate investment recommendations instantly. They can process client profiles, summarize market conditions, and produce polished rationales that sound personalized. But there is an important question underneath the fluency. Are these systems actually integrating the full client profile when they make decisions? This paper introduces a troubling possibility. LLMs may only appear to personalize advice while actually relying on a small number of dominant signals, especially self-reported risk tolerance. The result is a subtle but important failure mode. Recommendations can look sophisticated and individualized while still ignoring much of the information that suitability standards require advisors to consider.</p>
+
+
+
+One Size Fits None: Heuristic Collapse in LLM Investment Advice
+
+
+
+<ul class="wp-block-list">
+<li>Jillian Ross and Andrew W. Lo</li>
+
+
+
+<li>Airxiv, 2026</li>
+
+
+
+<li>A version of this paper can be found <a href="https://arxiv.org/html/2604.23837v1" target="_blank" rel="noopener">here</a></li>
+
+
+
+<li>Want to read our summaries of academic finance papers? Check out our <a href="https://alphaarchitect.com/category/architect-academic-insights/academic-research-insight/" target="_blank" rel="noopener">Academic Research Insight</a> category</li>
+</ul>
+
+
+
+Key Academic Insights
+
+
+
+<p class="wp-block-paragraph"><strong>LLMs often reduce complex advice to simple heuristics</strong><br />The paper introduces the concept of <em>heuristic collapse</em>. This occurs when an LLM appears to use a full client profile but in practice bases its recommendations primarily on one or two salient variables. In investment advice, the dominant feature is usually self-reported risk tolerance. Other critical inputs such as age, income, liquidity needs, debt, and investment horizon receive much less weight.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The problem is difficult to detect from individual outputs</strong><br />A key insight is that heuristic collapse is not obvious when reading a single recommendation. Individual responses can still sound coherent, personalized, and financially reasonable. The failure only becomes visible when analyzing recommendations systematically across large populations of clients and measuring how sensitive allocations are to different inputs.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The study uses synthetic investor profiles to test personalization</strong><br />The authors generate 1,000 synthetic client profiles using Latin hypercube sampling to ensure broad and low-correlation variation across characteristics like age, income, debt, savings, investment timeline, and <a href="https://alphaarchitect.com/risk-tolerance-assessment-investment-success/" target="_blank" rel="noopener">risk tolerance</a>. They then ask frontier GPT models to construct portfolios from a standardized set of investment products.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Risk tolerance dominates allocation decisions</strong><br />Across most models, portfolio recommendations are overwhelmingly driven by self-reported risk tolerance. Aggressive clients receive equities. Conservative clients receive fixed income. In many cases, risk tolerance accounts for 57% to 88% of the predictive weight behind recommendations, while age, liquidity, and income play much smaller roles.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Better diversification does not guarantee better personalization</strong><br />Portfolios generated with web search are often more diversified, but not necessarily more tailored to individual clients. This distinction matters because fiduciary suitability standards require both diversification and personalization. Advice that looks professionally diversified may still fail to reflect the client’s unique circumstances.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>GPT-4o and GPT-5 models behave differently</strong><br />The paper finds important behavioral differences across models. GPT-4o produces more client-specific recommendations in the baseline setting but deteriorates when forced to use web search. By contrast, the GPT-5.4 family generally benefits from web search, producing more grounded and detailed rationales. However, even these models still exhibit significant heuristic collapse.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>LLMs exhibit strong round-number heuristics</strong><br />Another interesting finding is that LLMs strongly favor round-number allocations such as 10%, 20%, or 25%, even when no such constraint exists. In some models, nearly all allocation percentages are multiples of five. Web search reduces this tendency somewhat, but the bias remains persistent.</p>
+
+
+
+Practical Applications for Investment Advisors
+
+
+
+<p class="wp-block-paragraph"><strong>Do not confuse fluency with personalization</strong></p>
+
+
+
+<p class="wp-block-paragraph">An LLM may generate polished and convincing recommendations while still failing to integrate important client characteristics. Advisors should evaluate whether recommendations truly reflect the client’s broader financial situation.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Risk tolerance questionnaires are not enough</strong><br />Suitability requires balancing both willingness and capacity to take risk. Clients often misreport risk tolerance, especially during emotionally charged market environments. Human oversight remains essential.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Use LLMs as assistants, not fiduciaries</strong><br />Current models may be useful for summarization, scenario generation, or drafting explanations. But the evidence suggests they should not yet be treated as fully autonomous financial advisors.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Be cautious with tool-augmented AI systems</strong><br />Adding web search or external tools does not automatically solve reasoning problems. In some cases, it may improve diversification while reducing client specificity.</p>
+
+
+
+How to Explain This to Clients
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“AI systems can generate investment recommendations that sound highly personalized. But this paper shows that many models still rely heavily on simple shortcuts, especially a client’s stated risk tolerance.That means the advice may look customized while ignoring other important factors like age, income, debt levels, liquidity needs, or time horizon.The key lesson is that good financial advice requires holistic judgment. Technology can help support the process, but human oversight still matters when evaluating what is truly suitable for an investor.”</p>
+</blockquote>
+
+
+
+The Most Important Chart from the Paper
+
+
+
+<p class="wp-block-paragraph">Figure 1 shows that LLMs exhibit substantial heuristic collapse across most asset classes, though the degree varies by model and asset class. For GPT-4o, equities (FC = 0.780, R2 = 0.882) and tax-advantaged accounts (FC = 0.704, R2 =0.843) show the highest heuristic use. This indicates that a small number of client features — most prominently self-reported risk tolerance — dominate allocation decisions.</p>
+
+
+
+<figure class="aligncenter size-fusion-600"><img src="https://alphaarchitect.com/wp-content/uploads/2026/05/2026-05-25-12_02_30-2604.23837v1.pdf-600x226.png" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+Abstract
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<h3 id="h-" class="wp-block-heading"></h3>
+
+
+
+<p class="wp-block-paragraph">Large language models are increasingly deployed as advisors in high-stakes domains — answering medical questions, interpreting legal documents, recommending financial products — where good advice requires integrating a user’s full context rather than responding to salient surface features. We investigate whether frontier LLMs actually do this, or whether they instead exhibit heuristic collapse: a systematic reduction of complex, multi-factor decisions to a small number of dominant inputs. We study the phenomenon in investment advice, where legal standards explicitly require individualized reasoning over a client’s full circumstances. Applying interpretable surrogate models to LLM outputs, we find systematic heuristic collapse: investment allocation decisions are largely determined by self-reported risk tolerance, while other relevant factors contribute minimally. We further find that web search partially attenuates heuristic collapse but does not resolve it. These findings suggest that heuristic collapse is not resolved by web search augmentation or model scale alone, and that deploying LLMs as advisors requires auditing input sensitivity, not just output quality.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</blockquote>
+<p><a href="https://alphaarchitect.com/llm-fiduciary/" target="_blank" rel="noopener">AI should assist advisors, but AI is NOT a fiduciary</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/llm-fiduciary/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

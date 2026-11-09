@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Effect of Advisors’ Incentives on Clients’ Investments · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">The Effect of Advisors’ Incentives on Clients’ Investments</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/advisors-incentives/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-28 · 1527 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Millions of households rely on financial advisors to make investment decisions they may not feel equipped to make themselves. In principle, professional advice should help investors navigate complex products, construct appropriate portfolios, and avoid costly behavioral mistakes. But financial advice creates a potential agency problem. Advisors often know considerably more about financial products than their clients, while their compensation may depend on which products those clients purchase. When some investments generate greater compensation than others, the advisor’s financial incentives and the client’s investment objectives may no longer be perfectly aligned. Determining whether this conflict actually changes investor behavior is surprisingly difficult. The authors address this identification problem using detailed data from a Spanish investment firm and a natural experiment created by the implementation of MiFID II.</p>
+
+
+
+The Effect of Advisors’ Incentives on Clients’ Investments
+
+
+
+<ul class="wp-block-list">
+<li>Battiston, Vidal and Vallve and Lou</li>
+
+
+
+<li>Journal of Finance, 2026</li>
+
+
+
+<li>A version of this paper can be found <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5378537" target="_blank" rel="noopener">here</a></li>
+
+
+
+<li>Want to read our summaries of academic finance papers? Check out our <a href="https://alphaarchitect.com/category/architect-academic-insights/academic-research-insight/" target="_blank" rel="noopener">Academic Research Insight</a> category</li>
+</ul>
+
+
+
+Key Academic Insights
+
+
+
+<p class="wp-block-paragraph"><strong>Clients Follow the Incentives of Their Advisors</strong></p>
+
+
+
+<p class="wp-block-paragraph">The paper’s central result is that financial advisors’ compensation has a causal effect on their clients’ investment decisions. The authors exploit differences in “trailer fees”, ongoing commissions advisors receive from mutual funds and a major compensation-policy change implemented in January 2018 following MiFID II. Because the reform altered compensation for the same advisor-fund relationships, the researchers can examine how the investments of the same clients changed when their advisors’ financial incentives changed. The response is both substantial and relatively rapid. Importantly, placebo tests show no comparable investment changes among clients whose advisors experienced no change in trailer fees, while pre-reform trends are broadly flat. Following the reform, however, client portfolios begin adjusting immediately toward the advisors’ new incentives, with the adjustment occurring over approximately 18 months.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The Effect Is Much Stronger When Clients Bring in New Money</strong></p>
+
+
+
+<p class="wp-block-paragraph">Advisors do not primarily respond to changing incentives by persuading clients to sell existing investments and switch from one fund to another. Instead, the authors uncover a two-part mechanism. Clients whose advisors experience changes in incentives bring more new money into their overall fund portfolios, and that new money is disproportionately directed toward the funds that have become more financially attractive to their advisors. Existing holdings, by contrast, are not systematically reallocated toward the newly favored funds. This helps explain one of the paper’s most important findings: incentives matter much more for <strong>new clients</strong>. The estimated elasticity between trailer fees and investments is approximately 150% for new clients,three times the effect for existing clients. Advisor influence therefore appears greatest when an investor is initially constructing a portfolio or bringing new capital into the relationship.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Trust Can Amplify Rather Than Eliminate Conflicts of Interest</strong></p>
+
+
+
+<p class="wp-block-paragraph">Trust is normally considered one of the benefits of a long-term advisor-client relationship. This paper identifies a more complicated possibility. The effects of incentives are larger among clients with longer advisor relationships and among some client-advisor pairs exhibiting greater social or geographic proximity, variables the authors interpret as potential proxies for trust.This does not mean that trust itself is harmful. The authors are appropriately cautious about interpreting these interaction results causally. But the evidence raises an important agency problem: when clients trust their advisors more, they may also be more willing to follow their recommendations. If incentives are misaligned, the same trust that makes advice effective can potentially magnify the resulting investment distortion. The fact that relationships are long-lived is therefore not sufficient by itself to eliminate conflicts of interest.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Financial Knowledge Appears to Protect Investors</strong></p>
+
+
+
+<p class="wp-block-paragraph">The effect of advisor incentives is substantially smaller among clients who report understanding how investment funds work. This suggests that financial literacy may serve a second purpose beyond helping people make better investment decisions independently: it may also help them evaluate the advice they receive from professionals. The economic significance becomes particularly clear when the authors estimate the welfare consequences. Before the 2018 reform, estimated utility losses attributable to distorted advice are approximately 6% for existing clients and 9% for new clients under their baseline framework. For clients with high financial knowledge, the corresponding losses are dramatically smaller, approximately 1.3% and 3.4%, respectively.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Better-Aligned Compensation Can Meaningfully Improve Client Outcomes</strong></p>
+
+
+
+<p class="wp-block-paragraph">Perhaps the most constructive result of the paper is that conflicts of interest are not immutable. The compensation reform triggered by MiFID II significantly reduced the estimated welfare losses associated with conflicted advice. Depending on the assumptions and client group, the authors estimate that the policy change reduced losses by between roughly one-fifth and one-half. The distinction matters. The paper is not evidence that financial advice itself is undesirable. Advisors can provide valuable services to investors who lack financial knowledge or confidence. Instead, the results suggest that the design of advisor compensation matters for the quality of the advice ultimately reflected in client portfolios. Regulation that improves incentive alignment may therefore preserve the benefits of professional advice while reducing its agency costs.</p>
+
+
+
+Practical Applications for Investment Advisors
+
+
+
+<p class="wp-block-paragraph"><strong>Treat Compensation Design as Part of the Investment Process</strong></p>
+
+
+
+<p class="wp-block-paragraph">Advisor compensation is sometimes treated primarily as a compliance or disclosure issue. This paper suggests it should also be considered an investment-process issue. If differences in product-level compensation can alter actual portfolio allocations, firms should evaluate whether their compensation structures inadvertently encourage advisors to favor certain products independently of client suitability. For advisory firms, the practical question is therefore not simply whether incentives are disclosed. It is whether the firm’s architecture makes the advisor’s economically preferred recommendation as close as possible to the client’s economically preferred investment.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Pay Particular Attention to New Clients and New Contributions</strong><br />The paper suggests that the greatest potential for incentive-driven distortion occurs when capital first enters the advisory relationship. Advisors appear less able, or perhaps less willing, to persuade clients to dismantle established portfolios simply because compensation changes. New money provides a much easier opportunity to influence allocation decisions. This makes onboarding, portfolio construction, rollovers, liquidity events, and large new contributions particularly important moments for governance. Firms may want additional review procedures around recommendations made when substantial new assets enter the relationship.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Do Not Assume That Trust Solves the Principal-Agent Problem</strong><br />A long-standing client relationship can generate substantial benefits. Advisors understand their clients better, while clients may become more comfortable discussing goals, fears, and financial constraints. But trust should not substitute for institutional safeguards against conflicts of interest. Indeed, this paper suggests that trust may make incentive alignment <strong>more</strong>, rather than less, important. The more persuasive an advisor becomes because a client trusts them, the greater the potential consequences if the advisor’s compensation favors one investment over another.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Financial Education Still Matters When Investors Use Advisors</strong><br /><a href="https://alphaarchitect.com/financial-crime/" target="_blank" rel="noopener">Financial literacy</a> is sometimes presented as an alternative to financial advice: either investors learn to manage their own portfolios or they delegate decisions to professionals. The paper suggests that this is a false dichotomy. Financial knowledge can help investors become better consumers of financial advice. Clients who understand basic investment products, fees, diversification, and conflicts of interest may be better positioned to ask why a particular fund is being recommended, what alternatives exist, and how their advisor is compensated. The substantially lower estimated welfare losses among financially knowledgeable clients make this one of the paper’s most useful practical insights.</p>
+
+
+
+How to Explain This to Clients
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“A financial advisor can add real value, but how that advisor is paid matters. This study examined what happened when the compensation advisors received for recommending different investment funds changed. Client portfolios changed in the same direction as the advisors’ incentives, particularly when clients were investing new money. The effect was smaller among financially knowledgeable investors. The lesson isn’t that you shouldn’t trust financial advisors. It’s that good advice works best when three things come together: professional expertise, transparent and well-aligned incentives, and a client who understands enough to ask informed questions.”</p>
+</blockquote>
+
+
+
+The Most Important Chart from the Paper
+
+
+
+<p class="wp-block-paragraph">This table displays estimates of regressions of the likelihood of a relation between a prospective advisor and a prospective client and measures of their social distance. An observation in this sample is a client/advisor combination.</p>
+
+
+
+<figure class="aligncenter size-fusion-800"><img src="https://alphaarchitect.com/wp-content/uploads/2026/09/2026-09-10-11_02_15-InvestmentBank15-Final.pdf-1-800x625.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+Abstract
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<h3 id="h-" class="wp-block-heading"></h3>
+
+
+
+<p class="wp-block-paragraph">We use granular data from an investment firm and a credible identification strategy to estimate the effect of financial advisors’ incentives on client investments. Exploiting a natural experiment triggered by the 2018 implementation of Markets in Financial Instruments Directive II (MiFID II), we find that clients’ investments respond strongly to changes in advisor incentives. Advisors react through multiple mechanisms: (i) inducing existing clients to bring in new money, (ii) channeling it to high‐incentive funds, and (iii) attracting more new clients. We also find that the MiFID II reform generated more balanced incentives, which translated into higher portfolio efficiency through lower average fees and stronger portfolio diversification.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</blockquote>
+<p><a href="https://alphaarchitect.com/advisors-incentives/" target="_blank" rel="noopener">The Effect of Advisors’ Incentives on Clients’ Investments</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/advisors-incentives/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

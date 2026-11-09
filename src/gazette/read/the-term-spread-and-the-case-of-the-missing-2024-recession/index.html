@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Term Spread and the Case of the Missing 2024 Recession · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">The Term Spread and the Case of the Missing 2024 Recession</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/10/the-term-spread-and-the-case-of-the-missing-2024-recession" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-18 · 690 words</span>
+    </div>
+    <div class="body"><p>The abstract of a new paper coauthored with <a href="https://laurent-ferrara.org/" target="_blank" rel="noopener">Laurent Ferrara</a>, <a href="http://www.ssc.wisc.edu/~mchinn/YC_chinn_ferrara_2026.pdf" target="_blank" rel="noopener">“Missing Recessions: Revisiting the Term Spread’s Predictive Power”</a>:</p>
+
+<blockquote><p>The failure of a recession to materialize in 2024 has forced a reappraisal of the term spread as the most reliable recession predictor for the US. In this paper, we re-evaluate the predictive power of the term spread, and explain the false positive signal in terms of sample specificity, simultaneity, and omitted variables, focusing on the United States, but including other advanced economies for which the term spread has proven to be a useful predictor in the past. We confirm that prior to the 2020 recession, the yield curve was an accurate predictor of recessions in the US, Canada, and Germany, but proved less accurate thereafter. For the US, accounting for term premia does not improve prediction appreciably, while taking into account expectations of future unemployment does. More definitively, in line with Borio, et al. (2020), we find inclusion of the debt service ratio reconciles the failure of a recession to appear in 2024 after the strong yield curve inversion observed at the end of 2022, for both the US and Germany.</p></blockquote>
+<p>Focusing on the United States, it’s clear that most term spread measures (10yr-3mo, 10yr-2yr, etc.) indicated a high likelihood of recession in 2023-24, given the large and persistent inversion in 2022. <em>Relying on pre-2020 data</em>, recession probabilities looked like this.</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/10/ycfig1-1.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/10/ycfig1-1.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p><em><strong>Figure 1:</strong> Top panel – US 10yr-3mo spread, %; bottom panel – probability of recession, using regression estimated up to 2019M12. NBER defined peak-to-trough recession dates shaded gray. </em></p>
+<p>There are many possible explanations for the term spread mis-fire of 2024: the data generating process has changed since 2020, the behavior of the term premium (which is part of the term spread) has changed, omission of Taylor Rule variables like expected unemployment results or omission of financial variables like the financial cycle have biased the estimates. It’s also possible that <a href="https://econbrowser.com/archives/2024/12/a-contrarian-view-on-recession-probabilities-are-we-out-of-the-woods" target="_blank" rel="noopener">“by chance” the recession just didn’t occur</a>; after all, one is never 100% confident.</p>
+<p>In this paper, we examine these possibilities, by estimating term spread specifications over a full sample, or augmenting with key variables.</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/10/cftab2.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/10/cftab2.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p><em><strong>Source:</strong> Table 2 from <a href="http://www.ssc.wisc.edu/~mchinn/YC_chinn_ferrara_2026.pdf" target="_blank" rel="noopener">Chinn and Ferrara (2026)</a>.</em></p>
+<p>Note that the proportion of variance explained using the term spread  is higher in the pre-2020 sample, and lower in the full (0.33 vs. 0.26). Adding in a separate estimated term <em>premium</em> (the ACM estimate from the NY Fed) does not appreciably change the full sample result. However, adding in the expected change in  unemployment rate (because the Taylor rule implies the Fed funds expected in the future will be lower if markets anticipate a slowdown/recession) does result in a marginally significant coefficient for this variable (although the pseudo R2 is essentially unchanged).</p>
+<p>Only inclusion of a proxy for the financial cycle — the debt service ratio (DSR) — raises the proportion of variance explained appreciably, to 0.57.  It also turns out that the best “fit” — in the sense of no false positives, while catching the recessions of 1990-91, 2008-09, is the equation incorporating the DSR (teal line in figure below, marked &DSR).</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/10/usrecessionprob.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/10/usrecessionprob.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p><em><strong>Source:</strong> Figure 5 from <a href="http://www.ssc.wisc.edu/~mchinn/YC_chinn_ferrara_2026.pdf" target="_blank" rel="noopener">Chinn and Ferrara (2026)</a>. NBER defined peak-to-trough recession dates shaded gray. </em></p>
+<p>The finding that the DSR’s inclusion helps in accurately predicting recessions holds true even if one restricts the estimation period to pre-2020. Then the 1990-91, 2001, and 2008-09 recessions are predicted, but not the 2020 pandemic one (nor a 2024 recession).</p>
+<p>It’s not that accounting for the Taylor rule is completely useless (column 4 in Table 2). Including the expected change in the unemployment rate (conjoined with using the Fed funds rate instead of 3 month rate) reduces the estimated probability of recession for 2024 below the 40% threshold (blue line, marked &UE), while catching previous recessions, save the 2008-09 one. So in that sense, not explicitly taking into account the Taylor rule could be a part of the explanation for a recession call for 2024.</p>
+<p>Read the entire paper <a href="http://www.ssc.wisc.edu/~mchinn/YC_chinn_ferrara_2026.pdf" target="_blank" rel="noopener">here</a>, which also examines the experiences of Canada and Germany. This paper is a substantially revised version of paper described <a href="https://econbrowser.com/archives/2024/01/the-predictive-power-of-the-term-spread-and-financial-variables-for-economic-activity-across-countries-the-us" target="_blank" rel="noopener">here</a>):</p>
+
+
+
+
+
+
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/10/the-term-spread-and-the-case-of-the-missing-2024-recession" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guest Contribution: “Europe, the US, and China: Comparing Geoeconomic Size” · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">Guest Contribution: “Europe, the US, and China: Comparing Geoeconomic Size”</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/10/guest-contribution-europe-the-us-and-china-comparing-geoeconomic-size" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-29 · 1232 words</span>
+    </div>
+    <div class="body"><p><em>Today, we present a guest post written by <a href="http://ksghome.harvard.edu/~jfrankel/" target="_blank" rel="noopener">Jeffrey Frankel</a>, Harpel Professor at Harvard’s Kennedy School of Government, and formerly a member of the White House Council of Economic Advisers. A <a href="https://www.project-syndicate.org/commentary/ppp-adjusted-gdp-wrong-way-to-measure-and-compare-economic-size-by-jeffrey-frankel-2026-10" target="_blank" rel="noopener">shorter version</a> was published in <a href="https://www.theguardian.com/business/2025/dec/29/donald-trump-tariffs-us-economy-inflation-employment-2026" target="_blank" rel="noopener">Project Syndicate</a>. Thanks are due Sohaib Nasim for excellent research assistance.</em></p>
+
+
+<p>Oct. 29, 2026 — Paul Krugman gave a talk last month at an ECB research conference where the subject was <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/738941" target="_blank" rel="noopener">Geoeconomics</a>, the weaponization of economic power for geopolitical ends.   China’s ability to cut trading partners off from its exports of rare earth minerals is an example.</p>
+<p>Krugman’s talk, titled “<a href="https://paulkrugman.substack.com/p/economic-size-and-economic-power" target="_blank" rel="noopener">Economic Size and Economic Power</a>,” rightly emphasized that country size <a href="https://www.kielinstitut.de/publications/geoeconomics-17865/" target="_blank" rel="noopener">matters</a> <a href="https://www.annualreviews.org/content/journals/10.1146/annurev-economics-092424-111952" target="_blank" rel="noopener">for</a> <a href="https://www.imf.org/en/publications/fandd/issues/2026/06/understanding-geoeconomics-in-a-volatile-world-matteo-maggiori" target="_blank" rel="noopener">geoeconomics</a>. Canada, for example, has more to lose from a rupture of trade with its larger neighbor, the United States, which can be expected to use its size to coerce the former.  But I don’t buy Krugman’s way of comparing economic power across countries.</p>
+<p>The governments of the US and China measure their quarterly GDP in, respectively, dollars and yuan.  To compare economic sizes requires a decision on how to translate them into a common currency standard.  The conversion factor most often used is the obvious one, the exchange rate.  If China and the US compete to put a naval base in a South Pacific island country, it is dollars versus yuan at the current exchange rate.  But an alternative approach is a PPP measure of the real exchange rate that takes into account that prices of goods and services are lower in China.  The PPP price data on baskets of goods are collected at multi-year intervals, by the International Comparison Program (ICP) at the World Bank.</p>
+<p>The choice of conversion factor sounds like a small, very technical detail.  But it makes a huge difference.  “Who’s #1?”  Using the PPP conversion factors leads to the result that China <a href="https://www.project-syndicate.org/commentary/top-economic-power-us-or-china-by-jeffrey-frankel-2020-05" target="_blank" rel="noopener">surpassed the US</a> <a href="https://www.theguardian.com/business/2020/may/29/is-china-overtaking-the-us-as-a-financial-and-economic-power" target="_blank" rel="noopener">in economic size in 2017</a>.    Krugman, <a href="https://www.hks.harvard.edu/sites/default/files/centers/mrcbg/files/Allison%2C%202015.09.24%20The%20Atlantic%20-%20Thucydides%20Trap.pdf" target="_blank" rel="noopener">among</a> <a href="https://asiasociety.org/sites/default/files/2019-01/The%20Avoidable%20War%20-%20Full%20Report.pdf" target="_blank" rel="noopener">others</a>, argues that PPP rates are the right way to compare GDPs for geo strategic purposes and thus concludes that China is now the world’s largest economy.</p>
+<p>China’s surpassing of the US has been heralded repeatedly. But using the exchange rate conversion factor, which I favor, implies that <a href="https://www.jeffrey-frankel.com/2020/05/30/how-china-compares-internationally-in-new-gdp-figures/" target="_blank" rel="noopener">US remains ahead by a whopping 47%</a> . In light of the recent peaking of China’s population and the slowdown in its productivity growth, it now seems possible that China won’t pass the US for <a href="https://www.ft.com/content/512ef255-89c2-4128-becc-914885c3a2a5?syn-25a6b1a6=1" target="_blank" rel="noopener">many decades, if ever</a>. This is all the more true if one thinks that Chinese growth statistics are <a href="https://rhg.com/research/chinas-economy-rightsizing-2025-looking-ahead-to-2026/" target="_blank" rel="noopener">overstated</a>.</p>
+<p>While the comparison between the US and the EU doesn’t carry quite the same geopolitical weight, Krugman considers it important when determining whether American productivity growth has exceeded <a href="https://www.youtube.com/watch?v=yYITJnqWkz0&t=351s" target="_blank" rel="noopener">European productivity performance</a>, as many believe. By standard measures, productivity has risen much more in the US than in the EU since 2000. Many interpret this as evidence that Europe’s more robust social-safety nets and regulations, coupled with its failure to compete at the technological frontier, have impaired its economic growth.   The answer changes when comparing them on a PPP basis, rather than using nominal exchange rates. Adjusting for PPP, Krugman finds productivity performance in the EU to be much stronger than it first appears, challenging the conclusion that the US offers a superior economic model.</p>
+<p>The ICP collects data on absolute price levels, allowing comparison of countries’ incomes, only once every three to six years, typically released with a three-year lag.  <a href="https://www.worldbank.org/en/programs/icp/data#2" target="_blank" rel="noopener">The most recent pertains to 2021.</a>   Earlier surveys produced data for 1990, <a href="https://journal.hep.com.cn/fec/EN/10.3868/s060-004-015-0001-1" target="_blank" rel="noopener">2000,</a> 2005, 2011, and 2017.  In the years following each benchmark, the World Bank extrapolates by means of national governments’ GDP statistics to produce annual estimates.  The most recent available benchmark survey pertains to 2021.  The <a href="https://www.worldbank.org/en/programs/icp/data" target="_blank" rel="noopener">ICP has extrapolated</a> the annual estimates up to 2023.</p>
+<p>There is no question that PPP rates are the right approach, if one is comparing income per capita to get at the country’s standard of living.  But computing economic power is a different matter.  Consider such examples of <a href="https://www.ucpress.edu/books/national-power-and-the-structure-of-foreign-trade/paper" target="_blank" rel="noopener">weaponized</a> <a href="https://direct.mit.edu/isec/article/44/1/42/12237/Weaponized-Interdependence-How-Global-Economic" target="_blank" rel="noopener">interdependence</a> as efficacy of trade sanctions, financial sanctions, leverage in international trade negotiations, weight in international bodies, or the influence to put a naval base in a small Pacific island country.  Doesn’t it seem that what matters is what dollars and yuan can buy on the world stage, not their purchasing powers at home in their respective domestic economies?</p>
+<p>In maintaining the superiority of the PPP comparison, Krugman relies on the observation that nominal exchange rates are highly volatile.  “So, one of the ways we can compare economies is purchasing power of their GDP. Now you might say why not just use dollar values. And the answer mostly is just instability. … So, you would basically use something like purchasing power parity to smooth it out” [from his presentation of September 2026].</p>
+<p>It is true that the volatility of exchange rates complicates their use in comparing GDPs.  It seems wrong for country size comparisons to fluctuate year by year.  But if that is the grounds for the decision, one must recognize that a parallel critique applies to the PPP-based rankings as well:   The ICP comparisons often change radically when revised in light of subsequent data.</p>
+<p>The ICP data for 2005 showed rapid growth in China, as did the official extrapolation of the initial report by means of national GDP statistics; but real GDP was revised downward by 40% in the subsequent survey, in 2011.<strong>  </strong>Next, the extrapolations of the 2011-benchmarked data were revised <em>upward</em> by 21%, between first release and the time of the subsequent survey.  Then, the 2017 data were revised downward by 16%.  Finally, the 2021 data, upward by 5%.  These revisions are substantially larger than the annual fluctuations in the nominal exchange rate or in the GDP comparisons that use it.  If one had relied on the ICP numbers just before the 2011 data were released, one would have been jolted when the new figures came in, to find that the number needed to be revised upward by 40%.  The statistics are reported in the table below (<a href="https://frankel.scholars.harvard.edu/resource/sntable" target="_blank" rel="noopener">online version</a>):</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/10/tab1_panela.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/10/tab1_panela.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/10/tab1_panelb.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/10/tab1_panelb.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p>Worse, sometimes the benchmark numbers are themselves subsequently revised.  China’s 2005 PPP rate was published as 3.45 yuan per dollar. When ICP 2011 came out, it was revised to 2.86, raising China’s 2005 PPP GDP by 20.5%. It stands 21.8% above the original according to today’s data).  So, the 2005 figure was first cut 40% and then raised back about 20%.</p>
+<p>Similar findings apply to other Emerging Market countries.  The revisions in Thailand’s ICP GDP, for example, were down 20 % in 2005, up 43 % in 2011, down 3 % in 2017, and up 7% in 2021.  Revisions to ICP estimates for advanced economies have been more reasonable. (In the case of EU members, Eurostat and the OECD now conduct new surveys every three years, so revisions are smaller.)</p>
+<p>The bottom line is that, for comparing national GDP, one cannot use volatility to justify dispensing with exchange rate data in favor of the less obvious choice of PPP data from the ICP.  Two implications apparently follow.  The US economy is still considerably larger than China’s and US productivity growth is still ahead of Europe’s.  Domestic political malpractice has apparently not yet been sufficient to fully overcome the natural advantages that the US has long enjoyed.</p>
+
+
+<p><em>This post written by <strong>Jeffrey Frankel</strong>.</em></p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/10/guest-contribution-europe-the-us-and-china-comparing-geoeconomic-size" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

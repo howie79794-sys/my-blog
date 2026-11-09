@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Price discrimination by needless complexity · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Price discrimination by needless complexity </h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/price-discrimination-by-needless" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-31 · 999 words</span>
+    </div>
+    <div class="body"><p>(This is another script for a forthcoming <a href="https://www.thefreedomfrequency.org/s/the-grumpy-economist-weekly-rant" target="_blank" rel="noopener">weekly rant</a>. Recycling disclaimer.) </p><p>“Personalized pricing” is in the news. Companies use big data to figure out what you’re willing to pay and charge accordingly. Politicians are already <a href="https://www.wsj.com/finance/investing/personalized-pricing-ban-9c0d92a9" target="_blank" rel="noopener">passing laws to ban it</a> and the Federal Trade Commission is <a href="https://www.ftc.gov/system/files/ftc_gov/pdf/p034101-ftc-enforcement-policy-statement-re-personalized-pricing-proposed-for-public-comment.pdf" target="_blank" rel="noopener">threatening action</a>, as usual, before understanding the phenomenon. Economists call it “price discrimination.”</p><p>Here is one of the hardest-to-swallow theorems in economics: Perfect price discrimination is efficient. And price discrimination is necessary to pay fixed costs.  </p><p>Suppose an ice cream shop can charge each of us the maximum that we are willing to pay. Want a chocolate Sundae? The store peers in to your data, and figures out you’ll pay $7.53. You pay $7.53. They know I came in yesterday, so they can only charge me $5.22. I pay that. Suppose the marginal cost is $2.72 — just the store’s cost of ice cream. When someone walks just willing to pay $2.73, he gets that price. </p><p>The store sells the same amount of ice cream as they would if they charged everyone $2.73, the same as perfect competition. That’s economic efficiency. The amount of ice cream sold is not “distorted” by monopoly. Pricing power is only economically inefficient if the store restricts output to raise the price.</p><p>It seems massively unfair, doesn’t it? The store has sucked all the value — all the “consumer surplus” — out of the transaction. Still, “fair” is a squishy concept. If the store doesn’t charge <em>someone</em> more than marginal cost, the store can’t pay rent, taxes, advertising, employees, benefits, R&D, and all the other fixed costs. There wouldn’t be a store at all. Isn’t it fair that those of us who really like ice cream should pitch in a little more to keep the store in business?</p><p>Personalized pricing raises profits, sure. But you and I are stockholders too, though our pension funds and corporate taxes if not directly. Profits come back to us. They are at worst a transfer to those with more stocks. But if you’ve been following my rants at all, you know that economics says, don’t transfer income—especially tiny amounts of income—by mucking with efficient prices. </p><p>Fixed costs pervade today’s economy. Software is free after billions of development costs. Drugs and electronics are close to it. Filling an empty airline seat is nearly free. But nobody wants to pay the fixed costs. So, much of our economy and our politics are a big haggle over who pays inflated prices to cover fixed costs, and who gets to negotiate (or coerce, in the case of government) a lower price and make someone else pay more.</p><p>Now two limits. First, we only need enough price discrimination to pay the fixed costs, and to give discounts to those only willing to pay small amounts. The basic economy ticket at marginal cost matters for efficiency, not how much each seat in business class costs. Additional price discrimination is just more profit — not distorting, but not beneficial either. </p><p>Second, price discrimination is only efficient if it is costless. Most of our economy is instead one giant game of price discrimination by needless complexity, or “signaling.”  You get a lower price by wasting time and effort to signal that you’re the low-value consumer. Credit cards, frequent flyer miles, airline tickets, hotels, cell phone contracts, prescription drugs, health insurance, discounts, sales, loyalty programs all seem one big trip back to a 1950s Chevy dealer.  All that haggling is a waste. So the optimum is some messy middle ground where price discrimination is enough to pay the fixed costs, consumers still get a lot of benefit, and we don’t overdo the haggling costs. </p><p>The insane complexity of taxes and social programs is part of the game. To really want to squeeze tax revenue, then hit harder those not willing to devote time and effort to avoiding taxes. Filling out lots of forms and standing in line selects for those who really need help. </p><p>There is then a theoretical argument for regulation, though I doubt our regulators are competent to sort this out. And everyone hates it so much, firms have a pretty good incentive not to overdo it. Notice that shopping for cars has gotten easier over time (Carmax), haggling at stores has disappeared, and sellers avoid the appearance of price-gouging. </p><p>In that context, though, personalized pricing by AI and big data could be a lot more efficient than all the games we go through now, since it’s basically costless. Maybe regulators should encourage it! </p><p>I hate it all. I’m the lazy shopper who ends up paying high prices. Still, as an economist, I have to admit there is a reason for it. Economics is sometimes hard to swallow. </p><p>In the meantime, crank up your AI agents, VPN, and anonymous browser to fight against the personalized pricing software. Or like me, curse, pay the bill, and get back to enjoying your life. </p><p>****</p><p><em>Updates:</em></p><p>Yes, I left out a lot. Price discrimination is not perfectly efficient in general equilibrium. I left out time, incentives for others to innovate, the product quality ladder, and that fixed costs aren’t really fixed in the long run. </p><p>Willingness to haggle is also not really the same thing as inelastic demand. </p><p>A correspondent writes: “In health care there is a big war of attrition between hospitals trying to code to get the most and insurance companies resisting. Doesn’t AI risk much more war of attrition?” Yes, absolutely. I hinted at that with my last comment about AI agents. The vision of costless (to firms) and unavoidable (to consumers) price discrimination which could be more efficient than haggling is not likely to happen. Instead, the war of attrition moves online. Firm to firm transactions will clearly get more of that. On the other hand, that knowledge is also nonrival, so you could set up companies and services that help people get better prices. And the Carmax strategy will remain attractive too.  </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/price-discrimination-by-needless?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/price-discrimination-by-needless?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/price-discrimination-by-needless" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

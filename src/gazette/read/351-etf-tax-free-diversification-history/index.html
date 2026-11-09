@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>351 ETFs: Tax-Free “Diversification” Is Supposed to Hurt · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">351 ETFs: Tax-Free “Diversification” Is Supposed to Hurt</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/351-etf-tax-free-diversification-history/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-12 · 7123 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph"><em>Co-authored by Wes Gray, PhD (Alpha Architect) and Robert Elwood (Practus, LLP).</em></p>
+
+
+
+<p class="wp-block-paragraph">On July 21, 2026, at the <a href="https://www.wallstreettaxassoc.org/" target="_blank" rel="noopener">Wall Street Tax Association (WSTA) tax-geek meeting</a>, Treasury announced that it may put certain types of Section 351 transfers to ETFs on a list of transactions that may look “too good to be true.” Cue the media’s panic headlines.</p>
+
+
+
+<p class="wp-block-paragraph">Of course, the problem with media companies is that they have economic incentives to focus on clicks, but they don’t care about context. The point of this post is to help readers contextualize and understand the comments made by the Treasury officials so they can make their own assessment of the potential risks tied to “351 ETFs.” We’ll provide a summary of the past 60 years of debates on these topics, but we can start with the BLUF.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The bottom line up front:</strong> Congress’ intent is to ensure that tax-free “diversification” of a concentrated position is painful. Don’t break this rule.</p>
+
+
+
+<p class="wp-block-paragraph">Are there other hot-button items discussed regarding 351 ETFs? Certainly. Contributing securities that don’t seem to align with the prospectus? High turnover post-closing? In-kind redemptions used to “cleanse” a portfolio? But are there high-risk areas besides tax-free diversification? The rulemaking history on this topic seems to suggest “no.” Over the past 60 years every update that Congress or Treasury have made has been focused on the same thing: making sure nobody turns a concentrated position into a diversified one <em>without paying tax</em>. The other items matter, but mainly as an evidence trail that could indicate shenanigans. They are how the IRS figures out that a contribution was “fake” diversified and part of a scheme to achieve tax-free diversification of a concentrated position. However, if your contributions are bona fide diversified and you’re following the spirit (and the letter) of the rules, our read is that you are probably less interesting to the IRS. Of course, Congress can always update the rules of the game, which means anything is possible.</p>
+
+
+
+<p class="wp-block-paragraph">Before we dive into the wildly entertaining topic of taxation, we’ll quickly cover some key rules involved in the recent Treasury discussion regarding 351 ETFs:</p>
+
+
+
+<p class="wp-block-paragraph"><a href="https://www.law.cornell.edu/uscode/text/26/351" target="_blank" rel="noopener">Section 351</a> is a roughly century-old rule that lets you transfer property to a corporation, take back its stock, and pay no tax today. An ETF is a corporation for tax purposes. So you can seed a new ETF with securities instead of cash and carry your old cost basis into the new shares.<a>(1)</a></p>
+
+
+
+<p class="wp-block-paragraph"><a href="https://www.law.cornell.edu/uscode/text/26/852" target="_blank" rel="noopener">Section 852(b)(6)</a>, often referred to as the “ETF tax loophole,” is the other half of the story. When a fund transfers appreciated securities to a redeeming shareholder in kind, the fund recognizes no gain. That rule is the engine behind ETF tax efficiency generally, and it lets a manager reshape a portfolio without generating a distribution.<a>(2)</a></p>
+
+
+
+<p class="wp-block-paragraph">For a 351 ETF, the two rules play together in the following way from a tax perspective: Section 351 allows one to move a diversified portfolio, tax-free, into a newly formed ETF, and once inside the ETF, ordinary-course portfolio changes can be made tax-efficiently via Section 852(b)(6). Investors love both concepts due to their potential tax deferral benefits, but there are numerous non-tax benefits to investing in an ETF as well: lower costs, lower admin, lower trading costs, more flexibility, more liquidity, greater transparency, better diversification, intra-day trading, and so forth. All of this is a good deal for investors, which explains the massive growth in ETFs as well as 351 ETFs.</p>
+
+
+
+<p class="wp-block-paragraph">But where can this go wrong?</p>
+
+
+
+<p class="wp-block-paragraph">Let’s repeat the most important item from the BLUF: tax-free diversification of concentrated positions. There is a long history that highlights lawmakers’ disdain when investors find clever ways to transition concentrated positions into diversified positions without paying tax. The rule only fires if the transfer itself diversifies your interest. That is the trigger, and it is the whole ballgame. When it fires, the contribution becomes a taxable exchange and the entire built-in gain is recognized in the year you contributed, which is the opposite of what you signed up for if you participate in a 351 ETF. Clever engineering doesn’t help, because since 1967 a plan to reach diversification through a chain of tax-free steps counts as diversification too.<a>(3)</a></p>
+
+
+
+<p class="wp-block-paragraph">The BLUF was referenced in the discussion at WSTA, but was buried in the media reports. The moderator asked Kevin Salinger from Treasury whether the real worry with 351 ETFs was somebody with built-in gains getting diversified, as opposed to phantom income inside the fund. Salinger’s answer:<a>(4)</a></p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">I would say <em>diversification is driving our concerns</em>, and we’re not here to disrupt ordinary-course ETF market activity.</p>
+</blockquote>
+
+
+
+<p class="wp-block-paragraph">Consistent with 60 years of history on this topic, the government is still concerned with investors getting diversified without paying tax. We’ll start with a quick history lesson on why the government doesn’t like tax-free diversification and we’ll end with some examples and generic concepts that will help investors minimize risk when they consider contributing to a 351 ETF.</p>
+
+
+
+<p class="wp-block-paragraph"><em>Disclaimer up front. This piece is educational and general. It is not tax, legal, accounting, or investment advice, it was not written for anyone’s particular situation, and it cannot be relied upon by any person for any purpose, including avoiding penalties. Robert is a tax attorney and a co-founder of Practus, LLP, but he is writing here as a co-author and not as anyone’s lawyer. Nothing in this post is legal advice, reading it creates no attorney-client relationship, and the views are ours alone and not those of our firms, colleagues, or clients. Wes is neither a lawyer nor an accountant and holds no professional credentials in tax. We are simply interested in the subject and want to work through it in public to further our own knowledge, and hopefully yours. Nothing here is an offer, a solicitation, a recommendation, or an opinion on any specific fund, contributor, or transaction. Full disclosure on our interests: Wes’s firm operates an ETF platform that has worked on Section 351 seedings, and Robert and his firm have served as tax counsel on Section 351 transactions for that platform and other clients, so we both have a commercial stake in this subject. Read accordingly and take your own facts to your own advisors.</em></p>
+
+
+
+<p class="wp-block-paragraph"><em>Also, special thanks to Brent Sullivan and Jack Vogel for comments and thoughts on the initial draft.</em></p>
+
+
+
+A very short history of the government hating tax-free diversification
+
+
+
+<p class="wp-block-paragraph"><strong>1960.</strong> A Denver banker named William Berger reads Section 351 and realizes he can gather different appreciated stocks from his clients, pool them, hand out fund shares, and everybody walks out diversified. The kicker: not taxable! His Centennial Fund raises $25.8 million and the copycats pile in.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>1966.</strong> Congress tells Berger to pound sand. They kill his idea. Section 351 no longer applies to transfers to an “investment company.”</p>
+
+
+
+<p class="wp-block-paragraph"><strong>1967.</strong> Treasury defines an investment company and what it means to have a “diversification of the transferors’ interests.” Two people each contributing solely IBM produces no diversification, so no tax. If one contributes IBM and the other contributes GE that produces diversification, so tax. Treasury also adds a sanity test: a plan to achieve diversification without tax, “however delayed,” is a path to getting busted. Berger’s idea is finished, though not instantly: funds already in registration had until June 30, 1967 to close.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>1975–1976.</strong> The concentrated money reappears with new tricks via partnerships and mutual fund mergers (Section 368). Congress creates new rules for partnerships and trusts and writes Section 368(a)(2)(F) to stop undiversified mutual funds from merging into diversified ones. Interestingly enough, Congress writes a definition of diversification: no more than 25% in one issuer, no more than 50% in your top five.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>1996.</strong> Treasury notices its own inconsistency across 351 and 368: the same two portfolios can merge tax-free via 368, but the same transaction via 351 gets taxed. Treasury imports Congress’ 1976 diversification definition into 351. 351 is back in the game for diversified contributions.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>1997.</strong> Congress reviews the regime and leaves it standing. Concentrated into diversified = pay tax. Shifting diversified into another diversified portfolio = we don’t really care.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>2026.</strong> Treasury says tax-free diversification is driving its concerns.</p>
+
+
+
+<p class="wp-block-paragraph">Sixty years later and the memo regarding tax-free diversification hasn’t changed: society doesn’t like it! A quick graphic below maps out the timeline.<a>(5)</a></p>
+
+
+
+<figure class="wp-block-image size-full"><img src="https://alphaarchitect.com/wp-content/uploads/2026/09/fig1_timeline-2.webp" referrerpolicy="no-referrer" loading="lazy" alt=""><figcaption class="wp-element-caption">Every one of these moves was a response to somebody finding a pain-free route from concentrated to diversified.</figcaption></figure>
+
+
+
+<p class="wp-block-paragraph">If you want the full chronology with the statutes, the private letter rulings, and the reasons Congress gave at each step, it is in the footnotes and leans heavily on the work cited below.<a>(6)</a></p>
+
+
+
+How does the government define diversification?
+
+
+
+<p class="wp-block-paragraph">Ask several financial professionals what “diversification” means, and you’ll get different answers. For example, Warren Buffett might tell you ten well-researched stocks is a diversified portfolio, while Wes’s old advisor Eugene Fama would say you need every security in the global market portfolio to be diversified. Luckily, Treasury settled the debate and gave us a bright line. Your contribution is “diversified” if no single issuer is more than 25% of your portfolio and your five largest are not more than 50% of the total.<a>(7)</a></p>
+
+
+
+<figure class="wp-block-image size-full"><img src="https://alphaarchitect.com/wp-content/uploads/2026/09/fig3_2550-2.webp" referrerpolicy="no-referrer" loading="lazy" alt=""><figcaption class="wp-element-caption">The test measures the portfolio being contributed, not what the fund looks like afterward.</figcaption></figure>
+
+
+
+<p class="wp-block-paragraph">An interesting but important side note is that the rules do not care whether you end up more diversified than you started. For example, if 100 investors each contribute 11 equal-weighted stocks (which hits the “diversified” definition), and assuming no overlap in anyone’s holdings, the pool that every contributor owns now holds 1,100 names. Clearly, everybody is way more diversified than they were prior to the contribution. But Congress/Treasury have reiterated that there is nothing wrong with this outcome. What concerns them is when non-diversified portfolios become diversified.<a>(8)</a></p>
+
+
+
+<p class="wp-block-paragraph">Everything up until this point should be straightforward, but Congress has always been aware that investors like to play games. Since 1967, a Section 351 transfer that is “part of a plan to achieve diversification without recognition of gain” counts as diversification. In plain English: any scheme you cook up, we’ll look through, if the end game is that you took a concentrated position and turned it into a diversified position, tax-free.<a>(9)</a></p>
+
+
+
+<p class="wp-block-paragraph">So, the job of a contributor in a 351 ETF is to clear the mechanical diversification tests and ensure there is no funny business behind the scenes. A judge will see through advanced financial engineering, and the IRS has plenty of tools to bust you.<a>(10)</a></p>
+
+
+
+<figure class="wp-block-image size-full"><img src="https://alphaarchitect.com/wp-content/uploads/2026/09/fig4_decision-2.webp" referrerpolicy="no-referrer" loading="lazy" alt=""><figcaption class="wp-element-caption">The rules were written so that turning a concentrated position into a diversified one comes with a cost, and so that engineering around that cost counts as diversification too.</figcaption></figure>
+
+
+
+Diversified contribution? No problem, nothing to see here … or is there?
+
+
+
+<p class="wp-block-paragraph">Treasury literally defines what it means to be diversified, so one might think there is no wiggle room on these rules. However, because 351 offers a tax-free exchange if you contribute diversified property, investors are heavily incentivized to spend a lot of brain power trying to look “diversified,” even if they really aren’t diversified behind the scenes. We call this “fake” diversification. The examples below will explain what we mean.</p>
+
+
+
+<h3 id="h-what-the-rules-were-built-to-allow" class="wp-block-heading">What the rules were built to allow</h3>
+
+
+
+<p class="wp-block-paragraph">You already owned a diversified portfolio. No leverage. No recent changes. And you’ve owned it for 10 years. But now you’re tired of the complexity, the high advisor fees, the trading, the administration, and so forth. Time to look for a 351 ETF. Turns out a 351 ETF wants those securities because they fit its strategy. Post-launch, the 351 ETF’s rebalances are the manager’s ordinary-course decisions, made under its 1940 Act duties, and in-kind redemption gets used for the normal reasons any ETF uses in-kind redemptions.<a>(11)</a></p>
+
+
+
+<h3 id="h-where-the-facts-get-murkier" class="wp-block-heading">Where the facts get murkier</h3>
+
+
+
+<p class="wp-block-paragraph">Your contribution cleared 25/50, but 80% of the portfolio is stuff the fund would never buy. Or maybe you made a bunch of recent transactions to ensure the contribution cleared 25/50. Or you contributed a diversified portfolio once, watched your ETF shares become a broad portfolio, and now want to use those shares plus another block of the same concentrated stock to seed the next fund, which is what Sullivan and Rozner call “sequential seeding.” All of these situations could make things a bit murkier and raise red flags, but it all depends on the facts and circumstances.</p>
+
+
+
+<h3 id="h-what-60-years-of-law-was-written-to-stop" class="wp-block-heading">What 60 years of law was written to stop</h3>
+
+
+
+<p class="wp-block-paragraph">Treasury described this territory publicly, and Sullivan and Rozner named it “stuffing,” so it is worth being able to recognize. To be clear about why it is here: this is the pattern 60 years of law was written to stop, not a playbook. You had $100 million in one stock and no other assets. Clearly you have a concentrated portfolio. But that won’t work for 351 since you need a diversified portfolio contribution! Solution? Borrow $300 million secured by the whole portfolio, buy a pile of random stocks/bonds so the concentrated position lands at exactly 25% of a $400 million portfolio and you are designated “diversified.” Next, contribute the whole thing into a 351 ETF tax-free (you were “diversified,” right?). Now that you are in the ETF structure, you can lean on in-kind redemption to transition the portfolio from your contributed junk into your heart’s desire. Finally, you sell some of the 351 ETF shares to repay the original loan that allowed you to look diversified in the first place. If it all goes according to plan you end up with a diversified $100 million and no tax paid. Congratulations, you seem to have accomplished what 60 years of lawmaker history says you cannot do: achieve tax-free diversification.<a>(12)</a></p>
+
+
+
+<figure class="wp-block-image size-full"><img src="https://alphaarchitect.com/wp-content/uploads/2026/09/fig5c_stuffing-4.webp" referrerpolicy="no-referrer" loading="lazy" alt=""><figcaption class="wp-element-caption">Stuffing in five steps, and why it fails. Shown so contributors can recognize the pattern, not as a workaround.</figcaption></figure>
+
+
+
+<p class="wp-block-paragraph">Treasury addressed this territory directly from the stage at the WSTA event: Section 351 is not “a general device for exchanging one investment portfolio for another without tax,” and Section 852(b)(6) is “not designed to cleanse a portfolio contributed as part of a planned diversification transaction.” That is the stuffing pattern in Treasury’s own words. Our takeaway: do not defy the intent behind the rules.<a>(13)</a></p>
+
+
+
+Where’s the rule against swapping out the portfolio after a 351?
+
+
+
+<p class="wp-block-paragraph">We’ve focused on tax-free diversification so far because that is where lawmakers have aimed for 60 years, and Treasury already has the tools to go after shady deals with “engineered” diversified contributions. But Salinger did spend time chatting about Section 852(b)(6) in the context of 351. A knee-jerk reaction follows:</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">Wait. I thought my concern was delivering a diversified contribution. And I contributed a legit diversified property into a 351 ETF, but now Salinger is saying that if the ETF manager turns over a bunch of the 351 ETF’s portfolio, they will blow up the deal?</p>
+</blockquote>
+
+
+
+<p class="wp-block-paragraph">We don’t think anyone would disagree that a large rebalance trade for a huge portion of a 351 ETF’s assets would be <em>odd</em> if it occurred soon after a deal closed. No disagreement there and that ETF is certainly waving a red flag to investigate further. But assuming all contributors were bona fide diversified contributors (i.e., nobody achieved tax-free diversification), what exactly is the legal risk with that large turnover trade?</p>
+
+
+
+<p class="wp-block-paragraph">We went looking for any rules or guidance that says a legit 351 ETF with genuinely diversified 351 contributors not trying to scam the system should get hammered because the fund later swaps out the portfolio. There isn’t one as far as we can tell, assuming all 351 contributors are bona fide diversified contributors. <a href="https://www.law.cornell.edu/cfr/text/26/1.351-1" target="_blank" rel="noopener">The 351 regulation</a> tests the transfer, on the day of the transfer. In our read, that leaves a genuinely diversified contributor with little to worry about on this front (other than what we describe in the next paragraph). We could not find a rule tied to turnover, or one suggesting the ETF can’t sell your stuff post-transaction. When Treasury <a href="https://www.irs.gov/pub/irs-regs/td8663.txt" target="_blank" rel="noopener">rewrote these rules in 1996</a>, post-transfer turnover didn’t come up once. Same story for Section 852(b)(6).<a>(14)</a> No holding period. No anti-churn rule. No “unless the securities came in via 351.”</p>
+
+
+
+<p class="wp-block-paragraph">Actually, there is one ruling worth putting on the table, and it points the other way. In Rev. Rul. 88-32, shareholders of a company the IRS calls Y contributed their Y stock to a newly organized corporation, X. Identical assets in, so no diversification on day one and no Section 351(e) problem. Then, and this is the interesting part, <em>pursuant to the plan to organize X</em>, X sold significant amounts of the Y stock and bought other marketable investments. Everyone ended up diversified. The IRS still held that Section 351(e) did not apply, because that later diversification “does not occur in a transaction purporting to qualify for nonrecognition treatment.” Planned post-transfer turnover, and the original 351 survived.<a>(15)</a></p>
+
+
+
+<p class="wp-block-paragraph">Two facts kept that ruling clean, and both map onto the 351 ETF debate. First, the ruling’s facts stipulate that “[n]one of the transferors had acquired any of the Y stock transferred to X as part of the same plan to organize X.” No pre-transfer stuffing. Second, X sold the Y stock in transactions “in which X recognized gain or loss.” The diversification got paid for with a taxable event. It did not ride inside a nonrecognition transaction. That second fact is where a 351 ETF is different, and we think it is the honest version of what Salinger is worried about: Section 852(b)(6) lets a fund shed the contributed positions in kind without the gain that X had to recognize. So 88-32 helps, but nobody should read it as a free pass.</p>
+
+
+
+<p class="wp-block-paragraph">We know there are various discussions in the context of Section 368 that speak to business continuity, so maybe those could be applied in the context of 351?<a>(16)</a> Anyway, we are not suggesting a 351 ETF portfolio manager blow out their entire portfolio immediately after launch, but this is an open question we’ve been wondering about, mainly because Salinger discussed it and there is no clear guidance on the topic.</p>
+
+
+
+<p class="wp-block-paragraph">All that said, what was Salinger <em>likely</em> talking about? Read his comments closely and every Section 852(b)(6) sentence is tethered to the contribution: a portfolio “contributed as part of a planned diversification transaction,” redemptions used to shed “a substantial portion” of what came in. In-kind redemptions alone don’t seem to be the issue. It’s combining them with other steps to reach a result Congress didn’t intend. Our translation: the redemptions are evidence that the contribution was fake-diversified. In-kind redemptions are the back half of the stuffing story, not a freestanding sin. Maybe we’re missing something and if a more sophisticated reader has input on this topic, feel free to share and we’ll add it as a footnote on this blog. We still think the biggest issue is tax-free diversification.</p>
+
+
+
+Closing thoughts
+
+
+
+<p class="wp-block-paragraph">Under the current laws, truly moving from concentrated to diversified must come with pain. That is how the system is designed. If you are concentrated and you want out, you can pay the tax, you can accept the frictions of an exchange fund, you can look into long/short market neutral tax-loss harvesting,<a>(17)</a> or you can hedge (watch out for straddle rules!) and borrow. Pick your pain.</p>
+
+
+
+<p class="wp-block-paragraph">But what you cannot do is use a 351 to engineer a concentrated-to-diversified path with no pain.</p>
+
+
+
+<p class="wp-block-paragraph">A “fake” diversified portfolio is the thing Salinger kept circling back to: it looks “too good to be true.” Does your contribution use massive leverage, off-balance-sheet shenanigans, 10 LLC entities based in the Caymans, and multiple meetings with 5 different law firms that won’t write a tax opinion on your proposed idea? If any of these sound familiar, 351 ETFs probably aren’t for you.</p>
+
+
+
+<p class="wp-block-paragraph">So, what should you take to your own tax counsel? A few questions worth asking, on your own facts. Does what I am contributing clear 25/50 on its own, without anything I bought or borrowed to get it there? Does the fund actually want these securities? Can I explain why I am shifting my portfolio into a 351 ETF, in terms that have nothing to do with taxes? Those are the questions we would want answered before signing anything, and they are questions for your advisors, not for a blog post.</p>
+
+
+
+Sources and further reading
+
+
+
+<p class="wp-block-paragraph">None of the history is original research. It rests on people who mapped this territory first.</p>
+
+
+
+<ul class="wp-block-list">
+<li>Jeffrey M. Colón, <a href="https://ssrn.com/abstract=5364015" target="_blank" rel="noopener">“The Black Hole of Capital Gains: ETF Swap Funds”</a>, 75 DePaul L. Rev. 821 (2026). The most complete recent survey of § 351(e), § 852(b)(6), and the seeding debate, and the source for much of the chronology in the footnotes. Also <a href="https://ssrn.com/abstract=4354875" target="_blank" rel="noopener">“Unplugging Heartbeat Trades”</a> (2023) and <a href="https://ssrn.com/abstract=3070717" target="_blank" rel="noopener">“The Great ETF Tax Swindle”</a> (2017).</li>
+
+
+
+<li>David J. Herzig, <a href="https://ssrn.com/abstract=1470897" target="_blank" rel="noopener">“Am I the Only Person Paying Taxes? The Largest Tax Loophole for the Rich: Exchange Funds”</a>, 2009 Mich. St. L. Rev. 503. Our source for the Berger history, the 80/20 structure, the exchange-fund frictions, and the Neal episode.</li>
+
+
+
+<li>Marvin A. Chirelstein, “Tax Pooling and Tax Postponement: The Capital Exchange Funds,” 75 Yale L.J. 183 (1965). The original critique, and the source of “an accident of skillful planning.”</li>
+
+
+
+<li>Brent Sullivan and Elliot Rozner, <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6158026" target="_blank" rel="noopener">“Managing Concentrated Public Stock Positions by Seeding an Exchange-Traded Fund”</a> (Journal of Wealth Management, 2026). The “stuffing” and “sequential seeding” taxonomy is theirs, and it is the best practitioner treatment available. Brent also prepared the WSTA transcript every government quote here comes from, at <a href="https://www.taxalphainsider.com/wsta-treasury-transcript/" target="_blank" rel="noopener">Tax Alpha Insider</a>. The full record is his work, not ours.</li>
+
+
+
+<li>Primary sources: <a href="https://www.law.cornell.edu/cfr/text/26/1.351-1" target="_blank" rel="noopener">Treas. Reg. § 1.351-1(c)</a>; <a href="https://www.irs.gov/pub/irs-regs/co-19-95.txt" target="_blank" rel="noopener">CO-19-95</a> (Aug. 10, 1995); <a href="https://www.irs.gov/pub/irs-regs/td8663.txt" target="_blank" rel="noopener">T.D. 8663</a> (eff. May 2, 1996); T.D. 6942 (1967); <a href="https://www.law.cornell.edu/uscode/text/26/368" target="_blank" rel="noopener">I.R.C. § 368(a)(2)(F)</a>; Pub. L. 89-809 § 203 (1966); Pub. L. 94-455 § 2131 (1976); Pub. L. 105-34 § 1002 (1997).</li>
+
+
+
+<li>Also on the July seminar: <a href="https://www.bloomberg.com/news/articles/2026-07-21/treasury-flags-concern-over-potentially-abusive-tax-strategies" target="_blank" rel="noopener">Bloomberg</a> (Mider, Lee, Tsekova) and the <a href="https://www.klgates.com/thought-leadership/IRS-and-Treasury-Discuss-Current-Issues-With-ETFs-and-Tax-Aware-Strategies-7-22-2026" target="_blank" rel="noopener">K&L Gates alert</a>. Panelists: Jay Freedman (KPMG, moderator), Jeffrey D. Hochberg (Sullivan & Cromwell), Vadim Novik (Fried Frank), Kevin Salinger and Erika W. Nijenhuis (Treasury). Wes’s colleague Jose Ordonez covered these patterns in <a href="https://alphaarchitect.com/why-the-351-exchange-might-revolutionize-investing/" target="_blank" rel="noopener">his conversation with Brent</a>, and for how § 351 compares with other routes on cost and lockups, see <a href="https://alphaarchitect.com/portfolio-tax-strategies-section-351-vs-exchange-funds-vs-long-short-tax-loss-harvesting/" target="_blank" rel="noopener">our earlier post</a>. The 1976 legislative-history quotation comes via <a href="https://taxlawcenter.org/tealbook/policy-options/tax-free-swap-fund-exchanges" target="_blank" rel="noopener">NYU’s Tax Law Center</a>.</li>
+</ul>
+ <p>References[+]References[−]</p> <table class="footnotes_table footnote-reference-container">References  
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_1" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_1');"><a>↑1</a></th> <td class="footnote_plugin_text">The transferors must control the corporation right after the exchange: 80% of the vote and value of each class of stock (I.R.C. § 368(c)). Courts justified the rule as a “mere change in form” of ownership, on the theory that the contributors “continue to be beneficially interested in the transferred property and have dominion over it by virtue of their control of the new corporate owner” (American Compress & Warehouse Co. v. Bender, 70 F.2d 655 (5th Cir. 1934)). Your basis carries over to the shares you receive (§ 358(a)(1)) and the corporation takes your basis in the property (§ 362(a)), so gain is deferred, not forgiven. Note that the same rationale is the intuition behind Treasury’s turnover comments: if the fund does not keep what you gave it, the “mere change in form” story gets thin. The IRS has never turned that intuition into a rule, though. See the Rev. Rul. 88-32 discussion later in the post.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_2" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_2');"><a>↑2</a></th> <td class="footnote_plugin_text">Ordinarily a corporation distributing appreciated property recognizes gain under § 311(b), the codified repeal of the General Utilities doctrine. Section 852(b)(6) switches that off for a regulated investment company distributing property in redemption of its shares upon shareholder demand. The redeeming shareholder still has a taxable exchange, and takes a fair-market-value basis, which is why an authorized participant is indifferent to the basis of what it receives. There are non-tax reasons for the rule too: in-kind creation and redemption is the arbitrage mechanism that keeps an ETF share price tethered to its NAV. Without it, index funds would have to sell at market to rebalance and hand shareholders phantom income for exposure they never changed. Colón traces the provision to 1969 and its move into subchapter M to 1986.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_3" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_3');"><a>↑3</a></th> <td class="footnote_plugin_text">§ 351(e)(1) generally denies nonrecognition on a transfer of property to an “investment company” except as provided in regulations. Under Treas. Reg. § 1.351-1(c)(1), two things have to be true: the transfer results, directly or indirectly, in diversification of the transferors’ interests, and the transferee is a RIC, a REIT, or a corporation holding 80% or more of its assets in stocks and securities. An ETF is a RIC, so for a 351 ETF the second prong is a given and the entire question is the first one. Did the transfer diversify your interest? If yes, you have a taxable sale: gain measured at fair market value less your tax basis, reported in the year of the contribution, and the fund takes a fair-market-value basis instead of your carryover basis. If no, you are outside the rule, which is the point of the Rev. Rul. 88-32 discussion later in this post. The mechanics also run transferor by transferor, so in a seeding with a hundred contributors the question gets asked a hundred times.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_4" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_4');"><a>↑4</a></th> <td class="footnote_plugin_text">Salinger is Treasury’s Deputy Assistant Secretary for Tax Policy, and as of July 2026 also its Acting Assistant Secretary for Tax Policy. The exchange is around minute 32 of the July 21, 2026 transcript, which Brent Sullivan published at Tax Alpha Insider.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_5" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_5');"><a>↑5</a></th> <td class="footnote_plugin_text">Why society doesn’t like tax-free diversification is an interesting economic and political debate that we don’t cover here.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_6" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_6');"><a>↑6</a></th> <td class="footnote_plugin_text"></p>
+
+
+
+<p class="wp-block-paragraph"><strong>1960: the entrepreneur who hates taxes enters the scene.</strong> William Berger noticed that under 351 one could pool stock positions into a new fund, hand everyone shares of the fund to achieve diversification, and nobody owes tax today. Berger’s clients would get diversification with no pain. “Awesome,” he probably thought. Berger’s Centennial Fund gathered $25.8 million, and copycats followed. We take that history from Herzig, who reconstructs it from a 1967 <em>Time</em> profile of Berger. Marvin Chirelstein wrote in the <em>Yale Law Journal</em> in 1965 (75 Yale L.J. 183) that the whole thing was “an accident of skillful planning” rather than any conscious decision by Congress to give investors relief from the tax cost of diversifying. The IRS stopped issuing rulings on promoter-assembled swap funds like Berger’s in 1961, and announced the formal no-rule position in 1962 (Rev. Proc. 62-32). But Congress decided to act in 1966.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>1966–1967: Congress tells Berger to pound sand, and Treasury writes “diversification” into the 351 rule.</strong> The Foreign Investors Tax Act of 1966 (Pub. L. 89-809, § 203) added a rule that Section 351 does not apply to a transfer of property to an “investment company.” Congress did not define the term. Treasury did, in regulations finalized at the end of 1967 (T.D. 6942) that survive largely intact today as Treas. Reg. § 1.351-1(c). A transfer is a taxable transfer to an investment company only if two conditions are met: (1) the recipient is a regulated investment company (the tax label for a mutual fund or ETF), a REIT, or a corporation more than 80% of whose assets are readily marketable stocks and securities held for investment; and (2) the transfer “results, directly or indirectly, in diversification of the transferors’ interests.” Translation: if you wanted to start a 351 ETF in 1967, you were going to pay tax on your contribution. But what does it mean to produce “diversification of the transferors’ interests”? Unfortunately, the 1967 regulations gave diversification an onerous definition. A transfer “ordinarily results in” diversification if two or more people transfer nonidentical assets. Two investors each contributing IBM: no diversification, no tax. One contributes IBM and the other contributes GE: diversification, tax. The 1967 regulations also added a purpose test. If a transfer “is part of a plan to achieve diversification without recognition of gain,” the original transfer is treated as resulting in diversification. That plan rule is discussed further below. Long story short, Section 351 was on full lockdown once the new rules took hold. It was not instant, though. Pub. L. 89-809 § 203(a) inserted a parenthetical into § 351(a) preserving nonrecognition for transfers to an investment company “made on or before June 30, 1967,” and § 203(b) added a new subsection (d) with rules applying that date to transactions that required an SEC registration statement. In other words, funds already in registration got a runway.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>1976: yikes, partnerships are going around the 351 rules for corporations.</strong> The 1966 fix covered corporations and prevented Berger from continuing his games. But things change. By the mid-1970s state partnership law had changed, and in 1975 the IRS issued a private letter ruling blessing a partnership swap fund (Priv. Ltr. Rul. 7504280550A). Congress responded in the Tax Reform Act of 1976 (Pub. L. 94-455, § 2131), adding Section 721(b) for partnerships and rewriting Section 683 for trusts. As NYU’s Tax Law Center quotes the legislative history, Congress believed “that the tax-free diversification of stock investments should not be permitted through the use of the partnership form when the same result cannot be achieved under present law through a corporation or a direct exchange of portfolio stocks for other similar stocks.” Herzig summarizes the committee reports as drawing a distinction between a real partnership, where people pool assets and know-how to share the risks of an ongoing business, and an exchange fund (or swap fund), where the partners share nothing but a vehicle and, as Congress noted, generally did not even want the manager selling anyone’s stock. Congress did one more thing in 1976 that is central to this story. It wrote Section 368(a)(2)(F), which closed a merger route: an undiversified investment company could no longer merge tax-free into a diversified one. And here Congress wrote the actual test. Under Section 368(a)(2)(F)(ii), an investment company counts as diversified if not more than 25% of its assets are in the securities of any one issuer and not more than 50% are in five or fewer issuers. Congress also anticipated gaming the numbers: under clause (iv), assets acquired to satisfy the test, including with borrowed money, are excluded from the calculation. (That clause runs through regulations, which Treasury proposed in 1981 (46 Fed. Reg. 1744) and withdrew in 1998 (63 Fed. Reg. 71047) without finalizing, a point Colón flags.) Where did this leave us? The Section 368 tax games attempting to go from concentrated to diversified were closed. But what happened to the partnership route? Those funds survived the 1976 rules by skirting the definition of an “investment company”: hold at least 20% of assets in something that is not “stock or securities,” typically illiquid real estate, and the partnership is not an “investment company” at all. Herzig is direct about it: the 80/20 asset split exists only to avoid the investment company rules. Congress also left a pile of frictions in place: a fifth of your money parked in real estate you did not choose; a seven-year lockup driven by Sections 704(c)(1)(B) and 737 (Congress lengthened it from five years to seven in 1997); disguised-sale rules (Section 707(a)(2)(B), 1984) and a rule treating distributed marketable securities as cash (Section 731(c), 1994); eligibility generally limited to “qualified purchasers” with $5 million or more in investments; and fees that Herzig put at 1% to 2% a year. When Representative Richard Neal proposed shutting exchange funds down in 1999 and 2001, the Joint Committee on Taxation reportedly wrote back that closing them would raise no revenue because the same investors would find another way. We take this episode entirely from Herzig, who sources it to David Cay Johnston’s reporting in the <em>New York Times</em>. We were not able to run down the bills or the article ourselves. Colón’s reading of the decades since is that Congress may have concluded the regime was satisfactory precisely because the frictions on exchange funds were already doing their job. The pain was the policy. And while it wasn’t a clean elimination of a tool that would allow one to diversify a concentrated position without paying tax, the various gymnastics required to comply with the exchange fund rules were essentially enough “pain” to satisfy Congress.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>1995–1997: the 351 rules are too onerous versus 368.</strong> By the 1990s the 1967 “nonidentical assets” rule was producing an odd result for 351. Two diversified mutual funds could merge tax-free under Section 368(a)(2)(F) because both were diversified. But if the same two portfolios were contributed to a new entity under Section 351, that counted as “diversification” and was taxable. 351 was in a fight with 368 and losing badly! In August 1995 Treasury proposed a fix (CO-19-95), finalized as T.D. 8663, effective May 2, 1996, and now sitting at Treas. Reg. § 1.351-1(c)(6). The rule: a transfer doesn’t result in diversification “if each transferor transfers a diversified portfolio of stocks and securities,” measured by the 25/50 test of Section 368(a)(2)(F)(ii). The preambles are the best evidence of intent we have. The 1995 notice described the purpose of the 1966 statute as “preventing individuals from achieving tax-free diversification by the transfer of one or a few stocks or securities to a corporation (referred to as a swap fund),” citing the 1976 House report (H.R. Rep. No. 1049, 94th Cong., 2d Sess.), and said the new rule was intended “to limit section 351(e) to cases more analogous to the typical swap fund cases that were the focus of the section 351(e) legislation.” The preamble to the final regulation put the premise in one sentence: “The proposed rules were based on the conclusion that transfers of diversified portfolios are not inconsistent with the Congressional purpose of section 351(e)(1).” Translation: if you are pooling diversified portfolios with other diversified portfolios, tax pain is not required, because you aren’t getting tax-free diversification of a concentrated position. You’re already diversified!</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_7" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_7');"><a>↑7</a></th> <td class="footnote_plugin_text">The 25/50 test comes from § 368(a)(2)(F)(ii), which Congress wrote in 1976 for mergers of investment companies. Treasury borrowed it for § 351 in 1996: a transfer “will not be treated as resulting in a diversification of the transferors’ interests” if each transferor contributes a diversified portfolio (Treas. Reg. § 1.351-1(c)(6)(i)). Government securities count in the denominator unless “acquired to meet the 25 and 50-percent tests.” Note the words “each transferor.” This is tested contributor by contributor, not at the fund level, so one concentrated contributor sitting in an otherwise clean deal is outside the exception, and what that does to everyone else is genuinely unsettled. One more piece of the same regulation. The words “applying the relevant provisions of section 368(a)(2)(F)” pull in the look-through rule in the third sentence of clause (ii), under which “a person holding stock in a regulated investment company, a real estate investment trust, or an investment company which meets the requirements of this clause shall, except as provided in regulations, be treated as holding its proportionate share of the assets held by such company or trust.” An ETF is a RIC, so if you contribute ETF shares you are measured on your slice of the underlying basket, not on one line item. Treasury said out loud what “relevant provisions” covers: the 1995 § 351 proposal itself named “the controlled group and look-through rules found in clause (ii)” as provisions that come along (<a href="https://www.govinfo.gov/content/pkg/FR-1995-08-10/pdf/95-19449.pdf" target="_blank" rel="noopener">CO-19-95, 60 Fed. Reg. 40794, 40795 (Aug. 10, 1995)</a>). The IRS has run the same chain in private rulings, reciting the look-through sentence as operative law before concluding a diversified-portfolio contribution did not result in diversification (see, e.g., <a href="https://www.irs.gov/pub/irs-wd/0931042.pdf" target="_blank" rel="noopener">PLR 200931042</a>, though under § 6110(k)(3) a private ruling binds only the taxpayer who got it and cannot be cited as precedent). Two cautions, because look-through is a measurement rule and not a blessing. Contribute a single-stock or concentrated sector ETF and you are deemed to hold a concentrated basket, which is worse than the surface suggests. And it aggregates: the same mega-cap showing up in three different index funds is one position, not three, and controlled group members count as one issuer. Note also that § 368(a)(2)(F)(vii) separately defines “securities” to include shares of RICs and REITs, and the look-through applies “except as provided in regulations,” which Treasury has never written.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_8" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_8');"><a>↑8</a></th> <td class="footnote_plugin_text">Comments on the 1995 proposal were “generally supportive,” no hearing was requested, and the only substantive comment Treasury discussed was a technical quibble about government securities in the denominator. Congress then expanded § 351(e) in 1997 to count more assets as stock or securities (cash, debt, options, futures, notional principal contracts, foreign currency, precious metals) and left the diversified-portfolio exception standing; the IRS has stated the 1997 Act “is not intended to alter the requirement of § 1.351-1(c)(1)(i),” citing S. Rep. 105-33 at 131, H.R. Rep. 105-148 at 447, and H.R. Rep. 105-220 at 516-17. Colón concedes the mechanics do “not incorporate finance principles” to measure how much risk anybody actually sheds, and notes the mechanical approach is far easier to administer.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_9" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_9');"><a>↑9</a></th> <td class="footnote_plugin_text">Treas. Reg. § 1.351-1(c)(5). The regulation’s own example is a plan contemplating a subsequent transfer, however delayed, of the corporate assets “(or of the stock or securities received in the earlier exchange)” to an investment company in a transaction purporting to qualify for nonrecognition. There is a companion timing rule: § 1.351-1(c)(2) measures investment-company status by later circumstances if a plan existed at the time of the transfer.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_10" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_10');"><a>↑10</a></th> <td class="footnote_plugin_text">Step transaction, substance over form, and the codified economic substance doctrine in § 7701(o), which carries a strict-liability penalty. Add the summons power and the reportable-transaction regime. Salinger was asked directly in July whether Treasury might designate these exchanges a “transaction of interest” and said every tool is under consideration for every transaction on the agenda. He also said regulatory guidance would “ordinarily” be prospective, then immediately noted that existing anti-abuse rules, existing regulatory provisions, and outstanding judicial doctrines “may already be in place and ready for the IRS to act.” Translation: bad facts can get you busted now.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_11" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_11');"><a>↑11</a></th> <td class="footnote_plugin_text">Vadim Novik of Fried Frank put this fact pattern to Treasury from the floor: a transferor contributes a diversified portfolio consistent with the fund’s mandate, and sometime later the manager, bound by its duties under the 1940 Act and its management agreement, rebalances per the stated strategy, choosing in-kind redemption for reasons that have nothing to do with taxes: lower transaction costs, less execution risk, and not signaling the disposition to the market. Salinger’s response was that it “sounds distinguishable from what I described.” Two cautions: both officials refused, repeatedly and in terms, to “bless any particular transaction,” and Erika Nijenhuis, senior counsel in Treasury’s Office of Tax Policy, warned the room not to read anything into which transactions they were not discussing. Read “sounds distinguishable” as a reaction, not a green light. Salinger also said § 351 transactions “can be used in ordinary ETF seeding,” that there may be “real commercial reasons to seed a new ETF with securities rather than cash,” and that this “is not the focus of what we are talking about.”</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_12" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_12');"><a>↑12</a></th> <td class="footnote_plugin_text">The arithmetic: $100M of stock plus $300M of filler makes the position exactly 25% of $400M, which clears the test since the limit is “not more than” 25%. Note that 4:1 gross leverage on a concentrated book is only realistic if the filler carries very high lendable value, which is why Treasuries do the work here. Now look at what § 368(a)(2)(F)(iv) does to assets bought with borrowed money to pass the test, and what the plan rule does to a withdrawal scheduled to retire that same loan. Colón describes a live ETF situation, reported by Justina Lee at Bloomberg, where contributors bought fixed-income ETFs to sit alongside large single-stock positions and the fund distributed those positions in kind within days.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_13" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_13');"><a>↑13</a></th> <td class="footnote_plugin_text">Salinger’s fact pattern started with a founder holding a highly appreciated single stock who “may acquire additional stock to meet the minimum diversification requirements” at fair market value basis, and who contributes a portfolio that is “not really the portfolio the fund intends to hold.” As part of the same plan the fund uses in-kind redemptions to shed those securities and replace them with holdings that do fit. What is the focus, in his next sentence, is the planned use of § 351 with § 852(b)(6) to accomplish “tax-free diversification, or portfolio substitution.” Smell fishy? It should. And it gets fishier if the contributing investor sells a big chunk of ETF shares right after the transaction.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_14" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_14');"><a>↑14</a></th> <td class="footnote_plugin_text">Section 852(b)(6) is <a href="https://uscode.house.gov/view.xhtml?req=granuleid%3AUSC-prelim-title26-section852&num=0&edition=prelim" target="_blank" rel="noopener">one sentence</a>: no fund-level gain on an in-kind redemption at the shareholder’s demand. Born in <a href="https://www.americanbar.org/groups/taxation/resources/tax-lawyer/2022-spring/exchange-traded-funds-use-section-852b6-tax-avoidance/" target="_blank" rel="noopener">1969</a>, moved into subchapter M in 1986, and, <a href="https://www.pennstatelawreview.org/wp-content/uploads/2017/11/Colon-article.pdf" target="_blank" rel="noopener">per Colón</a>, with zero legislative history explaining even the exemption itself.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_15" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_15');"><a>↑15</a></th> <td class="footnote_plugin_text">Rev. Rul. 88-32, 1988-1 C.B. 113. The ruling turns on Treas. Reg. § 1.351-1(c)(5), the identical-assets rule, which treats such a transfer as not resulting in diversification “unless it is part of a plan to achieve diversification in a series of non-recognition transactions.” It does not address the § 368(a)(2)(F) 25/50 test, so it speaks to the identical-assets question and not to the diversified-portfolio exception in § 1.351-1(c)(6). The New York State Bar Association Tax Section reads the ruling’s stipulation about pre-transfer acquisitions as a sign that the Service “may be concerned in certain cases with pre-transfer acquisitions to enable transfers to qualify as not resulting in diversification” (<a href="https://nysba.org/wp-content/uploads/2025/03/1252-Report.pdf" target="_blank" rel="noopener">Report No. 1252</a>, Mar. 2025, at 24-26, which is also our source for the quotations here). And a revenue ruling is the Service’s view on its own stated facts, not a statute.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_16" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_16');"><a>↑16</a></th> <td class="footnote_plugin_text">Continuity of business enterprise is a Section 368 requirement, found in Treas. Reg. § 1.368-1(d), and it does not appear in Section 351 or its regulations. The one fund case involving a public ruling where it bit was Rev. Rul. 87-76, 1987-2 C.B. 84: a fund merger failed the test because the target fund’s stocks and bonds were sold as part of the plan and replaced with municipal bonds, so the acquirer neither continued the historic business nor used the historic assets. Practitioners have questioned that ruling for years, and the IRS has since accepted historic-business representations in private rulings. Going the other way, the IRS has repeatedly ruled that a 351 transferee can pass contributed assets along, even under a prearranged plan, without breaking the original 351 (Rev. Rul. 77-449 and Rev. Rul. 83-34), and Rev. Rul. 2003-51 reached the same result where the stock received was disposed of under a binding agreement. Congress and Treasury have had six decades to import a continuity requirement into 351 and have not done so.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_97956_5_17" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_97956_5('footnote_plugin_tooltip_97956_5_17');"><a>↑17</a></th> <td class="footnote_plugin_text">Long/short tax-loss harvesting: a manager runs offsetting long and short books, so the losers throw off realized losses that soak up the gains on your concentrated position.</td></tr>
+
+  </table> <p><a href="https://alphaarchitect.com/351-etf-tax-free-diversification-history/" target="_blank" rel="noopener">351 ETFs: Tax-Free “Diversification” Is Supposed to Hurt</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/351-etf-tax-free-diversification-history/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

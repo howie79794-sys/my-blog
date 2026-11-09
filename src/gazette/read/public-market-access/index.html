@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Financial Intermediary Relationships and Public Market Access · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Financial Intermediary Relationships and Public Market Access</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/public-market-access/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-03 · 1505 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Financial markets depend on more than capital, information, and investment opportunities. They also depend on relationships. For venture capital firms, successfully taking a portfolio company public may require years of cooperation with investment banks, underwriters, and other financial intermediaries.These relationships can be especially important for young, innovative companies. With limited operating histories, uncertain future earnings, and substantial intangible assets, startups often face significant information barriers when seeking access to public markets. But how valuable are these connections? If a venture capital firm loses its relationship with an investment bank, can it simply find another underwriter? Or does the disruption affect its ability to bring companies to market and ultimately reduce investment performance?</p>
+
+
+
+Financial Intermediary Relationships and Public Market Access
+
+
+
+<ul class="wp-block-list">
+<li>Tuft and Yimfor</li>
+
+
+
+<li>Review of Finance, 2026</li>
+
+
+
+<li>A version of this paper can be found <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4414276" target="_blank" rel="noopener">here</a></li>
+
+
+
+<li>Want to read our summaries of academic finance papers? Check out our <a href="https://alphaarchitect.com/category/architect-academic-insights/academic-research-insight/" target="_blank" rel="noopener">Academic Research Insight</a> category</li>
+</ul>
+
+
+
+Key Academic Insights
+
+
+
+<p class="wp-block-paragraph"><strong>Losing an Underwriter Relationship Reduces IPO Activity</strong></p>
+
+
+
+<p class="wp-block-paragraph">The authors find that disruptions to established relationships between venture capital firms (VCs) and investment bank underwriters reduce VC IPO exits by approximately 9.5%. To identify this effect, they exploit underwriter mergers and closures, which provide plausibly external disruptions to existing business relationships. Their difference-in-differences analysis compares venture capital firms affected by these disruptions with firms that retain their underwriting connections. The findings suggest that established relationships provide more than convenient access to financial services. They help venture capital firms navigate the complex process of taking portfolio companies public, and losing those relationships can materially reduce successful IPO exits.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Financial Relationships Have a Measurable Impact on Investment Performance</strong></p>
+
+
+
+<p class="wp-block-paragraph">The consequences extend beyond IPO activity. The authors find that disruptions to established underwriter relationships reduce venture capital fund multiples by approximately 7.8%. This is an important result because it connects financial intermediary relationships directly to investment outcomes. Venture capital performance is often attributed to investment selection, operational expertise, or the ability to identify promising startups. This study identifies another potential source of value: a VC firm’s network of financial intermediaries. Access to trusted underwriting partners can help transform successful private investments into realized exits, making relationships an economically meaningful component of venture capital performance.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Smaller Venture Capital Firms Are Particularly Vulnerable</strong></p>
+
+
+
+<p class="wp-block-paragraph">The impact of relationship disruptions is especially pronounced among smaller venture capital firms and funds approaching the stage when they need to exit their investments. Larger, established firms may have broader networks, stronger reputations, and more alternatives when an underwriting relationship disappears. Smaller firms may find it harder to replace a trusted partner or establish credibility with a new investment bank. Similarly, funds approaching the end of their investment life have less flexibility to postpone exits while rebuilding relationships. The findings suggest that the economic value of intermediary networks depends partly on a VC firm’s size, reputation, and position in its investment cycle.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Personal Relationships and Human Capital Matter More Than Institutional Names</strong></p>
+
+
+
+<p class="wp-block-paragraph">One of the study’s most interesting findings concerns the mechanisms behind relationship value. The authors examine underwriter mergers and find that disruptions are particularly damaging when employee turnover is high. This suggests that valuable relationships are embedded in specific individuals, rather than residing entirely within financial institutions. When experienced bankers leave, the trust, familiarity, and institutional knowledge developed through repeated interactions may disappear with them. The authors also consider alternative explanations, including underwriter specialization and industry expertise, but find that these factors do not fully explain the results. The evidence points toward relationship-specific human capital as an important determinant of public market access.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Financial Intermediary Networks Can Influence Access to Public Markets</strong></p>
+
+
+
+<p class="wp-block-paragraph">The study highlights an often-overlooked dimension of capital market access: the connections among financial intermediaries themselves. Venture capital firms and underwriters perform different functions, but their repeated interactions can create complementary benefits. Established relationships may reduce information asymmetries, facilitate due diligence, and make the IPO process more efficient. The authors also note that underwriters may become involved with portfolio companies well before a potential IPO, acting as deal facilitators or late-stage investors in approximately 15% of cases. These findings suggest that intermediary networks influence not only which companies receive financing but also which companies successfully transition from private to public ownership.</p>
+
+
+
+Practical Applications for Investment Advisors
+
+
+
+<p class="wp-block-paragraph"><strong>Evaluate Venture Capital Managers Beyond Historical Returns</strong></p>
+
+
+
+<p class="wp-block-paragraph">The study suggests that a venture capital manager’s ability to generate returns depends on more than selecting promising companies. Relationships with investment banks and other intermediaries can influence whether portfolio companies successfully reach public markets. When conducting due diligence on venture capital funds, advisors should therefore evaluate the manager’s network, its experience executing IPOs, and the depth of its relationships with underwriting institutions. Historical returns may not fully capture the importance—or fragility—of these connections.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Consider Intermediary Concentration as an Additional Risk</strong><br />Diversification is typically discussed in terms of investments, sectors, geographies, and portfolio companies. This paper suggests another dimension: diversification across financial intermediary relationships. A <a href="https://alphaarchitect.com/venture-capital-funding/" target="_blank" rel="noopener">venture capital</a> manager that relies heavily on a small number of underwriting partners may face additional operational and exit-related risks if those institutions merge, close, or experience significant employee departures. Advisors evaluating private market allocations could incorporate intermediary concentration into their assessment of manager risk, particularly when comparing managers with otherwise similar investment strategies.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Pay Attention to Exit Risk and Fund Maturity</strong><br />The findings are particularly relevant when assessing venture capital funds approaching their exit phase. Funds with mature portfolios may depend on timely IPOs to realize investment gains and distribute capital to investors. A disruption to an important underwriting relationship could delay or reduce exit opportunities, potentially affecting liquidity and fund performance. Advisors should therefore evaluate not only the quality of underlying portfolio companies but also the manager’s ability to execute exits under changing market and institutional conditions.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Recognize the Importance of People Behind Financial Institutions</strong><br />The paper highlights the importance of human capital in financial intermediation. An established relationship with a prestigious investment bank may be less valuable if the specific bankers responsible for that relationship leave the institution. This insight has practical implications for due diligence: advisors should consider the stability of key professional relationships, team continuity, and how managers respond to turnover among important service providers. Institutional reputation matters, but the people maintaining those relationships may be equally important.</p>
+
+
+
+How to Explain This to Clients
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“Venture capital investors make money when the companies they back become successful and eventually provide opportunities to sell their investments. One important way this happens is through an initial public offering, or IPO, when a private company begins trading on the stock market. But taking a company public requires more than having a successful business. It also requires working with investment banks that help prepare, evaluate, and market the offering. This study finds that when venture capital firms lose established relationships with these banks, their ability to take companies public declines. The researchers estimate a 9.5% reduction in IPO exits and a 7.8% reduction in venture capital fund multiples. The lesson is that a venture capital manager’s network can be an important part of its investment strategy. When evaluating private market investments, we should look not only at the companies a manager selects but also at the relationships and resources that help turn those investments into realized returns.”</p>
+</blockquote>
+
+
+
+The Most Important Chart from the Paper
+
+
+
+<p class="wp-block-paragraph">This figure plots the relationship between the overlap in personnel between the underwriter and VC firm and the number of IPO deals in which the underwriter and VC firm jointly participate. We use LinkedIn data detailing the employment history of the people listed as senior partners at the VC firm in PitchBook. The dataset used to generate the graph is at the VC firm (i) underwriter (j) level. The X-axis shows the number of senior partners at i that have employment history at j prior to joining the VC firm. The Y-axis documents the number of startups backed by firm i, whose IPO was underwritten by underwriter j. We form the Y-values by averaging over bins of the X-values, which we have grouped into four bins. The tick marks surrounding the bars display 95% confidence intervals.</p>
+
+
+
+<figure class="aligncenter size-fusion-400"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/2026-10-21-11_39_14-ssrn-4414276.pdf-400x268.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+Abstract
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<h3 id="h-" class="wp-block-heading"></h3>
+
+
+
+<p class="wp-block-paragraph">We provide novel causal evidence on the impact of horizontal relationships between financial intermediaries. Specifically, we study how the exogenous loss of established ties between venture capital firms (VCs) and investment bank underwriters, caused by underwriter mergers and closures, affects a VCs’ ability to take portfolio companies public. Using a difference-in-differences approach, we show these disruptions decrease VC IPO exits by 9.5% and reduce fund multiples by 7.8%. These findings highlight the economic significance of relationship-specific capital, particularly human capital, in facilitating access to capital markets and reveal how intermediary networks shape VC performance.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</blockquote>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p><a href="https://alphaarchitect.com/public-market-access/" target="_blank" rel="noopener">Financial Intermediary Relationships and Public Market Access</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/public-market-access/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

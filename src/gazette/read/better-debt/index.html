@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Better Debt · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Better Debt </h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/better-debt" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-20 · 1651 words</span>
+    </div>
+    <div class="body"><p>The dog that didn’t bark is often meaningful. </p><p>The Treasury is buying back long-term bonds. To some extent, the Treasury views long-term bond prices as too low and yields too high. Treasury wants to raise the prices, or at least to buy back debt at attractive prices. The <a href="https://home.treasury.gov/news/press-releases/sb0607" target="_blank" rel="noopener">Treasury says</a>  “This increase in buyback operation sizes reflects Treasury’s desire to provide greater liquidity support in longer-dated nominal sectors.” In policy circles, illiquid means low prices that can be pushed up with modest interventions. </p><p>The great canine silence comes from the Fed. Since the era of QE and then massive Covid bond-buying, when government feels that long-term treasury yields are too high, and telling stories of illiquidity and market dysfunction, the Fed (and the ECB) has stepped in to buy long-term bonds. That the Fed is <em>not </em>buying is significant. </p><p>I would imagine that Treasury Secretary Bessent [argh! autocorrect on original] must have called Fed Chair Warsh at some point and said, “Hey, can you buy up some of these mis-priced illiquid bonds and help us out?” If so, Warsh said no. Good for Warsh. If Bessent did not call out of respect for Fed independence, even better. </p><p>Why do I cheer? Beyond a good sign of Fed independence, a central question for Fed-Treasury accord ought to be “Who is in charge of the maturity structure of Treasury debt?” In QE, the Treasury issued long-term bonds. The Fed bought up the long bonds, issued overnight debt, and passed the interest difference back to the Treasury. In the end, it is just as if the Treasury issued overnight debt in the first place. </p><p>The maturity structure has a big impact on government finances. Long-term bonds are on average a bit more expensive. But they include insurance against interest rate rises. If the government issues short-term (as it did) and interest rates rise (as they did) then the government has to collect more taxes or cut spending (eventually) to to pay higher interest costs. The current $1 trillion a year interest costs reflect previous Treasury and Fed decisions to borrow short. The tradeoff between cost of borrowing and how much interest rate risk taxpayers shoulder should be squarely on the shoulders of the politically-accountable Treasury not the independent Fed. </p><p>I’m not sure that shortening the maturity structure is a good idea. If rates go down, Secretary Bessent will look like a genius, as lower interest costs will quickly help deficits. But if rates go up again, however, interest costs will pile on that much more quickly. I would buy the insurance. But I’m a risk-averse investor.  </p><p>However, taking statements at face value, this operation was not really about maturity structure. It was about liquidity.  Management of “illiquid,” “dysfunctional”, or “fragmented” markets (scare quotes because I don't think these terms make much sense, and I know for sure there is no theory or objective measurement of any of them) usually stood with the Fed. That’s not necessary but it has a long historical tradition. The Bank of England was founded in 1694 to help market government debt and keep it liquid, not to manage inflation and output by setting short-term interest rates.  Still, short-term financial market intervention does not justify a permanent balance sheet of long-dated Treasurys. Warsh has also talked about wanting to reduce that balance sheet. In the new Accord, I hope that Fed and Treasury can agree to swap out long-term bonds on the Fed’s balance sheet fairly promptly, leaving maturity structure in the Treasury’s hands. </p><p>This is a longer-term operation however. Secretary Bessent is buying bonds for good. It is also aimed at “off-the-run” bonds, which are particularly illiquid. Here’s how it works: The Treasury sells a 30 year bond. There is lots of trading as the bond makes its way into portfolios, the bond-market equivalent of the day Taylor Swift tickets go on sale. But next year, it’s a 29 year bond, and the year after that a 28 year bond. Most of those bonds are sitting in institution’s proverbial sock drawers, so if people do want to sell, they are hard to trade, illiquid. And as a result their prices are typically a bit lower. Gemini made this graph for me which looks right but I can’t vouch for the source:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!yhUo!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff054dfcb-0399-41a0-a562-460224ce0ff0_1292x1000.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!yhUo!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff054dfcb-0399-41a0-a562-460224ce0ff0_1292x1000.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>Higher yield is lower price. The spread is not quite enough for an arbitrageur to short the 30 year bond, buy the 29 year bond, and hold to maturity. But the Treasury can earn the spread since it doesn’t have to short anything. When people want to sell bonds early, The treasury can buy, at a discount, and pick up a few tenths of a percent on interest costs. Smart management. I’d go bigger: I’d publish a daily yield curve fit to the on-the-runs, and stand ready to buy any amount at 20 bps or so higher yield (lower price), and maybe sell any amount at 20 bps or so lower yield. This is a debt-management operation entirely and properly in the Treasury’s wheelhouse.  </p><p>However, the Treasury buyback program is limited to $6 billion. There is an<a href="https://www.youtube.com/watch?v=EJR1H5tf5wE" target="_blank" rel="noopener"> Austin Powers</a> feel to the headlines. 6 billion dollars! The sky is falling! Horrible things happening! But there are $5.5 <em>trillion</em> — $5,500 billion — treasury bonds more than 10 year maturity outstanding. The Fed holds $1.62 trillion. The Treasury’s general account (its bank account at the Fed) is $997 billion. The Treasury borrows over $500 billion in the typical quarter. The Treasury can buy $6 billion of bonds with couch change.  </p><p>I stupidly wrote most of this out before checking the number. When I did,  I nearly deleted his post, and wrote instead “Who is worrying about this tiny drop in the ocean and why?” The media seem enthralled with artificial catastrophism. Still, the nature of the event is worth comment even if the magnitude is so far small, since everyone is looking, and maybe the next one won’t be so small.  </p><p>I occasionally pitch old ideas in new contexts, and here I can’t resist returning to  my <a href="https://www.johnhcochrane.com/news-op-eds-all/a-new-structure-for-us-federal-debt" target="_blank" rel="noopener">Treasury debt reforms</a>.  If the Treasury wants to do something about illiquid off-the-run bonds, lower interest costs on the debt by offering more liquid securities, avoid occasional Treasury market illiquidity, or shorten and lengthen the maturity structure, there is a much better way to do all of this.</p><p>Simplifying a bit,<em> the Treasury should introduce a fixed-coupon perpetuity and a fixed-value  floating-rate perpetuity. </em> These should gradually make up the bulk of government debt. </p><p>A fixed-coupon perpetuity is a security that pays a $1 forever. The Treasury auctions them, getting a lower price when interest rates are high and a higher price when rates are low. If someday we start running budget surpluses, the treasury can buy them back. </p><p>The key advantage of perpetuities: they are eternal. Last year’s perpetuity is exactly the same as this year’s perpetuity. There is no more 29 year bond vs 30 year bond. There is no off the run bond, and no off the run spread.  In place of the 350-400 or so separate bonds bills and notes there can be two.  You want liquidity, and associated lower yields? I give you liquidity! </p><p>(The fixed-coupon perpetuity should come in two forms, one with coupons adjusted for inflation supplanting todays TIPS, and the other with nominally fixed coupons. I also like the idea of versions in which the coupons are not taxed, so the government collects the taxes ahead of time in a higher price. More <a href="https://www.johnhcochrane.com/news-op-eds-all/a-new-structure-for-us-federal-debt" target="_blank" rel="noopener">in the proposal</a>.) </p><p>The other main security is a fixed-value floating-rate perpetuity. The rate resets every day to maintain a fixed value. It is also electronically transferable. Thus, it is functionally the same security as reserves at the Fed, except that anyone can hold them, and everyone gets the same interest rate. (The Fed pays banks more than everyone else.) It looks like a Federal money market fund to investors, though I hope with near instant settlement. I called this “treasury electronic money.” You want liquidity, here I really give you liquidity! Why should the Treasury sell an imperfect security — a smorgasbord of bills and notes — and then the Fed or money market funds transform that into the security people want, while taking a cut?  </p><p>The Fed still controls the level of interest rates by controlling the interest on reserves. If the Treasury wants to do a big buyback, and the Fed doesn’t want to help, the Treasury doesn’t have to issue 1 or 3 month debt,  it can go straight to issuing overnight debt.</p><p>The Treasury can control the maturity structure with these two securities. It can also offer fixed-for-floating swaps. </p><p>It’s not a new idea. Historically, perpetual government debt was more common than fixed maturity debt precisely because you didn’t have to roll it over. The <em>Downton Abbey</em> set held perpetuities. </p><p>The main objection I have heard is the notion that there really are important demands for specific maturity coupon debt, intermediaries that today happily create strips would somehow not be able to create coupon bonds,  and the Treasury knows how to fill these demands so it can borrow at lower rates. I can’t fathom why, but I don’t object to the Treasury still selling specific securities if it can get really good prices for them. We’ll see.  </p><p>One might object that offering fixed-value floating-rate overnight debt would undermine monetary policy. But we have long left behind the idea that inflation control requires rationing liquidity. The Fed’s courageous and praiseworthy implementation of ample interest-paying reserves proves that. Federal money market funds don’t cause inflation. Indeed, if the Treasury offers fixed-value electronically-transferable overnight debt, then the Fed can dramatically shrink its balance sheet if it wishes to do so, without starving the economy of this essential security. As the Fed proved, sensible innovations are possible. Let’s bring Treasury debt out of the 19th century!</p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/better-debt?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/better-debt?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/better-debt" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

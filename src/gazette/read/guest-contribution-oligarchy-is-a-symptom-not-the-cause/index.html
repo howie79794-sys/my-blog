@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guest Contribution: “Oligarchy is a Symptom, Not the Cause” · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">Guest Contribution: “Oligarchy is a Symptom, Not the Cause”</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/09/guest-contribution-oligarchy-is-a-symptom-not-the-cause" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-28 · 1338 words</span>
+    </div>
+    <div class="body"><p><em>Today, we present a guest post written by <a href="http://ksghome.harvard.edu/~jfrankel/" target="_blank" rel="noopener">Jeffrey Frankel</a>, Harpel Professor at Harvard’s Kennedy School of Government, and formerly a member of the White House Council of Economic Advisers. A <a href="https://www.project-syndicate.org/commentary/inequality-is-not-the-root-cause-of-us-political-dysfunction-by-jeffrey-frankel-2026-09" target="_blank" rel="noopener">shorter version</a> was published in <a href="https://www.theguardian.com/business/2025/dec/29/donald-trump-tariffs-us-economy-inflation-employment-2026" target="_blank" rel="noopener">Project Syndicate</a>. </em></p>
+
+
+
+<p><em>September 28, 2026 — </em>The American political system is broken.  We should ask how it got that way and should hope that the answer could contain a clue as to how it might get back on track.</p>
+<p>Of course, many factors are at play.   The long list includes things that cry out for reform, like gerrymandering of Congressional districts.  But most will not bear the weight of being identified as a single fundamental exogenous cause of all the others, nor explain why this has happened now, in the early decades of the 21st century.</p>
+<p>A common theory is that the root cause of the problems plaguing US politics is heightened income inequality, which has allowed the emergence of a self-<a href="https://progressive.org/latest/the-drift-toward-oligarchy-krugman-whitney-200129/" target="_blank" rel="noopener">perpetuating</a> <a href="https://paulkrugman.substack.com/p/meet-the-new-bosses-worse-than-the" target="_blank" rel="noopener">oligarchy</a> that is able to buy the policies it wants through political contributions.   The prescription that would follow starts by rallying to a campaign to reduce the economic gap between the richest citizens and those with lower incomes.  This probably captures the spirit of the new candidates associated with Democratic Socialists on the left.</p>
+<p>Yes, the increase in i<a href="https://www.jeffrey-frankel.com/2016/03/25/inequality-diagnoses-and-prescriptions/" target="_blank" rel="noopener">nequality</a> is highly undesirable.  Relatively attainable p<a href="https://econbrowser.com/archives/2019/02/guest-contribution-bold-ideas-are-not-always-better-than-old-ideas" target="_blank" rel="noopener">olicy</a> <a href="https://www.jeffrey-frankel.com/2019/12/20/six-practical-proposals-for-progressive-tax-policy/" target="_blank" rel="noopener">responses</a> would include expanding the <a href="https://www.jeffrey-frankel.com/2008/02/06/what-do-ronald-reagan-and-joseph-stalin-have-in-common/" target="_blank" rel="noopener">Earned Income</a> <a href="https://econofact.org/the-success-of-the-earned-income-tax-credit" target="_blank" rel="noopener">Tax Credit</a> and <a href="https://www.kff.org/uninsured/key-facts-about-the-uninsured-population/?entry=executive-summary-introduction" target="_blank" rel="noopener">expanding</a> <a href="https://www.jeffrey-frankel.com/2017/07/26/why-republicans-cant-reform-health-care/" target="_blank" rel="noopener">Obamacare</a>.   Yes, the upper .01 percent have been able to perpetuate their wealth as it is passed down to their descendants by successfully pushing for such regressive steps as the near dismantling of the estate <a href="https://www.jeffrey-frankel.com/2019/12/20/six-practical-proposals-for-progressive-tax-policy/" target="_blank" rel="noopener">tax. </a> Yes, there is too much <a href="https://www.brennancenter.org/topics/money-politics/influence-big-money" target="_blank" rel="noopener">money</a> in politics.  The Supreme Court’s Citizens <a href="https://www.brennancenter.org/our-work/research-reports/citizens-united-explained?ms=gad_campaign%20finance_816468659504_8626214133_198333435276&gad_source=1&gad_campaignid=8626214133&gbraid=0AAAAAC8kUVnrffqQxn-aMhdc9O-bBcaan&gclid=CjwKCAjwwfnUBhAtEiwAfQpAYrbgiPUA4U1iHlk7R6XI-jd2_C_h35yWQJ1_XTl2ma7yHRdT2r0oUxoCJYkQAvD_BwE" target="_blank" rel="noopener">United</a> decision, for example, was a wrong turn.  But these propositions do not add up to a chain <a href="https://www.koreaherald.com/article/3644237" target="_blank" rel="noopener">of causality</a> that can explain the root cause of our troubles let alone suggest how to fix them.</p>
+<p>Consider four possible counterarguments to this oft-repeated theory.</p>
+<ol>
+<li>Being rich is not necessarily correlated with being <a href="https://www.project-syndicate.org/commentary/why-do-trump-supporters-vote-against-their-economic-interests-by-jeffrey-frankel-2025-09" target="_blank" rel="noopener">right-wing</a> or conservative. If anything, income and education these days are generally correlated with being liberal.  Blue states, for example, have higher incomes than <a href="https://www.forbes.com/sites/timworstall/2015/01/04/solved-why-poor-states-are-red-and-rich-states-are-blue/" target="_blank" rel="noopener">red</a> <a href="https://www.visualcapitalist.com/mapped-u-s-median-income-in-blue-red-and-swing-states/" target="_blank" rel="noopener">states</a>.  Within states, blue counties have higher incomes than red <a href="https://www.brookings.edu/articles/biden-voting-counties-equal-70-of-americas-economy-what-does-this-mean-for-the-nations-political-economic-divide/" target="_blank" rel="noopener">counties</a>.  This is not to deny that many of the ultra-rich, the upper 1/100 of 1%, have sold their souls to get their taxes cut.</li>
+<li>Donald Trump did not achieve his original rise from buffoon to president in 2016 via campaign contributions. The media gave him all the free publicity he needed.</li>
+<li>It is not even clear that campaign contributions have a <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/261954" target="_blank" rel="noopener">major</a> e<a href="https://www.ifs.org/news/despite-the-hype-campaign-cash-doesnt-buy-elections/?gad_source=1&gad_campaignid=22832469288&gbraid=0AAAAAC41_fe44wXW0XcqYTa9IB1lyfCGe&gclid=CjwKCAjwwfnUBhAtEiwAfQpAYiwStpENcKaDvZOswrwm6Mu8tZ53cXEE7EzsYEg2zxOJPiAyqGa5BhoC3QwQAvD_BwE" target="_blank" rel="noopener">ffect</a> on <a href="https://www.sciencedirect.com/science/article/abs/pii/S0261379415001195" target="_blank" rel="noopener">electoral</a> <a href="https://www.hks.harvard.edu/publications/campaigns-influence-election-outcomes-less-you-think" target="_blank" rel="noopener">outcomes</a>, especially in cases where the candidate is <a href="https://journals.sagepub.com/doi/abs/10.1177/0002764203260415?_gl=1*1oeqzrg*_up*MQ..*_ga*MTA0OTk0ODU5My4xNzg4ODExODA4*_ga_60R758KFDG*czE3ODg4MTE4MDgkbzEkZzEkdDE3ODg4MTE4MjkkajM5JGwxJGgxODkzMjc1Mjk5" target="_blank" rel="noopener">already</a> well-known to the electorate. The deeply held belief to the contrary is not clearly supported by statistical evidence, as surprising as that sounds.  Admittedly, political donations could have an effect on politicians’ behavior even if they don’t get them elected.  For one thing, so long as politicians <em>think</em> that campaign spending affects electoral outcomes – which they do – they could cater to the wishes of their contributors.  For another thing, in the age of we must now take seriously the widespread suspicions that, even in the US, money goes into the <a href="https://democrats-judiciary.house.gov/media-center/press-releases/new-report-exposes-the-trump-family-s-multi-billion-dollar-crypto-empire-fueled-by-self-dealing-and-corrupt-foreign-interests" target="_blank" rel="noopener">politicians’</a> <a href="https://www.schiff.senate.gov/news/press-releases/watch-sen-schiff-breaks-down-trumps-self-enrichment-schemes-in-the-cost-of-corruption-top-10-ways-trump-has-profited-off-the-presidency/" target="_blank" rel="noopener"> personal</a> <a href="https://www.theatlantic.com/ideas/archive/2025/05/trump-golden-age-corruption/682935/" target="_blank" rel="noopener">pockets</a> and thus could have an effect on the behavior of our leaders without involving elections.  But the direct efficacy of campaign spending is less than widely believed.</li>
+<li>Liberal political activists, motivated by the inequality issue above all others, are in danger of getting swept up in the evident new momentum of the Far Left. Democratic Socialists are trending.  But support for such politicians in the primaries or as third-party candidates is a sure way to get Republicans elected.   The lesson should have been clear when Ralph Nader’s candidacy <a href="https://onlinelibrary.wiley.com/doi/10.1111/1540-6237.8403006" target="_blank" rel="noopener">delivered</a> the 2000 election to George W. Bush.   The median <a href="https://www.econstor.eu/handle/10419/217767" target="_blank" rel="noopener">voter</a> <a href="https://archive.org/details/economictheoryof0000down" target="_blank" rel="noopener">theorem</a> still stands.</li>
+</ol>
+<p>Even to the extent that political causality does run from inequality to conservative economic outcomes, the diagnosis doesn’t offer much of a road map for finding the way back.  What is the route to moderating income inequality and oligarchic tendencies? It is no good just saying that “we” should adopt more progressive economic <a href="https://www.jeffrey-frankel.com/2018/05/27/an-economic-platform-for-the-democrats/" target="_blank" rel="noopener">policies</a>.  Resentment of wealthy elites is already a big driver in electoral politics, but that does not necessarily lead to good electoral outcomes.  Donald Trump managed to hoodwink those voters who felt “left behind” into voting for him, by convincing them that he would fight for their interests.   Even though he did the opposite in this first term — cutting taxes for the rich and seeking to dismantle Obamacare — they elected him to a second.   They don’t vote their <a href="https://www.project-syndicate.org/commentary/why-do-trump-supporters-vote-against-their-economic-interests-by-jeffrey-frankel-2025-09" target="_blank" rel="noopener">own</a> <a href="https://www.belfercenter.org/research-analysis/do-voters-pursue-their-economic-self-interest" target="_blank" rel="noopener">interests</a>.</p>
+<p>A better explanation for the fundamental source of dysfunction in the political process is that increasingly we believe  to them, with (ii) new technology that has made it possible for each citizen to follow the news sources that tell them what they want to hear.</p>
+<p>Recent trends in technology have exacerbated long-standing patterns of perception bias. We used all to get our news from the same few TV networks.  Now, algorithms in social media steer the observer increasingly to the news sources that tell them what they want to hear, and the observer – while often aware of this fact in principle — fails to take into account that the information they are seeing with their own eyes has been heavily curated to reinforce their own prejudices.  Their systematic perception errors fail to allow for the possibility of sample selection bias.  This proposition is my inexpert attempt to group together the sources of systematic errors that psychologists and behavioral economists call the availability heuristic, anchoring, confirmation bias, and related phenomena.    The result, of course, is that we believe different facts.</p>
+<p>Just because these psychological attributes are deeply imbedded in human brains (plausibly as an outcome of evolution), doesn’t mean they can’t be deliberately taken into account and corrected for.  Society can disapprove of social media’s engineering of algorithms that feed perception biases.  Students in school can be taught critical thinking. Don’t believe everything you hear. Don’t pass on gossip with higher confidence than it warrants.   Look for footnotes/links to reputable sources; and include such citations in what you write or tweet.  Don’t shy away from venues where people communicate with others outside their comfort zone.  Recognize that scientific statements coming from credentialed experts are likely to be more accurate than claims motivated by hatred for expertise and credentials.  Don’t assume that correlation necessarily implies causation.    Don’t jump from the proposition that something has particular undesirable effects to the proposition that all its effects are undesirable.</p>
+<p>Prescriptions like these certainly sound like pie in the sky, far beyond what any realistic political strategy can hope to achieve.  But consider how much harder it is to carry out a political strategy of shifting resources away from wealthy elites.  Raising the political salience of inequality among the electorate won’t do it, because if the systematic perception errors are not attenuated, the strategy could continue to produce Trump votes as easily as support for progressive policies.  Trying to build support for platforms of policies like tax progressivity or universal health care won’t do it, if the public does not accurately perceive the effects of the policies.  And even where political campaigns in favor of specific progressive policies are successful at redistributing income, this will not necessarily generate a virtuous circle of restored political sanity and good policies.  The knock-on effects of reducing the flow of campaign contributions to conservatives do not have as much self-reinforcing power that some appear to believe.</p>
+<p>It will remain an uphill battle.  But an effort to teach people to think critically would be self-reinforcing, as it would move the politicians and voters in the direction of support for science, expertise, and rationality. The effects would entail better policies and less income inequality as an <em>outcome</em> rather than as a purported starting point.</p>
+
+<p><em>This post written by <strong>Jeffrey Frankel</strong>.</em></p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/09/guest-contribution-oligarchy-is-a-symptom-not-the-cause" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

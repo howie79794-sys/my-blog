@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Affordability Trilogy, Part 3. Why is the free market so unpopular? · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Affordability Trilogy, Part 3. Why is the free market so unpopular?</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/affordability-trilogy-part-3-why" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-15 · 1081 words</span>
+    </div>
+    <div class="body"><p>[This is a third post based on scripts for the “<a href="https://www.thefreedomfrequency.org/s/the-grumpy-economist-weekly-rant" target="_blank" rel="noopener">weekly rant</a>.” ]</p><p>Today I’m going to follow up on affordability, sparked by a remarkable <a href="https://www.wsj.com/politics/policy/americans-want-populist-policies-that-defy-traditional-political-labels-119b29b9" target="_blank" rel="noopener">Wall Street Journal poll</a> in which large majorities, left and right, support populist economic policies.</p><p>“The rent is too damn high.” So, people respond, pass rent control, subsidize rents, force builders to construct and rent out so-called “affordable units,” or have the government build and provide housing. They give the same answers for childcare, health care, prescription drugs, and energy.</p><p>Why are people so enamored of policies that have failed time and again, over centuries? Why are simple cause-and effect truths seemingly so hard to understand?</p><p>“Don’t transfer income by distorting prices” is a bedrock economic principle. If a government wants to tax landlords, and send the results to current tenants, giving more money to wealthy people who pay higher rents, let it do so: Tax the landlords, and send the renters a check, whether they stay or leave. Don’t get in the way of who values which apartment more, who should stay, who should move, which apartment should get fixed up, and which should be left alone and rented cheaply.</p><p>“Transfer income first of all by distorting prices” is the political reality. Why? Partly, this is a way for politicians to favor a constituency without the visibility of taxing landlords and sending checks to current renters. But, we’re here to understand public opinion, which should be outraged by that transfer. </p><p>When you’re negotiating rent, the price <em>is</em> an income transfer. That’s the <em>point</em>. The income transfer is the whole incentive for you to shop. If the government could force <em>this</em> landlord to charge <em>you </em>a lower rent, you’d be better off. So it’s natural to feel that if the government would just force all landlords to charge <em>all</em> tenants lower rent, we’d all be better off.  </p><p>Similarly, if <em>you </em>get a rent subsidy, you’re better off. You don’t see that giving lots of people subsidies just drives the price up even more.</p><p>“Prices allocate resources” we say looking at the market overall. But “prices are an income transfer” to the people in the market.  People naturally generalize their experience. Good public policy thinks about how the whole system responds.</p><p>We are also hard-wired to zero-sum thinking. If rich people got rich, people surmise that they must have taken it from someone else. Well, that was true for thousands of years. It still is true in many autocratic regimes. That <em>our</em> billionaires got rich by inventing new products and companies and making all of us fabulously better off too, is outside most human experience. And everything <em>is</em> zero sum in the short run. If a Tesla were $10 cheaper, Elon Musk would get less and you’d get more. You get more eggs if you carve up the golden goose. Abundance takes patience.</p><p>People are by nature tribal moralizers. They view the world as a battle between good and evil, our tribe vs. their tribe. If we can just quash the evil people and force them to be less greedy all would be well with the world. Adam Smith’s vision, how greedy self-interest serves the public good is unnatural.</p><p>People think in simple stereotypes. The large landlord can surely “afford” to lower rents for the struggling “working family.” The market accommodates unimaginable variety. Some landlords are hard-scrabble immigrants who saved a lifetime to run an apartment building. Some rent-controlled tenants are well-connected trust-funders who moved in decades ago.</p><p>People also don’t see the unseen. We see the lucky family that got a break on their rent. We don’t see how immigrants, minorities, people with children or pets, anyone with sketchy credit or little cash, or those that lost the affordable-housing lottery can’t get apartments at all. We don’t see the apartments that didn’t get built.</p><p>People long for yesterday. Populist policies all try to reverse a recent change. Why be outraged by suddenly higher gas prices, but not by perpetually high caviar prices? The rest of the country is outraged at $6 gas. California has had that for ages and few complain. Bring back yesterday’s price, but by government action in place of market forces is not wise policy. </p><p>People are also nostalgic for childhood. Mom and Dad can surely set things right. But we have the government, the people who run the DMV and disastrous public schools, not Mom and Dad. Just why long experience with government does not squash relentless optimism that next time they’ll get it right is a puzzle. The founders were a lot more skeptical of government power in general.</p><p>The paradox: The market works even if nobody understands it. People just need to follow their narrow greedy self-interest. But democratic politics needs voters and their representatives to understand basic cause and effect of how the system works. We, voters in a democracy, need to set rules of the game that lead to good outcomes, not decide outcomes. People need to understand the “fallacy of composition,” that what is good for one household or business is not always good for the nation as a whole.</p><p>What’s the answer? The ideas are pretty simple. One can ask for more economic and historical education. But many economists and most textbooks are pretty weak on these basics, and if we open that Pandora’s box, well, lots of people want to indoctrinate voters with terrible ideas too. We lost the long march through the educational institutions long ago. </p><p>In the past, these questions had a simpler answer. Price and rent controls? 51% of your neighbors want to use your house for a homeless shelter? They want to seize the business you built over decades and give it away? Sorry. That’s your property, to sell as you please. The government <em>can’t</em> interfere. We don’t live in a pure democracy. We live in a constitutional rule-of-law republic with a sharply limited government. Those limits and traditions encode much long and hard-won wisdom of what actually works. Institutions are precommitments.  Revitalizing the institutions of limited government may be more promising. And perhaps people might think a little straighter when sitting down to that task, outside of the narrow focus engendered by a recent price increase.</p><p>(PS: Credit to Steve Davis, who asked this question during a Hoover event for Phil Gramm and Don Boudreaux excellent “<a href="https://www.amazon.com/dp/B0DK4H9KLP?lv=shuf&channelId=500&plpRedirect=mhFallback" target="_blank" rel="noopener">Triumph of economic freedom.</a>” This is an elaboration of my attempt to answer the vital question.) </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/affordability-trilogy-part-3-why?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/affordability-trilogy-part-3-why?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/affordability-trilogy-part-3-why" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

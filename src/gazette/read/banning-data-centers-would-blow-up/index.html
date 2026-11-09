@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banning data centers would blow up the U.S. economy · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 科技 · 中国观察</div>
+    <h1 class="title">Banning data centers would blow up the U.S. economy</h1>
+    <div class="byline">
+      <span class="author">诺亚·史密斯</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.noahpinion.blog/p/banning-data-centers-would-blow-up" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-08 · 1596 words</span>
+    </div>
+    <div class="body"><figure><a href="https://substackcdn.com/image/fetch/$s_!riTm!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb3ee8d75-2eb2-42ff-8bc4-ffaf9f12fbe3_1056x594.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!riTm!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb3ee8d75-2eb2-42ff-8bc4-ffaf9f12fbe3_1056x594.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo by Chad Davis via <a href="https://commons.wikimedia.org/wiki/File:Google_Data_Center,_Council_Bluffs_Iowa_(49062863796).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure><p><a href="https://www.noahpinion.blog/p/are-the-democrats-going-to-save-us" target="_blank" rel="noopener">My last post</a> mentioned some of the more extreme cultural stances of Wisconsin gubernatorial candidate Francesca Hong. Hong’s defenders complained that the cultural issues were getting far too much exposure, and that pundits should instead be focusing on her main issue: a pause on data center construction.</p><p>It’s pretty amazing that a pause on data center construction has become such a consensus, middle-of-the-road issue stance that it’s the thing Hong’s supporters would rather talk about! But it’s true. <a href="https://pluribusnews.com/news-and-events/data-centers-plunge-in-popularity-as-energy-costs-rise/" target="_blank" rel="noopener">Poll after poll shows</a> that Americans are decisively opposed to data center construction in their area, and the issue is becoming more lopsided by the day:</p><blockquote><p>An August 2025 <a href="https://heatmap.news/politics/americans-oppose-data-centers-poll" target="_blank" rel="noopener">survey</a> conducted by Embold Research for Heatmap News…found that 43% of Americans said they would support the construction of a data center near them, while 42% were opposed…The latest survey, conducted last month, found a complete collapse among supporters: Today, just 21% said they support data center construction near them, while 71% are opposed — including 55% who say they are strongly opposed…</p><p>A Gallup <a href="https://news.gallup.com/poll/709772/americans-oppose-data-centers-area.aspx" target="_blank" rel="noopener">poll</a> released in May showed the share of Americans who oppose the construction of data centers in their area, 71%, was higher than the zenith of the opposition to the construction of nuclear power plants, which <a href="https://news.gallup.com/poll/708620/less-support-solar-wind-energy-nuclear.aspx" target="_blank" rel="noopener">topped out</a> at 63% in 2001…A <a href="https://law.marquette.edu/assets/community/poll/MLSPSC32/MLSPSC32Toplines_NationalIssues.html#data-centers" target="_blank" rel="noopener">survey</a> from Marquette Law School found 71% of voters nationwide said the costs of data centers outweigh the benefits, while 29% said the reverse. Voters said the development of AI is a bad thing for society, rather than a good thing, by a 65%-35% margin…A YouGov <a href="https://d3nkl3psvxxpe9.cloudfront.net/documents/econTabReport_AvLU7vY.pdf" target="_blank" rel="noopener">poll</a> taken for The Economist found just 23% of voters who said the construction of data centers are good for the country, while 48% said they are bad for the country. That same poll found 60% opposed to building a new data center in their community.</p></blockquote><p>The opposition is incredibly bipartisan, with both Republicans and Democrats lining up to <a href="https://grist.org/politics/data-center-ai-bipartisan-backlash/" target="_blank" rel="noopener">block data center construction</a>. New York <a href="https://www.governor.ny.gov/news/first-statewide-moratorium-new-hyperscale-data-centers-launched-governor-kathy-hochul" target="_blank" rel="noopener">put a moratorium</a> on data center construction in July, while <a href="https://www.texastribune.org/2026/08/03/texas-data-center-project-audit-greg-abbott/" target="_blank" rel="noopener">Texas followed suit</a> earlier this month. </p><p>So far, there has been no strong move toward a federal data center pause, and the bills that have been introduced in Congress are <a href="https://khanna.house.gov/media/press-releases/release-rep-khanna-introduces-data-center-bill-rights" target="_blank" rel="noopener">pretty mild stuff</a>. That’s why as long as the movement to stop data centers stayed confined to blue states, it didn’t really matter much. It was just another instance of <a href="https://www.noahpinion.blog/p/blue-states-dont-build-red-states" target="_blank" rel="noopener">a very traditional story</a> that we’ve all come to expect — states like New York basically ban new physical industries, so those industries go to places like Texas. The red states get the economic activity they want, the blue states get the stasis they want, and everyone is happy. </p><p>Nor would a few state-level bans affect the progress of AI. AI is a creature of bits and bytes; it lives in the cloud, and it doesn’t care about the physical location of the data centers that represent the lobes of its vast, alien brain. Data centers in Texas would sustain AI progress and AI applications just as well as data centers in New York. </p><p>Except now Texas is pausing data centers too. If almost all states ban data centers — or if the federal government gets involved in a major way — there could be major consequences for the U.S. economy. In the long run, I think limiting the physical resources devoted to AI would be a good thing; in the short run, it will simply clobber the already-wobbly U.S. economy. A movement against data centers has the seeds of something good and useful, but it has huge risks that most Americans seem not to realize yet.</p><p>The big danger is that data center bans will choke off the main engine of U.S. growth, throwing a lot of Americans out of their jobs and putting a hole in Americans’ retirement savings. But before I talk about that, I should talk about why I think limitations on data centers aren’t actually a crazy idea. </p><h4>Why data center limitations make sense in the long run</h4><p>A couple of years ago, I wrote that no matter how good AI gets, comparative advantage will still mean humans are paid to do <em>something</em>:</p><blockquote><p>[A]s AI gets better and better, and gets used for more and more different tasks, the limited global supply of compute will eventually force us to make hard choices about where to allocate AI’s awesome power…This is the concept of <strong>opportunity cost</strong>…When AI becomes so powerful that it can be used for practically anything, the cost of using AI for any task will be determined by <em>the value of the other things the AI could be used for instead</em>…</p><p>So…because of comparative advantage, it’s possible that many of the jobs that humans do today will continue to be done by humans indefinitely, no matter how much better AIs are at those jobs. And it’s possible that humans will continue to be well-compensated for doing those same jobs.</p></blockquote><p>But how <em>well </em>would humans be paid for those jobs? If people don’t get paid enough to live a decent life, it’s still game over for humanity. “Living a decent life” basically requires some minimum share of natural resources. So as I explained in my post, the real danger isn’t that AI will render humans obsolete; the danger is that AI will render humans <em>too expensive to sustain</em>:</p><blockquote><p>The example of horses scares a lot of people who think about AI and its impact on the labor market…Horses’ comparative advantage was in pulling things, and yet this wasn’t enough to save them from obsolescence…The reason is that horses competed with other forms of human-owned capital for scarce resources…The key resources that became scarce were urban land (for stables), as well as the human time and effort required to raise and care for horses in captivity. When motor vehicles appeared, these scarce resources were more profitably spent elsewhere, so people sent their horses to the glue factory.</p><p>When it comes to AI and humanity, the scarce resource they compete for is <em>energy</em>. Humans don’t require compute, but they do require energy, and energy is scarce. It’s possible that AI will grow so valuable that its owners bid up the price of energy astronomically — so high that humans can’t afford fuel, electricity, manufactured goods, or even food. At that point, humans <em>would</em> indeed be immiserated en masse.</p><p>Recall that comparative advantage prevails when there are <em>producer-specific constraints</em>. Compute is a constraint that’s specific to AI. Energy is not. If you can create more compute by simply putting more energy into the process, it could make economic sense to starve human beings in order to generate more and more AI.</p><p>In fact, things a little bit like this have happened before. Agribusiness <a href="https://www.foodandwaterwatch.org/2023/08/08/big-ag-is-draining-the-colorado-river-dry/" target="_blank" rel="noopener">uses most of the Colorado River’s water</a>, sometimes creating water shortages for households in the area. The cultivation of cash crops is thought to have exacerbated <a href="https://en.wikipedia.org/wiki/Great_Famine_of_1876%E2%80%931878" target="_blank" rel="noopener">a famine that killed millions</a> in India in the late 1800s. In both cases, market forces allocated local resources to rich people far away, leaving less for the locals.</p></blockquote><p>In fact, this was the real point of my post. The fundamental danger isn’t human obsolescence, it’s that humans will be <em>outcompeted for scarce natural resources</em>. </p><p>There are a couple of obvious ways to guard against that danger. The first is to redistribute the income from AI to human beings, so that humans can continue to afford all the resources they need in order to live and flourish. Another is to <em>reserve sufficient natural resources for exclusively human use</em>. </p><p>Data centers use a lot of natural resources, and people know it. Resource use consistently <a href="https://pluribusnews.com/news-and-events/data-centers-plunge-in-popularity-as-energy-costs-rise/" target="_blank" rel="noopener">ranks at the top</a> of why people try to ban data centers in their area:</p><blockquote><p>Respondents [to Gallup] said they opposed data center construction because of water usage (18%), energy consumption (18%) and higher utility bills (15%)…More than a third [of respondents to Pew], 38%, said data centers were mostly bad for home energy costs.</p></blockquote><p>Interestingly, water isn’t one of the resources AI competes with humans for — at least, not yet. As Andy Masley has explained at length, data centers don’t actually use much water at all:</p><a href="https://blog.andymasley.com/p/the-ai-water-issue-is-fake?utm_source=substack&utm_campaign=post_embed&utm_medium=web&embedding_publication_id=35345" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!VjpV!,w_56,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1b9b0588-f70e-4412-8db1-80044783da82_1280x1280.png" referrerpolicy="no-referrer" loading="lazy" alt="">Andy MasleyThe AI water issue is fakeAI data centers use water. Like any other industry that uses water, they require careful planning. If an electric car factory opens near you, that factory may use just as much water as a data center. The factory also requires careful planning. But the idea that either the factory or AI is using an inordinate amount of water that merits any kind of boyco…Read morea year ago · 459 likes · 98 comments · Andy Masley</a><p>The reason, of course, is that the water in data centers just gets recycled again and again. Data centers use water for cooling — the water runs through the data center, it absorbs heat and evaporates into steam, and then it dumps the heat outside and cools back into water again, and cycles through. Basically, data centers are just <em>using that same water over and over again</em>. Yes, a little bit evaporates away and has to be replaced, but only a little bit. </p><p>But the <em>energy</em> concern is very real! Data centers <a href="https://www.reddit.com/r/FluentInFinance/comments/1r6fo38/data_centers_now_account_for_7_of_all_us/" target="_blank" rel="noopener">already account for more than 7%</a> of U.S. electricity usage, and the <em>percentage</em> appears to be on an exponential growth path. Data center energy use is projected to surpass various household uses — air conditioning, lighting, refrigeration, etc. — in a matter of years:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!Z1Ml!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F10709adb-19ec-48ac-900f-efc9cafe1bb3_1052x741.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!Z1Ml!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F10709adb-19ec-48ac-900f-efc9cafe1bb3_1052x741.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://www.eia.gov/todayinenergy/detail.php?id=65564" target="_blank" rel="noopener">EIA</a></figcaption></figure></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.noahpinion.blog/p/banning-data-centers-would-blow-up" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

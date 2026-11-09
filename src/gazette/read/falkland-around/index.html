@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Falkland Around · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>能源 · 宏观</div>
+    <h1 class="title">Falkland Around</h1>
+    <div class="byline">
+      <span class="author">Doomberg</span><span class="dot">◆</span>
+      <span class="src"><a href="https://newsletter.doomberg.com/p/falkland-around" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-09 · 537 words</span>
+    </div>
+    <div class="body"><p><em>“I was spoiled by theater, where there is no editor.”</em> – Anthony Edwards</p><p>In March of 2013, 1,517 inhabitants of what the United Nations (UN) officially refers to as the Falkland Islands (Malvinas) went to the polls to vote on a sovereignty referendum. Residents were asked whether they wanted to remain an overseas territory of the United Kingdom (UK), and in a result that would make dictators the world over blush, only three voted against the measure, and one spoiled their ballot. The resulting 99.8% affirmative vote is higher than even possession itself, which, last we checked, was just 90% of the law.</p><p>The UN has included the islands on its list of Non-Self-Governing Territories since 1946, simply noting that a sovereignty dispute exists between the UK and Argentine governments over the territory. The bit in parentheses is a nod to the latter’s historical naming claims. A <a href="https://www.un.org/dppa/decolonization/en/content/falkland-islands-malvinas" target="_blank" rel="noopener">resolution adopted</a> by the UN General Assembly in 1965 called for the two governments to find “<em>a peaceful solution to the problem, bearing in mind the provisions and objectives of the Charter of the United Nations and... the interests of the population of the Falkland Islands (Malvinas).</em>”</p><figure><a href="https://substackcdn.com/image/fetch/$s_!zkEq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F62a8faeb-29bf-4152-8959-1a662452a25f_2042x1146.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!zkEq!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F62a8faeb-29bf-4152-8959-1a662452a25f_2042x1146.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Sure looks British | Channel 4</figcaption></figure><p>The British interpret the 2013 referendum vote as decisively satisfying the Assembly’s guidance in their favor, while the government of Argentina vigorously rejects this notion. The Malvinas issue is one of the few on which practically all Argentinians remain unified, save perhaps for the primacy of Messi over Ronaldo. The scars of the 74-day war over the islands—a conflict fought in 1982 in which nearly 1,000 people perished—still cut deep in the South American nation.</p><p>As so often happens, the imminent prospect of <a href="https://www.bbc.com/news/articles/clyk18g1l8ko" target="_blank" rel="noopener">significant hydrocarbon riches</a> is bringing this simmering conflict back to a boil:</p><blockquote><p>“<em>Argentina’s president has heightened tensions with the UK over the Falkland Islands, warning he will impose economic sanctions on firms which exploit oil close to the British overseas territory. In a national address, Javier Milei said the ‘winds of change’ favoured Argentina’s claim to the islands, emboldened by signs the US might reconsider its stance of neutrality on the issue.</em></p><p><em>Milei said the Sea Lion oilfield, where a British and an Israeli firm are due to begin exploration work, was a ‘clear and present danger.’</em></p><p><em>Foreign Secretary Ed Miliband said the UK’s position on the islands was ‘unwavering,’ and they would remain British as ‘that is the overwhelming position of the Islanders.’</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!g9R_!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F137eee52-0ebf-4636-b92e-c3bde777188a_1862x1242.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!g9R_!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F137eee52-0ebf-4636-b92e-c3bde777188a_1862x1242.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption"> Definitely not British | Getty</figcaption></figure><p>For the approximately 3,600 people who live on the Falkland Islands today, the Sea Lion development represents a potentially substantial influx of new wealth. The deal cut by this joint venture calls for a <a href="https://www.falklands.gov.fk/mineralresources/regulatory/fiscal-regime" target="_blank" rel="noopener">9% royalty payment</a> to the Falkland Islands Government (FIG), plus an additional corporate tax charge of 26% on adjusted upstream profits.</p><p>Milei’s nationally televised gambit to upset progress in the oilfield may foretell a potent rearrangement of geopolitical power that could scramble historical claims up and down the Western Hemisphere. If we’re right, the fight over the Sea Lion oil resource is far more consequential than the hydrocarbon prize on offer, ample as that might be. Let’s make some predictions by pulling apart this deeply complex situation.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://newsletter.doomberg.com/p/falkland-around" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

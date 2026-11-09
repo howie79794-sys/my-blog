@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skewness as a Hidden Driver of Anomaly Returns · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Skewness as a Hidden Driver of Anomaly Returns</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/anomaly-returns/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-07 · 934 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Behavioral finance research has established that investors dislike negative skewness because it exposes them to rare but severe losses, while they embrace positive skewness because it offers the chance of occasional outsized gains — the lottery-like appeal that persists even when expected payoffs are modest. In behavioral models, this preference for positively skewed assets bids up their prices, depressing future expected returns. Conversely, negatively skewed assets must offer higher expected returns to attract capital.</p>
+
+
+
+<p class="wp-block-paragraph">Rui Gong, John Lynch, and Richard Ogden, authors of the June 2026 study, “<a href="https://protect.checkpoint.com/v2/r01/___https:/papers.ssrn.com/sol3/papers.cfm?abstract_id=6913978___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OmRiMjFjOGY4MmY2ZTA4MDAyNTFmOTRjZjhmNTljMzE0Ojc6YzlkZDpiZDNhZTMyNTc5ODA2ZGY3MDE3MDNmYzQ2NWVlZjQ3YTBmYmZjMTk2OGE1ZTc3OWQzNWQzNTYyYzY1M2I3OTFkOnA6VDpO" target="_blank" rel="noopener">Skewness Managed Portfolios</a>,” make a simple but powerful point: many well-known stock-market anomalies owe a surprising amount of their performance to a small set of stocks with extreme positive returns. The authors ask two questions. First, do these outlier stocks materially shape the returns of popular long-short strategies? Second, can investors improve those strategies by explicitly managing for skewness rather than ignoring it?</p>
+
+
+
+<p class="wp-block-paragraph">Their answer is yes on both counts. The paper shows that many anomaly portfolios are not just exposed to familiar factors like value, profitability, or investment; they are also implicitly exposed to return asymmetry — especially the kind created by rare but very large upside moves in individual stocks.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>What They Examined</strong></p>
+
+
+
+<p class="wp-block-paragraph">The authors studied 18 well-known anomalies, including value, size, momentum, profitability, investment, accruals, issuance, and distress-related signals. They first asked whether extreme right-tail returns matter by <a href="https://protect.checkpoint.com/v2/r01/___https:/en.wikipedia.org/wiki/Winsorizing___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OmRiMjFjOGY4MmY2ZTA4MDAyNTFmOTRjZjhmNTljMzE0Ojc6OTA5OTo3ZDk4ODQ1OTk2YzI3ZjIwN2FmM2FmN2NkYmVjOTk4YjUxZDRkODAzZDY5NzBjNzk4NmUzYzI2MjIxNDMxZWI3OnA6VDpO" target="_blank" rel="noopener">winsorizing</a> stock returns — capping extreme values to limit outlier influence — and measuring how much the anomaly portfolios changed as a result. They applied three caps after portfolio formation, using historical thresholds for the 99th, 95th, and 90th percentile. Capping even the largest upside observations frequently produced a substantial reduction in returns and Sharpe ratios — a clear signal that a small number of outliers were doing most of the heavy lifting.</p>
+
+
+
+<p class="wp-block-paragraph">They then built what they call a skewness-managed strategy. In plain English, they forecast which stocks are likely to have highly skewed returns in the next month, then “tilt” the long leg of each anomaly toward stocks with high expected skewness and the short leg toward stocks with low <em>expected</em> skewness.</p>
+
+
+
+<p class="wp-block-paragraph">The forecast is based on firm characteristics and recent return behavior, not hindsight. Specifically, the skewness forecast is driven primarily by low profitability, poor recent returns, and small market capitalization — the same characteristics that tend to identify stocks with high idiosyncratic upside potential.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>How the Tilt Worked</strong></p>
+
+
+
+<p class="wp-block-paragraph">They first formed each anomaly as usual using the characteristic sort, then split both the long and short legs into terciles based on predicted skewness—taking the long leg from the high-expected-skewness tercile and the short leg from the low-expected-skewness tercile. In other words, they did not just buy the anomaly winner and sell the loser; they biased the long side toward stocks with more upside-skewed return distributions and biased the short side away from them. The skewness forecast was built from monthly cross-sectional regressions of realized skewness on lagged firm characteristics such as volatility, momentum, prior return, size, industry, and exchange indicators. Stocks with the highest forecast skewness were favored on the long side, while stocks with the lowest forecast skewness were favored on the short side.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Intuition</strong></p>
+
+
+
+<p class="wp-block-paragraph">This tilt was meant to capture the upside from stocks with a greater chance of extreme positive returns in the long book, while avoiding shorting stocks that could unexpectedly jump higher. The authors say this is especially useful because many anomalies have skewness concentrated in only one leg, so the value of the tilt depends on where those positively skewed stocks sit.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Practical Example</strong></p>
+
+
+
+<p class="wp-block-paragraph">For a value-style anomaly, they would still go long value stocks and short growth stocks, but within those legs they would choose the high-skewness names for the long side and the low-skewness names for the short side. That is the core implementation of the “skewness-managed” portfolio.</p>
+
+
+
+<p class="wp-block-paragraph">Their data sample covered the period July 1963 to December 2024.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>What They Found</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>The most important result is that skewness management improved every anomaly they tested. On average, annual returns rose by 5.45 percentage points, and Sharpe ratios improved by 0.12. The results remain directionally robust after incorporating transaction costs, though the magnitude of the improvement shrinks to 1.58 percentage points.</li>
+
+
+
+<li>The skewed stocks driving these effects tend to be those with low profitability, poor past returns, and small market capitalizations—firm characteristics that are associated with high idiosyncratic upside potential.</li>
+
+
+
+<li>The biggest gains came from value and investment (both showed improvement of more than 9 percentage points), with particularly strong improvements in profitability-based strategies (both operating profitability and gross profitability) as well.</li>
+
+
+
+<li>Spanning tests and factor regressions on the skewness-managed portfolios still produced large and statistically significant alphas relative to the original anomaly portfolios and to major factor models, including models built from many of the same underlying characteristics.</li>
+
+
+
+<li>Although positive in only 54% of months, the strategy nonetheless generated large cumulative outperformance.</li>
+
+
+
+<li>The strategy’s payoff is highly state-dependent. The excess return from skewness management was much larger during recessions (20.4% per year versus 3.7% in expansions) and periods of market stress, such as when volatility and credit spreads were elevated. That pattern is notable because it suggests skewness exposure is not a random artifact — it becomes especially valuable when markets are under pressure.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Their findings led the authors to conclude: “Skewness represents a dimension of returns that is not captured by standard linear factor models, and that incorporating expected skewness into portfolio construction systematically enhances anomaly performance.”</p>
+<p><a href="https://alphaarchitect.com/anomaly-returns/" target="_blank" rel="noopener">Skewness as a Hidden Driver of Anomaly Returns</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/anomaly-returns/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

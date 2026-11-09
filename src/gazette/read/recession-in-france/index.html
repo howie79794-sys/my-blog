@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recession in France? · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">Recession in France?</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/11/recession-in-france" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-02 · 930 words</span>
+    </div>
+    <div class="body"><p>A statement by the <a href="https://www.afse.fr/global/gene/link.php?doc_id=435&fg=1" target="_blank" rel="noopener">French Business Cycle Dating Committee</a> (CDCEF) of the <a href="https://www.afse.fr/en/the-association-500187" target="_blank" rel="noopener">French Economic Association</a> (AFSE) on 10/29/2026 (<a href="https://www.afse.fr/global/gene/link.php?doc_id=435&fg=1" target="_blank" rel="noopener">original communique in French</a>), by way of <a href="https://laurent-ferrara.org/" target="_blank" rel="noopener">Laurent Ferrara (Chair)</a>, and <a href="mailto:secretariatafse@gmail.com" target="_blank" rel="noopener">secretariatafse@gmail.com</a>.</p>
+
+
+<blockquote>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="1" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" data-aria-posinset="1" data-aria-level="1">The quarterly growth rate of French GDP just released by the National Statistical Institute (Insee) for the third quarter of 2026 stands at −0.1%. This follows a contraction of 0.2% in the first quarter of 2026 and stagnation in the second quarter. According to some economic commentators, this sequence of figures would imply a “technical recession” in the French economy over the first three quarters of 2026.</li>
+</ul>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="1" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" data-aria-posinset="2" data-aria-level="1">The French Business Cycle Dating Committee (CDCEF) of the French Economic Association (AFSE) urges the utmost caution before declaring an economic recession. Based on the information currently available, the CDCEF considers that the evidence required to identify a recession in the French economy is not present at this stage.</li>
+</ul>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="1" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" data-aria-posinset="3" data-aria-level="1">First, the GDP data provided by Insee are subject to revision. They could be revised substantially in the coming months, potentially turning a negative figure into a positive one, as the GDP growth figures for the first three quarters of 2026 are very close to zero. This is one reason why the CDCEF generally waits a few months before reaching a reliable assessment.</li>
+</ul>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="1" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" data-aria-posinset="4" data-aria-level="1">More fundamentally, identifying a recession cannot be reduced to observing two consecutive quarters of negative GDP growth. The CDCEF bases its assessment on a joint evaluation of three dimensions: the duration, depth and diffusion of the decline in economic activity (the 3D’s rule). This approach draws on several indicators to distinguish a genuine recession from a mere economic slowdown.</li>
+</ul>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="1" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" data-aria-posinset="5" data-aria-level="1">Regarding depth, the cumulative decline in GDP since the fourth quarter of 2025 remains very limited, at around 0.3% according to the data currently available. By comparison, economic activity contracted by approximately 3% during the recession following the first oil shock of 1973 and by 4% during the 2007–2008 financial crisis. Although these differences in depth do not in themselves constitute a dating criterion, they help put the current weakness in activity into perspective. At this stage, it is more suggestive of stagnation or a prolonged slowdown than of a clear-cut recession.</li>
+</ul>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="1" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" data-aria-posinset="6" data-aria-level="1">Regarding diffusion, among the variables considered by the Committee when assessing recessions, total employment is stable at a very high level (30.5 million), investment by non-financial corporations has been on a plateau since 2023q3, and the capacity utilisation rate remains stable at around 81%. Only hours worked have declined slightly, by 0.6% since their peak in 2024q3.</li>
+</ul>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="1" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" data-aria-posinset="7" data-aria-level="1">The weakness of French economic activity in 2026 can be partly explained by sector-specific effects, notably a sharp decline in agricultural value added following the exceptional summer drought. Insee records agricultural output throughout the production cycle, rather than solely in the quarter in which harvesting takes place. As a result, substantial crop losses, particularly maize, led to downward revisions to the estimates of agricultural output for the first and second quarters of 2026. This sectoral shock helps explain the observed current slowdown.  </li>
+</ul>
+<ul>
+<li data-leveltext="" data-font="Symbol" data-listid="1" data-list-defn-props="{&quot;335552541&quot;:1,&quot;335559685&quot;:720,&quot;335559991&quot;:360,&quot;469769226&quot;:&quot;Symbol&quot;,&quot;469769242&quot;:[8226],&quot;469777803&quot;:&quot;left&quot;,&quot;469777804&quot;:&quot;&quot;,&quot;469777815&quot;:&quot;hybridMultilevel&quot;}" data-aria-posinset="7" data-aria-level="1">Overall, the data available to date do not support identifying a recession in the French economy over the first three quarters of 2026. They nevertheless point to particularly sluggish activity, whose evolution warrants close monitoring. The CDCEF reiterates that its mission is to identify and date business cycle turning points through a rigorous examination of the available information, rather than to forecast them. Should the decline in activity persist, deepen and spread to more sectors, the Committee would reassess the situation.</li>
+</ul>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/11/table_chronology.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/11/table_chronology.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p></blockquote>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/11/frenchGDP.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/11/frenchGDP.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+
+<blockquote><p><strong>About the French Business Cycle Dating Committee (CDCEF)</strong></p>
+<p>Established in October 2020 under the umbrella of the French Economic Association (AFSE), the French Business Cycle Dating Committee (CDCEF) aims to establish and maintain a historical chronology of business cycle turning points for the French economy.</p>
+<p>The Committee uses the same definition of the business cycle as the NBER for the United States and the CEPR for the euro area as a whole. The business cycle is defined as a succession of periods of declining economic activity, i.e. negative economic growth (recessions), and periods of rising activity, i.e. positive growth (expansions). These periods are bounded by peaks (the highest level of activity) and troughs (the lowest level of activity), which constitute the turning points of the cycle.</p>
+<p>The methodology used by the CDCEF of the AFSE to establish the historical chronology of business cycle turning points is described in detail in <a href="https://www.afse.fr/global/gene/link.php?doc_id=428&fg=1" target="_blank" rel="noopener">a working paper</a> available on the AFSE website and published in French in the journal <em>Revue Economique</em>. The Committee assesses the duration, depth and diffusion of each phase of the cycle (the “3D’s” rule) and relies on two pillars: a quantitative pillar based on econometric approaches and a qualitative pillar based on expert judgement.</p>
+<p><strong> </strong></p>
+<p><strong>Members of the French Business Cycle Dating Committee</strong></p>
+<p><a href="https://laurent-ferrara.org/" target="_blank" rel="noopener">Laurent Ferrara</a>, Chair of the French Business Cycle Dating Committee, Professor at SKEMA Business School, Member of the AFSE Executive Committee</p>
+<p><a href="https://sites.google.com/view/frederique-bec" target="_blank" rel="noopener">Frédérique Bec</a>, Professor at CY Cergy Paris Université, Research Affiliate at Thema and CREST-ENSAE</p>
+<p><a href="https://www.linkedin.com/in/guillaume-cl%C3%A9aud-855437a6/" target="_blank" rel="noopener">Guillaume Cléaud</a>, Deputy Director for Economic Analysis and Forecasting, French Treasury</p>
+<p><a href="https://www.beta-economics.fr/annuaire/1/diebolt_claude/" target="_blank" rel="noopener">Claude Diebolt</a>, CNRS Research Director at BETA Research Center, Former President of the AFSE</p>
+<p><a href="https://www.parisschoolofeconomics.eu/fr/doz-catherine/" target="_blank" rel="noopener">Catherine Doz</a>, Professor at Université Paris 1 Panthéon-Sorbonne and the Paris School of Economics</p>
+<p><a href="http://www.rexecode.fr/public/Users/Equipe-Rexecode/Comite-de-direction/Denis-FERRAND" target="_blank" rel="noopener">Denis Ferrand</a>, Director General of Rexecode, Vice-President of the Société d’Economie Politique</p>
+<p><a href="https://www.ofce.sciences-po.fr/pages-chercheurs/page.php?id=15" target="_blank" rel="noopener">Eric Heyer</a>, Director of the Analysis and Forecasting Department, OFCE – French Institute of Economics</p>
+<p><a href="https://economix.fr/fr/page/mignon-valerie" target="_blank" rel="noopener">Valérie Mignon</a>, Professor at Université Paris Nanterre, Researcher at EconomiX-CNRS, Scientific Adviser at CEPII, Former President of the AFSE</p>
+<p><a href="https://scholar.google.com/citations?hl=en&user=H47f840AAAAJ" target="_blank" rel="noopener">Pierre-Alain Pionnier</a>, Economist, OECD</p>
+
+
+</blockquote>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/11/recession-in-france" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

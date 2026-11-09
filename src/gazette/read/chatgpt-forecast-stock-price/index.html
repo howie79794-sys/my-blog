@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can ChatGPT Forecast Stock Price Movements? · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Can ChatGPT Forecast Stock Price Movements?</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/chatgpt-forecast-stock-price/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-31 · 1568 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Financial markets process an enormous volume of corporate news every day. Earnings announcements, management changes, clinical trial results, insider transactions, partnerships, and regulatory developments can all affect a company’s value. The challenge is not simply identifying whether a headline sounds positive or negative. Investors must understand its economic implications, anticipate how other market participants will interpret it, and determine whether the information has already been incorporated into the stock price.</p>
+
+
+
+<p class="wp-block-paragraph">Large language models were not originally designed to forecast financial markets. Yet their ability to interpret context and synthesize complex information raises an important question: Can a general-purpose model such as ChatGPT anticipate stock-price reactions to corporate news?</p>
+
+
+
+Can ChatGPT Forecast Stock Price Movements?
+
+
+
+<ul class="wp-block-list">
+<li>Alejandro Lopez-Lira, Yuehua Tang</li>
+
+
+
+<li>Journal of Financial Economics, 2026</li>
+
+
+
+<li>A version of this paper can be found <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4412788" target="_blank" rel="noopener">here</a></li>
+
+
+
+<li>Want to read our summaries of academic finance papers? Check out our <a href="https://alphaarchitect.com/category/architect-academic-insights/academic-research-insight/" target="_blank" rel="noopener">Academic Research Insight</a> category</li>
+</ul>
+
+
+
+Key Academic Insights
+
+
+
+<p class="wp-block-paragraph"><strong>GPT-4 can interpret the economic meaning of financial news</strong><br />The authors ask GPT-4 to classify each corporate headline as positive, negative, or uncertain for the company’s short-term stock price. The model receives only the company name and headline, without numerical market data, analyst forecasts, or financial fine-tuning. Its task therefore requires more than conventional sentiment analysis: it must interpret the economic context of the announcement and determine how investors are likely to respond.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The test is genuinely out of sample</strong><br />To limit look-ahead bias and the possibility that the model memorized historical market reactions, the study examines headlines published from October 2021 through May 2024, while the GPT-4 version used by the authors had a September 2021 knowledge cutoff. The final dataset contains 159,137 firm-headline-date observations covering 4,123 U.S. companies.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>GPT-4 accurately predicts the immediate market reaction</strong><br />GPT-4’s classifications align strongly with the direction of the market’s initial response. The daily long-short portfolio based on overnight headlines has a 93.3% hit rate for the immediate reaction, while the corresponding hit rate for intraday news is 88.8%. Stocks associated with positive overnight news rise by an average of 1.27% between the previous close and the market opening, while stocks associated with negative news fall by 1.79%. The initial reactions are even larger for intraday announcements.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Predicting the initial response is not the same as earning a tradable return</strong><br />The exceptionally high initial-reaction hit rates describe price movements occurring as the news reaches the market. Unless an investor had advance or unusually rapid access to the information, those returns would generally not be available for trading. The economically relevant question is therefore whether prices continue moving after the announcement, once ordinary investors have an opportunity to act.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Stock prices continue drifting in the predicted direction</strong><br />Following the initial reaction, prices tend to move in the direction identified by GPT-4 for another one to two trading days. A daily rebalanced strategy that buys stocks with positive overnight headlines and shorts those with negative headlines produces an average pre-cost return of 34 basis points per day, with a 58% hit rate and an annualized Sharpe ratio of 2.97. For intraday news, the corresponding figures are 50 basis points, 55%, and 2.63.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Negative news contains more predictability</strong><br />The post-announcement drift is substantially stronger following negative news. For overnight headlines, the long portfolio earns an average of 8 basis points per day with a Sharpe ratio of 0.78, while the short portfolio earns 26 basis points with a Sharpe ratio of 2.01. This asymmetry is consistent with limits to arbitrage because negative views are more difficult and costly to express through short selling.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Smaller stocks exhibit greater underreaction</strong><br />GPT-4’s score predicts subsequent returns more strongly among smaller companies. Small stocks tend to receive less analyst attention, have lower liquidity, and impose higher <a href="https://alphaarchitect.com/the-best-research-paper-ever-written-on-trading-costs/" target="_blank" rel="noopener">trading costs</a>, making it more difficult for sophisticated investors to correct mispricing immediately. The result supports the interpretation that the model is identifying delayed information incorporation rather than a conventional risk premium.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Transaction costs substantially reduce the apparent profits</strong><br />The headline strategy requires extremely high turnover. Before transaction costs, the overnight long-short portfolio produces a cumulative return of approximately 700% over the sample. With assumed round-trip trading costs of 5 basis points, the cumulative return remains above 300%; at 10 basis points, it remains above 100%; and at 20 basis points, the strategy becomes unprofitable. These estimates do not necessarily capture the full price impact, borrowing costs, operational constraints, or scalability challenges an investor would face.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The predictive opportunity appears to be declining</strong><br />The annualized Sharpe ratio of the overnight strategy falls from 6.54 in the fourth quarter of 2021 to 3.68 in 2022, 2.33 in 2023, and 1.22 from January through May 2024. The authors interpret this decline as suggestive—not conclusive—evidence that broader LLM adoption is accelerating the incorporation of news into market prices. Other changes in market conditions could also contribute to the pattern.</p>
+
+
+
+Practical Applications for Investment Advisors
+
+
+
+<p class="wp-block-paragraph"><strong>Use LLMs to improve information processing, not as automatic trading systems</strong></p>
+
+
+
+<p class="wp-block-paragraph">The strongest evidence in the paper concerns GPT-4’s ability to interpret the economic implications of corporate news. Advisors may therefore find LLMs most useful as research assistants that organize information, identify potentially material developments, and explain why a headline could matter. Turning those assessments into an automated strategy introduces an entirely different set of execution, governance, and risk-management challenges.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Distinguish forecasting accuracy from investable performance</strong><br />A model may correctly predict a market reaction without giving ordinary investors an opportunity to earn the associated return. Much of GPT-4’s highest forecasting accuracy relates to the initial response that occurs before a feasible trade can be placed. Any investment evaluation should focus on post-signal returns after realistic delays, transaction costs, borrowing expenses, turnover, and price impact.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Focus research attention where information is hardest to process</strong><br />The results suggest that LLMs may add the most value when news requires contextual interpretation rather than the mechanical extraction of a number. Insider transactions, specialized conference announcements, scientific information, and strategically framed corporate disclosures may warrant greater analytical attention than transparent and standardized announcements that markets process quickly.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Expect AI advantages to decay</strong></p>
+
+
+
+<p class="wp-block-paragraph">A publicly known signal rarely remains profitable indefinitely. As investment firms adopt similar tools, competition accelerates price discovery and compresses returns. Advisors should be skeptical of backtests that assume a historical LLM signal can be implemented unchanged in the future, particularly when the model, the investor population, and market microstructure are evolving rapidly.</p>
+
+
+
+How to Explain This to Clients
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“ChatGPT does not possess a crystal ball that tells us where stocks will trade next month or next year. What this study shows is narrower and more interesting.</p>
+
+
+
+<p class="wp-block-paragraph">When GPT-4 was given a company name and a news headline, it was often able to understand whether the announcement was economically positive or negative. Its interpretation closely matched the market’s immediate reaction, even though the model had not been specifically trained to forecast stock prices.</p>
+
+
+
+<p class="wp-block-paragraph">Prices also continued moving in the same direction for a short period, particularly after negative news and among smaller companies. This suggests that markets sometimes need time to fully understand complicated information.</p>
+
+
+
+<p class="wp-block-paragraph">However, the trading results were highly sensitive to transaction costs, required substantial turnover, and weakened as AI adoption increased. The practical lesson is not that investors should blindly trade every ChatGPT opinion. It is that advanced language models may help investors process complex information more efficiently—and that widespread use of these tools may make markets more efficient over time.”</p>
+</blockquote>
+
+
+
+The Most Important Chart from the Paper
+
+
+
+<p class="wp-block-paragraph">This figure shows the performance of trading strategies based on GPT-4’s assessment scores of overnight news, without considering transaction costs. If a piece of news is released before 9 a.m. on a trading day, we enter the position at the market opening and exit at the close of the same day. If the news is announced after the market closes, we assume we enter the position at the next opening price and exit at the close of the next trading day. All the strategies are rebalanced daily. The green line corresponds to an equal-weighted portfolio that buys companies with good news, according to ChatGPT 4.<br />The red line corresponds to an equal-weighted portfolio that short-sells companies with bad news, according to ChatGPT 4. The blue line corresponds to an equal-weighted longshort portfolio that buys companies with good news and short-sells companies with bad news, according to ChatGPT 4. The grey line corresponds to a value-weighted market portfolio</p>
+
+
+
+<figure class="aligncenter size-fusion-600 is-resized"><img src="https://alphaarchitect.com/wp-content/uploads/2026/08/2026-08-05-21_53_13-My-title-600x410.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+Abstract
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<h3 id="h-" class="wp-block-heading"></h3>
+
+
+
+<p class="wp-block-paragraph">We document the capability of large language models (LLMs) like ChatGPT to predict stock market reactions from news headlines without direct financial training. Using post-knowledge-cutoff headlines, GPT-4 captures initial market responses, achieving approximately 90% portfolio-day hit rates for the non-tradable initial reaction. GPT-4 scores also significantly predict the subsequent drift, especially for small stocks and negative news. Forecasting ability generally increases with model size, suggesting that financial reasoning is an emerging capacity of complex LLMs. Strategy returns decline as LLM adoption rises, consistent with improved price efficiency. To rationalize these findings, we develop a theoretical model that incorporates LLM technology, information-processing capacity constraints, underreaction, and limits to arbitrage.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</blockquote>
+<p><a href="https://alphaarchitect.com/chatgpt-forecast-stock-price/" target="_blank" rel="noopener">Can ChatGPT Forecast Stock Price Movements?</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/chatgpt-forecast-stock-price/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

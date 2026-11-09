@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How we can beat China · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 科技 · 中国观察</div>
+    <h1 class="title">How we can beat China</h1>
+    <div class="byline">
+      <span class="author">诺亚·史密斯</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.noahpinion.blog/p/how-we-can-beat-china" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-20 · 1406 words</span>
+    </div>
+    <div class="body"><figure><a href="https://substackcdn.com/image/fetch/$s_!s-k2!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1b59f788-2bc6-4efc-983a-0459f2a97e29_1079x714.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!s-k2!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1b59f788-2bc6-4efc-983a-0459f2a97e29_1079x714.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Art by GPT-6, original by Zhang Zeduan</figcaption></figure><p>In 1946, George Kennan, who was acting as the head of the U.S. Embassy in Moscow, wrote a message to the Secretary of State, known as the “Long Telegram”. In the Long Telegram, Kennan laid out a theory of how Soviet power could be defeated. He argued that Soviet leaders would always be hostile to the U.S., but that they were also cautious — they wouldn’t recklessly start a world war like Germany had. He also argued that the Soviet system was weak and unstable, and that given enough time, it would collapse from its own internal contradictions. This became known as the doctrine of “containment”, and it ended up being exactly the strategy that the U.S. used to win the Cold War. It took 45 years for the strategy to work and the USSR to fall. </p><p>I am certainly no George Kennan. I’ve never lived in China, I haven’t been there in many years, I don’t speak Chinese, and I certainly don’t talk to any leaders there. I’m also not a career diplomat or a professional geopolitics guy of any kind. So although I’m going to write a blog post with the same general <em>goal </em>as Kennan’s Long Telegram, I don’t want to suggest that it’s anywhere near as authoritative or insightful. </p><p>But I’m still going to write a post about “how to beat China”, because I think it’s useful to think through these sorts of big strategic questions. This post is also an important follow-up to a series of posts I wrote about geopolitics during the Biden years, about U.S.-China competition:</p><p>(There were more, but I figure your appetite for clicking through old posts is limited.)</p><p>The basic premise of those posts was that the competition between a China-led New Axis and the U.S. and our old allies — Europe, Japan and Korea, hopefully India, etc. — would define the upcoming era of geopolitics. And my conclusion was that we should use an updated version of the basic strategy we used against the USSR in Cold War 1. I recommended that we should build up economic power within our bloc of allies, establish military deterrence, and wait for China’s internal contradictions to do the heavy lifting of removing the threat. </p><p>That strategy was always going to be harder than it was in Cold War 1, because China A) is a lot bigger than the USSR, B) has a better economic model, and C) is a lot more globally integrated. The strategy I recommended was much tighter economic cooperation between the U.S. and a maximally large set of allies, to build up a bloc capable of overmatching even the mighty Chinese manufacturing juggernaut. This is <a href="https://www.nytimes.com/2025/09/07/opinion/us-trump-china-allies.html" target="_blank" rel="noopener">the approach</a> that’s <a href="https://www.foreignaffairs.com/china/underestimating-china" target="_blank" rel="noopener">being promoted by experts</a> like Rush Doshi and Kurt Campbell. If you’re interested in reading about how that approach would work, and why it would be helpful, I recommend Doshi’s interview with ChinaTalk:</p><a href="https://www.chinatalk.media/p/allied-scale-rush-doshi-on-us-china?utm_source=substack&utm_campaign=post_embed&utm_medium=web&embedding_publication_id=35345" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!4sJq!,w_56,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1ffd4708-45d9-47a8-b139-460e1d0a5029_416x416.png" referrerpolicy="no-referrer" loading="lazy" alt="">ChinaTalkAllied Scale: Net Assessment with Rush DoshiHow should America maximize its odds when competing with China? Can Trump’s approach to alliances succeed in strengthening deterrence? And what will it take for China to diplomatically capitalize…Read more2 years ago · 48 likes · 17 comments · Jordan Schneider and Lily Ottinger</a><p>Anyway, I still think building up an anti-China economic juggernaut would be a great thing to do, and I still think the U.S. would benefit from closer economic integration with its friends and allies. But I think the election of Trump shows why this strategy probably isn’t going to work. The United States is simply <em>too internally divided</em> to engage in the sort of far-seeing, purposeful, smart kind of international competition that we pursued so effectively in the 20th century. Americans care more about fighting other Americans than about fighting the Chinese, and that state of affairs will persist for a while. </p><p>Donald Trump’s presidency is an outgrowth of America’s internal divisions; he cares much more about fighting his own internal enemies than about prosecuting international rivalries. He has willfully degraded or torn up America’s key alliances, especially with Europe, and created enmity where friendship once reigned. He has flagrantly trampled on every principle of human rights, mutually beneficial economic cooperation, democracy, and international non-aggression that the post-WW2 U.S.-led international order fought to uphold. He has, in short, made it impossible to prosecute the sort of Cold War 2 strategy that I spent the Biden years advocating.</p><p>This doesn’t mean America’s alliance system is necessarily dead forever. As <a href="https://www.foreignaffairs.com/united-states/how-alliances-survive-campbell-doshi" target="_blank" rel="noopener">Doshi and Campbell pointed out in a recent article</a>, the old alliances could be reconstituted, if America credibly overcame its internal divisions and returned to being the mostly unified, stable, reliable great power that it was last century. But overcoming those divisions is going to take decades at the very least, and that’s exactly the window of time during which China will be at its peak of relative power. </p><p>So I think we’ve basically missed the chance to use that strategy effectively, and I’ve recalibrated my thinking. This post is meant to explain my recalibration. I do think there’s a path to defeating Chinese power, but it doesn’t look like what I previously had in mind.</p><h4>Who is “we”, what does it mean to “beat” China, and why should we even care?</h4><p>Before getting to the question of how to beat China, we need to answer the questions of <em>who</em> and <em>why</em> should do this “beating”. In 2024 the answer was obvious — the U.S. and its erstwhile allies still represented a far more liberal power than China and its allies, so ensuring that the former was more powerful than the latter would further the cause of global liberalism. China threw minorities in concentration camps, threatened its neighbors with invasion and war, supported Russia’s invasion of Ukraine, and repressed free expression all over the world. That was — and is — behavior worth resisting. </p><p>But the election of Trump changes that calculus. Trump <a href="https://en.wikipedia.org/wiki/Greenland_crisis" target="_blank" rel="noopener">threatens other countries with invasion</a>, and sometimes even <a href="https://www.noahpinion.blog/p/welcome-to-chaos-world" target="_blank" rel="noopener">attacks them</a> if he thinks they’re weak enough. He can’t throw minorities in camps just for being minorities yet, but he’s building <a href="https://www.npr.org/2026/07/14/nx-s1-5893335/investigative-journalist-reports-on-the-abuse-inside-ices-largest-detention-facility" target="_blank" rel="noopener">a sort of gulag archipelago</a> under the fig leaf of immigrant detention. His foreign policy is <a href="https://www.foreignaffairs.com/united-states/new-rights-grand-strategy-after-trump" target="_blank" rel="noopener">increasingly based on “civilizational” concerns</a><a href="#footnote-1" target="_blank" rel="noopener">1</a> instead of human rights or democracy. </p><p>Trump has thus forfeited America’s claim to moral superiority over China. It’s true that Trump and his ragtag movement are far less <em>competent</em> than the Chinese Communist Party, but that doesn’t mean that increasing American power will lead to a more liberal world. At this point, it probably won’t. And of course Democrats will try to undo some of Trump’s geopolitical shifts, but if past experience is any guide, they will have only marginal success. Moreover, the GOP is not going to revert back to Reaganism after Trump leaves office; they will keep fighting for their illiberal visions both at home and abroad for a long time to come. </p><p>None of that means, however, that liberalism as an idea is dead. Europe, Japan, and many other countries that were on America’s side in the Cold War still uphold the basic ideas of democracy and human rights, as do many developing nations. The average person living in Tokyo or Paris or Bangalore still enjoys far more personal freedom and dignity than does the average person in Shenzhen or Shanghai. </p><p>And even leaving aside the relative merits of different social and governmental systems, there are plenty of people in plenty of countries who simply don’t deserve to be trampled on by the bootheel of the CCP. Japanese people, Indians, Filipinos, Koreans, and so on deserve to be able to determine their own destiny without being subject to the whims of the powerful men in Beijing. And Ukrainians, Estonians, Poles, etc. deserve to be free from the Russian tyranny that China quietly backs. </p><p>So when I say “how we can beat China”, what I actually mean is how we can <em>keep China from dominating other countries</em>. This doesn’t mean we should try to make China collapse, or impoverish the Chinese people, etc. Instead, it just means how smaller nations — and nations who value human rights and democracy — can resist Chinese power. </p><p>And at some point, if the U.S. ever does manage to tamp down its internal divisions and return to being a liberal power, it will still mean the same thing.  </p><h4>Many hegemons eventually beat themselves</h4></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.noahpinion.blog/p/how-we-can-beat-china" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diesel of Discontent · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>能源 · 宏观</div>
+    <h1 class="title">Diesel of Discontent</h1>
+    <div class="byline">
+      <span class="author">Doomberg</span><span class="dot">◆</span>
+      <span class="src"><a href="https://newsletter.doomberg.com/p/diesel-of-discontent" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-14 · 534 words</span>
+    </div>
+    <div class="body"><p><em>“There are three things in the world that deserve no mercy: hypocrisy, fraud, and tyranny.”</em> – Frederick William Robertson</p><p>During the first six months of 2026, European buyers <a href="https://www.reuters.com/business/energy/eu-imports-record-lng-volumes-russias-biggest-plant-2026-07-13/" target="_blank" rel="noopener">gorged</a> on practically every liquefied natural gas (LNG) cargo Russia’s Yamal plant could produce. Of the 140 ships that set sail from that facility, 136 offloaded their life-nourishing bounty in Europe, with France, Belgium, Spain, and the Netherlands quietly absorbing the bulk. Analysts estimate the revenue generated from these sales to be on the order of $7 billion—funds that were presumably funneled to President Vladimir Putin’s war machine, which is either on the brink of total collapse or fixing to march all the way to Paris, depending on which side of their mouths European leaders are lecturing from today.</p><p>In May, British Prime Minister Keir Starmer—suffocating on terrible poll numbers and staring down the barrel of a diesel and jet fuel crisis of his own—enraged London’s spreadsheet dwellers by daring to carve out a <a href="https://www.politico.eu/article/starmer-criticized-easing-russia-sanctions-uk-labour-leadership/" target="_blank" rel="noopener">sanctions exception</a> allowing imports of Russian crude refined in India. Despite the firestorm, the exception remains, and a full accounting of just how much shadow diesel has made its way to His Majesty’s islands is unlikely to adorn the front pages of the <em>Financial Times</em> anytime soon.</p><p>In perusing the hyperbolic coverage that has followed US President Donald Trump’s now-infamous dirty diesel deal with Putin, we find little acknowledgment of these glaring bits of hypocrisy. Take this missive from <em>Politico</em>, which sought <a href="https://www.politico.eu/article/europe-rebukes-donald-trump-russia-diesel-imports-ukraine-support/" target="_blank" rel="noopener">commentary</a> from various European Union leaders en route to whatever meaningless talking session they might have been attending on Monday morning:</p><blockquote><p>“<em>On their way into their meeting, the EU’s foreign ministers remained united in their insistence that increasing pressure on Moscow was the only way forward.</em></p><p><em>‘Obviously our position has not changed — pressure on Russia, sanctions, support to Ukraine, Russia’s isolation is the way to peace,’ Latvian Foreign Minister Baiba Braže said.</em></p><p><em>The British Foreign Office’s minister of state Stephen Doughty said London was ‘not planning to follow suit with’ purchasing Russian energy and would ratchet up ‘economic pressure’ on Moscow.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!iCpQ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14483f7d-4447-40f0-8d8b-c01956e0f71e_1024x683.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!iCpQ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14483f7d-4447-40f0-8d8b-c01956e0f71e_1024x683.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">In her natural habitat | Getty</figcaption></figure><p>None of this is to excuse how Trump put himself in this position, of course. His failure to end the war in Ukraine swiftly upon taking office and the disastrous decision to go to war with Iran have compounded error upon error, and there is a direct line between these broken campaign promises and the electoral pickle in which he currently finds himself. His half-hearted return to his correct instinct that high energy prices make for bad politics might be a classic example of too little, too late, but late is still undefeated in the battle against never.</p><figure><a href="https://substackcdn.com/image/fetch/$s_!GX3R!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F60c4124d-aec9-480e-8aac-f2732d8ac4a4_1024x683.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!GX3R!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F60c4124d-aec9-480e-8aac-f2732d8ac4a4_1024x683.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Regrettable circumstances | Getty</figcaption></figure><p>As we have been arguing since April of 2022, the West’s entire approach to economic war against Putin’s Russia was fatally flawed from the start, doomed to the predictable loop of failures being experienced now. There is a better way, one that would breathe much-needed economic air into an anemic European economy, raise global standards of living from their current downward trajectory, and substantially ramp up real economic pressure against Redmanbad in Moscow. Let’s revisit the details.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://newsletter.doomberg.com/p/diesel-of-discontent" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

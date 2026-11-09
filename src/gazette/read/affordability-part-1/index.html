@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Affordability Part 1 · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Affordability Part 1 </h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/affordability-part-1" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-12 · 766 words</span>
+    </div>
+    <div class="body"><p>[This is based on a script for an upcoming “<a href="https://www.thefreedomfrequency.org/s/the-grumpy-economist-weekly-rant" target="_blank" rel="noopener">weekly rant</a>”. It’s the first of three on “affordability.”] </p><p>“Affordability” is in the news. People left and right want the government to “do something.” </p><p>I’ve been gently ignoring most of this economic nonsense, but a <a href="https://www.wsj.com/politics/policy/americans-want-populist-policies-that-defy-traditional-political-labels-119b29b9" target="_blank" rel="noopener">Wall Street Journal survey</a>  brought it to my attention.  Populist policies are hugely popular among democrats, republicans and independents. </p><figure><a href="https://substackcdn.com/image/fetch/$s_!FQqJ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F825bb04a-5c21-4fbb-82b3-b345cfd37226_1284x1424.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!FQqJ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F825bb04a-5c21-4fbb-82b3-b345cfd37226_1284x1424.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><figure><a href="https://substackcdn.com/image/fetch/$s_!mjm-!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2b150dd1-5064-4dab-bfdf-37226b9b1566_1282x1222.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!mjm-!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2b150dd1-5064-4dab-bfdf-37226b9b1566_1282x1222.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><ul><li><p>“Cap credit card interest rates at 10%?” 78% D, 83% R, 76% I.  </p></li><li><p>“Limit rent increases to 5% above the rate of inflation?” 65% overall. </p></li><li><p>“Raise the minimum wage to $20 per hour?” 57% overall. </p></li></ul><p>As you probably know, price, wage and rent controls have led to rationing, lines, black markets, and corruption every time they’ve been tried.</p><ul><li><p>“Require health insurance companies to cover services and medicines prescribed by doctors?” 96%, 82% and 86% are for it.</p></li></ul><p>Because, of course, there is a magic pot of money out there and said companies wouldn’t possibly just raise premiums. </p><ul><li><p>“Restrict large institutional investors from buying large numbers of single-family homes?” 77%, 77%, 69%. </p></li></ul><p>Because, of course they just love to buy houses and leave them empty? Let’s get rid of used-car dealers, stock brokers, and all of Ebay while we’re at it. And large institutional home<em>builders</em>.  </p><ul><li><p>“Cap child care costs for working families?” 90%, 61%, 67%. </p></li></ul><p>Even the question invokes magic. Who does the capping and how? The choice is massive subsidies or price controls. And then how do you get child-care workers to show up? </p><ul><li><p>“Run a government website that offers discounted prices for prescription drugs?” 76%, 75%, 63%. </p></li></ul><p>Oh, like the wonderful Obamacare website. And remember how student loans cut out the middleman and lowered costs?</p><p>More bad ideas abound. Export controls, price controls, and subsidies are in vogue. Does anyone remember the charming 1970s? </p><p>The only clunkers: </p><ul><li><p>“Open government-run grocery stores that sell food at discounted prices”. 37%.  </p></li></ul><p>It seems people do remember their last trip to the DMV. </p><ul><li><p>“Send Americans $5,000 checks if Republicans maintain control of Congress” 23% in favor.</p></li></ul><p>As I hope you know, the government cannot, by taxing, spending, borrowing or regulating, make anything “more affordable” overall. All it can do is try to make someone else pay, and then often to give you something you don’t want that much and lose half the money along the way. Subsidies against fixed supply, like energy and housing, just drive prices up more. </p><p>The $5,000 checks are interesting. It is a terrible idea overall, and simple enough that Americans can see that the money has to come from somewhere. But it is a whole lot better than all these other ideas.  If you want to give Americans $5000 more purchasing power, it’s a lot better to just give them cash than to put in price controls or subsidies for particular goods. The current vogue, giving money to “nonprofit” advocacy organizations to “provide services” with precious little oversight, is even worse. Even Milton Friedman advocated cash as better than provision.  </p><p>What could the government do to make things more affordable? Start by getting out of the way A lot of policy and regulation deliberately makes things more expensive. The biggest price rises are education, health, and housing, exactly where the government intervenes the most. When you’re in a hole, first of all, stop digging. </p><figure><a href="https://substackcdn.com/image/fetch/$s_!LWco!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa55238d6-3293-4be3-b19b-5fb896cace0d_732x936.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!LWco!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa55238d6-3293-4be3-b19b-5fb896cace0d_732x936.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>Housing? Let’s get serious about zoning and permit reform. Allow portable mortgages. Remove rent controls, forever. Allow people to rent rooms. Gas? Get rid of ethanol requirements, which add about 30 cents a gallon to diesel, drive up corn prices and agricultural land prices, and do nothing for the environment. Abolish the Jones act, which restricts shipping between states to US manned and made ships, and has driven up transport costs as it has destroyed the US ship building industry. Eliminate all the tariffs. Let Americans buy Chinese cars, at about half the price of domestics. (Yes, with data controls). Washing machines assembled in Mexico do not threaten national security. Allow automated ports. Get going on environmental permit reform, used by NIMBYs to block projects in ways that do nothing for the environment. Keep deregulating business (an unsung achievement of the Trump administration. Did you know that the Department of Transportation <a href="https://www.nytimes.com/2026/10/08/travel/airlines-flights-passenger-rights-trump.html" target="_blank" rel="noopener">regulates font sizes</a> on airline websites?) End agricultural price supports and quotas. Free up labor markets. Remove unneeded occupational licensing. Stop subsidizing higher education with basically free student loans. Open up health care and insurance to competition. I could go on. As Pogo said, “We have met the enemy and he is us.” As Aesop advised, “Doctor heal thyself.” </p><figure><a href="https://substackcdn.com/image/fetch/$s_!ydgf!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbc9882a6-4781-4a32-8ec2-4f15373713c7_692x936.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!ydgf!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbc9882a6-4781-4a32-8ec2-4f15373713c7_692x936.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/affordability-part-1?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/affordability-part-1?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/affordability-part-1" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

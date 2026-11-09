@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interest Rate Surge? · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Interest Rate Surge?</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/interest-rate-surge" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-20 · 1422 words</span>
+    </div>
+    <div class="body"><figure><a href="https://substackcdn.com/image/fetch/$s_!KYtc!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F30134381-70a4-4492-9bdc-c7ae8a1cad44_1140x450.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!KYtc!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F30134381-70a4-4492-9bdc-c7ae8a1cad44_1140x450.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>US long term interest rates are surging. What’s going on?</p><p>I usually don’t do market commentary. It doesn’t last long. And Hayek taught us that if we knew why strawberry prices go up and down, let alone interest rates, communism would have worked. Market prices aggregate the millions of pieces of information dispersed around the world, and give us a signal what to do. But they don’t reveal why prices move.</p><p>Today, I’ll make an exception. I don’t know why interest rates are going up, but we can look at the possibilities.</p><p>Perhaps investors expect more inflation in the future? If investors expect to be paid back in money that’s worth less, they demand a  higher interest rate. One piece of evidence against that is that indexed bonds, the TIPS, have risen in tandem, and the spread  between regular bonds and indexed bonds does not seem to have widened. Still, the TIPS are not perfect measures either. </p><p>Perhaps investors expect the Fed to raise rates in order to fight inflation? Long-term interest rates are the average of what people expect future short-term interest rates to be, plus risk premium, so long-term interest rates rise when people expect the Fed to tighten. Forecasting a successful tightening cycle would explain rising rates but no rising inflation expectations.  </p><p>Perhaps we’re just returning to normal. That’s the <a href="https://www.wsj.com/opinion/bond-market-interest-rates-investing-economy-59c092c1" target="_blank" rel="noopener">Wall Street Journal’s interpretation</a>. Over the course of history, 2-3% real interest rates on top of 2-3% inflation is perfectly normal, so 4-6% nominal interest rates are perfectly normal. It’s the 2010s with negative real interest rates that is weird. The Journal blames “extreme monetary and fiscal policies.” I don’t see how those produce low real rates for two decades. Other stories include demographics and “savings glut,” a wave of middle age people saving for retirement, and “safe asset demand” by countries building up reserves after the crashes of the late 1990s. My view is simply poor investment opportunities and low growth in an overregulated economy until AI came along.  Low growth means low real interest rates. r =delta + gamma g (real interest rate = discount rate + (coefficient) times growth) for my economist friends; lower g means lower r. r = mpk (real interest rate = marginal product of capital). Lower mpk means lower r. Take your pick, there are lots of stories why “r star” might rise now. </p><p>Or, maybe, here come the bond vigilantes. You knew this was coming, right? Unsustainable fiscal policies can only go on so long. Eventually bond investors decide that the US will not in the end do the right thing after trying everything else, and default, expropriation, taxation, capital controls, or sharp inflation is on its way. They stop buying long-term bonds especially, and look to the comfort of short term bonds. </p><figure><a href="https://substackcdn.com/image/fetch/$s_!sa-U!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fafb913ef-a60f-4c88-933a-d1a09549b6c7_1032x450.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!sa-U!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fafb913ef-a60f-4c88-933a-d1a09549b6c7_1032x450.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>For insight,  I plot some of the international pattern. (Sorry, Fred only goes to June for the other countries.) It’s a global phenomenon. And it lines up roughly with fiscal policies. The US actually looks a lot like the UK, everyone’s favorite advanced-country fiscal and economic stagnation basket case. So much for exorbitant privilege, the idea that the “reserve currency” status of the dollar means we can borrow at low rates. But Germany isn’t far behind, and Japan has shown the steepest increase as its fiscal problems seem finally to be catching up to it. The only country doing well is Switzerland. The exception proves the rule. It’s possible to have very low interest rates. Switzerland has about the most solid non-inflationary debt repayment policies on the planet. Their interest rate is almost too low, perhaps suggesting some worry over deflation and uncontrollable appreciation of their splendid currency. </p><p>That’s chilling. If we’re seeing a flight from sovereign debt, it’s a <em>global</em> flight from sovereign debt. And such a crisis is certainly a possibility. Where does a crisis come from? Debt that nobody knows how to repay, shady accounting, short-term debt that is being rolled over on the hope of a greater fool, and a potential crisis that nobody can imagine happening. Check, check, check, check. </p><p>Still, though I worry about this as much as the next person, it seems to me a real flight from debt needs a spark, and it’s awfully quiet. My main fear remains that in the next crisis, the US tries to borrow an immense amount again, and then the well runs dry. </p><p>Illiquidity, dysfunction, plumbing, supply and demand, and other technical factors are a usual story.  For some reason there is limited demand for long-term treasury debt. The ECB has been propping up sovereign bonds for a long time on these stories. The Fed intervened massively in March 2020, not (heavens) to monetize trillions of new treasury issues, but on broken-plumbing stories. </p><p>Recently the Treasury and Fed together intervened to give Japan dollars to buy Yen rather than let Japan sell Treasurys. And in more recent news, the US Treasury is trying to prop up the long-term treasury market by buying up long-term Treasuries and issuing short-term Treasuries instead. One can read that as an “illiquidity” policy. It only moves yields at all if there is some sort of maturity-specific demands.  And it did move yields. But we’ll see how long it lasts. If the rise came from the beginning of flight from sovereign debt or any of the other more fundamental forces, it won’t last long.  </p><p>It looks like the Bessent Buyback announcement lowered yields 8 basis points (0.08%) for one day. That fits my priors on downward-sloping demand, segmented markets,  liquidity, etc., but my priors are deeply in the skeptical range. Also, these are reactions to the announcement of future bond purchases. In QE the announcements had effects, the purchases did not. But actual downward sloping demands with poor arbitrage suggest the opposite. We’ll see what happens. </p><figure><a href="https://substackcdn.com/image/fetch/$s_!wOsC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2b257e5c-ccb7-408a-83ef-d125c6cd77b5_1190x1396.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!wOsC!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2b257e5c-ccb7-408a-83ef-d125c6cd77b5_1190x1396.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><figure><a href="https://substackcdn.com/image/fetch/$s_!t4NC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffa625733-5698-435e-93ab-e36a07a5eb8e_1184x720.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!t4NC!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffa625733-5698-435e-93ab-e36a07a5eb8e_1184x720.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>The two stories are not totally distinct however. The beginning of a global sovereign debt retrenchment would show up first in a feeling of limited demand. Countries and businesses both are driven to borrowing more and more short-term as insolvency approaches. Investors, seeing trouble demand a larger risk premium for longer term debt. The issuer, who doesn’t plan on going bankrupt, thinks the risk premium is too large, and it is if bankruptcy doesn’t happen. So both sides settle on short term debt. Moving to short maturity structures is a classic symptom of trouble ahead. </p><p>Or maybe not. As I said, the global sovereign debt crisis has been proclaimed many times, and hasn’t happened yet. But with no change in fiscal policy or growth, it will happen sooner or later. </p><p>So, inflation? Expected tightening? Back to normal? Iliquidity and plumbing? Or the beginning of the end? I don’t know either, but at least fleshing out the stories ought to help. </p><p>PS. As you can tell, I’m pretty reluctant to take firm positions on where the economy is headed and what macroeconomic policy should do. I am only too aware of how limited our understanding is. (Microeconomics seems much clearer, but maybe current policies are that much more obviously dunderheaded!) However, one of the few times I loudly opined on macroeconomic policy, it was to pound my fist on the table in 2015 that the US should  <a href="https://www.johnhcochrane.com/news-op-eds-all/a-new-structure-for-us-federal-debt" target="_blank" rel="noopener">borrow as long-term as possible</a>, to lock in the ultra-low interest rates. There was a lot of opposition to that view at the conference where I presented it. I’m glad to say it looks pretty good now!  I’m also modestly proud of having been <a href="https://www.johnhcochrane.com/research-all/rvsg" target="_blank" rel="noopener">deeply skeptical that r<g would last</a> and render government debt a free lunch. </p><p>[This is the third in a sequence that mirrors the “grumpy economist weekly rant”. Fair warning.] </p><p><em>Update:</em></p><p>It occurs to me two days later, that there is a much simpler explanation for the Treasury buybacks. Everyone focuses on ephemeral short-run liquidity and price support and market manipulation stories. But how about this: The treaasury, and the administration, think they’re going to kick off fantastic economic growth and low inflation. Thus, they believe interest rates will soon fall.  If you are managing the treasury debt, and you think interest rates will soon fall, you want to buy back your long debt at a super-low price. This is the opposite of my call for many years that the Treasury should issue more long-term debt because interest rates might rise. The treasury might be wrong on this forecast, but given their forecast of where they think interest rates and inflaiton will soon go, it would be inconsistent not to go short. </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/interest-rate-surge?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/interest-rate-surge?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/interest-rate-surge" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

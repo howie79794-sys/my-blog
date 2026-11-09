@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jump Ball · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>能源 · 宏观</div>
+    <h1 class="title">Jump Ball</h1>
+    <div class="byline">
+      <span class="author">Doomberg</span><span class="dot">◆</span>
+      <span class="src"><a href="https://newsletter.doomberg.com/p/jump-ball" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-11 · 554 words</span>
+    </div>
+    <div class="body"><p><em>“He hits from both sides of the plate. He’s amphibious.”</em> – Yogi Berra</p><p>On January 6, 2025, Indonesia formally acceded to full membership in BRICS, the starts-and-stops, Russia- and China-led organization seeking to create an alternative to the US dollar-based global financial system. As the war in Iran has since made clear, whatever limitations might be plaguing America’s wildly overfunded and corrupt military-industrial complex, its economic power and broad array of financial tools are still formidable. US Secretary of the Treasury Scott Bessent’s economic siege has arguably been more devastating to Iran than the best efforts of Pete Hegseth’s Department of War. Through this lens, the battles over BRICS and US dollar hegemony are not just side skirmishes of World War III, but pivotal and potentially decisive confrontations.</p><p>Less than a year after Indonesia’s BRICS acceptance, student-led protests <a href="https://www.amnesty.org/en/latest/news/2025/09/indonesia-authorities-must-investigate-eight-deaths-following-violent-crackdown-on-protests/" target="_blank" rel="noopener">engulfed</a> the island nation—a dubious coincidence. The campaign had many hallmarks of previous so-called color revolutions observed in former Soviet republics and other parts of the world, something Indonesian leaders seemed content to use as justification for their subsequent crackdown. Western think tanks were quick to <a href="https://www.aspistrategist.org.au/how-authoritarian-propaganda-presents-indonesian-protests-as-foreign-instigated/" target="_blank" rel="noopener">call foul</a> on that framing:</p><blockquote><p>“<em>Since late August, Indonesians have been protesting against police violence and politicians’ perks. Moscow and Beijing have taken advantage of this chaos, claiming it is a direct result of the United States meddling in the domestic affairs of an Asian nation. The Indonesian government and its diplomatic partners, as well as the public, should be aware of these operations. Moreover, governments and intelligence experts should forecast the next steps Russia-China collaboration [sic] to enable preventative measures.</em></p><p><em>It is not new for Russia and China to frame demonstrations as Western-engineered: they have done so in response to domestic protests in Moscow and Hong Kong. The two countries have also discredited democracy protests elsewhere—including in Ukraine, Georgia, Kazakhstan, Serbia and Thailand—using claims of covert US interference in domestic politics.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!mupg!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F595cb24e-f20d-46dd-b95c-c2b396a42e0d_2042x1316.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!mupg!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F595cb24e-f20d-46dd-b95c-c2b396a42e0d_2042x1316.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Organic or orchestrated? | Getty</figcaption></figure><p>Its accession to BRICS aside, Indonesia’s leaders have broadly tried to stay neutral in the battle between the geopolitical elephants, pursuing a strategy of strategic ambiguity. As with BRICS members India and Brazil, trade with China has created meaningful ties to that emerging superpower that would be nearly impossible to sever, yet the country still maintains significant <a href="https://ipdefenseforum.com/2026/05/indonesia-u-s-enhance-long-standing-defense-partnership/" target="_blank" rel="noopener">interactions</a> to the US military:</p><blockquote><p>“<em>Indonesia and the United States recently elevated their decades-long military ties to a Major Defense Cooperation Partnership (MDCP), a designation that embodies the countries’ commitment to pursue advanced security measures.</em></p><p><em>Under the MDCP, the nations will codevelop sophisticated asymmetric capabilities and other next-generation defense technologies across domains, and cooperate on maintenance, repair and overhaul support to ensure readiness, according to a joint statement released after Indonesian Defense Minister Sjafrie Sjamsoeddin and U.S. Secretary of War Pete Hegseth met at the Pentagon in Washington, D.C., in April 2026.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!j5bJ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe32bce14-8172-4e73-993e-f3239245e677_1786x1188.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!j5bJ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe32bce14-8172-4e73-993e-f3239245e677_1786x1188.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">A little bit for everybody | Department of War</figcaption></figure><p>At first blush, neutrality between superpowers would seem a near-impossible task, especially given Indonesia’s role as a gatekeeper of the Strait of Malacca, a global shipping chokepoint on par with the Strait of Hormuz in its economic significance. Surely, the country will soon be forced to firmly and decisively choose a side and cast its lot with either Washington or the Beijing-Moscow axis. Or will it? Let’s explore the strategic implications.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://newsletter.doomberg.com/p/jump-ball" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

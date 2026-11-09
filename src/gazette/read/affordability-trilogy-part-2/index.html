@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Affordability Trilogy, Part 2 · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Affordability Trilogy, Part 2</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/affordability-trilogy-part-2" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-13 · 1007 words</span>
+    </div>
+    <div class="body"><p>[This is based on a second script for an upcoming “<a href="https://www.thefreedomfrequency.org/s/the-grumpy-economist-weekly-rant" target="_blank" rel="noopener">weekly rant</a>.” <a href="https://www.grumpy-economist.com/p/affordability-part-1" target="_blank" rel="noopener">Part 1 explored</a> an interesting WSJ survey on how popular populist policies are.]</p><p>Affordability? It does seem a bit petulant. American’s standard of living is greater than any large country, and better than ever in the past. We earn on average 40% more than Europeans, British, Japanese, and Canadians. Poverty just <a href="https://www.thefp.com/p/tgif-experts-fear-worse-ahead" target="_blank" rel="noopener">hit an all time low</a>. Health indicators hit an all time high. Inequality is falling. Some things have gotten more expensive, but other things are cheaper. Real wages are rising. Is a new multi-bedroom house in a nice suburb of a hot city expensive? Yes. But ask Europeans, who live in tiny apartments. What is everyone complaining about?</p><p>Well, the <em>level </em>of prices, as measured by the consumer price index, <em>is</em> 27 percent higher than it was just before inflation hit in January 2021, and 14% higher than it would have been had inflation been 2% that whole time. Though <em>average </em>real wages largely kept up with inflation, that’s not true for everyone. Many people who got new jobs got raises. But many people in old jobs did not. People on fixed nominal incomes or who want to buy houses or stocks are worse off. Inflation creates a lot of churn: some gain, some lose. Anyone who held government bonds lost about 14% due to inflation, and more as long-term bond prices fell.</p><figure><a href="https://substackcdn.com/image/fetch/$s_!21C0!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F23781365-c9a1-400f-9406-9737dd72e08a_1140x465.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!21C0!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F23781365-c9a1-400f-9406-9737dd72e08a_1140x465.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p><em>People hate inflation.</em> <em>People hate higher prices.</em> You can lecture them all you want about real wages, about “transitory,” but people hate higher prices. That ought to be an important lesson.</p><p>Congress gave the Federal Reserve a “price stability” mandate. The Fed interpreted that mandate to mean 2% inflation forever. Prices should double every 35 years. And even that 2% is only a forward-looking aspiration. The Fed lets bygones be bygones. If inflation hits 10%, as it did in 2022, the Fed does not try to run inflation lower than 2% for a while, or even slight deflation, so that inflation will average 2% over time.  The Fed does not even think of trying to bring the level of prices back to where they were. Even so-called transitory <em>inflation</em> means permanently higher <em>prices</em>.</p><p>The situation in Europe is even clearer. The ECB is given a <em>sole </em>mandate of “price stability.” The ECB has <a href="https://www.ecb.europa.eu/mopo/intro/html/index.en.html" target="_blank" rel="noopener">explicitly interpreted</a> that mandate to mean a '“medium-term” forward-looking 2% target, with no correction for past mistakes.  </p><p>But the peasants with pitchforks, also known as voters, are really mad about the level of prices.</p><p>I think the Fed, and Congress, should listen to that. What did Congress mean by “price stability?” An economic originalist would say, Congress meant a long-run steady level of prices, as had been the case for 200 years under the gold standard. The Humphrey-Hawkins act, though emphasizing employment, called for zero inflation by 1988. </p><p>Congress (and whoever is in charge in Europe) should clarify the mandate. Perhaps, “when we said price stability, we meant price stability!” If not, at least define a 2% target as a long-run average, and the Fed should correct its misses. Many inflation-targeting countries do that.</p><p>When I mentioned that sort of price stability, a prominent central banker dismissed it immediately: Nobody, the central banker said, would induce a recession just to bring back the level of prices. </p><p>Is a desire for price stability economically illiterate? I think not. I don’t think long recessions would be necessary.  That’s pure Phillips curve thinking, that the only way to lower inflation is via high unemployment. Yes, unexpected deflations are associated with recessions, though causality often goes the other way, as in 2008 and 2020. But if everybody knows the Fed is committed, indeed legally bound, to slowly bring prices back to their previous level, or inflation back to a long-term average, people can fit that in their plans. The expected inflation term of the Phillips curve can move, not just the unemployment term. (The Phillips curve says that inflation equals expected inflation plus the effect of output or unemployment.) </p><p>Moreover, supply- and technologically-induced deflation, goods getting cheaper as wages stay the same, is fine. We’ve seen that in electronics, and AI may bring it more widely. Alan Greenspan reportedly favored “strategically” returning to zero inflation, and I think what he had in mind may be letting such technological deflation take its course. </p><p>In the 19th century, the US had slow steady deflation, as it brought the greenbacks back to gold parity. It was a period of strong growth. (Yes, there were some banking panics, but that’s another issue.)</p><p>Steady prices and a clear price level or average inflation mandate also implies a commitment by Congress to repay debt without inflation. In turn, that helps to remove fiscal pressures for inflation.  </p><p>The people want steady prices.  I think they have some centuries-old wisdom that the Fed, and Congress who gives the Fed its mandate, might remember. </p><p><em>Update: </em></p><p>A reader asks “it seems like you are advocating for a return to the gold standard as a way to control inflation. Would that be an accurate interpretation?” </p><p>Answer: No! Gold won’t work for the modern US economy. Inflation was very unstable under gold, though prices slowly came back to their original level. The price of Gold today is very volatile. That suggests that if we fix the dollar to gold, we’d get huge swings in inflation. However, since we no longer use gold coins, the tie between gold price and other prices we care about is gone. So I think pegging the dollar to gold would peg the gold price, but other prices would wander away. Finally, gold failed horribly in 1933. Gold is a good precommitment against inflation, but if deflation breaks out, the government is committed to raising taxes and cutting spending to redeem bonds in their gold value. Thus, big and undesired deflations can break out. I would like via a CPI standard to emulate the good parts of the gold standard without these defects.</p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/affordability-trilogy-part-2?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/affordability-trilogy-part-2?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/affordability-trilogy-part-2" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

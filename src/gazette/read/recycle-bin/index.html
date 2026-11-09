@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recycle Bin · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>能源 · 宏观</div>
+    <h1 class="title">Recycle Bin</h1>
+    <div class="byline">
+      <span class="author">Doomberg</span><span class="dot">◆</span>
+      <span class="src"><a href="https://newsletter.doomberg.com/p/recycle-bin" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-04 · 543 words</span>
+    </div>
+    <div class="body"><p><em>“To create greater convergence, we need more integration.”</em> – Emmanuel Macron</p><p>The global energy behemoth that is the US natural gas industry continues its relentless growth, making a mockery of pessimistic forecasters. One struggles to properly frame the awesome scale of what is transpiring for a lay audience, but let’s try: In 2026, the US is forecast <a href="https://www.reuters.com/legal/litigation/us-energy-firms-produce-record-natgas-2026-global-demand-soars-2026-10-27/" target="_blank" rel="noopener">to grow</a> natural gas production by more than the combined total output of the entire European Union (EU). In 2027, it is anticipated to do so again. Appalachian supply is so abundant that spot prices are running at roughly $1-2 per million BTUs, or $6-12 per barrel of oil on an energy-equivalent basis—less than the daily price swing on Brent crude contracts during these turbulent times.</p><figure><a href="https://substackcdn.com/image/fetch/$s_!QyOv!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88d5c96b-c09c-48f2-824e-042fbf8b5e36_1088x788.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!QyOv!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F88d5c96b-c09c-48f2-824e-042fbf8b5e36_1088x788.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Huge bounty | EIA</figcaption></figure><p>In addition to driving wild improvements in drilling technology, these cutthroat prices are also compelling a wave of industry consolidation. Last week, EQT—a company we expect to profile in November’s <a href="https://newsletter.doomberg.com/p/doomberg-pro" target="_blank" rel="noopener">Pro Tier</a> deep dive—announced its intent to <a href="https://www.reuters.com/business/energy/eqts-acquisition-range-underscores-race-dominate-us-natgas-market-2026-10-28/" target="_blank" rel="noopener">gobble up</a> one of its pure-play competitors:</p><blockquote><p>“<em>EQT’s acquisition of rival producer ​Range Resources this week marks the latest consolidation in the natural gas industry, as producers are scrambling to lock in supply to feed growing ‌demand for liquefied natural gas exports and power demand.</em></p><p><em>Canonsburg, Pennsylvania-based EQT said on Monday it will buy Fort Worth, Texas-based Range Resources in a $13 billion all-stock deal that will create the nation’s biggest gas producer. EQT is the second-largest natural gas producer in the US…</em></p><p><em>The deal underscores how top US gas producers are racing to consolidate ahead of what ⁠they expect will be a step-change in domestic demand, driven by new LNG [liquefied natural gas] export terminals coming online and a buildout of gas-fired power plants to supply electricity-hungry data centers—even as a near-term glut has depressed prices and forced operators to curtail output.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!Fvl3!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1a4984ec-cae9-43fc-baef-d0d60e0bf3d2_2048x1365.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!Fvl3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1a4984ec-cae9-43fc-baef-d0d60e0bf3d2_2048x1365.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Big business | EQT</figcaption></figure><p>There is little doubt that gas demand for LNG-exporting magic machines will materialize, and progress on the wave of new terminals being thrown up along the US Gulf Coast can be tracked closely. Whether the electricity-hungry data centers get built is another question, and confidence in the bankability of those future flows was undoubtedly shaken by the rout in artificial intelligence (AI) equities last week.</p><p>One gating factor for fulfilling data center demand is a chronic shortage of the gas-fired power turbines required to convert the fuel into electricity. The major suppliers of these sophisticated contraptions are sold out for years, with some reports stating that new orders placed today won’t be filled until 2030. Even some <a href="https://www.tradingview.com/news/benzinga:238f4afea094b:0-ge-vernova-ceo-says-gas-turbine-prices-are-up-50-and-customers-are-booking-into-2032/" target="_blank" rel="noopener">delivery slots for 2032</a> are being snapped up. In the grand AI race, time is often more important than money, and without the engines available to burn abundant natural gas supplies, the volumes of shale gas coming online might remain excessive.</p><p>Unless, of course, alternatives can be found to fill the demand gap more quickly. Might old engines do the trick? As it turns out, there are tens of thousands of used aircraft engines on planes and in hangars the world over, and—with varying degrees of effort, time, and money—these workhorses can be repurposed for the task. Let’s head to the airport and learn why flying is about to become even more expensive.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://newsletter.doomberg.com/p/recycle-bin" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diversification All the Way Down · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Diversification All the Way Down</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/diversification/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-16 · 1134 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Diversification has been called the only free lunch in investing, but many portfolios are less diversified than they appear because equity risk dominates. In addition, within equities, a broad portfolio is often dominated by a single factor, and many factor portfolios are still built around a single style.</p>
+
+
+
+<p class="wp-block-paragraph">To address this issue <a href="https://protect.checkpoint.com/v2/r01/___https:/papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=12459628___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6ZjQ3YTpjNjkwNWMwMmMwNWVhNzAyMTMxZTJlYzRiNmM0MWViMzI3ZThkYmU1YWFmNWZmNzNhNWU2Njc5ZWE3MDdlNjQyOnA6VDpO" target="_blank" rel="noopener">Anthony Renshaw</a>, <a href="https://protect.checkpoint.com/v2/r01/___https:/papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=12459629___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6ZmIzYTplZjE0ZDdiNjYyZjMzNmZmMjE5YzI0NjRkMDE2NjAyNTE0MDYwMjNiZWZiYzM1MGU5NWViOGIzMTM3YzU2NjYyOnA6VDpO" target="_blank" rel="noopener">Yurong Gu</a>, <a href="https://protect.checkpoint.com/v2/r01/___https:/papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=12459630___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6YWJmYzo2MWY4NDEyM2VlMGU3YjgzZDQ4YzgzODRlOTdiZTY5NDExNGE4ZGI1YmU2OGI3NDc2MDFhYmE2OTg0MGQ5ZThmOnA6VDpO" target="_blank" rel="noopener">Matt Candar</a>, and <a href="https://protect.checkpoint.com/v2/r01/___https:/papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=94010___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6ZWUzYzo5OTNiYzQ0NDczOTYxNmM3ZWJlYjYwNzZlNWM1NTQ1MzJjYWJhZjM3NTc1YjhhN2UxNjVmZmZjMWYyNjc4NDgwOnA6VDpO" target="_blank" rel="noopener">Andrew Ang</a>, authors of the July 2026 paper “<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7156278" target="_blank" rel="noopener">Diversification all the Way Down</a>: Multifactor Investing Within Factors, Across Factors and Across Time, examined a multifactor portfolio that applies diversification at multiple levels.</p>
+
+
+
+<ul class="wp-block-list">
+<li>Within factors, with each factor being a composite of several signals so that no single metric dominates.</li>
+
+
+
+<li>Across factors, with four factors being combined and no one factor allowed to dominate.</li>
+
+
+
+<li>Across time, with weights on factors being adjusted by an ensemble of three timing models so that no single model dominates the tilts.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">In this way, they diversify signals, diversify the factors, and diversify the timing decisions.</p>
+
+
+
+<p class="wp-block-paragraph">The central lesson of this paper is that diversification is not a one-time decision. It should be applied within factors, across factors, and even across time if the goal is to build a more robust multifactor portfolio. That may sound obvious in theory, but in practice many factor portfolios still lean heavily on a single signal, a single style, or a single market regime.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>What They Examined</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>They split value into two sleeves: cyclical value, based on traditional valuation ratios such as book-to-price and earnings yield, and enhanced value, which uses measures tied to economic profit, intangible capital, and free cash flow.</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-fusion-1200"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/Exhibit-1-1198x457.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<ul class="wp-block-list">
+<li>They also broaden momentum broaden momentum beyond price trend to reduce reliance on any one momentum signal—they include idiosyncratic momentum, short interest, hedge fund positioning, analyst revisions, and economic-profit momentum.</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-fusion-800"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/Exhibit-4-799x237.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<figure class="wp-block-image size-fusion-800"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/Exhibit-4-part-two-800x707.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<ul class="wp-block-list">
+<li>Instead of relying on one factor, they combine value, momentum, and quality (using the <a href="https://protect.checkpoint.com/v2/r01/___https:/help.arcana.io/en/articles/15014510-axioma-united-states-equity-factor-risk-model-us5-1_th-methodology-handbook-pdf___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6MjE0OTo4MWJkYjI3NmIwMWVmOWFhNTQ4MTA5MjRkZWFiMGIzNmEwNzM2ODA4OTQ2NTMxOTU4ZGZhYWNiZGQ4MWM3ODA1OnA6VDpO" target="_blank" rel="noopener">Axioma US5.1 Profit Quality factor</a>, a composite of profitability, cash flow strength, operating efficiency, and accruals) into a single portfolio with balanced weights and portfolio constraints designed to keep beta and tracking error under control. The point is not to maximize exposure to any one style, but to let multiple factor premia work together.</li>
+
+
+
+<li>They excluded size and low volatility because those factors would have introduced too much unintended beta exposure relative to the tracking-error budget—small stocks have betas well above 1 and low volatility stocks have betas well below 1.<a href="https://protect.checkpoint.com/v2/r01/___https:/ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/55351302/8a376b9f-059e-4790-ac76-76ca1dffc979/Diversification-all-the-way-down-Multifactor-investing-within.pdf?AWSAccessKeyId=ASIA2F3EMEYE5VIIHS2X&Signature=9K3hBzPTf6TfDZp7Avnu%2BScDTFU%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEBMaCXVzLWVhc3QtMSJHMEUCIGsAGrAe8QnVzQ6HKygDMjllf4tG70cwQlRYU47biKu4AiEAmkW%2Fy9kSbdMd%2FnUMQrMCqIr2jYuxfgE%2BAY2y9LC%2FkpAq%2FAQI3P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARABGgw2OTk3NTMzMDk3MDUiDEv40dBNp2L8rd2wuirQBBkh4msYjDwFKQg%2BeI82wmv7weUFIGUhGB%2BAZzQi4dwsLHldWKIdDWDk5iecMNPDucX1HPwm911ziL0Dk3LsoX1zHz%2BYECD5Qajuz5mhWTiSrl6N%2BhWBLIaMgrHtNGMh3nXiMmg6ewevrjjF3lldm6GKgVedWX1b%2F3QKp81b8oL56bD5jO4ivMBvNNYZfUNO26XmhboY7ALkrDFdn0nR7oeyiKGsZkf2pvm4OfDCP088WCL7PkfEuOmNwgnZK6IJfyV3BERswarAwgqvaxtpGdXGWbuyda28j1E6A7kfLE%2F5%2FrhTGTeoQpVR1v1%2BvQKl5PPA4sguQLUcL3rmWI68l5fZEU1EqtTr1ynCIlW0C6o86RuwnGJy5HxFRLRGgR%2FEG%2FzfgR4mSU%2BdFPQb9w28GbGNJeVsWCL5ZaoNRd8GJO6qC%2FHdqwmzlhd3ftMxzRG83LwSygkcvs%2F7eGbjr23FyuMsPhcTyP0Vq9pMHSJ4044RFm%2F3fIYisj5krRYfvLlfluUjYO%2BIJjJ1rcEHazYipSU8VIBFhlZBXQ1lZEICOhA2fhCL4G9TfQ1jp258RGZMOcFtgubzKHRTOr%2F8xdPSZtXCYn7FjpQPEauox1htr3tQgKiHPXjAn%2ByMP9CI7S1iVI%2F%2FIqL3MlMPsK%2B6aEqgPPIUtMYj2h6wDge3N7mzwgO%2Bkx1sHm0QsWG4cg%2Bio1%2F%2FGniNLKGVFt6mnjFk3bKxsdAaEvZQQn2S80TE1G%2BIgLs0tTSQhXCci14skZQvZ0rzZr9u0EYHTMr9PczVjUY%2BEKwwiZaE0wY6mAFKxTNewBLXxmCH6wwtNot0yx0OmyNPJpg0pqXCau9kzS3bHZh6URBM7qdAdaqJn2Q0%2FEl9n7x4FF8%2BalqOnKygfxDFqR4GvL1mZsapzqEx5lUBEi8IRP9hoSXsF91FBdBwBrMlxNTRa%2Fggc3x%2Bo3lwJeIoIZRhV0BuklmTtX4DP%2BFSDxjOWKqrTgEHs06lWkviVnlzm5CqCg%3D%3D&Expires=1784748252___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6ODRmYTo0OThlNTRkMDUyMDZhNTZhODcwNmM5Mzk2MzRhZWEwOTU3ZGYxZDZmMWE0YWY5Y2MwZmNjNWViZDczMmQzYmQyOnA6VDpO" target="_blank" rel="noopener"></a></li>
+
+
+
+<li>They introduce a modest timing overlay within tight limits. They averaged bounded tilts from three timing models built on different information sets, with each model able to double or halve a factor’s nominal weight, but not eliminate it.</li>
+
+
+
+<li>They then examined a US multifactor portfolio built from cyclical value, enhanced value, momentum, and quality, benchmarked to the STOXX US Universal Index over a long sample from 2004 through May 2026. The portfolios are rebalanced quarterly, target a 1% ex ante tracking error, have a 5% quarterly one-way turnover cap, and apply concentration and industry constraints to keep the portfolio diversified and benchmark aware.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"><strong>Key Findings</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>The more nuanced value definition mattered as enhanced value behaved differently from cyclical value and was more resilient during long stretches when traditional value struggled. In other words, traditional valuation ratios and measures based on <a href="https://alphaarchitect.com/performance-of-the-value-factor/" target="_blank" rel="noopener">intangible assets</a> and economic profit are not interchangeable and combining them gives a fuller picture of value exposure.</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-fusion-1200"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/Active-annual-return-1199x415.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<ul class="wp-block-list">
+<li>The multifactor portfolio outperformed each of its individual sleeves on a risk-adjusted basis. Over the full sample, the combined portfolio produced an <a href="https://protect.checkpoint.com/v2/r01/___https:/en.wikipedia.org/wiki/Information_ratio___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6NThlNDpkMmJhNGQ4ZDI0OWI3NjZmMWJlMGQ4NDJjMTVhN2JkZmRmNzZhODg4YWQ2NzBiYzU5ODE3NjhiNjM1MjE2NTg1OnA6VDpO" target="_blank" rel="noopener">information ratio</a> (the active return of an investment compared to a benchmark index relative to the volatility of the active return) of 1.00, ahead of enhanced value at 0.94, quality at 0.73, momentum at 0.65, and cyclical value at -0.20—making the case for combining factors rather than betting on one favorite.</li>
+</ul>
+
+
+
+<ul class="wp-block-list">
+<li>The factor sleeves were weakly correlated, and that low correlation was the engine of the combined portfolio’s success.</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-fusion-800"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/Momentum-799x204.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+<ul class="wp-block-list">
+<li>Factor leadership rotates over time. The factor that looks weakest in one window may be the strongest in another. That rotation is exactly why diversification matters.</li>
+
+
+
+<li>Timing might help, but only modestly. While the dynamic overlay improved performance over the most recent three-year period, it added little over the full sample. That suggests timing is best viewed as a small enhancement to a diversified core, not a substitute for it.</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-fusion-1200"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/backtest-results-1199x688.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Investor Takeaways</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>Factor investing should be built with humility. No single factor, signal, or valuation measure captures the full story. Investors are better served by combining imperfect proxies than by assuming one measure is enough.</li>
+
+
+
+<li>Traditional value and enhanced value capture different exposures, and both can be useful. Investors who want broader value exposure may be better off with a mix that includes profitability, cash flow, and intangible capital alongside classic cheapness metrics.</li>
+
+
+
+<li>Diversification across factors is not just nice to have; it is a source of robustness. Momentum, quality, and value do not always win together, but together they can create a smoother and more reliable return stream than any one sleeve alone.</li>
+
+
+
+<li>Factor timing should be used sparingly (Cliff Asness’ “<a href="https://protect.checkpoint.com/v2/r01/___https:/www.aqr.com/Insights/Perspectives/Sin-a-Little___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6ZTIxNDoyYjIxZWU2ZDM3YjMyYTkyNDQ0NDRlYmM3NGQ4MGExOTBkMmQ5ODIxYmVhYjA4OGQxZDgzNmI3ZjNiMWI0MjMwOnA6VDpO" target="_blank" rel="noopener">sin a little</a>”). The evidence in this paper supports small tilts when conditions are favorable, but it does not support abandoning diversification in favor of forecasting. That is a useful discipline for both institutional and individual investors.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"><strong>Conclusion</strong></p>
+
+
+
+<p class="wp-block-paragraph">This paper’s real contribution is that diversification can be layered, and that each layer adds resilience. First diversify the signals inside a factor. Then diversify the factors themselves. Then, if desired, allow for modest tactical tilts without making the portfolio dependent on them.</p>
+
+
+
+<p class="wp-block-paragraph">The point is not to predict the next winning style, but to build a portfolio that can withstand style rotations, regime shifts, and noisy signals without requiring perfect foresight.</p>
+
+
+
+<p class="wp-block-paragraph"><em>Larry Swedroe is the author or co-author of 18 books on investing, including his latest</em> <a href="https://protect.checkpoint.com/v2/r01/___https:/www.amazon.com/Enrich-Your-Future-Successful-Investing/dp/1394245440/ref=sr_1_1?crid=3RSLEXNWFJGYP&dib=eyJ2IjoiMSJ9.R1VwlsG9zUQwWdwscc3NP8mrjk7yvpOsc8gS-IQr_P9YMyeB6-FnVz5B0l6LyVkJ.cgZAa-TYyIIkglIdnidRW0U0kgBunicjH2ys3ENuj_E&dib_tag=se&keywords=enrich+your+future+larry+swedroe&qid=1784154596&sprefix=Enrich+Your+Future%2Caps%2C147&sr=8-1___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjZhZjk3YmM3MDgwMDllNzQ4NTFiNzdhMDViZDg2OTMzOjc6MjgxNToxMTg4ZWM3NjdmMmNmNWM1MzIxNTE1YTE3Y2MwYTg0NTcyNjA0YTk2ODdjMzFmYjJiZTYwNDAyYTM4NTk1MGJlOnA6VDpO" target="_blank" rel="noopener"><em>Enrich Your Future</em></a><em>. He is also a consultant to RIAs as an educator on investment strategies. He has spent decades helping advisors and investors apply the evidence from academic finance to real-world portfolios. This article is for informational and educational purposes only and should not be construed as specific investment, accounting, legal, or tax advice.</em></p>
+<p><a href="https://alphaarchitect.com/diversification/" target="_blank" rel="noopener">Diversification All the Way Down</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/diversification/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

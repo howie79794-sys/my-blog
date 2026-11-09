@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Minor Detail · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>能源 · 宏观</div>
+    <h1 class="title">A Minor Detail</h1>
+    <div class="byline">
+      <span class="author">Doomberg</span><span class="dot">◆</span>
+      <span class="src"><a href="https://newsletter.doomberg.com/p/a-minor-detail" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-13 · 612 words</span>
+    </div>
+    <div class="body"><p><em>“What it lies in our power to do, it lies in our power not to do.”</em> – Aristotle</p><p>In mid-July, the pro-Ukrainian open-source feeds we monitor lit up with reports of a major drone assault on Russian-connected ships in the Sea of Azov. Over the span of roughly ten days, dozens of commercial vessels were allegedly hit, causing significant damage to several and prompting a major disruption of that important commercial transportation vector. Although one must take such primary-source data with some skepticism, sufficient video evidence emerged to lend weight to the claims. This, along with rueful laments in several pro-Russian channels, was enough to convince us that a potentially important development was in progress.</p><figure><a href="https://substackcdn.com/image/fetch/$s_!0Lgc!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F05449c28-364d-4483-afcb-34ca033fc204_1600x1050.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!0Lgc!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F05449c28-364d-4483-afcb-34ca033fc204_1600x1050.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Important chokepoints | Britannica</figcaption></figure><p>Among the vessels targeted were, notably, several carrying Russian grain exports. Since shortly after the war began in 2022, a fragile détente has largely held against targeting food supplies intended for global consumption, to the loud and bitter complaints of many Russian hardliners. In their telling, huge volumes of Western weapons have landed over the course of the war at the port of Odessa—Ukraine’s primary outlet for supporting its agricultural exports—to be used in killing Russians on the battlefield. Russian President Vladimir Putin’s tolerance of the situation has been a source of frustration and bewilderment.</p><p>It didn’t take long for Putin to use the cover of Ukraine’s attacks on grain cargoes to reverse his temperance. Over the subsequent weeks, a massive and devastating campaign was launched that targeted commercial ships coming to and from Ukraine’s ports as well as vast swaths of critical port infrastructure. As a result, the Black Sea is all but sealed off from Ukraine, turning the country into a <a href="https://responsiblestatecraft.org/odessa-ports-ukraine-russia/" target="_blank" rel="noopener">landlocked state</a>:</p><blockquote><p>“<em>The near-term effects have been disturbingly clear. Since July 22, the Russian military has effectively closed the Ukrainian port complex in and around Odessa to all shipping. The loss of its remaining deep-water ports is already having a devastating effect on Ukraine’s agricultural exports — the backbone of its economy — which officials warn may plummet by 50% in the coming months because alternative land, rail, and river routes have much less capacity and are much more costly.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!rq76!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc2d3a441-4316-4150-ab5d-0add94daf993_2770x1546.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!rq76!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc2d3a441-4316-4150-ab5d-0add94daf993_2770x1546.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Fish in a barrel | Getty</figcaption></figure><p>Adding intrigue, and almost certainly the real reason Russia acted so swiftly and with disproportionate force, was news of a rather unusual weapons deal brokered by the US government. We turn to the <em>Kyiv Independent</em> for <a href="https://kyivindependent.com/ukraine-buys-70-atacms-missiles-other-us-weapons-from-turkey-in-major-defense-package/" target="_blank" rel="noopener">the details</a>:</p><blockquote><p>“<em>Ukraine has purchased a significant package of US-made defense equipment from Turkey, including 70 long-range Army Tactical Missile Systems (ATACMS), according to U.S. congressional records.</em></p><p><em>The weapons transfer is expected to be initiated in late August.</em></p><p><em>The package includes 70 M39 ATACMS missiles, 12 M270 multiple-launch rocket systems (MLRS), over 2,000 cluster munitions, and 47,000 howitzer rounds, according to a notice from the US State Department recorded in congressional minutes on Aug. 6.</em>”</p></blockquote><p>This string of news items does not merely capture the latest pushing and shoving in a long-in-the-tooth war that most wish they could see the other side of. With Turkey entering the fray, the dots here connect in a way that foretells substantial risk to Europe’s already weakened position ahead of what looks likely to be a historically challenging winter. To state it plainly, escalating tensions between Russia and Turkey are the last thing Brussels needs, even if few in the European Commission realize it. With the flick of a switch, Putin will soon be in a position to literally turn out the lights across Europe, and Turkish President Recep Tayyip Erdoğan might well provide the perfect excuse for him to throw it. Let’s build the case.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://newsletter.doomberg.com/p/a-minor-detail" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

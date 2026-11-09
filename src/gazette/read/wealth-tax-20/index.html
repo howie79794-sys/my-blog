@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wealth Tax 2.0 · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Wealth Tax 2.0 </h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/wealth-tax-20" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-20 · 1276 words</span>
+    </div>
+    <div class="body"><p>Senator Bernie Sanders and Representative Ro Khanna just introduced a bill proposing a permanent national 5% wealth tax on billionaires, along with an ambitious spending program for the results. (<a href="https://www.sanders.senate.gov/press-releases/news-sanders-and-khanna-introduce-legislation-to-tax-billionaire-wealth-and-invest-in-working-families/" target="_blank" rel="noopener">Press release</a>, <a href="https://www.sanders.senate.gov/wp-content/uploads/MakeBillionairesPayTheirFairShareAct.pdf" target="_blank" rel="noopener">bill</a>, <a href="https://www.sanders.senate.gov/wp-content/uploads/Wealth-Tax-Bill-Summary.pdf" target="_blank" rel="noopener">summary</a>.) It’s permanent. The fig leaf of California’s “just this once” tax is off. </p><p>What are the effects of a wealth tax? Is it possible for the government to spend billionaires’ wealth without destroying the companies and jobs that produce their, and our wealth? To think about that we need to understand incentives, budget constraints, and equilibrium.</p><p>Incentives: If you invest an extra dollar today, how much extra do you get in a year? A 5% wealth tax drags down the rate of return by 5 percentage points. If you earn 10% on your investments, but then pay a 5% wealth tax, you only get a 5% after-tax rate of return. Starting from a 10% return, a 5% wealth tax is the same as a 50% tax on interest, dividends, and capital gains.</p><p>And that’s likely an understatement. 10% is an optimistic forward-looking return. Disincentives depend on the total distortion, including all taxes, not just one tax at a time. The wealth tax applies on top of corporate taxes, property taxes, and taxes on dividends, interest, and capital gains. Inflation acts as another wealth tax, running 3% a year now. My guesstimate is that the government takes all the return and more.</p><p>Incentives matter, even to billionaires, and especially to would-be billionaires. Should they bet the farm on a new venture, investing time and effort as well as their money? Should young Elon Musk take his $175 million PayPal payout and retire on it, or plow it all into electric cars and rockets? We often think of saving vs. consumption here, but I think we underestimate the disincentive to take <em>risk</em> and invest effort that comes from progressive taxation. If the government taxes away the upside to investing, people take less risk. High-risk investments produced America’s prosperity. Low-risk, low-reward, small-scale European investments produce European stagnation.</p><p>Budget constraints, equilibrium: Billionaires do not have a pot of gold that can be costlessly handed out. Billionaires’ wealth stays re-invested in companies. Redirecting their wealth to social spending lowers national investment and raises national consumption, dollar for dollar. That’s not even hidden; it’s the point. But less investment mechanically means less capital for the future, fewer businesses, less productivity, lower wages. </p><p>In equilibrium, less investment also drives up interest rates as people with profitable ventures look for investors.  Companies could finance investment with foreign money, but that raises the trade deficit, which is at least not a popular idea in political circles. We also have to pay back the foreigners some day. And maybe we don’t want China owning all our businesses.</p><p>Avoidance. Elon Musk’s $42 billion tax bill pays for a lot of tax lawyers, accountants, and lobbyists. Take businesses private, and argue with the IRS about what they’re worth. Hide individual ownership and value in complex cross-linkages, trusts, and LLCs. Structuring businesses to avoid taxes rather than generate profit might be the most insidious effect of high taxation.</p><p>We have a wealth tax, the estate tax. It tries to charge 40% of wealth once in a generation, or about 1% a year. (You pay double if you pass it to grandkids, so really about once every 30 years.) The estate tax attracts a beehive of perfectly legal avoidance. (Avoidance, not evasion. “Tough enforcement” and audits do nothing here.) Though the estate tax applies above a lowly $11 million, the CBO reports that it yields only $18 billion, or 0.1 percent of GDP. <a href="https://www.nber.org/system/files/working_papers/w34170/w34170.pdf" target="_blank" rel="noopener">A recent study</a>—by wealth tax backers—reports that the estate tax collects only three to four hundredths of a percent (0.03%–0.04%) annually of the Forbes 400 wealth, not 1% or so.</p><p>The government is broke, you might say. It needs new revenue to lower the deficit, pay down the debt, build infrastructure and fund military investment. Not a chance. The carve-up-the-golden-goose bill also includes the Door-Dash takeout order. It includes “a $3,000 direct payment to every man, woman and child living in a household making $150,000 or less.” $1.1 trillion for Medicaid and Obamacare subsidies. Free dental, vision and hearing. $856 billion of government-provided homes to “abolish homelessness.” A childcare entitlement. A minimum salary for teachers. And so on. This is proudly a bill to turn investment into consumption.</p><p>Economists Emanuel Saez and Gabriel Zucman offer an “economic analysis,” on Sander’s website, and on University of California letterhead. Do they rebut any of this? No. They don’t mention economic disincentives. They don’t mention the shift from investment to consumption. They don’t address the obvious question: How do we eliminate billionaire wealth but sustain the economy those billionaires created? They just add up, that if everyone sits still, the tax will cut billionaire wealth in half in 15 years. They thus validate my suspicion of a deeply negative rate of return. And they thus, inescapably, say that the wealth tax cuts by the same amount the value of the companies that produce that wealth.</p><p>If we get different answers, it usually means that we’re asking different questions. And we are. Sanders’ press release starts with “the urgent need to confront the obscene level of income and wealth inequality…” and that “so few people [hold] so much … power.” Saez and Zucman starts with the curious assertion that “democracies become oligarchies when wealth becomes too concentrated,” and continue “the billionaire wealth tax is the most direct policy tool to curb the growing concentration of wealth.” Well, the French guillotine or a socialist nationalization would be more direct, but you get the point.</p><p>The wealth tax is not about economics at all. It’s about envy, destroying billionaires. And it’s about grabbing their power for the government. They want to get rid of billionaires even if it impoverishes the rest of us. </p><p>Another day, we can debate causality. I think they have it backwards. Oligarchy causes wealth concentration in Russia.  Immense money and power concentrated in the US government generates crony capitalism. Free market wealth did not install Putin, nor did it create US crony capitalism under the regulatory state. </p><p>But now you know what the wealth tax is really about. And why it’s not going away.</p><p>[This is another essay written for the “Grumpy economist weekly rant”, where it will come out sooner or later. Again, I presume most of you either read or listen so the repetition will not be too annoying.] </p><p><em>Update:</em></p><p>I should clarify that the disincentive to risk, as opposed to saving, comes from progressivity. This tax is only progressive (so far) at the $1 billion boundary. So it only further disincentivizes risk when that boundary is in sight. </p><p>What’s the right answer? A consumption tax, preferably (in my view) via a VAT, but the exact form doesn’t matter all that much. Getting rid of the income tax machinery also gets rid of all deductions and exclusions in one fell swoop without having to fight about each one: employer provided health insurance deduction, home mortgage deduction, energy subsidies via tax deductions, and the whole non-profit mess. It can be progressive, or do your redistribution by writing checks. </p><p>What’s the right question? There is only one question — long run growth. Redistributing Rockefeller’s wealth would not have made your family better off. We’re all immensely better off because of long-run growth. Even if your concern is entirely at the lower end of the economic spectrum, long-run growth is the question. Ask of any policy, what does this do to long-run growth? For the wealth tax, not much! </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/wealth-tax-20?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/wealth-tax-20?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/wealth-tax-20" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

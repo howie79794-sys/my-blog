@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VIX and Trend Following Revisited: Nearly a Decade of Out-of-Sample Evidence · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">VIX and Trend Following Revisited: Nearly a Decade of Out-of-Sample Evidence</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/vix-trend-following-out-of-sample/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-14 · 4883 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">In September 2017, Alpha Architect published <a href="https://alphaarchitect.com/vix-and-trend-following-the-killer-combo/" target="_blank" rel="noopener">VIX and Trend-Following, the Killer Combo?</a>, an empirical examination of whether volatility information could improve a traditional trend-following allocation model. The central idea was intuitive: market volatility may contain useful information about how quickly an investor should measure momentum. A shorter momentum window may react more effectively when volatility rises, while a longer window may provide a more stable signal during calmer markets.</p>
+
+
+
+<p class="wp-block-paragraph">The original analysis, however, was necessarily based on the historical backtest evidence available at the time. Nearly nine years have now passed since its publication. This creates a useful opportunity to revisit the original hypothesis using a period that was entirely unavailable when the initial article was written.</p>
+
+
+
+<p class="wp-block-paragraph">This case study evaluates the strategy from August 2017 through June 2026. The test period includes the COVID volatility shock, the inflation and interest-rate shock of 2022, several rapid equity-market reversals, and a variety of calmer market environments. More importantly, the period functions as a genuinely out-of-sample extension of the original research idea.</p>
+
+
+
+<p class="wp-block-paragraph">The purpose is not to reproduce the original index backtest exactly. Instead, the analysis uses a transparent ETF proxy implementation based on SPY, VXF, EFA, AGG, and BIL, with the volatility regime derived from the ^VIX index. The practical question is straightforward: did a VIX-dependent momentum lookback continue to add value after the original research was published?</p>
+
+
+
+The Research Question
+
+
+
+<p class="wp-block-paragraph">Traditional momentum strategies typically use a fixed lookback period. A portfolio ranks assets according to their trailing returns and allocates capital to the strongest performers. The same measurement window is applied regardless of whether market volatility is low, elevated, or extreme. (For background on why simple trend rules have historically helped manage tail risk, see <a href="https://alphaarchitect.com/avoiding-the-big-drawdown-with-trend-following-investment-strategies/" target="_blank" rel="noopener">Avoiding the Big Drawdown with Trend-Following Investment Strategies</a>.)</p>
+
+
+
+<p class="wp-block-paragraph">The alternative model tested here adjusts the momentum window according to the prevailing VIX regime.</p>
+
+
+
+<p class="wp-block-paragraph">When volatility is low, the model uses a slower momentum signal. When volatility becomes elevated, the model shortens the lookback period. During the most extreme volatility regime, it reacts even faster.</p>
+
+
+
+<p class="wp-block-paragraph">The intuition is that market conditions may affect the appropriate speed of a trend-following signal. A slow signal can help filter noise during stable periods, while a faster signal may adapt more quickly when market leadership changes abruptly.</p>
+
+
+
+<p class="wp-block-paragraph">Four portfolios are evaluated.</p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 selects the single highest-ranked asset using the VIX-dependent momentum window. VIX Top 2 applies the same regime-sensitive logic but allocates equally across the two strongest assets.</p>
+
+
+
+<p class="wp-block-paragraph">The benchmark portfolios, 10M Top 1 and 10M Top 2, use a constant ten-month momentum window and select either one or two assets.</p>
+
+
+
+<p class="wp-block-paragraph">Signals are calculated at the end of each month and used to determine the portfolio for the following calendar month. This signal-return separation prevents the strategy from using information that was unavailable at the time of allocation.</p>
+
+
+
+Building the VIX Regime Signal
+
+
+
+<p class="wp-block-paragraph">Each signal month is classified as Green, Yellow, or Red. The regime determines which momentum lookback is used to rank the ETF universe for the following month.</p>
+
+
+
+<p class="wp-block-paragraph">Green represents the lowest-volatility environment and uses the slowest momentum window. Yellow represents an elevated-volatility environment and uses a faster momentum signal. Red represents the highest-volatility environment and uses the fastest lookback.</p>
+
+
+
+<p class="wp-block-paragraph">Most of the out-of-sample period falls into the Green and Yellow regimes.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/vix-regime-distribution.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph">Green accounts for 57 of the 108 classified signal months, representing 52.78 percent of the sample. Yellow accounts for 48 months, or 44.44 percent. Only three months are classified as Red.</p>
+
+
+
+<p class="wp-block-paragraph">There are 108 classified signal months from July 2017 through June 2026, but only 107 completed strategy return months from August 2017 through June 2026. This difference is expected rather than an alignment error. The June 2026 signal is available, but its corresponding July 2026 return month is not yet included in the data.</p>
+
+
+
+<p class="wp-block-paragraph">The regime timeline also shows that the classifications are persistent rather than switching randomly every month.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/vix-regime-timeline.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph">Long Yellow periods appear during 2020 and 2021 and again around the inflation and interest-rate shock of 2022. Red regimes are rare and concentrated around isolated periods of extreme volatility.</p>
+
+
+
+<p class="wp-block-paragraph">The limited Red sample is an important constraint. Results during those months may be economically interesting, but three observations cannot support strong statistical conclusions.</p>
+
+
+
+Portfolio Construction
+
+
+
+<p class="wp-block-paragraph">The investable universe contains five liquid ETF proxies covering several major asset groups.</p>
+
+
+
+<p class="wp-block-paragraph">SPY represents large-cap US equities. VXF represents US equities outside the S&P 500. EFA represents developed international equities. AGG represents investment-grade bonds. BIL represents short-term US Treasury bills.</p>
+
+
+
+<p class="wp-block-paragraph">At each month-end, the strategy calculates momentum scores for all five assets. The VIX portfolios use the lookback associated with the current volatility regime, while the benchmark portfolios always use ten-month momentum.</p>
+
+
+
+<p class="wp-block-paragraph">The Top 1 variants allocate the full portfolio to the highest-ranked asset. The Top 2 variants allocate 50 percent to each of the two strongest assets.</p>
+
+
+
+<p class="wp-block-paragraph">The allocation history shows how the VIX-dependent rule translated changes in volatility into different portfolio decisions.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/vix-top1-allocation-history.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 is highly concentrated by construction. Every month, the strategy holds one ETF. This makes the portfolio responsive to the ranking signal, but it also means that a single correct or incorrect selection can have a large effect on performance.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/vix-top2-allocation-history.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 2 is more diversified. It divides capital equally between two assets, reducing the effect of any single ranking decision. That diversification can limit losses from an incorrect selection, but it can also dilute the benefit of correctly identifying the strongest asset.</p>
+
+
+
+Out-of-Sample Performance
+
+
+
+<p class="wp-block-paragraph">The main test period runs from August 2017 through June 2026.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/out-of-sample-performance-summary.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 produced the strongest aggregate result.</p>
+
+
+
+<p class="wp-block-paragraph">Its gross compound annual growth rate was 14.59 percent, compared with 10.23 percent for 10M Top 1. After the baseline transaction-cost assumption, VIX Top 1 generated a net CAGR of 14.09 percent, while the fixed ten-month benchmark produced 9.87 percent.</p>
+
+
+
+<p class="wp-block-paragraph">The improvement was also visible in risk-adjusted performance. VIX Top 1 achieved a gross Sharpe ratio of 1.07 and a net Sharpe ratio of 1.03. The corresponding values for 10M Top 1 were 0.84 and 0.81.</p>
+
+
+
+<p class="wp-block-paragraph">Maximum drawdown was negative 11.02 percent for VIX Top 1, compared with negative 12.99 percent for 10M Top 1. The volatility-sensitive strategy therefore combined a higher return with a moderately smaller peak-to-trough loss.</p>
+
+
+
+<p class="wp-block-paragraph">The Top 2 comparison produced a substantially different result.</p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 2 generated a gross CAGR of 10.65 percent and a net CAGR of 10.30 percent. The 10M Top 2 benchmark generated 10.66 percent gross and 10.40 percent net.</p>
+
+
+
+<p class="wp-block-paragraph">The two strategies therefore delivered almost identical long-term returns. VIX Top 2 also had a slightly lower Sharpe ratio and essentially the same maximum drawdown as its benchmark.</p>
+
+
+
+<p class="wp-block-paragraph">This contrast is central to the study. The VIX-dependent lookback added meaningful value when the strategy made a concentrated Top 1 selection. The advantage largely disappeared when the portfolio diversified across two assets.</p>
+
+
+
+<h3 id="h-growth-of-capital" class="wp-block-heading">Growth of Capital</h3>
+
+
+
+<p class="wp-block-paragraph">The cumulative gross return chart shows how the strategies evolved through time.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/growth-of-capital-gross.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">All four portfolios followed relatively similar paths during the early part of the out-of-sample period. The largest separation emerged after 2020, when VIX Top 1 began compounding materially faster than the other strategies.</p>
+
+
+
+<p class="wp-block-paragraph">The shaded periods identify the COVID volatility shock from February through March 2020 and the inflation and rate shock from January through October 2022. These bands are included as visual reference points rather than causal claims. They help identify when strategy behavior changed but do not prove that the labeled events caused the return differences.</p>
+
+
+
+<p class="wp-block-paragraph">The net return chart incorporates the baseline transaction-cost assumption.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/growth-of-capital-net.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">Transaction costs reduce final wealth for all four strategies, but the overall ranking remains unchanged. VIX Top 1 still finishes substantially ahead of the fixed ten-month Top 1 benchmark.</p>
+
+
+
+<p class="wp-block-paragraph">The gap between gross and net performance is larger for the VIX strategies because their adaptive momentum windows produce more portfolio changes. This makes turnover and implementation costs an important part of the evaluation.</p>
+
+
+
+Direct Comparison with the Fixed-Lookback Benchmarks
+
+
+
+<p class="wp-block-paragraph">The paired charts isolate the comparison between each VIX strategy and its corresponding ten-month benchmark.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/vix-top1-vs-10m-top1-equity-curves.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 and 10M Top 1 frequently produce identical monthly results. Their equity curves overlap during long parts of the sample because both methods often select the same asset.</p>
+
+
+
+<p class="wp-block-paragraph">However, a relatively small number of different allocation decisions created a substantial cumulative performance gap. The VIX strategy did not outperform slightly every month. Instead, several important months had a disproportionately large effect on the final result.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/vix-top2-vs-10m-top2-equity-curves.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">The Top 2 curves remain much closer together. Their final values are nearly identical, showing that the adaptive lookback did not create a persistent performance advantage after the portfolio was diversified across two assets.</p>
+
+
+
+Drawdown Behavior
+
+
+
+<p class="wp-block-paragraph">Return is only one dimension of a strategy. A practical allocation model must also be evaluated through the depth and duration of its losses.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/drawdown-comparison.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 experienced a smaller maximum drawdown than 10M Top 1. The difference was particularly visible during the 2022 inflation and rate shock, when the fixed ten-month portfolio remained in a deeper drawdown.</p>
+
+
+
+<p class="wp-block-paragraph">The advantage was not universal. During some historical declines, VIX Top 1 and the benchmark behaved similarly, while in other periods the adaptive strategy temporarily experienced a deeper loss.</p>
+
+
+
+<p class="wp-block-paragraph">For the Top 2 comparison, maximum drawdowns were almost identical. VIX Top 2 recorded a drawdown of negative 15.09 percent, compared with negative 15.08 percent for 10M Top 2.</p>
+
+
+
+<p class="wp-block-paragraph">The VIX rule therefore did not produce a general improvement in downside protection. The observed drawdown benefit was concentrated in the Top 1 implementation.</p>
+
+
+
+Rolling Relative Performance
+
+
+
+<p class="wp-block-paragraph">A single CAGR can hide substantial changes through time. Rolling return differences help determine whether the VIX advantage was persistent or concentrated in a specific historical period.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/rolling-12m-relative-return-top1.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">Before 2020, the rolling twelve-month return difference between VIX Top 1 and 10M Top 1 was generally negative. The adaptive model then gained a large advantage during 2020 and 2021, with the rolling difference temporarily exceeding 40 percentage points.</p>
+
+
+
+<p class="wp-block-paragraph">The advantage declined after that period. It remained positive through several later windows but eventually moved below zero again near the end of the test.</p>
+
+
+
+<p class="wp-block-paragraph">This is an important qualification. VIX Top 1 did not outperform consistently across every rolling twelve-month period. A meaningful share of its long-term advantage was created during a concentrated cluster of months.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/rolling-12m-relative-return-top2.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">The Top 2 comparison is less favorable. It also produced a strong relative period around 2020 and 2021, but the advantage subsequently moved around zero and was frequently negative.</p>
+
+
+
+<p class="wp-block-paragraph">The rolling evidence confirms that the Top 2 adaptation was not reliably better than the fixed ten-month model.</p>
+
+
+
+Rolling Risk-Adjusted Performance
+
+
+
+<p class="wp-block-paragraph">The rolling 36-month Sharpe ratio provides another view of strategy stability.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/rolling-36m-sharpe-ratio.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 achieved the highest rolling Sharpe ratio during much of the period following 2020. At several points, its rolling Sharpe exceeded 1.4 while the alternative portfolios remained closer to 1.0.</p>
+
+
+
+<p class="wp-block-paragraph">The gap narrowed later in the sample. By 2025 and 2026, all four strategies had improved risk-adjusted performance, and the differences were smaller.</p>
+
+
+
+<p class="wp-block-paragraph">The chart reinforces the broader conclusion. VIX Top 1 produced a real historical advantage, but the strength of that advantage varied considerably across market environments.</p>
+
+
+
+Calendar-Year Results
+
+
+
+<p class="wp-block-paragraph">Calendar-year returns help identify the specific years responsible for the final performance difference.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/calendar-year-returns.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 materially outperformed the other strategies in 2020 and 2021. It generated approximately 42 percent in 2020 and nearly 29 percent in 2021.</p>
+
+
+
+<p class="wp-block-paragraph">The strategy also produced the strongest return in 2025.</p>
+
+
+
+<p class="wp-block-paragraph">However, it did not outperform in every year. VIX Top 1 lost more than the other portfolios in 2018, and all four strategies generated negative returns during 2022.</p>
+
+
+
+<p class="wp-block-paragraph">The long-term advantage therefore did not come from a uniformly higher annual return. It came primarily from several large positive years in which the faster volatility-dependent signal selected substantially better assets than the slower benchmark.</p>
+
+
+
+Monthly Return Diagnostics
+
+
+
+<p class="wp-block-paragraph">The monthly scatter plots compare each VIX strategy with its corresponding fixed-lookback benchmark.</p>
+
+
+
+<p class="wp-block-paragraph">Points positioned directly on the equal-return line represent months when both strategies produced the same return. This normally occurs because they selected the same portfolio.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/monthly-return-scatter-top1.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">Most Top 1 observations lie on the equal-return line. This confirms that the two strategies frequently held the same asset.</p>
+
+
+
+<p class="wp-block-paragraph">The cumulative advantage was created by a relatively small number of observations away from the line. Some represented large positive differences for the VIX strategy, while others represented meaningful underperformance.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/monthly-return-scatter-top2.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">The Top 2 observations are even more tightly concentrated around the equal-return line. This is consistent with the nearly identical long-term performance of VIX Top 2 and 10M Top 2.</p>
+
+
+
+<p class="wp-block-paragraph">The benchmark comparison table quantifies these differences.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/benchmark-comparison-table.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 produced a net CAGR improvement of 4.22 percentage points. Its gross Sharpe ratio was higher by 0.23 and its net Sharpe ratio was higher by 0.22.</p>
+
+
+
+<p class="wp-block-paragraph">Its maximum drawdown improvement was 1.96 percentage points. In this table, a positive value means that the VIX strategy experienced a smaller peak-to-trough decline than the benchmark.</p>
+
+
+
+<p class="wp-block-paragraph">Despite the substantial annualized return difference, VIX Top 1 beat the benchmark in only 13.08 percent of all return months. The two strategies held different portfolios in 24.07 percent of months.</p>
+
+
+
+<p class="wp-block-paragraph">These figures are not contradictory. During most months, both strategies selected the same asset and generated identical returns. The final performance advantage arose from the smaller subset of months when their holdings differed.</p>
+
+
+
+<p class="wp-block-paragraph">The Information Ratio of 0.46 indicates positive excess return relative to tracking error. However, the statistical tests are inconclusive. The paired t-test has a p-value of 0.1696, while the Wilcoxon test has a p-value of 0.4237. Neither meets conventional thresholds for statistical significance.</p>
+
+
+
+<p class="wp-block-paragraph">For Top 2, the net CAGR difference is negative 0.11 percentage points. The Information Ratio is only 0.01, and the statistical tests provide no evidence of a meaningful difference.</p>
+
+
+
+<p class="wp-block-paragraph">The appropriate interpretation is therefore restrained. VIX Top 1 produced economically stronger out-of-sample results, but the available monthly sample does not establish that the difference is statistically robust.</p>
+
+
+
+Which Months Created the Advantage?
+
+
+
+<p class="wp-block-paragraph">The diagnostic tables identify the five largest positive and five largest negative monthly differences.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/largest-monthly-differences-top1.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">The largest positive Top 1 difference occurred in November 2020.</p>
+
+
+
+<p class="wp-block-paragraph">The VIX strategy held VXF and gained 18.22 percent. The fixed ten-month benchmark held AGG and returned 1.21 percent. The resulting difference was 17.01 percentage points in a single month.</p>
+
+
+
+<p class="wp-block-paragraph">Another important positive month occurred in April 2022. The VIX strategy held BIL and generated a nearly flat return, while the benchmark held SPY and lost 8.78 percent. Avoiding that equity decline added 8.77 percentage points relative to the benchmark.</p>
+
+
+
+<p class="wp-block-paragraph">In January 2023, VIX Top 1 held EFA and gained 9.00 percent, while the benchmark remained in BIL and returned only 0.28 percent.</p>
+
+
+
+<p class="wp-block-paragraph">These examples show two different ways in which the adaptive model added value. In some months, it moved more quickly into a strong risk asset. In others, it moved more defensively before the fixed ten-month signal adjusted.</p>
+
+
+
+<p class="wp-block-paragraph">The same flexibility occasionally worked against the strategy. In April 2026, VIX Top 1 held EFA and returned 5.34 percent, while the benchmark held VXF and returned 9.84 percent. The adaptive strategy underperformed by 4.50 percentage points.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/largest-monthly-differences-top2.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">The Top 2 differences were generally smaller.</p>
+
+
+
+<p class="wp-block-paragraph">Diversification reduced the effect of both correct and incorrect ranking decisions. This helps explain why VIX Top 2 finished close to its benchmark despite holding a different portfolio in approximately one-quarter of all months.</p>
+
+
+
+Performance Across VIX Regimes
+
+
+
+<p class="wp-block-paragraph">The next step is to determine whether the observed advantage was associated with a specific volatility regime.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/regime-performance-table.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">During Green months, VIX Top 1 and 10M Top 1 produced identical aggregate statistics. Both generated an average monthly return of 0.70 percent, a median return of 1.62 percent, annualized volatility of 12.86 percent, and positive returns in 67.86 percent of months.</p>
+
+
+
+<p class="wp-block-paragraph">This indicates that the VIX rule did not change the Top 1 result during the Green regime. The adaptive and fixed-lookback strategies effectively behaved the same.</p>
+
+
+
+<p class="wp-block-paragraph">The difference appeared during Yellow and Red months.</p>
+
+
+
+<p class="wp-block-paragraph">During Yellow return months, VIX Top 1 generated an average monthly return of 1.62 percent, compared with 1.00 percent for 10M Top 1.</p>
+
+
+
+<p class="wp-block-paragraph">During Red months, VIX Top 1 generated an average monthly return of 4.57 percent, compared with 2.39 percent for the benchmark.</p>
+
+
+
+<p class="wp-block-paragraph">The Red result must be interpreted cautiously because it is based on only three completed return months. A high average across three observations may represent useful regime sensitivity, but it may also be heavily influenced by sample-specific outcomes.</p>
+
+
+
+<p class="wp-block-paragraph">The contribution table provides a clearer decomposition.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/regime-contribution-table.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">Green months contributed no excess return because VIX Top 1 and 10M Top 1 produced the same results.</p>
+
+
+
+<p class="wp-block-paragraph">Yellow months generated an arithmetic sum of monthly return differences equal to 29.46 percentage points. This represents 81.88 percent of the total excess return generated across all regimes.</p>
+
+
+
+<p class="wp-block-paragraph">Red months contributed 6.52 percentage points, representing the remaining 18.12 percent.</p>
+
+
+
+<p class="wp-block-paragraph">The key result is that most of the observed advantage came from the Yellow regime rather than the rare Red regime. This is important because the Yellow result is based on 48 completed return months and therefore has a broader empirical foundation.</p>
+
+
+
+<p class="wp-block-paragraph">The evidence suggests that the VIX signal was most useful during elevated but not necessarily extreme volatility. That is precisely the environment in which a faster momentum lookback may react to changing market leadership without depending entirely on a small number of crisis observations.</p>
+
+
+
+Portfolio Turnover
+
+
+
+<p class="wp-block-paragraph">Adaptive signals are not free. Changing the momentum lookback can create more frequent portfolio changes than a fixed ten-month rule.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/portfolio-turnover-comparison.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 1 had average monthly turnover of 36.92 percent, compared with 27.57 percent for 10M Top 1.</p>
+
+
+
+<p class="wp-block-paragraph">Annualized turnover was 4.43 times for VIX Top 1 and 3.31 times for the benchmark.</p>
+
+
+
+<p class="wp-block-paragraph">VIX Top 2 also had higher turnover. Its average monthly turnover was 27.10 percent and its annualized turnover was 3.25 times, compared with 19.63 percent monthly and 2.36 times annually for 10M Top 2.</p>
+
+
+
+<p class="wp-block-paragraph">The adaptive strategy therefore creates a meaningful implementation burden. Its value must be evaluated after spreads, commissions, market impact, taxes, and other <a href="https://alphaarchitect.com/trend-following-a-unique-risk-premium-explained/" target="_blank" rel="noopener">trading frictions inherent to trend-following strategies</a>.</p>
+
+
+
+Transaction-Cost Sensitivity
+
+
+
+<p class="wp-block-paragraph">The cost-sensitivity analysis applies several transaction-cost assumptions to portfolio turnover.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://alphaarchitect.com/wp-content/uploads/2026/07/transaction-cost-sensitivity.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index.</em></p>
+
+
+
+<p class="wp-block-paragraph">At zero transaction costs, VIX Top 1 has a CAGR of 14.59 percent, compared with 10.23 percent for 10M Top 1.</p>
+
+
+
+<p class="wp-block-paragraph">At 10 basis points, the corresponding net CAGRs are 14.09 percent and 9.87 percent.</p>
+
+
+
+<p class="wp-block-paragraph">At 25 basis points, VIX Top 1 declines to 13.34 percent but remains ahead of the benchmark’s 9.33 percent.</p>
+
+
+
+<p class="wp-block-paragraph">Even at 50 basis points, VIX Top 1 retains a net CAGR of 12.10 percent, compared with 8.44 percent for 10M Top 1.</p>
+
+
+
+<p class="wp-block-paragraph">The Top 1 advantage therefore survives all tested cost assumptions.</p>
+
+
+
+<p class="wp-block-paragraph">The Top 2 result is weaker. At zero cost, the strategies are almost identical. As costs increase, the higher turnover of VIX Top 2 becomes a disadvantage. Under the 50-basis-point assumption, its net CAGR declines to 8.88 percent, below the 9.38 percent generated by 10M Top 2.</p>
+
+
+
+<p class="wp-block-paragraph">The additional complexity and turnover of the adaptive model therefore appear justified for Top 1 but not for Top 2.</p>
+
+
+
+What the Out-of-Sample Evidence Shows
+
+
+
+<p class="wp-block-paragraph">Nearly a decade of new data provides meaningful support for one part of the original hypothesis.</p>
+
+
+
+<p class="wp-block-paragraph">The concentrated VIX Top 1 strategy produced a higher return, a higher Sharpe ratio, and a smaller maximum drawdown than the fixed ten-month Top 1 benchmark. Its advantage survived increasingly conservative transaction-cost assumptions.</p>
+
+
+
+<p class="wp-block-paragraph">However, the diagnostics also reveal why the result should not be treated as universal proof.</p>
+
+
+
+<p class="wp-block-paragraph">Most months generated identical returns because the VIX and benchmark strategies frequently selected the same asset. The cumulative difference was driven by a limited subset of months when the volatility-sensitive lookback produced a different ranking.</p>
+
+
+
+<p class="wp-block-paragraph">Much of the advantage was concentrated in 2020 and 2021. Rolling relative performance was not consistently positive, and the VIX Top 1 strategy moved below its benchmark during several subperiods.</p>
+
+
+
+<p class="wp-block-paragraph">The statistical tests also failed to reject the hypothesis that the monthly return differences could have occurred by chance. The economic result is meaningful, but the sample remains too limited for a definitive statistical conclusion.</p>
+
+
+
+<p class="wp-block-paragraph">The Red regime is particularly difficult to evaluate because it contains only three completed return observations. The stronger evidence comes from the Yellow regime, which accounted for more than 80 percent of total excess return and included 48 months.</p>
+
+
+
+<p class="wp-block-paragraph">Finally, the improvement did not extend to the Top 2 portfolio. Diversification reduced the effect of the strongest regime-dependent decisions, while higher turnover reduced net performance.</p>
+
+
+
+Practical Research Value
+
+
+
+<p class="wp-block-paragraph">This case study demonstrates a practical workflow for revisiting an older investment hypothesis.</p>
+
+
+
+<p class="wp-block-paragraph">The original article provided the research question and the strategy logic. The next step was to reconstruct a transparent ETF-based proxy, extend the signal through June 2026, preserve the original month-end timing structure, and evaluate only the observations that became available after publication.</p>
+
+
+
+<p class="wp-block-paragraph">The analysis then moved beyond a simple equity-curve comparison.</p>
+
+
+
+<p class="wp-block-paragraph">Performance was decomposed by regime, calendar year, monthly return difference, portfolio allocation, turnover, transaction cost, rolling performance, drawdown, and statistical significance.</p>
+
+
+
+<p class="wp-block-paragraph">This diagnostic process matters because a stronger final equity curve does not automatically imply a universally stronger strategy. The important research question is how the difference was created.</p>
+
+
+
+<p class="wp-block-paragraph">In this case, the answer is relatively specific. The VIX-dependent lookback added value primarily when it changed a concentrated Top 1 allocation during Yellow volatility regimes. It did not improve results during Green regimes, and the Red sample was too small for a strong conclusion. Readers interested in related approaches that condition on volatility information may also want to review the evidence on <a href="https://alphaarchitect.com/portfolio-strategies-for-volatility-investing/" target="_blank" rel="noopener">portfolio strategies for volatility investing</a>.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Key takeaways</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>Over the August 2017 through June 2026 out-of-sample period, the VIX-dependent Top 1 strategy delivered a net CAGR of 14.09 percent versus 9.87 percent for the fixed ten-month Top 1 benchmark, with a higher net Sharpe ratio (1.03 vs. 0.81) and a smaller maximum drawdown (-11.02 percent vs. -12.99 percent).</li>
+
+
+
+<li>The Top 1 advantage survived transaction-cost assumptions as high as 50 basis points per unit of turnover, but the Top 2 version added no value and turned negative at higher cost assumptions.</li>
+
+
+
+<li>More than 80 percent of the excess return came from the Yellow (elevated but not extreme) volatility regime, which spans 48 months — not from the rare Red regime, which contains only three observations.</li>
+
+
+
+<li>VIX Top 1 beat its benchmark in only 13.08 percent of months; the cumulative edge came from a small number of divergent allocation decisions, and neither the paired t-test (p = 0.1696) nor the Wilcoxon test (p = 0.4237) achieves statistical significance.</li>
+
+
+
+<li>The defensible conclusion is narrow: volatility information may improve the speed of a concentrated momentum signal during elevated-volatility environments, not that VIX universally improves trend following.</li>
+</ul>
+
+
+
+Conclusion
+
+
+
+<p class="wp-block-paragraph">The original idea behind combining VIX information with trend following remains economically plausible after nearly a decade of out-of-sample evidence.</p>
+
+
+
+<p class="wp-block-paragraph">In this ETF proxy implementation, VIX Top 1 generated a net CAGR of 14.09 percent, compared with 9.87 percent for a fixed ten-month Top 1 momentum benchmark. It also achieved a higher net Sharpe ratio and a smaller maximum drawdown.</p>
+
+
+
+<p class="wp-block-paragraph">The advantage remained present under transaction costs as high as 50 basis points per unit of turnover.</p>
+
+
+
+<p class="wp-block-paragraph">However, the result was not broad or uniform. The strategy did not outperform consistently across every period, most monthly returns were identical to the benchmark, and the statistical tests were inconclusive. The observed excess return was concentrated in a limited number of allocation decisions, particularly during Yellow volatility regimes.</p>
+
+
+
+<p class="wp-block-paragraph">The same logic did not improve the Top 2 portfolio. Once the strategy diversified across two assets, its return converged with the fixed ten-month benchmark and its additional turnover reduced net performance.</p>
+
+
+
+<p class="wp-block-paragraph">The most defensible conclusion is therefore not that the VIX automatically improves trend following.</p>
+
+
+
+<p class="wp-block-paragraph">Rather, volatility information may improve the speed of a concentrated momentum signal during elevated-volatility environments. Whether that advantage persists in the future remains uncertain, but the nearly nine-year out-of-sample period provides a stronger empirical basis for continuing the research than the original backtest alone.</p>
+<p><a href="https://alphaarchitect.com/vix-trend-following-out-of-sample/" target="_blank" rel="noopener">VIX and Trend Following Revisited: Nearly a Decade of Out-of-Sample Evidence</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/vix-trend-following-out-of-sample/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An Inflation-Protected Balance Sheet · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">An Inflation-Protected Balance Sheet</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/an-inflation-protected-balance-sheet" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-02 · 2240 words</span>
+    </div>
+    <div class="body"><p>A Substack lets me share fun new ideas. Today’s: Central banks should hold inflation-protected bonds as the primary assets on their balance sheets. </p><p>Central banks have assets and liabilities like any other bank. Money—cash and reserves, which are accounts banks hold at the central bank—are the liabilities. Central banks own corresponding securities as assets. The central bank can then sell assets should it ever need to soak up money and reduce its liabilities.  </p><p>There is a lot of discussion of the Fed’s balance sheet, and a <a href="https://www.federalreserve.gov/monetarypolicy/balance-sheet-policy-task-force.htm" target="_blank" rel="noopener">task force</a> of top economists. Should the Fed hold long-term bonds or short-term bonds? Should it hold just treasury bonds or also mortgage-backed securities or other assets?  Should the balance sheet be large or small? Should the Fed offer a fixed supply of reserves and corresponding fixed demand for assets, or should it offer a flat supply of reserves at the policy rate and take assets in return for new money as they are offered? Other central banks hold more or less dollars, gold,  foreign vs. domestic securities, private bonds and even stocks. France is debating whether central banks need assets at all, and can France please default on their bonds held by the ECB. This is my small contribution to that larger debate. </p><p>The central idea behind my proposal, that central banks should back currency with real assets, that hold their value in case of inflation, is ancient.  Central banks on the gold standard had gold reserves and issued notes. 100% backing with gold was regarded as ideal, though seldom implemented. Currency boards back the currency with enough foreign exchange reserves to soak up every note and defend an exchange rate peg. Many central banks hold foreign-currency assets, gold, or even stocks. Inflation-protected government securities seem like a good real asset for a central bank such as the Fed and especially the ECB. </p><p>At a basic level, holding real assets should help central banks to control inflation. If inflation comes along, the nominal value of the central bank’s assets will rise. It then has more resources with which it can soak up money through asset sales. For example, the Fed and ECB lost a lot on their assets after the recent inflation. Even if they had held short-term bonds, they would have lost like the rest of us through low real interest rates. If they had held inflation-indexed bonds, their assets would have been worth more, and any constraint the balance sheet put on them would have vanished. Conversely,  if deflation comes along, the nominal value of the central bank’s assets falls. It then is in a hole, making it more difficult to soak up money—which is exactly what we want in that situation, to stoke inflation. </p><p>(Sadly, US TIPS only adjust upwards and not downwards. So, while I’m dreaming big dreams, imagine that the Treasury issues better TIPS, that adjust in both directions. I<a href="https://www.johnhcochrane.com/news-op-eds-all/a-new-structure-for-us-federal-debt" target="_blank" rel="noopener">deally, of course,</a> the Treasury would issue indexed perpetuities, whose coupons adjust upward and downward with the price level. Inflation swaps could work the same way currently.) </p><p>Now, let’s think a bit more carefully. Of course, I think in terms of the fiscal theory of the price level, so I’ll start there.  FTPL says that </p><p style="text-align: center;">(money+bonds)/price level = expected present value of real primary surpluses. </p><p>To create a central bank, the government carves out some of the right hand side to buy gold or issue bonds, and separates central bank and government balance sheets. Then the central bank backs money with </p><p style="text-align: center;">money/price level = central bank assets</p><p> and the rest of the government obeys </p><p style="text-align: center;">bonds/price level = expected present value of remaining surpluses. </p><p>The central bank then establishes the price level, and the government commits to finding surpluses to back its remaining bonds, or default on them. People don’t have to guess whether periodic deficits will be repaid by surpluses. They only need to know that the central bank assets back the currency, and have faith in the government’s commitment to repay debt. </p><p>The problem is, modern central banks hold mostly nominal government bonds. So liabilities = assets reads </p><p style="text-align: center;">money/price level = bonds on balance sheet / price level. </p><p>The price level cancels. If inflation breaks out, the value of liabilities (money) falls, but the value of assets (bonds) falls just as much. There is no restorative force. If the central bank held inflation-protected bonds, then the central bank balance sheet would read </p><p style="text-align: center;">money/price level = real bonds on balance sheet, </p><p>period. Now after inflation the assets are worth more, which is a disinflationary force. After deflation, assets are worth less than liabilities. The central bank is technically insolvent, a clearly inflationary force. That’s what we want! </p><p>That’s the simple basic idea. I think it is especially useful for a central bank in a common currency such as the ECB. That bank is supposed to be set up independent of member country’s fiscal policies, and with the ability to defend the price level based on its own balance sheet only. The member states are, via debt and deficit rules, expected to repay debts or default without central bank help. <a href="https://www.johnhcochrane.com/research-all/euro-book" target="_blank" rel="noopener">Well, that was the idea, at least. </a></p><p>The details are a bit more speculative. (Yes, I’m trying to encourage others to think about this too. It needs some formal modeling.) </p><p>If prices were perfectly flexible, the price level would be perfectly determined by this relationship.   In the case of gold and currency boards, the “price” is the price of money in terms of gold or foreign currency, which can jump, and the promise to convert one to the other instantly does make this relationship hold instantly.  </p><p>But prices are not perfectly flexible, and cannot jump. We want a relationship like this to hold in the long run, and describe a pressure on the price level that is expressed in gradual inflation or deflation. </p><p>The general FTPL with debt on the left and surpluses on the right adapts to sticky prices by real interest rate variation. If the price level is too low relative to expected surpluses,  inflation rises without a price-level jump. With a steady nominal rate higher inflation means a low real interest rate. The lower discount rate raises the present value of surpluses to keep the valuation equation going. As the price level rises, inflation and the real rate return to normal, the price level takes over as the equilibrator. </p><p>That mechanism might work for my central bank model too. If the price level were low relative to the value of real central bank assets,  the real interest rate would decline. (Money has a higher real value than real bonds, so people try to sell money to buy bonds, driving up bond prices.) That raises  the market value of real bonds, and the valuation equation holds again. As before, the lower real interest rate at a constant nominal rate would mean inflation, which brings the price level back down. </p><p>Alternatively, however, central bank equity might take up the slack. The actual balance sheet is </p><p style="text-align: center;">money/price level + equity = real value of bonds on balance sheet </p><p>Central banks have equity too, the difference between the value of liabilities and the value of other assets. Inflation or deflation, and (as we have seen lately) lower values of long term bonds then can show up as changes in central bank equity. </p><p>Now, if the price level is too high, the money issued by a central bank is a claim to real bonds worth more than the money, like a stock whose dividends are more valuable than the current price. People should want more of that money, driving down the price level. Conversely, money issued by a central bank with negative equity is a dangerous deal, so people should want to sell it, driving up the price level. </p><p>But there are many flies in this ointment. </p><p>In general, central banks rebate their profits (the spread between the interest they receive on assets and the interest they pay on reserves)  to the treasury. They essentially pay out the equity as a dividend. When central banks lose money, they stop rebating profits, and hope bond earnings eventually top them back up again. If not, they need eventually to ask for some more assets as a transfer from the treasury. Such automatic profit and loss sharing would completely undermine the whole idea of the proposal, turning the indexed debt back in to nominal debt. So, any repayment has to be on a fixed or real schedule, independent of inflation. </p><p>It also might be better for the central bank to hold long-term inflation-indexed bonds. In the extreme, if the central bank held overnight inflation-indexed bonds, then the assets would only be protected from inflation for a day. Holding long term bonds means that real interest rate variation will affect the value of central bank assets, however. </p><p>In sum, the conventional wisdom is that central banks should hold short-term government debt and rebate profits. Real debt seems to overturn both precepts. </p><p>It is also important that the government doesn’t default on the bonds held by the central bank. In the Greek restructuring, the ECB didn’t lose anything while private holders did. A legal restriction that central banks are senior, that “even if we default on others we don’t default on the central bank” is important. It is also possible. Of course, currency boards can be raided, central banks abolished, gold reserves taken, promises not to default abrogated. No recommitment is perfect in life, or totally immune from irresponsible fiscal policy. FTPL wins in the end! Even constitutions can be broken. They are still useful precommitments. </p><p>Now, you may be scratching your head, if you even got this far.  Central banks can go a long way with negative equity or ignore positive equity. Indeed, central bank balance sheets and equity don’t show up at all in most theories of inflation, and people don’t think much about them.  So this starts to look like a weak force. </p><p>But in our current system, changes in central bank equity get soaked up, positive or negative, by the Treasury. In the system I envisage, changes in central bank equity pass on to money holders, and everyone knows that. People might pay a lot more attention to central bank equity if they knew that inadequate assets backing the currency must lead to inflation sooner or later. And certainly in the historic systems, people paid a lot of attention to central bank gold and foreign currency reserves. </p><p>The gold standard or an exchange rate peg also tie the value of assets and liabilities tightly, because you can exchange one for the other. A similar tie might be useful here too. Perhaps the Fed could offer a flat supply curve of reserves. You can always exchange reserves for a real bond. </p><p>A related proposal I’ve been kicking around for a while: Perhaps the central bank should target the <em>spread</em> between indexed and non-indexed bonds, not the<em> level </em>of the nominal interest rate.  The spread is, directly, expected inflation. The central bank wants to control expected inflation, without having to divine the mysterious r-star, the appropriate level of the real interest rate. Why not control the thing you actually want to control? So, offer to buy and sell nominal vs real debt at a fixed premium, equal to the inflation target. To do that, it helps to have a big stock of real debt. An expected-inflation target, backed up by essentially 100% reserves, looks a lot like a gold standard backed up by 100% reserves, except it targets the thing we care about — inflation — not the thing we don’t really care about — the price of gold relative to dollars. I grant that too is an invitation to modeling. In particular it exploits the stability of the economy, that inflation will move to the Fed’s target and not spiral off. </p><p>Putting it together I know some of my readers must be a bit skeptical. Why do central bank assets matter anyway? Again, nobody has thought of central bank equity as a serious cause of inflation in countries such as the US, UK, Japan, and Europe. Central bank balance sheets do not appear in conventional new-Keynesian thinking. </p><p>But France gives us the reductio ad absurdum. If central bank assets don’t matter, then countries can freely default on their bonds held by central banks, with no inflationary consequences. Countries can borrow a lot more, sell the bonds to central banks, and then freely default, with no inflationary consequences. You know this is wrong, right? Central bank balance sheets must matter somehow. They aren’t historical relics (like gold reserves), right?   </p><p>So, let’s put on our thinking hats and go back to the beginning. Find whatever reason that makes sense to you why central bank balance sheets matter to inflation control. With whatever reason you have in mind, wouldn’t it make sense for the central bank to hold real assets whose value is not influenced by inflation and deflation? </p><p>****</p><p><em>Update:</em> </p><p>A correspondent has a brilliant idea regarding the conundrum of long vs short-term debt: “Variable rate in an amount equal to [interest-paying, variable-rate] reserve balances, fixed rate in an amount equal to currency (and TGA, maybe).”  The Fed could also get its inflation protection from CPI swaps and not hold real interest rate risk on the balance sheet. That’s probably ideal, but more financial engineering than I want to do right now. </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/an-inflation-protected-balance-sheet?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/an-inflation-protected-balance-sheet?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/an-inflation-protected-balance-sheet" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

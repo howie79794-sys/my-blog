@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Financial Advice Boosts Retirement Saving, but Not for Those Who Need It Most · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Financial Advice Boosts Retirement Saving, but Not for Those Who Need It Most</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/financial-advice-retirement/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-28 · 1445 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Financial advice is often evaluated through the lens of investment performance. Do advisors help clients earn higher returns, select better funds, or avoid costly mistakes? Much of the academic literature has focused on the potential shortcomings of financial advice, including conflicts of interest, high fees, and unsuitable investment recommendations. But financial advisors may create value in ways that are not captured by investment returns alone. One important possibility is that they encourage individuals to take financial actions they might otherwise postpone or overlook, such as contributing to retirement accounts and taking advantage of available tax incentives. The authors’ findings offer evidence of a positive role for financial advice. Advisor-initiated conversations substantially increase retirement saving activity, particularly investments in retirement funds.</p>
+
+
+
+Financial advice and retirement savings
+
+
+
+<ul class="wp-block-list">
+<li>Daniel Hoechle, Stefan Ruenzi, Nic Schaub, and Markus Schmid</li>
+
+
+
+<li>Review of Finance, 2026</li>
+
+
+
+<li>A version of this paper can be found <a href="https://academic.oup.com/rof/article/30/5/1619/8712737" target="_blank" rel="noopener">here</a></li>
+
+
+
+<li>Want to read our summaries of academic finance papers? Check out our <a href="https://alphaarchitect.com/category/architect-academic-insights/academic-research-insight/" target="_blank" rel="noopener">Academic Research Insight</a> category</li>
+</ul>
+
+
+
+Key Academic Insights
+
+
+
+<p class="wp-block-paragraph"><strong>Financial Advice Substantially Increases Retirement Account Openings</strong></p>
+
+
+
+<p class="wp-block-paragraph">The authors find that retirement-related conversations initiated by financial advisors have a large impact on clients’ saving decisions. Among clients without a retirement account, the unconditional probability of opening one is approximately 0.3% per month. In months with an advisor-initiated retirement conversation, that probability increases by 7.4 percentage points, an increase of more than twentyfold. The authors also employ matching techniques and instrumental-variable regressions to address concerns that advisors might simply contact clients who were already planning to save. Their findings suggest that financial advice does more than accompany retirement decisions: it can actively encourage individuals to take action.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Advisors Encourage Existing Clients to Save More</strong></p>
+
+
+
+<p class="wp-block-paragraph">Financial advice affects not only the decision to open a retirement account but also how much clients contribute. Among individuals who already have <a href="https://alphaarchitect.com/quantifying-value-retirement-accounts/" target="_blank" rel="noopener">retirement accounts</a>, average monthly contributions, expressed as a percentage of beginning-of-month balances, are approximately 1.7%. In months with an advisor-initiated retirement conversation, this measure increases by an additional 3.8 percentage points, more than tripling the unconditional average. The authors also examine daily investment activity and find that retirement fund purchases increase on the day of advisor contact and immediately afterward, without a comparable increase beforehand. This timing strengthens the interpretation that advisor conversations help trigger additional retirement investments.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Advisors Particularly Promote Retirement Investment Funds</strong></p>
+
+
+
+<p class="wp-block-paragraph">The study distinguishes between retirement savings accounts, which resemble traditional savings products, and retirement fund accounts, which invest in mutual funds and typically include substantial equity exposure. Although financial advice increases openings of both types of accounts, the additional contributions are concentrated in retirement investment funds. This distinction is important because it highlights both the potential benefits and the incentives associated with financial advice. By encouraging clients to invest in retirement funds, advisors can increase participation in financial markets and help clients pursue long-term growth. At the same time, investment funds may generate <a href="https://alphaarchitect.com/advisors-incentives/" target="_blank" rel="noopener">greater revenues for financial institutions</a> than conventional savings accounts.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The Benefits Extend Beyond Investment Returns</strong></p>
+
+
+
+<p class="wp-block-paragraph">One of the paper’s most important findings is that advisor-induced retirement investments can improve clients’ financial outcomes even when measured against plausible alternative investments. The authors find that both retirement savings accounts and retirement fund accounts tend to generate higher after-tax returns than the alternatives clients might otherwise have chosen. They also investigate whether additional retirement contributions come at the expense of other savings or create liquidity problems. They find no evidence of systematic reductions in other savings or adverse liquidity effects. These results suggest that advisors help clients take advantage of valuable tax incentives without necessarily compromising their broader financial position.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Financial Advice Creates Value, but Not Necessarily for Those Who Need It Most</strong></p>
+
+
+
+<p class="wp-block-paragraph">The authors find evidence of a potential win-win relationship between banks and their clients. Retirement investment funds improve clients’ after-tax financial outcomes while also generating profits for financial institutions. However, the distribution of advice raises an important concern. Advisors do not disproportionately target women, less wealthy clients, or individuals with lower levels of education, even though these groups may face a greater risk of insufficient retirement savings. The results therefore highlight both the value and the limitations of traditional financial advice: advisors can encourage beneficial financial behavior, but market incentives do not necessarily direct that assistance toward the people most vulnerable to retirement shortfalls.</p>
+
+
+
+Practical Applications for Investment Advisors
+
+
+
+<p class="wp-block-paragraph"><strong>Measure the Value of Advice Beyond Portfolio Performance</strong></p>
+
+
+
+<p class="wp-block-paragraph">The study suggests that an advisor’s contribution should not be evaluated exclusively through investment returns or security selection. Helping clients open appropriate retirement accounts, take advantage of tax benefits, and establish regular contribution habits can create meaningful financial value. Advisors may therefore benefit from incorporating behavioral and planning outcomes into their assessment of client relationships, including whether clients are saving consistently and using available retirement incentives.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Be Proactive Rather Than Waiting for Clients to Ask</strong></p>
+
+
+
+<p class="wp-block-paragraph">One of the clearest implications of the research is that advisor-initiated conversations matter. Clients may understand the importance of retirement saving but still delay taking action. The large increase in account openings and contributions following retirement-related contacts suggests that proactive outreach can help overcome inertia. Advisors could incorporate regular retirement-planning reviews, contribution reminders, and tax-year-end discussions into their client service processes.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Make Retirement Advice More Inclusive</strong></p>
+
+
+
+<p class="wp-block-paragraph">The paper identifies a potential mismatch between the clients most likely to receive retirement-related advice and those most at risk of inadequate retirement savings. Advisors and financial institutions could respond by developing more systematic outreach programs for underserved clients, including individuals with lower wealth or financial literacy. Expanding access to retirement guidance may therefore create value beyond traditional wealth-management relationships.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Evaluate Retirement Investments on an After-Tax Basis</strong></p>
+
+
+
+<p class="wp-block-paragraph">The authors find that retirement investments promoted by advisors tend to outperform plausible alternatives after accounting for taxes. This highlights the importance of evaluating investment decisions within the broader context of a client’s financial circumstances. Advisors should consider tax incentives alongside investment costs, liquidity restrictions, risk tolerance, and asset allocation. A product’s value should not be judged solely by its pretax investment return, particularly when retirement accounts offer meaningful tax advantages.</p>
+
+
+
+How to Explain This to Clients
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“Financial advisors are often judged by whether they can help investors earn better returns. But this research suggests that one of the most valuable things an advisor can do is much simpler: help people take action. Researchers studied more than 20,000 clients of a large Swiss bank and found that a conversation about retirement could dramatically increase the likelihood that someone opened a retirement account or contributed additional savings. Why does this matter? Because many people know they should save for retirement but postpone doing so. Others may not fully understand the tax advantages available to them. The study found that advisors helped clients make better use of these opportunities, without evidence that the additional retirement savings systematically came at the expense of their other savings. The important lesson is that good financial advice is not just about choosing investments. It is also about helping people make sound financial decisions and follow through on them.”</p>
+</blockquote>
+
+
+
+The Most Important Chart from the Paper
+
+
+
+<p class="wp-block-paragraph">This figure shows the fraction of clients who open a retirement account (Panel A) and the monthly net flows into existing retirement accounts (Panel B) around advisor-initiated retirement-related contacts. Panel A includes only clients without a retirement account; Panel B includes only clients who already have one. The advisor contact takes place in month t = 0.</p>
+
+
+
+<figure class="aligncenter size-fusion-400"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/2026-10-13-22_08_13-rfag007.pdf-400x506.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+Abstract
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">We study the impact of financial advice on retirement savings. We document that advisors help clients to prepare for retirement by inducing them to take advantage of tax incentives offered on retirement accounts. Advisors particularly promote retirement funds as compared to savings accounts. After-tax returns of advisor-induced retirement fund investments exceed returns of plausible alternative investments. We find no indication that advisor-induced contributions to retirement accounts lead to negative side effects, such as reductions in other savings or liquidity constraints. Hence, we provide evidence of a bright side of financial advice. Furthermore, investments in retirement funds increase bank profits, pointing toward a win–win situation with rent-sharing between the bank and its clients. However, advisors do not in particular target clients that are at a higher risk of under-saving for retirement, such as female clients, clients with lower wealth, and less-educated clients.</p>
+
+
+</blockquote>
+<p><a href="https://alphaarchitect.com/financial-advice-retirement/" target="_blank" rel="noopener">Financial Advice Boosts Retirement Saving, but Not for Those Who Need It Most</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/financial-advice-retirement/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

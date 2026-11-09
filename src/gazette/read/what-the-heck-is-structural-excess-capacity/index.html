@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What the Heck Is “Structural Excess Capacity”? · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">What the Heck Is “Structural Excess Capacity”?</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/08/what-the-heck-is-structural-excess-capacity" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-26 · 947 words</span>
+    </div>
+    <div class="body"><p>The US is going to expand the trade war against a whole slew of countries, using Section 301 charging “structural excess capacity”, caused by government intervention. China is up on the block, according <a href="https://www.bloomberg.com/news/articles/2026-08-24/us-eyes-china-overcapacity-tariffs-of-7-5-before-xi-trump-talks" target="_blank" rel="noopener">Bloomberg</a>:</p>
+
+<blockquote><p>The US is set to impose a 7.5% tariff on Chinese goods over allegations of excess manufacturing capacity before a planned summit between Xi Jinping and Donald Trump next month, according to people familiar with the matter.</p>
+<p>The move would restore Trump’s second-term duties on China to around 20%, a level Beijing has previously said is consistent with its trade truce with Washington. Those come on top of other levies imposed during Trump’s first term and extended during the Biden administration.</p></blockquote>
+<p>We knew this was coming. From <a href="https://www.brookings.edu/articles/after-ieepa-new-section-301-investigations-and-why-public-input-matters/" target="_blank" rel="noopener">Brookings “After IEEPA”</a>, back in March.</p>
+<blockquote><p>Sixteen investigations announced March 11 focus on what the administration calls “structural excess capacity.” USTR contends that certain countries—including China, the European Union, Japan, Mexico, India, Switzerland, Norway, and others—maintain government policies such as subsidies, state financing, and industrial planning that allow factories to keep producing even when market conditions do not support it.</p></blockquote>
+<p>I don’t recall learning the term “excess capacity” in my international trade courses. undergraduate or graduate. Since I’m not a trade economist by training, I figured I’d consult a reputable source to see if there were any occurrences of the term in this <a href="https://www.cambridge.org/highereducation/books/international-economics/927DC4C9574C15D2B5D48BC20A464627#overview" target="_blank" rel="noopener">textbook</a>:</p>
+<p><img src="https://econbrowser.com/wp-content/uploads/2024/09/chinn_irwin_cover.jpg" referrerpolicy="no-referrer" loading="lazy" alt=""></p>
+<p>The answer is “no”. Not that it doesn’t show up in economics — in a monopolistic competition model, excess capacity shows up explicitly. But that was originally couched in a completely domestic (closed economy) context.</p>
+<p>Giving a benefit of a doubt, could it be that excess capacity is whenever a country’s not producing as much as it could; if so, what’s the threshold? Apparently, it’s 80%! From the <a href="https://ustr.gov/sites/default/files/files/Press/Releases/2026/USTR%20301%20FRN%20Industrial%20Excess%20Capacity%20Final.pdf" target="_blank" rel="noopener">Federal Register announcement</a> of the 301 investigations.</p>
+<blockquote><p>In 2024, global manufacturing generated $16.6 trillion dollars in economic output, up from $16.4 trillion in 2023, according to World Bank data. Nonetheless, according to U.S. government estimates, global manufacturing capacity utilization remains between 75.0 and 75.9 percent, below healthy utilization rates for many sectors of approximately 80 percent.2 This is an indication that, for manufactured goods, although global production is expanding, underlying global supply exceeds underlying global demand.</p></blockquote>
+<p>Where did 80% come from? It’s borrowed from the excess capacity literature pertaining to steel…</p>
+<p>Now moving from trade theory to trade law (the two are often not necessarily compatible, think anti-dumping law), one sees that USTR is planning to define structural excess capacity in a manner different from how it did it for the 2025 National Trade Estimate Report. Well, “A foolish consistency is the hobgoblin of little minds, adored by little statesmen and philosophers and divines”, Emerson said, so let’s just sally forth into how USTR is planning to proceed.</p>
+<p>From <a href="https://globaltradealert.org/blog/section-301-overcapacity-investigation-scope" target="_blank" rel="noopener">Global Trade Alert</a>:</p>
+<blockquote>
+
+<p>The definitional scope is measurable. In the 2025 National Trade Estimate Report, published a year earlier, <a href="https://globaltradealert.org/blog/s301-what-what-USTR-worries-about" target="_blank" rel="noopener">USTR discussed overcapacity for two economies</a>: China (steel, aluminium, solar, electric vehicles, batteries) and Indonesia (mineral ore export bans contributing to steel overcapacity). The Section 301 announcement applies ‘structural excess capacity’ to 16 economies.</p>
+<p>USTR’s Background section defines two analytical layers: evidentiary indicators (trade surpluses, low capacity utilisation, sector overcapacity, unprofitable firms) and seven policy interventions said to cause them (production subsidies, wage suppression, state-owned enterprise activities, market access barriers, lax environmental or labour protection, subsidised lending, and currency manipulation).</p>
+<p>Across all 16 economies, the announcement documents 33 evidentiary indicators but cites only seven specific policy interventions. For ten economies, it identifies symptoms but leaves the causes subject to investigation.</p>
+<p><img src="https://ricardo-dashboard.s3.eu-west-1.amazonaws.com/reports/s301-overcapacity/allegation_heatmap.png" referrerpolicy="no-referrer" loading="lazy" alt=""></p>
+<p>Three economies illustrate the breadth of the definition. Switzerland is cited for currency intervention and sterilisation of foreign exchange inflows, with no industrial overcapacity evidence and no policy interventions identified beyond currency practices. The NTE’s Switzerland chapter discusses tariffs, agricultural subsidies, sanitary measures, and data localisation; it contains no mention of overcapacity, currency manipulation, or trade surplus as a concern. Norway is cited for recycling oil revenues through its sovereign wealth fund rather than its domestic currency; its bilateral surplus with the United States is $1.9 billion. The NTE’s Norway chapter contains no reference to currency practices, sovereign wealth operations, or overcapacity. Japan runs a global goods trade deficit of roughly $36 billion but is included on the basis of its bilateral surplus and the share of unprofitable firms in its economy.</p>
+
+
+<h3>Divergence from the National Trade Estimate Report</h3>
+
+
+<p>The S301 and the NTE diverge significantly. A systematic review of the 2025 NTE across all 16 targeted economy chapters finds that the S301’s core categories scarcely appear in the NTE’s analytical vocabulary. Neither currency intervention, undervaluation, nor zombie firms feature as concerns anywhere in the document. ‘Overcapacity’ is confined almost entirely to the China section and one brief Indonesia reference. The divergence extends to policy causes: the NTE documents instances of USTR’s own seven policy interventions far more extensively than the S301 does. Market access barriers, for instance, are documented in the NTE for 15 of the 16 targeted economies; the S301 does not cite market access barriers as a cause of overcapacity for any of them, though some country sections describe practices (such as Indonesia’s export restrictions) that could plausibly be characterised under that heading. The NTE is a document about the causes of trade distortion. The S301, at this stage, documents indicators and leaves most causes unspecified.</p>
+
+</blockquote>
+<p>It’s worth mentioning that there are several industries for which capacity utilitzation is below 80% and export:</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/08/excesscapacity.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/08/excesscapacity.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p>More discussion from Evenett, <a href="https://globaltradealert.org/reports/Beijing-and-Washington-Clash-Over-Excess-Capacity" target="_blank" rel="noopener">here</a>, in the context of the US and China.</p>
+<p><em><strong>Addenda:</strong></em></p>
+<p><a href="https://rhg.com/research/overcapacity-at-the-gate/" target="_blank" rel="noopener">Rhodium Group assessment</a> of Chinese excess capacity, 2024.</p>
+<p><a href="https://www.nber.org/papers/w11798" target="_blank" rel="noopener">Blonigen and Wilson, “Foreign subsidization and excess capacity,” NBER WP 11798</a>.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/08/what-the-heck-is-structural-excess-capacity" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

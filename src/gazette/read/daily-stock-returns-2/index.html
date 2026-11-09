@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Daily Stock Returns Tell Us About the Economy · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">What Daily Stock Returns Tell Us About the Economy</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/daily-stock-returns-2/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-04 · 1431 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">One of the most enduring puzzles in finance is the apparent disconnect between Wall Street and Main Street—markets sometimes soar while the underlying economy stumbles, and vice versa. Paul Samuelson famously quipped that “the stock market has predicted nine out of the last five recessions” — capturing the frustration economists and investors have long felt trying to extract reliable economic signals from equity prices.</p>
+
+
+
+<p class="wp-block-paragraph">Fabrizio Ghezzi, author of the June 2026 paper “<a href="https://protect.checkpoint.com/v2/r01/___https:/papers.ssrn.com/sol3/papers.cfm?abstract_id=6975199___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjFkMTY0ZjM5NmM4NmM4OTNmZmRiODZiMjdjZWFkMDg2Ojc6MjFiNTo3NDY5MmIyNTBmNDIyYWNjY2I4ZWFkMjRjMzYwYmRjYzQ4OTY2M2Y3Mzc2OWFmYzQwMWUwZTc0ZGNmODU3ODQyOnA6VDpO" target="_blank" rel="noopener">Main Street in Wall Street</a>,” takes a fresh look at this puzzle and concludes that daily stock returns contain far more information about real economic activity than previously recognized. The apparent disconnect, Ghezzi argues, is largely a measurement problem — not a fundamental breakdown in the relationship between markets and the economy.</p>
+
+
+
+<strong>The Core Insight</strong>
+
+
+
+<p class="wp-block-paragraph">Ghezzi decomposes daily stock returns into two distinct components: a high-frequency component that captures the “noise” of day-to-day trading — sentiment swings, liquidity effects, short-term speculation — and a low-frequency component that reflects the underlying fundamentals of the economy. Prior research tended to treat daily returns as a single noisy signal—explaining why the stock market often seemed disconnected from economic reality. Once you separate the signal from the noise, a strong and consistent relationship with real economic activity emerges.</p>
+
+
+
+<p class="wp-block-paragraph">To extract this signal, Ghezzi develops what he calls “microfiltering” — a methodology built on a macro-finance framework that combines daily S&P 500 returns with four key macroeconomic releases: nonfarm payrolls, the unemployment rate, industrial production, and total capacity utilization. The intuition is straightforward. Daily stock returns are a continuous, but noisy, read on economic expectations. Macroeconomic data releases, while infrequent, serve as high-information anchors that allow the filter to identify the underlying economic signal embedded in returns. Using a <a href="https://protect.checkpoint.com/v2/r01/___https:/kalmanfilter.net/___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjFkMTY0ZjM5NmM4NmM4OTNmZmRiODZiMjdjZWFkMDg2Ojc6NjkxNDpiOWIwNjc3ZGE2YWE2ZTlkMDg1YjU5MjFkMjJmNzU2OTkyMmE0MzA2OThjYjQ0Njk1MzllOGNhODIzMzFhNDA0OnA6VDpO" target="_blank" rel="noopener">Kalman filter</a> (an algorithm for estimating and predicting the state of a system in the presence of uncertainty) that processes this mixed-frequency data in real time — respecting the actual release dates and preliminary nature of macro data — the methodology produces a daily series of what Ghezzi calls “market-implied expectations of real economic activity.”</p>
+
+
+
+<strong>What the Data Show</strong>
+
+
+
+<p class="wp-block-paragraph">The results are impressive. The daily factor — estimated over the period 1950 through 2019 — closely tracks the business cycle. It declines sharply during every NBER-dated recession and recovers during expansions. Its autoregressive coefficient — a measure of how strongly today’s value predicts tomorrow’s — is near 0.99, indicating exceptional persistence. This makes intuitive sense: economies don’t whipsaw wildly from day to day. Recessions and expansions are slow-moving phenomena that build and unwind over months and quarters, not overnight.</p>
+
+
+
+<p class="wp-block-paragraph">The high persistence also has a practical implication: it means the factor is not just capturing random day-to-day market noise, but something more durable and fundamental — which is part of what validates it as a genuine measure of underlying economic conditions rather than a reflection of short-term market sentiment.</p>
+
+
+
+<p class="wp-block-paragraph">The factor is also left-skewed and fat-tailed, consistent with the well-known asymmetry of economic downturns relative to expansions.</p>
+
+
+
+<p class="wp-block-paragraph">When aggregated to lower frequencies and compared against standard benchmarks, the factor performs well. Its correlation with the Chicago Fed National Activity Index (CFNAI) at the monthly level is 0.80, and with real GDP growth at the quarterly level it is 0.50. Importantly, these benchmark series are used only for validation — they play no role in constructing the factor. Predictive regressions show the factor explains roughly 50% of the variation in next-month CFNAI and about 18-30% of next-quarter GDP growth, with statistically strong coefficients in both univariate and bivariate specifications that control for the lagged macro series themselves.</p>
+
+
+
+<p class="wp-block-paragraph">The factor also holds up well against higher-frequency measures of economic activity. Its correlation with the Philadelphia Fed’s daily <a href="https://protect.checkpoint.com/v2/r01/___https:/www.philadelphiafed.org/surveys-and-data/real-time-data-research/ads___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjFkMTY0ZjM5NmM4NmM4OTNmZmRiODZiMjdjZWFkMDg2Ojc6NzQwYTpiY2I3MDQ4ZThmOGE4MTY5M2IyYWUzNzE0N2FhMjYzN2MxMGI1NjMwYmMwMTBiNTBlNDljMzFiZTNhNjEyYjUxOnA6VDpO" target="_blank" rel="noopener">Aruoba-Diebold-Scotti Business Conditions Index</a> is 0.74, and it predicts that index with an adjusted R² of roughly 55% at both one-day and five-day horizons. It negatively predicts weekly initial unemployment claims — a leading labor market indicator — with predictive power that strengthens over an 8-week horizon. And it exhibits a correlation of 0.64 with the <a href="https://protect.checkpoint.com/v2/r01/___https:/www.investing.com/economic-calendar/ism-manufacturing-pmi-173___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjFkMTY0ZjM5NmM4NmM4OTNmZmRiODZiMjdjZWFkMDg2Ojc6ODAyOTowYWUwZTUyNmJhM2M3M2ViY2IwMzE4NTI5YmYwMDRjNDEwOGYxNDEyZDkwODM4N2E2ZWYzZGMwMTQ1MWIyMzYwOnA6VDpO" target="_blank" rel="noopener">ISM Manufacturing PMI,</a> which itself is a forward-looking survey of business conditions.</p>
+
+
+
+<figure class="wp-block-image size-fusion-1200"><img src="https://alphaarchitect.com/wp-content/uploads/2026/08/real-time-1200x568.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<strong>The Macro-Finance Linkages</strong>
+
+
+
+<p class="wp-block-paragraph">Beyond simply tracking economic activity, the factor behaves as economic theory says it should. It positively predicts dividend growth and net equity payouts — consistent with the model’s prediction that higher economic activity leads to higher future corporate <a href="https://alphaarchitect.com/value-investing-accruals-cash-flows-and-operating-profitability/" target="_blank" rel="noopener">cash flows</a>. The relationship with dividend growth peaks at a six-month horizon, with an adjusted R² exceeding 12%, reflecting the well-documented lag with which dividends adjust to economic conditions. It also predicts earnings yields at longer horizons, consistent with the same mechanism.</p>
+
+
+
+<p class="wp-block-paragraph">Equally important is what the factor does <em>not</em> predict. It shows no reliable predictive power for stock returns or inflation, which is precisely what you would expect from a measure of real economic activity rather than a financial or nominal variable. It negatively predicts realized market variance and credit spreads — both of which widen in downturns — and it predicts the term spread in a manner consistent with the expectations embedded in the yield curve.</p>
+
+
+
+<p class="wp-block-paragraph">One important advantage over existing tools: while the ADS index is updated only when new macroeconomic data arrives, the microfiltered factor updates every trading day, even on days with no macro releases, because it continuously incorporates the information in stock returns. This means it provides a genuine real-time signal rather than a series that goes stale between data releases.</p>
+
+
+
+<p class="wp-block-paragraph">His findings led Ghezzi to conclude: </p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“Daily stock returns contain systematic information about real economic activity, suggesting that macroeconomic information is rapidly and continuously incorporated into equity prices.”</p>
+</blockquote>
+
+
+
+<strong>Key Takeaways for Investors</strong>
+
+
+
+<p class="wp-block-paragraph">First, the stock market is a better economic forecaster than its reputation suggests — but only if you know how to read it. Raw daily returns are too noisy to be informative about the economy. The signal is in the low-frequency component of returns, which can only be cleanly identified by accounting for the reactions of prices to macroeconomic news. Investors who look at day-to-day market moves and draw macroeconomic conclusions are likely reading noise, not signal.</p>
+
+
+
+<p class="wp-block-paragraph">Second, macroeconomic data releases matter more than their immediate market reaction might suggest. The methodology in this paper works precisely because macro releases serve as high-information events that sharply reduce uncertainty about the underlying economic signal. When a payroll report or industrial production figure surprises in either direction, the market’s response tells you something meaningful about the market’s revised expectation of where the economy is heading — a more useful signal than the raw number itself.</p>
+
+
+
+<p class="wp-block-paragraph">Third, the factor’s ability to lead standard macro indicators has practical value. Because it updates daily and correlates strongly with CFNAI and GDP growth, a suitably constructed version of this factor could in principle provide earlier recession warnings than the official data — which are released with lags, subject to revision, and only compiled into composite measures like the CFNAI with further delay.</p>
+
+
+
+<p class="wp-block-paragraph">Fourth, the factor’s behavior across business cycle phases is instructive. During expansions, the factor averages around 0.14 standard deviations above its mean; during recessions it averages nearly 0.87 standard deviations below. This asymmetry — combined with left skew and fat tails — is a reminder that the distribution of economic outcomes is not symmetric. Tail risk skews to the downside, and investors constructing portfolios should account for this rather than treating economic uncertainty as normally distributed.</p>
+
+
+
+<p class="wp-block-paragraph">Finally, this paper is a useful reminder that the Wall Street/Main Street disconnect, while real in the short run, largely dissolves once returns are properly decomposed. Financial markets are doing their job — aggregating dispersed information about economic conditions in real time. The challenge is extracting that signal from the considerable noise that accompanies it. Methodologies like microfiltering, which exploit the interaction between high-frequency financial data and lower-frequency macro anchors, represent a promising direction for turning the stock market into a more reliable macroeconomic instrument.</p>
+
+
+
+<p class="wp-block-paragraph"><em>Larry Swedroe is the author or co-author of 18 books on investing, including his latest </em><a href="https://protect.checkpoint.com/v2/r01/___https:/www.amazon.com/Enrich-Your-Future-Successful-Investing/dp/1394245440/___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjFkMTY0ZjM5NmM4NmM4OTNmZmRiODZiMjdjZWFkMDg2Ojc6NWMxNTo3MmY1OWYzMmU0MWVmZDVkMzJkNzA3OTU3ZDcxMWEzNTRjMjc5ZmJhMGE3OWRhMmE3N2QzMzcwYjg5MDQ3NjYwOnA6VDpO" target="_blank" rel="noopener"><em>Enrich Your Future</em></a><em>. He is also a consultant to RIAs as an educator on investment strategies. This article is for informational and educational purposes only and should not be construed as specific investment, accounting, legal, or tax advice.</em></p>
+<p><a href="https://alphaarchitect.com/daily-stock-returns-2/" target="_blank" rel="noopener">What Daily Stock Returns Tell Us About the Economy</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/daily-stock-returns-2/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

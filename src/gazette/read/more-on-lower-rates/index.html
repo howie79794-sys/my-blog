@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>More on lower rates · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">More on lower rates</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/more-on-lower-rates" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-05 · 756 words</span>
+    </div>
+    <div class="body"><p>This follows up my <a href="https://www.grumpy-economist.com/p/reasons-to-lower-rates" target="_blank" rel="noopener">last post</a> on lowering rates to lower inflation. As before, suppose you accept the neutral and stable long run of new Keynesian economics, so lower rates will eventually bring down inflation (fiscal policy held constant!), but there is a contrary movement in the short run. Like so: </p><figure><a href="https://substackcdn.com/image/fetch/$s_!sbAB!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0764c4ec-2189-4902-9b4f-3d5d63aa2455_750x413.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!sbAB!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0764c4ec-2189-4902-9b4f-3d5d63aa2455_750x413.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>The question is, can you achieve the lower inflation long run without the higher inflation short run? </p><p>In my model, the contrary short-run effect came from long-term debt. So my last post said, get rid of long-term debt first, and then inflation goes down right away. Like so:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!30vM!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc662acff-32c6-4970-8d3b-a13399538653_750x413.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!30vM!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc662acff-32c6-4970-8d3b-a13399538653_750x413.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>The long-term debt mechanism also opens another route to this immaculate disinflation, hence this follow-up post: <em>Announce it ahead of time.</em> The long-term debt mechanism only moves inflation because long-term bond prices move on the announcement of the new interest rate path (or, when expectations change to that path for whatever reason). Even with long-term debt outstanding however, a pre-announced, expected interest rate change does not move inflation in the opposite direction. Ideally, you announce the lower interest rates so far ahead of time that all currently sold debt will be paid off. However, the US maturity structure is short enough that 3-5 years in advance might be enough to avoid most of the contrary movement. If half the debt comes due in 3 years, you get half the size of the contrary effect when you announce interest rates will go down 3 years hence. (If people believe the announcement.) </p><p>Of course this one requires the Fed to go back to a lot more forward guidance and rule following than the direction it is currently heading. (And, I might add, wisely. You can’t give forward guidance about what you are going to do when you have no idea what you’re going to do.) </p><p>But there are other ways to go about it. Alan Greenspan said at one point he liked zero inflation, but was planning to get there “opportunistically.” That I think gets a flavor of what might work. If inflation goes down, take the opportunity, gently lower rates to meet inflation, don’t get all worried about bringing it back up again. If people know that’s how you will react, you can generate the expectation of gently declining interest rates. </p><p>It’s also important that the Fed will not panic and turn around to raise rates if a “transitory” shock comes along. That is quite unlikely, so this is still more theory than practical advice. </p><p>I bring this up because, as in my last post, I am more sure that there is a contrary opposite movement than I am that the long-term debt mechanism is the central cause of the opposite movement. Just buying back the long term debt and then shocking the markets with lower rates leans very heavily on the long-term debt mechanism. But as I peer out in the mists of alternative models that might deliver the negative sign, the idea that they work because of <em>unexpected</em> changes in interest rates (and the path of expected future interest rates) seems a lot more robust. I can imagine lots of fictions that might produce a negative movement for unexpected interest rates but a positive movement for expected interest rates. Financial frictions for one, seem broadly more important for shocks than for slow expected movements. </p><p>We’ll never really know, of course, until we build those alternative models. </p><p>Slow and expected interest rate declines also give rise to much smaller output effects. Lowering interest rates to lower inflation also benefits from a positive fiscal effect. As the Fed lowers interest rates, with sticky prices, real interest rates go down, real interest costs on the debt go down, and inflation gets better. The Loyo mechanism operates in reverse. But, remember, I assumed constant fiscal policy. If Congress sees the lower interest costs and ramps up spending, the party is over. </p><p>By the way, lots of good economists (and a few valued correspondents) think that the long run positive effect is nuts. They agree with neutrality, but not stability. They feel that an interest rate peg, even with excellent fiscal policy, will lead to exploding inflation or deflation. The economic model for such instability is a harder question. Traditionally it comes out of adaptive expectations, which are fine in the short run but harder to argue for the long run. Still, I should be honest that even the long-run neutrality and stability, though a part of every economic model since 1990, is not something everyone agrees on. </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/more-on-lower-rates?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/more-on-lower-rates?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/more-on-lower-rates" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

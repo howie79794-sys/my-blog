@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brazil finances · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Brazil finances </h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/brazil-finances" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-08 · 1450 words</span>
+    </div>
+    <div class="body"><p>Many correspondents have sent me views of Brazil’s fiscal situation. Some quotes follow.  (Anonymous.  On the one hand, credit where it is due. On the other hand, these are personal emails which I didn’t check for permission to forward, and I don’t want to out people for corresponding with me! I also didn’t check any numbers.) </p><p>As I think about the big picture, a few points stand out. Again, Brazil is experiencing 9% real interest rates, which mean 9% interest costs on the debt, which means  debt to GDP grows until it all falls apart. Can the central bank lower those interest costs by lowering interest rates, and make the debt sustainable? A central issue is what happens to inflation. Conventional wisdom says that inflation will rise. That would help the fiscal situation in the short run by inflating away some debt and lowering interest costs. But Brazil understands that inflation does not end well. A pure neo-Fisherian would say inflation will fall. That would be nice on its own, but would leave the real interest rate alone. So the bet is that inflation goes nowhere, and the lower nominal rate mans a lower real rate. The idea is based on a diagnosis that the high real interest rate is just due to the central bank holding nominal rates high, and nothing else would change with lower real interest rates. Maybe, indeed, greater non-inflationary growth.   </p><p>More importantly, the central bank has to be able to permanently lower the real interest rate. Debt sustainability is about decades of interest costs. So there is a whiff of multiple equilibrium to the idea: that pushing down interest costs for a year or two would help the fiscal situation, and then the lower interest rates would stick on their own. </p><p>A crucial issue then is whether debt would be sustainable at lower interest rates. The other equilibrium has to be viable too. Here I expressed some doubts, and hence today’s post. </p><p>Before we get going, first I’ll point you to a <a href="https://johnhcochrane.blogspot.com/2021/05/brazilian-inflation.html" target="_blank" rel="noopener">previous post</a> on Brazil, covering its long history of monetary and fiscal reforms and covering the excellent <a href="https://www.nber.org/system/files/working_papers/w25421/w25421.pdf" target="_blank" rel="noopener"> Monetary and Fiscal History of Brazil, 1960-2016</a> by Joao Ayres, Marcio Garcia, Diogo Guillén, and Patrick Kehoe. Brazil has been here before. </p><figure><a href="https://substackcdn.com/image/fetch/$s_!tAIz!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14cfc959-1222-4f0e-bc96-e774309f67c5_640x440.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!tAIz!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14cfc959-1222-4f0e-bc96-e774309f67c5_640x440.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>Second, this matters for the US. Brazil has 4.5% inflation, 80% debt to GDP, small primary deficits, and a lot of baked in social spending that they can’t really afford. The US has 3.7% inflation, 100% debt to GDP, slightly larger primary deficits, and a lot of baked in social spending that we can’t really afford. Study Brazil. </p><p>Following <a href="https://www.grumpy-economist.com/p/fisher-and-resende-in-brazil" target="_blank" rel="noopener">Fisher and Resende in Brazil</a>, a reporter asked  </p><blockquote><p>We currently have a fiscal rule called the fiscal framework. Real growth in federal primary spending is limited to 70% of real revenue growth, and must stay between 0.6% and 2.5% a year. It also sets annual primary balance targets with a tolerance band. If the government misses the lower bound of the target, spending growth the following year is capped at 50% of revenue growth instead of 70%. Why do you think markets don't see that as a credible fiscal compromise?</p></blockquote><p>My first thought was, uh oh. Here I have commented on a country I don’t know that much about. Does Brazil have a credible fiscal rule that ought to make debt sustainable? (The US has nothing like this!) </p><p>The rest of my correspondents however, don’t think this will work, largely because of baked in high levels of social spending, and little chance of drastic cuts.  </p><p>From <a href="https://substack.com/home/post/p-223484333" target="_blank" rel="noopener">Emilio Ocampo’s substack</a></p><blockquote><p>Since 2002 Brazil has had by far the highest primary government spending ratio among the five major Latin American floaters. According to IMF data, it is projected to reach 40.9% of GDP in 2026, compared with 31.3% in Colombia, 25.5% in Chile, 23.2% in Mexico, and 19.5% in Peru. The contrast is even starker when compared to other comparable emerging market economies: Brazil’s ratio of primary government expenditure to GDP doubles that of the ASEAN-5 economies.</p></blockquote><p>Another correspondent: </p><blockquote><p>Net of social security transfers, the operational side of the State is in surplus by about 5% of GDP. But the financial social security deficit, about 5% of GDP today, heads towards 9.5% by 2050 under rules already legislated. Even with a zero real cost of debt, explicit debt still rises from 86% of GDP to about 134% in 2050 and 175% in 2060, and keeps accelerating. The curvature is actuarial and legally contracted, so lower rates alone cannot remove it.</p></blockquote><p>Another: </p><blockquote><p>Brazil faces an extremely difficult fiscal situation, largely because of how rigid the federal budget has become. According to the Brazilian Chamber of Deputies, of the R$2.6 trillion in primary spending approved for 2026, roughly R$2.35 trillion (90.2%) is mandatory. That leaves just R$256 billion (9.8%) in discretionary spending, which includes parliamentary amendments and is therefore not entirely under the executive’s control. Social security alone accounts for approximately R$1.1 trillion.</p><p>To make matters worse, a significant share of mandatory spending is indexed to the minimum wage, which has been rising faster than inflation and, at times, economic growth. Constitutional requirements for healthcare and education add further rigidity. And much of what remains in the discretionary budget is needed simply to keep the government running. There is very little room left to adjust spending without tackling politically difficult structural reforms.</p></blockquote><p>Another correspondent notes previous efforts: </p><blockquote><p>In the early 2010s, the Brazilian central bank made a bet by sharply cutting the nominal interest rate, while, at the same time, the government stepped up the pace of spending, generating successive deficits. This was accompanied by a rise in inflation.<br><br>In 2016, after the impeachment of President Dilma Rousseff (Lula’s successor at the time), the following government passed a simple and credible reform through a constitutional amendment that froze real federal public spending for 20 years. This allowed the central bank to cut the interest rate from 13% to 7% in one year.</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!Nr2G!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcadc4105-9251-4bf1-ac51-2d66a333454b_1600x1250.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!Nr2G!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcadc4105-9251-4bf1-ac51-2d66a333454b_1600x1250.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><blockquote><p><br>Using the simple rule of the debt-stabilizing primary surplus and the actual primary balance, we had the following picture:</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!7q3q!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd198a68b-fbc2-4c20-a847-c5ed2048a6fe_1600x1250.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!7q3q!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd198a68b-fbc2-4c20-a847-c5ed2048a6fe_1600x1250.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><blockquote><p><br>Later, the Bolsonaro government started bypassing the spending cap because of the pandemic, and the Lula government ended the cap and replaced it with a much more complex fiscal rule, the so-called “fiscal framework” (arcabouço fiscal), [noted above] whose targets have only been met on paper, thanks to a growing list of expenditures excluded from the accounting.<br><br>…It seems to me that Brazil already has a solution to the problem at hand, and one that has already worked here. </p></blockquote><p>Another correspondent looks harder at proposed fiscal reforms:</p><blockquote><p>I agree that separating current expenditures from public investment, as Lara Resende proposes, would be useful for transparency. But I doubt it would change market expectations very much.</p><ul><li><p>Most of Brazil’s primary expenditure is mandatory or politically difficult to adjust.</p></li><li><p>Evaluating public investment as if it were a private equity portfolio sounds appealing, but it requires a level of institutional credibility that I don’t think Brazil currently enjoys.</p></li><li><p>Even good public investments do not necessarily generate enough fiscal revenue to pay for themselves.</p></li></ul></blockquote><blockquote><p>Without addressing these issues, I don’t see why investors would suddenly become more confident about future primary surpluses.</p></blockquote><p>I hear often that “well surely more debt to finance infrastructure is a good idea.” To which I answer: California High Speed Rail. </p><p>A final correspondent puts the same points with grumpy bluntness: </p><blockquote><p>- 90% of the federal primary budget contains mandatory expenses. Payments to social security and pension is number 1, by far. They can only be altered by changes to the constitution, which is viable but too costly politically. Big payments to the judiciary branch is another big problem. The 10% discretionary expenses include provisions to education and public health, which President Lula does not want to touch either. Also social programs for the poor.</p><p><br>Raising taxes is nearly impossible. The middle class already complains loudly for getting almost nothing back for what is already paid for (public health is not so bad, but public education is, especially prior to college. we all need to pay big bucks for private schooling).</p></blockquote><p>Other correspondents have pointed to very large amounts of private debt in Brazil, which I don’t know quite how to fit in to the picture. </p><p>Bottom line, I feel a bit better about my uneducated sense that the long-run fiscal picture cannot be good. </p><p>However, a durable fiscal reform might have a multiplier effect: Diagnosing high real interest rates as a premium for possible inflation, default, and devaluation, a durable fiscal reform could bring rates down, which in turn would add 5% of GDP or more fiscal space. </p><p>Thanks to all my correspondents! </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/brazil-finances?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/brazil-finances?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/brazil-finances" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

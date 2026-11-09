@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Built to Survive the Waiting · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Built to Survive the Waiting</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/built-to-survive-the-waiting/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-08 · 5092 words</span>
+    </div>
+    <div class="body">
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph"><em>“The waiting is the hardest part.” — Tom Petty</em></p>
+
+
+
+
+</blockquote>
+
+
+
+<p class="wp-block-paragraph">The central failure of tail risk protection is usually not the crash. It is the years before the crash, when human behavior takes over: protection costs money (“the bleed”), appears unnecessary, and becomes progressively harder to defend (i.e., “everything else is going up!”). This paper addresses the accumulating financial, behavioral, and organizational burden of “waiting out the bleed,” and it treats that burden as a <em>design input</em> rather than an inconvenience.<a>(1)</a></p>
+
+
+
+<p class="wp-block-paragraph">We first discuss common reasons why tail risk programs cause behavioral issues. Next, we cover two documented cases that highlight the problems: 1) a registered fund whose hedging budget was larger than any plausible quiet period could absorb, and 2) a public pension that dismantled a cheap, functioning hedge months before it would have paid. Finally, the paper ends with an eight-part due diligence framework, written so that a reader can score a strategy rather than admire a diagram.</p>
+
+
+
+
+
+
+
+Part 1: Behavioral issues that hurt tail risk programs: “The bleed”
+
+
+
+<p class="wp-block-paragraph">Call the accumulation of these pressures “the bleed.” The bleed is broader than option premiums, and it has three recurring forms.</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Direct carrying cost.</strong> Premiums, roll costs, structural fees, and any recurring expense required to keep the hedge alive.</li>
+
+
+
+<li><strong>Opportunity cost.</strong> Capital devoted to protection is not fully participating elsewhere, and investors tend to experience a return they might have earned as though it were an actual loss.</li>
+
+
+
+<li><strong>Evaluation pressure.</strong> The emotional and institutional burden created when a strategy is intentionally designed to underperform in the market environment investors experience most of the time.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These costs do not simply add up; they reinforce each other. A modest annual drag becomes a performance narrative. The narrative becomes an explanation problem. The explanation problem becomes a governance question. After enough calm years, every period in which the hedge did not pay starts to look like evidence that the hedge was unnecessary, even though the absence of a crash tells us almost nothing about the value of protection against the next one.</p>
+
+
+
+<p class="wp-block-paragraph">This behavior is well documented. Investors evaluating outcomes over short intervals demand far more compensation for the same long-horizon risk, a pattern Benartzi and Thaler (1995) identified as myopic loss aversion and Thaler, Tversky, Kahneman, and Schwartz (1997) reproduced experimentally: subjects shown results more frequently took less risk. A tail hedge is the purest possible test of that bias. It is an asset whose entire value sits in the tail of the distribution, reviewed quarterly.<a>(2)</a></p>
+
+
+
+<h3 id="h-the-arithmetic-of-carry" class="wp-block-heading">The arithmetic of carry</h3>
+
+
+
+<p class="wp-block-paragraph">Most discussions of the bleed are qualitative, which is why clients and committees fill the gap with a number they imagine. The figures below supply the actual arithmetic. It is arithmetic and nothing more. It assumes the hedge returns absolutely nothing, which is the deliberate worst case rather than an expectation, and it is not a projection of any investment or strategy.</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tr><th><strong>Annual carry on the hedged sleeve</strong></th><th><strong>3 years</strong></th><th><strong>5 years</strong></th><th><strong>10 years</strong></th><th><strong>15 years</strong></th></tr><tr><td><strong>0.25%</strong></td><td>0.7%</td><td>1.2%</td><td>2.5%</td><td>3.7%</td></tr><tr><td><strong>0.50%</strong></td><td>1.5%</td><td>2.5%</td><td>4.9%</td><td>7.2%</td></tr><tr><td><strong>1.00%</strong></td><td>3.0%</td><td>4.9%</td><td>9.6%</td><td>14.0%</td></tr><tr><td><strong>2.00%</strong></td><td>5.9%</td><td>9.6%</td><td>18.3%</td><td>26.1%</td></tr><tr><td><strong>4.00%</strong></td><td>11.5%</td><td>18.5%</td><td>33.5%</td><td>45.8%</td></tr><tr><td><strong>10.00%</strong></td><td>27.1%</td><td>41.0%</td><td>65.1%</td><td>79.4%</td></tr></table></figure>
+
+
+
+<p class="wp-block-paragraph"><em>Cumulative loss of sleeve value from a constant annual cost, compounded, assuming zero payoff. Figures are rounded.</em></p>
+
+
+
+<p class="wp-block-paragraph">Two things follow. First, at the low end this is a rounding error and at the high end it is an extinction event, and the gap between them is entirely a design choice rather than a market outcome. Second, the number the client reacts to is almost never the number that matters, because the sleeve is a fraction of the portfolio.</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tr><th><strong>Sleeve weight</strong></th><th><strong>2% sleeve carry</strong></th><th><strong>4% sleeve carry</strong></th><th><strong>10% sleeve carry</strong></th></tr><tr><td><strong>3% of portfolio</strong></td><td>6 bp</td><td>12 bp</td><td>30 bp</td></tr><tr><td><strong>5% of portfolio</strong></td><td>10 bp</td><td>20 bp</td><td>50 bp</td></tr><tr><td><strong>10% of portfolio</strong></td><td>20 bp</td><td>40 bp</td><td>100 bp</td></tr></table></figure>
+
+
+
+<p class="wp-block-paragraph"><em>Annual portfolio-level drag, before any hedge payoff. Simple multiplication.</em></p>
+
+
+
+<p class="wp-block-paragraph">An advisor who can produce the portfolio-level calculation in a review meeting has a materially different conversation than one who can only say that protection costs money.</p>
+
+
+
+<h3 id="h-why-the-evaluation-framework-matters" class="wp-block-heading">Why the evaluation framework matters</h3>
+
+
+
+<p class="wp-block-paragraph">A tail hedge is not another return-seeking allocation. Place it beside equities, credit, or real estate in a conventional performance comparison and the wrong question is almost guaranteed: why did this sleeve underperform? A better question is whether the protection delivered the agreed resilience at the agreed carrying cost, and whether the portfolio remained able to hold it. The evaluation framework should reflect the job the hedge was hired to do, which is typically to allow the rest of the portfolio to seek higher returns from riskier assets.</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph"><em>The objective is not to eliminate the bleed. It is to keep the bleed inside a range the investor can understand, finance, and tolerate long enough for the protection to matter.</em></p>
+</blockquote>
+
+
+
+Part 2: Two documented failures of Tail Risk Programs
+
+
+
+<p class="wp-block-paragraph">The two cases below are drawn entirely from public filings and contemporaneous reporting, cited in the footnotes. They are included because they fail in different places. One is a product that could not survive its own budget. The other is a program its owner could not keep. Neither is offered as a comparison to any other investment, and neither says anything about how a different strategy would have performed under the same conditions.</p>
+
+
+
+<h3 id="h-case-1-a-budget-larger-than-the-waiting-period" class="wp-block-heading">Case 1. A budget larger than the waiting period</h3>
+
+
+
+<p class="wp-block-paragraph">The Simplify Tail Risk Strategy ETF launched on September 13, 2021 with an explicit design premise: invest a substantial annual budget in highly convex equity hedging strategies so that a modest allocation could hedge a whole portfolio. The logic is sound and the honesty is unusual. Convexity is bought, not conjured, and the fund said plainly that it intended to spend for it.</p>
+
+
+
+<p class="wp-block-paragraph">Then 2022 happened. The S&P 500 fell roughly 18% on a calendar-year total return basis, with a peak-to-trough closing decline of about 25% between January 3 and October 12. That is a bear market by any definition, and a tail-risk fund should have had a very good year.</p>
+
+
+
+<p class="wp-block-paragraph">It did not. The fund’s own fourth-quarter 2022 review reported a NAV total return of negative 45.40% for the calendar year and negative 47.42% since inception. In the same document the manager described increasing the annual hedging budget up to 50% and diversifying into volatility, rate, and credit-based hedges.</p>
+
+
+
+<p class="wp-block-paragraph">The fund executed a one-for-twenty reverse share split in January 2024. On February 16, 2024 the board announced liquidation on the adviser’s recommendation, with a final trading day of March 7 and liquidation payments on or about March 14, 2024. Press coverage put the decline since inception at 99.8%, with roughly $1.7 million remaining.<a>(3)</a></p>
+
+
+
+<p class="wp-block-paragraph">The instructive part is not the liquidation. It is 2022. A strategy explicitly built for severe equity selloffs lost 45% in a year when equities fell 25%, and there is a structural reason. 2022 was a grind, not a crash. It was a long repricing driven by rates, with implied volatility elevated but never gapping, and convexity is priced for gaps. A hedge sized against jump risk pays full carry through a grind and collects very little. That is basis and path risk, and it is the failure mode most stress tests skip because they model a larger volatility input rather than a different shape of decline.</p>
+
+
+
+<p class="wp-block-paragraph">The second lesson is the budget. Return to the arithmetic in Part 1. A stated annual hedging budget approaching 50% cannot be absorbed by any realistic quiet interval; the compounding alone consumes most of the sleeve within a few years even before considering whether the hedges work. A carry budget is not a dial to be adjusted after disappointing results. It is the design.</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph"><em>A hedge can be honestly constructed, correctly held, and still not pay. The budget is not a detail of the design. It is the design.</em></p>
+</blockquote>
+
+
+
+<h3 id="h-case-2-a-hedge-its-owner-could-not-keep" class="wp-block-heading">Case 2. A hedge its owner could not keep</h3>
+
+
+
+<p class="wp-block-paragraph">In 2016 and 2017, under then-CIO Ted Eliopoulos, the California Public Employees’ Retirement System built a tail-risk program and hired two external managers, Universa Investments and LongTail Alpha, with an additional internal sleeve. The externally managed portion protected roughly $5 billion of the fund’s public equity exposure at a reported cost of about five basis points.</p>
+
+
+
+<p class="wp-block-paragraph">In October 2019 CalPERS decided to end the program, citing cost, lack of scalability, and the availability of better alternatives. Both managers were given the standard ninety days to unwind. Universa’s position was gone by January 2020. LongTail’s unwind ran from January 1 to March 31, 2020, and reportedly produced a final distribution in the range of $150 to $175 million because it was still partially in place when markets collapsed.</p>
+
+
+
+<p class="wp-block-paragraph">Weeks after the Universa exit, COVID-19 hit the market. Bloomberg reported in April 2020 that the forgone payout on the Universa position exceeded $1 billion. The CIO’s public defense warned against resulting bias, which is a legitimate objection in general and a weak one here, because the criticism of the decision does not rest on the outcome.</p>
+
+
+
+<p class="wp-block-paragraph">Here is why. The program cost roughly five basis points on the hedged notional. The fund was managing close to $400 billion. This was not a cost problem. It was never a cost problem. The public disagreement over what tail hedging costs, with the CIO describing figures of three to five percent of the hedged amount and the manager responding that the actual cost had been one to one and a half percent, is itself the evidence: the organization did not have a shared, written, agreed number for what it was spending. Without that number, every quiet quarter makes the expense feel larger than it is, and the decision to exit becomes a matter of mood dressed as discipline.</p>
+
+
+
+<p class="wp-block-paragraph">The partial exit is the most revealing detail of all. The same investment office, within the same review, made opposite decisions about two structurally similar mandates. One was terminated on schedule and one was allowed to run, and the one that was allowed to run paid. That is not a view about tail hedging. That is the absence of a governance rule.<a>(4)</a></p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph"><em>If nobody has written down what level of carry is acceptable, what counts as failure, and who has authority to reduce the hedge, those decisions get made under precisely the conditions most likely to produce abandonment.</em></p>
+</blockquote>
+
+
+
+<h3 id="h-what-the-two-cases-share" class="wp-block-heading">What the two cases share</h3>
+
+
+
+<p class="wp-block-paragraph">Neither failed because someone mispredicted the next crash. The fund failed on a budget that could not survive the waiting and a payoff shape that did not match the decline that actually arrived. The pension failed on an undefined carry budget and an undefined governance rule. In both cases the fatal decision was made years before the event, in a quiet room, using a number nobody had written down.</p>
+
+
+
+Part 3: Design principles and tail risk system due diligence considerations
+
+
+
+<p class="wp-block-paragraph">Once the bleed is treated as a design constraint rather than an afterthought, several principles follow.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Size for carrying capacity, not maximum theoretical payoff.</strong> A smaller amount of protection that survives a full market cycle can be worth more than a larger hedge that becomes politically or emotionally impossible to hold after two calm years. The relevant capacity is the investor’s, not the model’s.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Pre-position what cannot be recreated during a discontinuity.</strong> The goal is not to eliminate dynamic management. It is to ensure the essential crash response does not depend on heroic execution after liquidity has deteriorated. Hua and Wilmott made this explicit in the CrashMetrics work: the assumptions that make a hedge easy to rebalance in ordinary markets are exactly the assumptions that fail when the hedge is needed.<a>(5)</a></p>
+
+
+
+<p class="wp-block-paragraph"><strong>Set the carry budget before implementation.</strong> The question is not how cheap the hedge can be made. It is how much recurring drag this portfolio and this client relationship can absorb without creating a high probability of abandonment. The answer should drive position size, strike selection, spread construction, maturity, and collateral. A carrying cost limit decided after several disappointing years is not a budget. It is an exit rationale.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Treat complexity as a holding cost.</strong> A structure can be mathematically attractive and institutionally fragile if the people responsible for keeping it cannot explain what it owns, what it costs, when it should respond, and what would count as genuine failure. Complexity that improves economics can be worth paying for. Complexity that only makes the strategy harder to defend raises the probability it gets removed at the wrong time.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Test basis and timing explicitly.</strong> Evaluate the hedge against the exposure it is actually meant to protect rather than a convenient index. Test the possibility that ostensibly diversifying assets move together in the early stage of a drawdown, before the protection begins to respond. A hedge that arrives eventually can still fail a portfolio if the path forces the investor to sell first. Levered investors confront this directly: the clearing firm, not the investment thesis, decides the sequence of sales.</p>
+
+
+
+<h3 id="h-governance-is-part-of-the-hedge" class="wp-block-heading"> Governance is part of the hedge</h3>
+
+
+
+<p class="wp-block-paragraph">A protection program without a governance rule is partly governed by mood. A tail hedge is easy to approve after a crisis and hard to defend after years of calm. If nobody has specified in advance what carry is acceptable, what outcomes constitute failure, and who has authority to reduce the position, those decisions will be made under exactly the conditions most likely to produce abandonment.</p>
+
+
+
+<p class="wp-block-paragraph">Before implementation, the investor should know four things in writing: the expected range of annual carrying cost, the conditions under which the hedge may be resized, the circumstances that would justify termination, and the evidence that would cause the original thesis to be reconsidered. These rules do not need to be rigid. They need to be explicit enough that a quiet market and a disappointing trailing return are not, by themselves, treated as proof that the protection has stopped making sense or that it will never work.</p>
+
+
+
+<p class="wp-block-paragraph">Behavioral precommitment is not a substitute for judgment. It is a way of preserving judgment when recent performance creates pressure to rewrite the original objective. The point is not to make the hedge permanent. The point is to ensure it is removed because the thesis changed, not because patience ran out.</p>
+
+
+
+<h3 id="h-the-eight-durability-tests" class="wp-block-heading">The eight durability tests</h3>
+
+
+
+<p class="wp-block-paragraph">What follows is a due diligence checklist, not a compliance exercise. Run it before implementing a tail-risk strategy, and run it again before judging an existing one after a long quiet period.</p>
+
+
+
+<p class="wp-block-paragraph">The list is written to be adversarial to every tail risk program design. Test 3 rewards exactly what Test 5 penalizes. A structure with minimal carry will usually have muted convexity in a fast crash, and a structure with sharp convexity will usually carry heavily. There is no configuration that scores full marks on both. That tension is the actual decision, and a manager who claims to have resolved it should be asked how they found free money lying around.</p>
+
+
+
+<figure class="wp-block-table aligncenter"><table class="has-fixed-layout"><tr><th><strong>#</strong></th><th><strong>Test</strong></th><th><strong>The question to answer before implementation</strong></th></tr><tr><td><strong>1</strong></td><td>Failure-mode stress test</td><td>Does the analysis include jumps, gaps, grinds, liquidity deterioration, correlation change, and regime shifts, rather than simply a larger volatility input?</td></tr><tr><td><strong>2</strong></td><td>Exposure fit and basis</td><td>Does the hedge protect the risk the portfolio actually owns, or a convenient index proxy?</td></tr><tr><td><strong>3</strong></td><td>Convexity magnitude</td><td>In a fast, severe decline, how much does this structure actually pay, and what was given up to lower its cost?</td></tr><tr><td><strong>4</strong></td><td>Execution dependency and liquidity</td><td>Which parts of the protection are already in place, and which must be traded or financed while conditions are deteriorating?</td></tr><tr><td><strong>5</strong></td><td>Carry budget</td><td>What annual drag can this portfolio and this client relationship sustain before abandonment risk becomes material?</td></tr><tr><td><strong>6</strong></td><td>Behavioral precommitment</td><td>Has the expected bleed been named in advance, and has the investor agreed how the hedge will be evaluated during calm markets?</td></tr><tr><td><strong>7</strong></td><td>Governance rule</td><td>Who has authority to reduce or terminate the hedge, and what pre-agreed evidence should drive that decision?</td></tr><tr><td><strong>8</strong></td><td>Communication test</td><td>Can the strategy be explained in one page: what it protects, what it costs, when it should work, and what would constitute failure?</td></tr></table></figure>
+
+
+
+<p class="wp-block-paragraph">The detail below gives each test a scoring rubric, so the exercise produces a judgment rather than a yes.</p>
+
+
+
+<h3 id="h-test-1-failure-mode-stress-test" class="wp-block-heading">Test 1. Failure-mode stress test</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The question.</strong> Does the analysis include jumps, gaps, grinds, liquidity deterioration, correlation change, and regime shifts, rather than simply a larger volatility input?</li>
+
+
+
+<li><strong>A good answer contains.</strong> Named historical analogues with different shapes, including at least one slow repricing such as 2022 and at least one gap event such as February 2018 or March 2020. An explicit statement of which scenarios the strategy is expected to handle poorly.</li>
+
+
+
+<li><strong>A hand-wave sounds like.</strong> <em>“We stress test to a three standard deviation move.” A single volatility shock is a scaling exercise, not a scenario analysis, and it cannot produce a grind.</em></li>
+
+
+
+<li><strong>Ask for.</strong> The scenario set in writing, with the assumed path of spot, implied volatility, term structure, and financing for each, plus the resulting estimated payoff.</li>
+</ul>
+
+
+
+<h3 id="h-test-2-exposure-fit-and-basis" class="wp-block-heading">Test 2. Exposure fit and basis</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The question.</strong> Does the hedge protect the risk the portfolio actually owns, or a convenient index proxy?</li>
+
+
+
+<li><strong>A good answer contains.</strong> A stated basis between the hedged instrument and the client’s real exposure, quantified, with the historical range of that basis during stress periods rather than on average.</li>
+
+
+
+<li><strong>A hand-wave sounds like.</strong> <em>“It hedges equity beta.” Whose equity, measured how, and what happened to that relationship in the last three drawdowns?</em></li>
+
+
+
+<li><strong>Ask for.</strong> A basis analysis against the actual portfolio, and a description of which exposures are deliberately left unhedged.</li>
+</ul>
+
+
+
+<h3 id="h-test-3-convexity-magnitude" class="wp-block-heading">Test 3. Convexity magnitude</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The question.</strong> In a fast, severe decline, how much does this structure actually pay, and what was given up to lower its cost?</li>
+
+
+
+<li><strong>A good answer contains.</strong> A direct statement of the trade-off. Spreads, financing overlays, and income generation reduce carry and also cap or dampen payoff. A manager who has lowered the bleed has sold something to do it, and should be able to say exactly what and where the cap binds.</li>
+
+
+
+<li><strong>A hand-wave sounds like.</strong> <em>“We get the protection without the bleed.” Convexity is bought. If the carry is low, either the payoff is capped, the protection is partial, the risk has been moved somewhere less visible, or the structure is short something.</em></li>
+
+
+
+<li><strong>Ask for.</strong> The payoff profile at several decline magnitudes, the point at which payoff stops increasing, and the source of any income used to offset premium.</li>
+</ul>
+
+
+
+<h3 id="h-test-4-execution-dependency-and-liquidity" class="wp-block-heading">Test 4. Execution dependency and liquidity</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The question.</strong> Which parts of the protection are already in place, and which must be traded or financed while conditions are deteriorating?</li>
+
+
+
+<li><strong>A good answer contains.</strong> A split of the protection into pre-positioned and execution-dependent components, with the pre-positioned portion expressed as a percentage. An account of what happens if the rebalance is missed, delayed, or filled at a wide spread.</li>
+
+
+
+<li><strong>A hand-wave sounds like.</strong> <em>“We manage it dynamically.” Dynamism is fine. Dependence is the risk. The question is what the investor owns if no trade occurs for a week.</em></li>
+
+
+
+<li><strong>Ask for.</strong> Position inventory as of a specific date, expected trading frequency in stress, margin and collateral mechanics, and the counterparties involved.</li>
+</ul>
+
+
+
+<h3 id="h-test-5-carry-budget" class="wp-block-heading">Test 5. Carry budget</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The question.</strong> What annual drag can this portfolio and this client relationship sustain before abandonment risk becomes material?</li>
+
+
+
+<li><strong>A good answer contains.</strong> A number, agreed in advance, expressed both at the sleeve level and at the portfolio level, with the compounded multi-year figure calculated rather than implied.</li>
+
+
+
+<li><strong>A hand-wave sounds like.</strong> <em>“The cost is modest.” Modest is not a number, and the numerical illustrations in Part 1 show how far apart two modest-sounding numbers can be after ten years.</em></li>
+
+
+
+<li><strong>Ask for.</strong> The budget in writing, the mechanism that enforces it, and what happens to the position if the budget is exceeded.</li>
+</ul>
+
+
+
+<h3 id="h-test-6-behavioral-precommitment" class="wp-block-heading">Test 6. Behavioral precommitment</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The question.</strong> Has the expected bleed been named in advance, and has the investor agreed how the hedge will be evaluated during calm markets?</li>
+
+
+
+<li><strong>A good answer contains.</strong> A written expectation of how often and by how much the hedged portfolio will lag an unhedged one, with the benchmark for the sleeve specified as something other than an equity index.</li>
+
+
+
+<li><strong>A hand-wave sounds like.</strong> <em>“The client understands it is insurance.” Nearly all of them say this at inception. The test is whether the understanding was written down with numbers attached.</em></li>
+
+
+
+<li><strong>Ask for.</strong> The investment policy language, the review cadence, and the specific report the client will see each quarter.</li>
+</ul>
+
+
+
+<h3 id="h-test-7-governance-rule" class="wp-block-heading">Test 7. Governance rule</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The question.</strong> Who has authority to reduce or terminate the hedge, and what pre-agreed evidence should drive that decision?</li>
+
+
+
+<li><strong>A good answer contains.</strong> A named decision-maker, a defined trigger set, and an explicit statement that trailing underperformance in a calm market is not by itself a trigger.</li>
+
+
+
+<li><strong>A hand-wave sounds like.</strong> <em>“We review it annually.” A review without a rule is an annual opportunity to quit.</em></li>
+
+
+
+<li><strong>Ask for.</strong> The governance memo, and the record of any prior resizing decision and its stated rationale.</li>
+</ul>
+
+
+
+<h3 id="h-test-8-communication-test" class="wp-block-heading">Test 8. Communication test</h3>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The question.</strong> Can the strategy be explained in one page: what it protects, what it costs, when it should work, and what would constitute failure?</li>
+
+
+
+<li><strong>A good answer contains.</strong> One page, written for the client rather than the committee, that a reasonably informed person can restate accurately from memory.</li>
+
+
+
+<li><strong>A hand-wave sounds like.</strong> <em>A twelve-page deck with a payoff diagram and no definition of failure.</em></li>
+
+
+
+<li><strong>Ask for.</strong> The one page. If it does not exist, the strategy is not yet ready to be held through a difficult stretch.</li>
+</ul>
+
+
+
+Education Matters — a lot — when it comes to Tail Risk Programs
+
+
+
+<p class="wp-block-paragraph">Tail risk strategies don’t often fail via the underlying model or investment decisions. The failure occurs in a review meeting, usually in the third or fourth year, when a client looks at a sleeve that has cost money every year and asks why it is still there. The strategies that survive are the ones whose owners had already decided what to say.</p>
+
+
+
+<p class="wp-block-paragraph">Two things make that conversation work, and neither is rhetorical. The first is having the portfolio-level number rather than the sleeve-level number. The second is having stated, in advance, that this exact conversation would happen.</p>
+
+
+
+<h3 id="h-what-tends-to-work" class="wp-block-heading">What tends to work</h3>
+
+
+
+<p class="wp-block-paragraph"><em>“The hedge has cost us about twenty basis points a year at the portfolio level. Over four years that is a little under one percent of total value. We agreed to that number before we bought it, and we agreed then that years like these are what the cost buys. Nothing has happened that changes the thesis. If you want to reduce the position, we can, and the right reason would be that your capacity for a thirty percent drawdown has increased. It should not be that we have gone four years without one.”</em></p>
+
+
+
+<h3 id="h-what-tends-to-fail" class="wp-block-heading">What tends to fail</h3>
+
+
+
+<ul class="wp-block-list">
+<li>Explaining the option structure. The client is not asking a technical question.</li>
+
+
+
+<li>Predicting a crash to justify the cost. This converts a risk management decision into a market call, and it creates an expiration date on the argument.</li>
+
+
+
+<li>Apologizing. The cost is not an error. It is the product working as designed.</li>
+
+
+
+<li>Quoting the sleeve return. Negative forty percent on a five percent sleeve is a frightening number and an almost irrelevant one.</li>
+</ul>
+
+
+
+Conclusion
+
+
+
+<p class="wp-block-paragraph">The most important period in tail-risk investing is usually not the crash. It is the interval between now and the crash. That is where carrying cost accumulates, conviction is tested, benchmarks become seductive, and organizational support decays. A strategy that treats those years as dead time has ignored the environment in which it is most likely to fail.</p>
+
+
+
+<p class="wp-block-paragraph">A durable program is built for that interval. In calm markets it has to withstand boredom. In rising markets it has to withstand envy. In committee meetings it has to withstand backward-looking comparison. In stress it must not depend excessively on liquidity that may no longer exist. And throughout, it has to remain understandable enough that the people responsible for it know what success and failure actually mean.</p>
+
+
+
+<p class="wp-block-paragraph">The right objective is therefore not the most elegant hedge, the largest modeled payout, or the lowest apparent cost in isolation. It is a protection system whose model, implementation, economics, communication, and governance are mutually consistent.</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph"><em>The practitioners best prepared for the next period of market stress will not be those with the most elaborate model. They will be those with a protection system built to survive the waiting.</em></p>
+</blockquote>
+
+
+
+Important author disclosures
+
+
+
+<p class="wp-block-paragraph"><strong>Purpose and scope.</strong> This paper is for educational and informational purposes only. It is not investment, legal, tax, or accounting advice. It is not a recommendation, an offer, or a solicitation to buy or sell any security, fund, strategy, option, derivative, or other financial instrument, and it does not offer or promote any investment advisory service. No fund, strategy, or advisory product of the author or any firm affiliated with the author is described, named, recommended, or offered in this paper. Views expressed are those of the author as of the date of publication and are subject to change without notice.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>About the references to specific institutions and funds.</strong> Two case studies name a real registered fund and a real public pension plan. They appear because their outcomes are documented in public filings and contemporaneous reporting, which allows a reader to verify the facts independently. They are presented as case material and not as criticism of any firm, manager, board, or fiduciary, each of whom faced genuine uncertainty at the time. No comparison, ranking, or performance comparison is made or implied between any entity named here and any other fund, strategy, or adviser, including any managed or sponsored by the author or the author’s affiliates. The outcome of any single fund or program is not evidence about the merits of any other. Past performance does not indicate future results.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Author conflicts of interest.</strong> The author manages options-based and tail-risk strategies professionally and is employed by a firm that is compensated for doing so. Firms affiliated with the author advise or sub-advise registered funds that use options-based hedging techniques of the general type discussed here. The author therefore has an economic interest in the broader category this paper addresses, including an interest in advisors and institutions viewing systematic hedging favorably. Readers should weigh that interest when evaluating the framework presented, and should test the framework against sources with different incentives.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Illustrations.</strong> The numerical illustrations in this paper are illustrations of mathematical principles only. They apply compounding and multiplication to hypothetical constant cost inputs. They do not represent the performance or expected performance of any investment, account, fund, or strategy, they assume a zero payoff in all cases, and they do not predict or project any result. No fees, taxes, transaction costs, or hedge payoffs are reflected. Actual costs and outcomes differ.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Risk.</strong> Options and derivatives involve risk and are not suitable for all investors. Tail-risk strategies can lose money for extended periods, may underperform unhedged portfolios for years, may fail to perform as expected during market stress, and are subject to liquidity, basis, financing, counterparty, tax, operational, and implementation risks. A strategy designed to protect against severe declines may lose substantial value in a decline that takes a different form, as one of the cases in this paper illustrates. Investors should read all applicable offering documents and risk disclosures and consult qualified investment, legal, and tax professionals before making any investment decision.</p>
+ <p>References[+]References[−]</p> <table class="footnotes_table footnote-reference-container">References  
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_98103_2_1" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_98103_2('footnote_plugin_tooltip_98103_2_1');"><a>↑1</a></th> <td class="footnote_plugin_text">Below are some design failures that often plague tail risk programs (behavioral issues discussed in the main text).</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Model failure.</strong> A program becomes fragile when it depends on one narrow description of how a severe decline is supposed to unfold. Real crises arrive as jumps, gaps, liquidity shocks, correlation changes, volatility regime shifts, or combinations of all of them. They also arrive as grinds, which is the case most stress tests ignore. The objective is not to predict the form of the next decline. It is to avoid a design that only works if the decline follows the forecast.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Implementation failure.</strong> A theoretical hedge becomes operationally fragile when too much of its protection depends on trading successfully during the stress event itself. Dynamic rebalancing can be valuable. The problem is dependence, not dynamism. If the core protection requires continuous markets, tight spreads, stable relationships, and repeated execution precisely when those conditions are deteriorating, the payoff diagram overstates what the investor actually owns. The practical question is simple: which part of the protection is already in place, and which part still has to be manufactured after the market has begun to break?</p>
+
+
+
+<p class="wp-block-paragraph"></td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_98103_2_2" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_98103_2('footnote_plugin_tooltip_98103_2_2');"><a>↑2</a></th> <td class="footnote_plugin_text">Benartzi, S., & Thaler, R. H. (1995). Myopic loss aversion and the equity premium puzzle. The Quarterly Journal of Economics, 110(1), 73–92. Thaler, R. H., Tversky, A., Kahneman, D., & Schwartz, A. (1997). The effect of myopia and loss aversion on risk taking: An experimental test. The Quarterly Journal of Economics, 112(2), 647–661.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_98103_2_3" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_98103_2('footnote_plugin_tooltip_98103_2_3');"><a>↑3</a></th> <td class="footnote_plugin_text">Every figure attributed to a fund below is taken from that fund’s own published materials or regulatory filings. Figures attributed to institutions are taken from the cited reporting. Readers are encouraged to verify them directly. Simplify Tail Risk Strategy ETF, Quarterly Fund Review, 4Q22, as of December 31, 2022 (calendar-year and since-inception NAV total return; stated hedging budget). Simplify Asset Management Inc. Simplify Tail Risk Strategy ETF, Fund Fact Sheet, October 2021 (inception date of September 13, 2021; stated design premise). Simplify Tail Risk Strategy ETF, Summary Prospectus, February 2024, and Simplify Asset Management press release, February 16, 2024 (board liquidation determination; final trading day of March 7, 2024; liquidation on or about March 14, 2024). ETF.com, “Simplify’s CYA Becomes Casualty of Bad Bets,” February 2024 (decline since inception and remaining assets, as reported). S&P 500 index levels of 4,796.56 on January 3, 2022 and 3,577.03 on October 12, 2022, and calendar 2022 total return, from index data.</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_98103_2_4" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_98103_2('footnote_plugin_tooltip_98103_2_4');"><a>↑4</a></th> <td class="footnote_plugin_text">Bloomberg News, “Calpers Missed a $1 Billion Payday by Scrapping Market Hedge,” April 9, 2020. Institutional Investor, “The Inside Story of CalPERS’ Untimely Tail-Hedge Unwind,” April 2020 (program size, approximately five basis point cost, ninety-day unwind, LongTail Alpha final distribution range). Institutional Investor, “CalPERS’ Abandoned Tail Hedge Starts a War of Words,” April 2020, and “CalPERS CIO Called Out By Ex-Head of Tail-Risk Program,” April 2020 (the public dispute over the cost of tail hedging).</td></tr>
+
+<tr class="footnotes_plugin_reference_row"> <th scope="row" id="footnote_plugin_reference_98103_2_5" class="footnote_plugin_index pointer" onclick="footnote_moveToAnchor_98103_2('footnote_plugin_tooltip_98103_2_5');"><a>↑5</a></th> <td class="footnote_plugin_text">Hua, P., & Wilmott, P. (1997). Crash courses. Risk, 10(6). Hua, P., & Wilmott, P. (1999). Extreme scenarios, worst cases, CrashMetrics and Platinum Hedging. Risk Professional. See also Wilmott, P. (2006). Paul Wilmott on quantitative finance (2nd ed.). Wiley.</td></tr>
+
+  </table> <p><a href="https://alphaarchitect.com/built-to-survive-the-waiting/" target="_blank" rel="noopener">Built to Survive the Waiting</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/built-to-survive-the-waiting/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fintech plus Education equals better outcomes for consumers · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Fintech plus Education equals better outcomes for consumers</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/financial-technology/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-17 · 896 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Financial inclusion is often framed as an access problem. If people can simply open a bank account, download a mobile payment app, or receive digital payments, better financial outcomes should naturally follow. But opening an account is only the first step. Many new users lack confidence in using financial technology. They worry about making mistakes, paying hidden fees, or becoming victims of fraud. As a result, many accounts remain inactive even after they are opened.This paper asks an important question. How do financially inexperienced people actually learn to use a new financial technology?</p>
+
+
+
+Learning to Navigate a New Financial Technology
+
+
+
+<ul class="wp-block-list">
+<li>Emily Breza, Martin Kanz, Leora Klapper</li>
+
+
+
+<li>Journal of Finance, 2026</li>
+
+
+
+<li>A version of this paper can be found <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3753159" target="_blank" rel="noopener">here</a></li>
+
+
+
+<li>Want to read our summaries of academic finance papers? Check out our <a href="https://alphaarchitect.com/category/architect-academic-insights/academic-research-insight/" target="_blank" rel="noopener">Academic Research Insight</a> category</li>
+</ul>
+
+
+
+Key Academic Insights
+
+
+
+<p class="wp-block-paragraph"><strong>Access alone is not enough</strong><br />Many financial inclusion initiatives focus on opening accounts. However, simply providing access does not guarantee that consumers will actually learn how to use financial products effectively. The study distinguishes between receiving an account and receiving wages directly into that account, allowing the authors to isolate the effect of repeated use.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Repeated use creates learning</strong><br />Workers who received automatic payroll deposits interacted with their accounts every month. As a result, they quickly became more comfortable using the technology without assistance, conducted more transactions independently, and became increasingly confident navigating digital financial services.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Consumers learn to avoid unnecessary fees</strong><br />One of the paper’s most striking findings is that experienced users learned to bypass intermediaries who commonly charged illicit transaction fees. Instead of relying on mobile money agents, workers increasingly completed transactions directly through their own accounts, lowering costs and reducing opportunities for exploitation.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Learning increases trust</strong><br />Repeated interaction with payroll accounts significantly increased users’ trust in the financial technology. The improvement was particularly strong for mobile money accounts, where initial trust levels were substantially lower than for traditional bank accounts. Over time, the trust gap between mobile money and bank accounts nearly disappeared.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Financial learning produces real economic benefits</strong><br />The effects extend well beyond improved account usage. Workers receiving payroll deposits accumulated larger formal savings balances, became more likely to save overall, reduced <a href="https://alphaarchitect.com/high-frequency-consumer-spending-dat/" target="_blank" rel="noopener">discretionary spending</a>, and were better able to cope with unexpected financial shocks.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Active engagement matters more than account ownership</strong><br />Workers who simply received an account but continued to receive wages in cash showed much smaller improvements. The evidence suggests that active engagement with financial technology, rather than mere ownership, drives consumer learning.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Learning generates positive spillovers</strong><br />Consumer learning also affected financial service providers. An audit study found that mobile money agents were significantly less likely to overcharge inexperienced customers in neighborhoods where payroll account adoption was higher. As consumers became more knowledgeable, opportunities for exploitation declined for everyone.</p>
+
+
+
+Practical Applications for Investment Advisors
+
+
+
+<p class="wp-block-paragraph"><strong>Experience builds confidence</strong></p>
+
+
+
+<p class="wp-block-paragraph">Investors often hesitate to adopt new technologies, including digital onboarding, mobile investing apps, or automated portfolio management. This paper suggests that guided, repeated use may build confidence far more effectively than lengthy explanations.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Simplicity encourages adoption</strong><br />Financial products that encourage regular interaction help clients become more comfortable over time. Reducing friction during the early stages of adoption may generate lasting improvements in financial behavior.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Education should accompany experience</strong><br />raditional financial education remains valuable, but it becomes far more effective when paired with practical experience. Helping clients complete simple tasks themselves may accelerate learning much more than additional educational materials.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Trust grows through successful interactions</strong><br />Trust is earned through repeated positive experiences. Designing client experiences that minimize errors, confusion, and unnecessary complexity may improve long-term engagement with financial services.</p>
+
+
+
+How to Explain This to Clients
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“Many people assume that becoming financially confident starts with taking a course or reading more about investing. This study suggests something different. People often become financially confident by actually using financial tools. When workers began receiving their pay directly into digital accounts, they gradually learned how to use the accounts more efficiently, avoided unnecessary fees, built greater trust in the technology, and accumulated more savings. The lesson is that confidence often follows experience. Starting with simple financial habits and repeating them consistently can be more valuable than waiting until you feel like an expert.”</p>
+</blockquote>
+
+
+
+The Most Important Chart from the Paper
+
+
+
+<p class="wp-block-paragraph">The figure shows the percentage of respondents making direct versus indirect send-money transactions by treatment, measured in survey data at endline.</p>
+
+
+
+<figure class="aligncenter size-full"><img src="https://alphaarchitect.com/wp-content/uploads/2026/06/2026-06-25-13_55_32-technology.pdf-Adobe-Acrobat-Reader-64-bit.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+Abstract
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<h3 id="h-" class="wp-block-heading"></h3>
+
+
+
+<p class="wp-block-paragraph">We present results from a field experiment that introduced digital payroll accounts to unbanked factory workers to examine how inexperienced consumers learn to use a new financial technology. We find that exposure to payroll accounts leads to increased account use, accelerated learning, and avoidance of common consumer protection risks. Those receiving electronic wage payments gradually build trust in the technology, learn to use accounts without assistance, and avoid illicit fees. Using experimental variation in assignment to bank versus mobile money accounts, we show that these impacts are concentrated in mobile money accounts, the newer, more complex, and less trusted financial technology.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</blockquote>
+<p><a href="https://alphaarchitect.com/financial-technology/" target="_blank" rel="noopener">Fintech plus Education equals better outcomes for consumers</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/financial-technology/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

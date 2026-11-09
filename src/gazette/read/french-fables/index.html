@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>French Fables · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">French Fables</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/french-fables" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-25 · 1200 words</span>
+    </div>
+    <div class="body"><p>An interesting brouhaha has broken out in France, lately famous for reinvigorating the idea of wealth taxes: The French government should default on (“annul” “cancel” — the left is great at euphemisms) its debt held by the European Central Banks. <em>Voilá. Disparu. </em>Without any financial or economic cost! </p><p>Try out your high school French on the <a href="https://x.com/MPigasse/status/2091227485266391070" target="_blank" rel="noopener">lovely video </a>by Mattheiu Pigasse. It really is beautifully done. Short, clear, eloquent, hits all the arguments. </p><figure><a href="https://substackcdn.com/image/fetch/$s_!aphP!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff1e015c0-87f9-4cb3-9f44-df4b115d9d62_1180x1662.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!aphP!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff1e015c0-87f9-4cb3-9f44-df4b115d9d62_1180x1662.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>This affair is particularly interesting because the conventional macroeconomics and central bank view  is hard pressed to explain just what’s wrong. Try this response by <a href="https://x.com/ojblanchard1/status/2091632338580984093" target="_blank" rel="noopener">Olivier Blanchard</a>, brilliant theorist and <em>doyen</em> of French macroeconomics. He explains that interest paid by France to the ECB is returned by the ECB to France, concluding that the default would have “no effect.”  “… annuler la dette francaise detenue par la BCE n’aurait aucun effet.” I think Blanchard means no fiscal effect, but not that doing so <em>would</em> have an inflationary effect. And he left out the main issue, default on the principal payments. </p><p>You do smell a rat, no? If this works, why not have the ECB buy up the rest of  French debt first, and then cancel the whole thing? And Italy, Greece, Spain, everyone but pathetically thrifty nordic countries who have some weird moral attachment to repaying their debts. Why not borrow even more, hand out free houses and cars to every voter, and then have the ECB buy and default?  The euro system holds over a trillion euros of gold reserves. There literally is a Scrooge-McDuck pile of gold in the ECB’s basement.  Why not just mint those into coins and pass them out? That sure would be popular! </p><p>Well, obviously no, but just why not?  </p><p>Pigasse knows the obvious objection: it might cause inflation, just like 2021-2022. But no, he says. The big deficits happened in 2020, while inflation started in 2021. (Anytime someone refers to deficit spending as capital being “mobilized,” watch your wallet.) And everyone knows that inflation was due to “supply-chain shocks,” “energy shocks,” and so on, not unbacked money and debt. </p><p>Here he deftly exploits the gaping hole in today’s central bank and policy view of inflation. Much of the Fed and many macroeconomists also blame the 2021-2022 inflation on  “shocks,” not massive deficits or the Fed and ECB’s multi-trillion purchases of those debts.  More deeply, the standard policy view holds that inflation comes from the Phillips curve: from “tight” labor markets, from expectations, and from nebulous “shocks.” So talk down expectations, don’t worry so long as unemployment doesn’t get too low, pray for no “shocks.”  And in the end the ECB can always control inflation by raising interest rates.  If your intellectual framework doesn’t have a place for backing, off down the slippery slope you go. </p><p>So <em>who cares if the central banks hold any assets? </em> If nobody cares, then this French Magic Money Tree really does work. And we can repeat the post-covid green-new-deal “inflation reduction” debt financed blowouts without fear. Just let central banks buy the new debt again.  </p><p>People are apparently happy to hold the approximately 4 trillion euros outstanding, the argument goes, and they would be just as happy to hold those euros whether or not the ECB holds any assets matching the euros. They probably have no idea what’s on the ECB balance sheet anyway.  </p><p>Well, let’s work through what obviously must be true—that assets matter. Yes, people are happy to hold the current supply of euros. And perhaps monetarists are right, they do so because of the liquidity value of money, having nothing to do with its backing. But suppose one day that inflation breaks out again. People don’t want to hold so many euros, and try to trade them for goods and services instead. And this time, central banks want to do something about it. So, the ECB has to soak up some of that money. <em>But with what</em>? When the central bank has assets, government bonds, it can sell the government bonds, take back the excess money, and stem the inflation. What will the ECB do if it has no assets to sell? Well, then the eurozone governments have to give the ECB assets that the ECB can in turn sell in order to soak up euros. They have to tax their citizens.  The euro is, ultimately, backed by taxes. The government bonds that the ECB holds now are just claims to those taxes set aside ahead of time so we know for sure the ECB will be able to do it. </p><p>Or, take a more current view that the ECB will stem inflation by raising interest rates. The ECB must then pay higher interest to banks. Where do the interest payments come from? The ECB might just print ever more unbacked euros to pay interest on the unbacked euro deposits it has now, but you can tell that won’t last very long. The ECB has to collect interest on its asset holdings, or again receive fiscal transfers from member states to do it. </p><p>So, yes, a French default to the ECB ultimately must mean either everyone else in the eurozone ponies up tax revenues to restore the ECB balance sheet, or inflation, which taxes everyone else’s money holdings. There is no magic money tree. Printing money is not “mobilizing” capital. Default is default, and somebody loses. And if you don’t have a view of inflation in which central bank balance sheets matter, you’re missing something crucial. If you don’t have a view of economics in which French taxpayers ceasing to pay interest and principal on their bonds means somebody else loses exactly the same amount, either in real terms or via inflation, (and especially in a full-employment economy) you’re missing something important. </p><p>Have I mentioned lately that there is a really wonderful book that explains the fiscal foundations of the euro in great detail? And only $35 list price! </p><figure><a href="https://press.princeton.edu/books/hardcover/9780691271606/crisis-cycle?srsltid=AfmBOoqxVQ6BXMrED78-gUu1qbI_DqOyMsokfcLQLke5pV8uYQ2s-znG" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!ZyNP!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0b90b5ea-2718-480b-b802-254b0e6240a8_410x623.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>In related news, and thinking also about the <a href="https://www.grumpy-economist.com/p/interest-rate-surge" target="_blank" rel="noopener">US interest rate surge</a>, do you notice who is really quiet lately? That would be Kevin Warsh’s Federal Reserve. Interest rates are surging and we are <em>not</em> hearing the usual complaint about dysfunctional or fragmented markets from the Fed. The Fed is <em>not</em> buying US treasury bonds to hold down long-term interest rates. That silence is significant. The first purpose of central banks is to commit against monetizing debts. </p><p><em>Update:</em></p><p>Of course I’m corresponding a lot with my <em>Crisis Cycle</em> coauthors on this! Garicano <a href="https://x.com/lugaricano/status/2091813804518604864" target="_blank" rel="noopener">emphasizes the political economy point</a>. If countries can default on today’s debts to the ECB, tomorrows’s debts will be larger. </p><p>As we mention in Crisis Cycle, when Greece finally defaulted it defaulted an everything but ECB held debt! The ECB was paid in full. Good job ECB (and credit to Klaus who was deeply involved). That was a nice precedent to wall off sovereign default from euro-wide inflation or euro-wide ECB recapitalization. </p><p>I think the consequences of sovereign default to the ECB, or “cancellation” if mutually agreed, are clear enough to many members of the eurozone, starting with Germany, that it would quickly be the end of the euro. Which would be a pity. </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/french-fables?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/french-fables?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/french-fables" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guest Contribution: “Do Traditional Models or the Dominant Currency Paradigm Explain China’s Export Behavior?” · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">Guest Contribution: “Do Traditional Models or the Dominant Currency Paradigm Explain China’s Export Behavior?”</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/09/guest-contribution-do-traditional-models-or-the-dominant-currency-paradigm-explain-chinas-export-behavior" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-09-15 · 1621 words</span>
+    </div>
+    <div class="body"><p><em>Today, we’re fortunate to have <a href="https://www.rieti.go.jp/users/willem-thorbecke/index_en.html" target="_blank" rel="noopener">Willem Thorbecke</a>, Senior Fellow at Japan’s Research Institute of Economy, Trade and Industry (RIETI) as a guest contributor. The views expressed represent those of the author himself, and do not necessarily represent those of RIETI, or any other institutions the author is affiliated with.</em></p>
+
+
+<p>Do exchange rates affect exports.  Traditional models assume that they do. The Mundell-Fleming model posits that firms price exports in their own currency. A depreciation of the exporters’ currency then lowers export prices in the importers’ currency and increases the quantity of exports demanded. Economists call this effect expenditure-switching towards a country’s exports.</p>
+
+<p><strong>The Dominant Currency Pricing Model</strong></p>
+<p><a href="https://www.kansascityfed.org/documents/5753/2015-jackson-hole-gopinath-the-intl-price-system.pdf" target="_blank" rel="noopener">Gopinath</a> (2015), <a href="https://www.imf.org/en/publications/esr/issues/2019/07/03/2019-external-sector-report" target="_blank" rel="noopener">IMF</a> (2019), and others have challenged this conclusion. They noted that U.S. dollar (USD) invoicing plays a dominant role in trade, even when countries are trading with each other and not with the U.S. For trade invoiced in USD between two countries other than the U.S., a depreciation of the exporting country’s currency relative to the importing country’s currency will not increase the importing country’s purchasing power in USD and not enable it to import more. An appreciation of the importing country’s currency relative to the USD, on the other hand, will enable it to purchase more imports. This approach is called the dominant currency pricing (DCP) framework.</p>
+<p>Researchers have reported little pass-through of bilateral exchange rates between exporting and importing countries on export prices denominated in USD (see, e.g., <a href="https://www.imf.org/en/publications/wp/issues/2020/07/17/patterns-in-invoicing-currency-in-global-trade-49574" target="_blank" rel="noopener">Boz et al</a>., 2022).  Since exchange rates have little impact on USD export prices, DCP proponents concluded that bilateral exchange rates have little impact on export volumes.</p>
+<p>The DCP model challenges the notion that flexible exchange rates are stabilizing.  In the traditional framework, shocks that reduces exports weaken exchange rates and help exports to recover. Flexible exchange rates thus act as shock absorbers. If USD prices are not impacted by depreciations, the insulation offered by flexible exchange rates may be attenuated.</p>
+
+<p><strong>Challenges to the Dominant Currency Pricing Model</strong></p>
+<p><strong>              </strong><a href="https://personal.lse.ac.uk/tenreyro/flemming.pdf" target="_blank" rel="noopener">Tenrenryo</a> (2019) has challenged the DCP paradigm.  She noted that a depreciation increases exporters’ profitability by increasing local currency export prices relative to local currency wages. This can increase exports at the extensive margin, since it may be profitable to export new products. Tenrenryo explained that if exporters of a Chilean wine cannot change the USD prices of exports to Brazil, other Chilean winemakers may start exporting at lower USD prices. Chilean firms producing other products may also begin exporting, as fixed dollar prices imply higher revenues in Chilean pesos.  Also, exporters of commodities and basic manufactured goods such as textiles are price takers. When their currency depreciates, it is profitable to increase output even if USD prices are unchanged.  The constraint on their exports is not demand in the importing countries but the ability of exporters to increase supply. <a href="https://personal.lse.ac.uk/tenreyro/dominant_currency.pdf" target="_blank" rel="noopener">McLeay and Tenreyro</a> (2026) verified these assertions in an open economy framework using realistic assumptions.</p>
+
+<p><strong>Evidence from China</strong></p>
+<p><strong>              </strong>In <a href="https://www.mdpi.com/2227-7099/14/9/360" target="_blank" rel="noopener">recent work</a> with Chen Chen and Nimesh Salike, we investigated whether the DCP paradigm or traditional models better explain China’s exports. We focused on the 1995-2008 period. During this time China’s exports were primarily invoiced in USD.<a href="#_ftn1" target="_blank" rel="noopener">[1]</a>  Also during this time China could increase exports rapidly.  It had hundreds of millions of redundant laborers. These workers could respond quickly to increases in labor demand.  In addition, imported inputs provided much of the value-added to exports at this time (<a href="https://cepii.fr/CEPII/en/publications/wp/abstract.asp?NoDoc=211" target="_blank" rel="noopener">Gaulier et al</a>., 2007).  The IMF (2005) observed that imported inputs varied one-for-one with increases in demand for final goods in the rest of the world. With both labor and imported inputs increasing elastically, China could rapidly increase supply before the GFC.</p>
+
+<p><strong>Methodology</strong></p>
+<p>We followed <a href="https://shs.hal.science/halshs-01820745v1/file/wp_201830_.pdf" target="_blank" rel="noopener">Bénassy-Quéré et al.</a> (2021) in estimating trade elasticities. Exports from country <em>i </em>to country <em>j</em> of product <em>p</em> at time <em>t</em> ( can be explained using fixed effects:</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/09/thor_eqn1.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/09/thor_eqn1.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p>where  represents exporter, product, and time fixed effects,  represents importer, product, and time fixed effects, and  represents exporter and importer fixed effects. Bénassy-Quéré et al. (2021) added the bilateral real exchange rate between countries <em style="font-size: 1rem">i</em> and <em style="font-size: 1rem">j</em> () to Equation (1):</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/09/thor_eqn2.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/09/thor_eqn2.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p>Since we are investigating exports from a single country, we dropped the exporter fixed effect terms (. We followed Bénassy-Quéré et al. by adding real GDP in China and in the importing countries in some specifications. We also sought to add a time fixed effect (). Real GDP in China proves to be collinear with the time fixed effect, so when including Chinese GDP we had to drop. We also added in some specifications the real exchange rate of the importing country relative to the U.S. This exchange rate should impact exports according to the DCP model.</p>
+<p>We estimated the model using data on China’s bilateral real exports disaggregated at the Harmonized System four-digit level for 1242 export categories to 190 countries. The data come from the UN Comtrade database.</p>
+<p>We treated the estimated equations as semi-reduced form models. As Chinn (2004) discussed, exchange rates are volatile and often have a life of their own. Obstfeld and Rogoff (2000) also discussed this. For this reason, the estimated model may be useful for answering the question of how exchange rate changes impact export volumes. In addition, in the case of China, the RMB was fixed to the U.S. dollar for 11 of the 13 years in the sample period. At other times, the exchange rate was set with reference to a basket of currencies. Even when the renminbi was not fixed to the dollar, the PBoC still intervened heavily in the foreign exchange market. With China intervening heavily to influence its currency relative to the USD or a small basket of currency, there is a lot of exogenous variation in the RMB exchange rate relative to the other 189 or 177 currencies we employed. This variation can help to identify, in an econometric sense, the impact of exchange rates on exports. We thus follow Chinn (2004), Bénassy-Quéré et al. (2021), and others in giving a structural interpretation to the exchange rate coefficients.</p>
+<p>We estimated exchange rate elasticities using Poisson Pseudo Maximum Likelihood (PPML), dynamic ordinary least squares, and panel data techniques.  The results were similar using the different methodologies.</p>
+
+<p><strong>Results</strong></p>
+<p>Table 1 presents the findings using PPML estimation. The results indicate that the renminbi real exchange rate relative to the importing countries impacts China’s exports. The coefficients imply that a 10 percent depreciation of the renminbi would increase exports by between 9.7 and 13.1 percent. This is consistent with traditional models where depreciations switch expenditures towards a country’s exports. By contrast, the USD real exchange rate relative to importing countries does not affect exports. This is inconsistent with the DCP framework.</p>
+<p><a href="#_ftnref1" target="_blank" rel="noopener">[1]</a> The IMF (2019) reported that, on average, over the 2001–2015 period, more than 90% of China’s exports were invoiced in USD. <a href="https://www.rieti.go.jp/jp/publications/dp/16e033.pdf" target="_blank" rel="noopener">Sato and Shimizu</a> (2016) noted that, in the second quarter of 2010, only one percent of China’s trade was invoiced in renminbi.</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/09/thor_tab1.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/09/thor_tab1.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+
+<p><strong>Conclusion</strong></p>
+<p><strong> </strong>Traditional models such as the Mundell-Fleming model emphasize that monetary policy impacts exchange rates and net exports. This perspective has been challenged by DCP proponents.  They noted that, because so many exports are invoiced in USD, changes in the bilateral exchange rate between exporting and importing countries will not increase the importing country’s purchasing power in USD and not enable it to import more.</p>
+<p>McLeay and Tenreyro (2026) noted that, even if exports are invoiced in USD, a depreciation can still increase exports. They showed that depreciations increase profitability by raising local currency export prices relative to local currency wage costs. Even when existing contracts are invoiced in USD, depreciations make it possible to export new products profitably. Also, for exports facing intense competition and flexible prices, a depreciation lowers labor costs even if export prices remained unchanged. This gives producers an incentive to increase exports at unchanged export prices. The ability of firms in exporting countries to respond through these channels depends on the elasticity of supply.</p>
+<p>We investigated how exchange rates impacted China’s exports over the 1995-2008 period.  At this time exports were invoiced in USD but China could flexibly increase supply. The results indicate that bilateral exchange rates between exporting and importing countries explained exports but that USD exchange rates relative to importing countries do not. These findings indicate that, in this case, exchange rates exerted classical expenditure switching effects.  Rather than assuming that USD invoicing breaks the link between exchange rates and exports, researchers should investigate this question on a country by country basis. They should then draw policy conclusions accordingly.</p>
+<p><strong> </strong></p>
+<p><strong>References</strong></p>
+<p>Bénassy-Quéré, A., Bussière, M., & Wibaux, P. (2021). Trade and Currency Weapons. <em>Review of International Economics</em>, 29, 487–510.</p>
+<p>Boz, E., Casas, C., Georgiadis, G., Gopinath, G., Le Mezo, H., Mehl, A., & Nguyen, T. (2022). Patterns of Invoicing Currency in Global Trade: New Evidence. <em>Journal of </em><em>International Economics</em>, 136, 103604.</p>
+<p>Chinn, M. (2004). Incomes, Exchange Rates and the U.S. Trade Deficit, Once Again. <em>International Finance</em>, 7, 451–469.</p>
+<p>Gopinath, G. 2016. The International Price System. In <em>Inflation Dynamics and </em><em>Monetary Policy</em>. Federal Reserve Bank of Kansas City.</p>
+<p>IMF. 2019. <em>External Sector Report: The Dynamics of External Adjustment</em> (Chapter 2). International Monetary Fund.</p>
+<p>IMF. (2005). <em>Asia-Pacific Economic Outlook</em>. International Monetary Fund.</p>
+<p>McLeay, M., & Tenreyro, S. 2026. Dollar Dominance and the Transmission of Monetary Policy. <em>The Quarterly Journal of Economics</em>, 141, 605–666.</p>
+<p>Obstfeld, M., & Rogoff, K. (2000). Perspectives on OECD Economic Integration: Implications for U.S. Current Account Adjustment. In <em>Global Economic Integration: </em><em>Opportunities and Challenges</em>. Federal Reserve Bank of Kansas City.</p>
+<p>Sato, K., & Shimizu, J. (2016). The International Use of the Renminbi: Evidence from Japanese Firm-level Data (RIETI Discussion Paper Number 16-E-033). RIETI.</p>
+
+
+<p><em>This post written by <strong>Willem Thorbecke</strong>.</em></p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/09/guest-contribution-do-traditional-models-or-the-dominant-currency-paradigm-explain-chinas-export-behavior" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

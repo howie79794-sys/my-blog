@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Great Nobel · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">A Great Nobel</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/a-great-nobel" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-10-12 · 960 words</span>
+    </div>
+    <div class="body"><p>As you may have heard, Mike Woodford and Bob Hall won the 2026 Nobel prize. </p><p>This is a great prize, honoring two superb and highly influential economists. </p><p>What their work has to do with Keynesian stabilization is more of a head scratcher. This prize lives a lot more in the shadow of Milton Friedman and Bob Lucas than Keynes. </p><p>Hall’s most famous paper (<a href="https://www.johnhcochrane.com/research-all/hall-consumption" target="_blank" rel="noopener">my review here</a>) was a brilliant extension and test of Milton Friedman’s permanent income model of consumption, which undercut the whole Keynesian fiscal stimulus business. Hall’s approach is also the cornerstone of all subsequent macroeconomics. Keynesian economics thinks about each year in isolation. In modern economics people think about the future in deciding what to do today. That is also a central part in Bob Lucas and Ed Prescott’s justly famous Nobel contributions. And Woodford. </p><p>Woodford’s monumental work (<em>Interest and Prices</em> is a capstone) was centrally about monetary policy, what the Fed can and should do. Keynesian economics famously said monetary policy is ineffective so the government should pursue fiscal stimulus.   There isn’t much fiscal stimulus in Woodford’s book, and what little there is in subsequent work has very little to do with the Keynesian story. Again, this is the shadow of Friedman, not Keynes. But Friedman needed the money supply. The Fed sets interest rates and ignores money supply. Woodford shows how the Fed can affect the economy by setting interest rates. The core proposition is John Taylor’s rule: the Fed should aggressively raise interest rates to tame inflation.  Woodford credits the idea to Wicksell and Taylor, and the Fed discovered on its own in the 1980s. But if you don’t have equations you don’t really know anything, and that’s what Woodford (leading a pack of many others) did. </p><p>I have been a little critical of new-Keynesian economics. But mostly as I see unfinished business. I think FTPL repairs a hole in new-Keynesian economics, and finishes the job. (“<a href="https://www.johnhcochrane.com/research-all/inflation-neutrality" target="_blank" rel="noopener">Expectations and the neutrality of interest rates</a>” sums that up best.) Indeed, my main criticism is that Woodford went through contortions to <em>leave out</em> fiscal policy and inflationary fiscal stimulus, and give the Fed too much (complete) power over the economy. </p><p>Even Brad de Long called new Keynesians the “<a href="https://www.aeaweb.org/articles?id=10.1257/jep.14.1.83" target="_blank" rel="noopener">triumph of monetarism.</a>” So, really, this is one more prize for Milton Friedman and Bob Lucas, not Keynes. Woodford set out to do something “Keynesian,” but by Lucas rules: people optimize in their behavior,  they can’t be fooled systematically, and we write a proper model based on people and firms and budget constraints and markets that clear. (Woodford has been looking at more complex expectations recently, but not in the original work.) Policy consists of rules, either explicit or inferred from repeated behavior, not actions. I think that Woodford and other new-Keynesians set out to rewrite “Keynesian” economics under Lucas rules. But when you read the actual equations of what they came back with, it has very little to do with Keynes. (A <a href="https://www.johnhcochrane.com/research-all/equilibrium-selection" target="_blank" rel="noopener">recent article making that point</a>.) The equations of NK models scream that higher interest rates <em>raise</em> inflation.  That’s only now becoming clear. And it’s a bit weird for the committee to be impressed with central bank stabilization policy in the wake of 10% inflation here, in Europe, and the UK. This was a systematic failure of ideas—though largely old- rather than new-Keynesian ideas. </p><p>Hall ranges broadly over labor, investment, money, and many parts of macroeconomics. He is always innovative. I had given up hope of a Nobel for him, because he’s not the type who bangs away on one idea. I am glad to be wrong.</p><p>Reporters have asked “who else?” This has been a very productive few decades for macroeconomics, and there are a dozen or so economists who could easily have shared this prize. There isn’t that much common between Mike and Bob’s work, actually, so it’s really a generic prize for macroeconomics. I would hate to be on the committee that has to pick just two or three per year. Perhaps more macro prizes will come. </p><p>Two short personal stories: When I was on the job market long ago, a senior economist asked me who my favorite economist was. I answered Bob Hall, because he worked on so many issues and his papers were always so innovative. I nearly lost the job. Bob has also been a great colleague here at Hoover. For example, he asked a crucial question while walking back from a seminar that sent me on the whole s-shaped surplus quest that makes fiscal theory work. </p><p>Mike was a crucial spur on my path to the fiscal theory. While we were both at the University of Chicago, I mentioned my struggles with monetarism. He mentioned that I should read a recent paper of his, an early draft of “<a href="https://www.sciencedirect.com/science/article/abs/pii/0167223195900330" target="_blank" rel="noopener">price level determinacy without control of a monetary aggregate.</a>” Woodford papers aren’t easy, but knowing that the nugget I wanted was in there proved the spur. Woodford left the true faith (fiscal theory) behind, for reasons I need to ask him someday, but that paper and interaction was crucial for me. </p><p>Later, I wrote a paper (“<a href="https://www.johnhcochrane.com/research-all/determinacy-and-identification-with-taylor-rules" target="_blank" rel="noopener">Determinacy and Identification</a>”) somewhat critical of some loose ends in Woodford’s book. The JPE asked Mike to referee it. Mike wrote a detailed 20 page single-spaced report, detailing every objection. He didn’t squash it or dismiss it as others might have done. I spent a few months addressing each point and much improved the paper. I don’t think I convinced Mike, but this is how scholars interact.   We can disagree on fundamental matters, with detailed and careful arguments, but remain colleagues and friends. I’ve had the pleasure of returning the favor.</p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/a-great-nobel?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/a-great-nobel?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/a-great-nobel" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

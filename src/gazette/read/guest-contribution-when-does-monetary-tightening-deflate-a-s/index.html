@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guest Contribution: “When Does Monetary Tightening Deflate a Stock-Market Bubble?” · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">Guest Contribution: “When Does Monetary Tightening Deflate a Stock-Market Bubble?”</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/08/guest-contribution-when-does-monetary-tightening-deflate-a-stock-market-bubble" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-24 · 1308 words</span>
+    </div>
+    <div class="body"><p><em>Today, we are pleased to present a guest contribution written by <a href="https://www.jamelsaadaoui.com/" target="_blank" rel="noopener">Jamel Saadaoui (Université Paris 8-Vincennes)</a>.   </em></p>
+
+
+<p>Our paper, written with William Ginn and Evangelos Salachas, “<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5513359" target="_blank" rel="noopener"><strong>Stock Price Bubbles, Inflation and Monetary Policy Surprises</strong></a>,” asks when monetary tightening restrains speculative equity valuations—and when it does not.</p>
+<p>A contractionary monetary-policy surprise is normally expected to raise required returns, tighten credit conditions, weaken risk-taking, and reduce the present value of future cash flows. Yet the theoretical and empirical literature is divided. Some studies find that tightening reduces the bubble component of stock prices, whereas others find that it can increase it. We argue that these results can be reconciled by asking a more precise question: in what inflation environment does the policy-related surprise occur?</p>
+<p>Using monthly U.S. data from September 1997 to December 2023, several externally identified high-frequency surprises, and linear, time-varying, and state-dependent local projections, we find that the inflation environment changes not only the magnitude but also the sign of the response of speculative equity valuations.</p>
+<p><strong>How do we identify a bubble?</strong></p>
+<p>Identifying a bubble is inherently difficult because fundamental value is not directly observable. Following Shiller (2015), we use the term to describe episodes in which valuations appear unusually elevated relative to conventional cash-flow and required-return benchmarks and are sustained by investor beliefs and market narratives. We therefore do not rely on a single indicator. Our baseline measure is the Gao and Martin (2021) dividend-yield valuation component, constructed from the Campbell–Shiller price–dividend framework. We then examine whether this component displays episodic explosive behavior using the Phillips–Shi–Yu tests and verify the state-dependent results using the cyclically adjusted price-to-earnings ratio associated with Campbell and Shiller. These complementary measures identify bubble-like speculative valuation episodes rather than claiming that fundamental value can be observed without error.</p>
+<p><strong>Why can tightening have opposite effects?</strong></p>
+<p>The direct effect of a contractionary surprise remains conventional in both inflation environments: higher current and expected policy rates raise required returns and weaken demand. The additional effect comes from what the policy action reveals about future policy conduct. Even when an instrument surprise contains no favorable private information about current fundamentals, a pre-emptive tightening can lead investors to revise upward the perceived responsiveness of the central bank.</p>
+<p>In a low-inflation environment, such an action may be interpreted as insurance against future policy mistakes, an unanchoring of expectations, or a later and more disruptive tightening cycle. Lower policy-error and macroeconomic tail risk can compress required risk compensation, narrow corporate credit spreads, and protect the lower tail of future cash flows even though the short risk-free rate rises. The asymmetry can be summarized as follows:</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/08/saadaouieq1.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/08/saadaouieq1.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p>Here, the first term, <i>Dh(s)</i>, captures the conventional valuation drag of a tightening, while the second,<i>ψh(s)λθ(s)</i> , combines the upward revision in perceived policy responsiveness with its effect on policy-error risk, required risk compensation, and downside cash flows. A positive amplification parameter, , maps the resulting valuation signal into speculative demand. In low inflation, the policy-rule signal can outweigh the conventional drag. In high inflation, expected real rates, inflation risk, tighter credit, and the probability of further tightening dominate. The policy rate does not become expansionary; the balance of valuation forces changes with the inflation environment.</p>
+<p>Heterogeneous beliefs and limits to short selling help explain why the favorable signal can enter the speculative component. Optimistic investors may emphasize improved future stabilization, while pessimistic investors emphasize the immediate increase in discount rates. When pessimistic views cannot be expressed fully through short positions, optimistic valuations and resale-option motives can receive greater weight in market prices.</p>
+<p>The initial signal is different for an explicitly identified central-bank information shock. Favorable information raises the perceived outlook for activity and corporate cash flows. When inflation is low, this news can be capitalized as economic resilience or welcome reflation with a limited expected policy offset. When inflation is high, the same news also implies more persistent monetary restraint and higher required returns, which can mute or reverse the valuation response. The broader FOMC monetary-event surprise used in the paper can contain policy-path, reaction-function, and outlook news, so we interpret it more agnostically.</p>
+<p><strong>Empirical design and main results</strong></p>
+<p>We distinguish two policy-instrument surprises—the Bauer–Swanson (BSMP) and Jarociński–Karadi (JKMP) measures—from the Jarociński–Karadi central-bank information shock and the broader Acosta et al. FOMC monetary-event surprise. The inflation environment is constructed from the lagged value of a one-sided Kalman-filtered inflation trend, and a smooth transition function assigns observations different weights across low- and high-inflation states. The state is therefore determined using information available before the contemporaneous policy surprise.</p>
+<p>The policy-instrument results display a clear sign reversal. In high-inflation environments, contractionary surprises lower expected inflation, widen the BAA corporate–Treasury spread, and reduce the speculative valuation component. In low-inflation environments, the common responses reverse: the BAA spread narrows and the speculative component rises after both policy-instrument surprises. Realized real Shiller earnings rise after the Bauer–Swanson shock but remain weak or negative after the Jarociński–Karadi policy shock, so the most stable common evidence concerns credit conditions and speculative valuations rather than earnings.</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/08/saadaouifig1.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/08/saadaouifig1.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p><strong>Figure 1.</strong> State-Dependent Responses to Policy-Instrument Surprises</p>
+<p><em>Red denotes the high-inflation response, blue the low-inflation response, and the black row the low-minus-high difference. Responses are to one-standard-deviation surprises; shaded areas are 68 and 90 percent Newey–West confidence bands.</em></p>
+<p>The Jarociński–Karadi information shock and the broader FOMC monetary-event surprise show a related inflation-contingent pattern. In low inflation, favorable information or communication news is associated with narrower spreads and higher speculative valuations, although the information-shock response develops with a delay. In high inflation, the speculative response is muted or negative because the expected policy burden and required-return effect become more important.</p>
+<p><strong>Reconciling the literature and policy implications</strong></p>
+<p>The results reconcile two influential views. The conventional risk-taking view predicts that tighter policy raises required returns, restricts credit, and reduces speculative valuations. We locate this disciplining effect primarily in high-inflation environments. Galí and Gambetti show that tightening can instead increase the bubble component of stock prices. We locate this amplification primarily in low-inflation environments, where contractionary policy-instrument surprises are followed by narrower credit spreads and a larger speculative valuation component.</p>
+<p>The policy implication is that the interest rate is not a uniform financial-stability instrument. When inflation is elevated, price-stability and financial-stability objectives tend to align: tightening widens credit spreads and reduces speculative valuations. When inflation is subdued, the same type of surprise can be accompanied by easier credit conditions and higher speculative valuations. Financial-stability assessments should therefore consider not only the direction of the policy surprise, but also the inflation environment and the beliefs generated about future policy conduct, credit conditions, and the macroeconomic outlook.</p>
+<p><strong>Selected references</strong></p>
+<p>Acosta, M., A. Ajello, M. D. Bauer, F. Loria, and S. Miranda-Agrippino (2025), “Financial Market Effects of FOMC Communication: Evidence from a New Event-Study Database,” Federal Reserve Bank of San Francisco Working Paper 2025-30.</p>
+<p>Bauer, M. D., and E. T. Swanson (2023), “A Reassessment of Monetary Policy Surprises and High-Frequency Identification,” NBER Macroeconomics Annual, 37(1), 87-155.</p>
+<p>Evgenidis, A., and A. G. Malliaris (2020), “To Lean or Not to Lean against an Asset Price Bubble? Empirical Evidence,” Economic Inquiry, 58(4), 1958-1976.</p>
+<p>Galí, J., and L. Gambetti (2015), “The Effects of Monetary Policy on Stock Market Bubbles: Some Evidence,” American Economic Journal: Macroeconomics, 7(1), 233-257.</p>
+<p>Gao, C., and I. W. Martin (2021), “Volatility, Valuation Ratios, and Bubbles: An Empirical Measure of Market Sentiment,” Journal of Finance, 76(6), 3211-3254.</p>
+<p>Jarociński, M., and P. Karadi (2020), “Deconstructing Monetary Policy Surprises: The Role of Information Shocks,” American Economic Journal: Macroeconomics, 12(2), 1-43.</p>
+<p>Phillips, P. C. B., S. Shi, and J. Yu (2015), “Testing for Multiple Bubbles: Limit Theory of Real-Time Detectors,” International Economic Review, 56(4), 1079-1134.</p>
+<p>Scheinkman, J. A., and W. Xiong (2003), “Overconfidence and Speculative Bubbles,” Journal of Political Economy, 111(6), 1183-1220.</p>
+<p>Shiller, R. J. (2015), <em>Irrational Exuberance</em>, revised and expanded third edition, Princeton University Press.</p>
+
+<p><em>This post written by <strong>Jamel Saadaoui</strong>.</em></p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/08/guest-contribution-when-does-monetary-tightening-deflate-a-stock-market-bubble" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

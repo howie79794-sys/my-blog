@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Over Target · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>能源 · 宏观</div>
+    <h1 class="title">Over Target</h1>
+    <div class="byline">
+      <span class="author">Doomberg</span><span class="dot">◆</span>
+      <span class="src"><a href="https://newsletter.doomberg.com/p/over-target" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-08-18 · 529 words</span>
+    </div>
+    <div class="body"><p><em>“I accept chaos, I’m not sure whether it accepts me.” </em>– Bob Dylan</p><p>As the Soviet Union disintegrated in the early 1990s, several of the republics that gained independence represented particularly fertile ground for Western oil supermajors. Partially freed from Moscow’s constraints, flush with world-beating energy resources, and in need of Western technological and financial support, the chaos presented the big energy powerhouses with a generational opportunity. (Some might even speculate that this outcome was the driving motivation behind the Cold War in the first place.)</p><p>Among the most lucrative moves of the era was Chevron’s entry into Kazakhstan, where it secured a wildly valuable joint-venture agreement in the Tengiz-Korolev area in April of 1993. Later similar deals in Karachaganak and Kashagan with various Western participants doubled Kazakh oil production in the 1990s, setting the country on its way to the 2 million barrels per day (bpd) level achieved in 2025.</p><figure><a href="https://substackcdn.com/image/fetch/$s_!D7ci!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F723f814b-7846-4479-a0e9-2ccbf0dd7948_3135x2277.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!D7ci!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F723f814b-7846-4479-a0e9-2ccbf0dd7948_3135x2277.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>Kazakhstan’s independence from Russia, the legal successor state of the Soviet Union, was nonetheless incomplete—it remains a landlocked country. Construction on the principal oil pipeline providing takeaway capacity for Kazakh crude, operated by the Caspian Pipeline Consortium (CPC), roughly coincided with Russian President Vladimir Putin’s ascension to power in 1999-2000. Through various expansions and other improvements, the CPC pipeline can currently carry roughly 1.4 million bpd of oil to the Russian border and on to the all-important Port of Novorossiysk on the coast of the Black Sea.</p><p>Novorossiysk’s strategic relevance goes well beyond Kazakhstan and its Western partners, as the port is also a critical conduit for Russian energy and grain exports. This has made knocking the expansive facility offline a longstanding objective of Ukraine’s drone offensive. On November 29 of last year, events took an eyebrow-raising turn when critical elements of the CPC pipeline became a <a href="https://www.bloomberg.com/news/articles/2025-11-29/cpc-reports-halts-in-black-sea-oil-loading-after-new-attack" target="_blank" rel="noopener">direct target</a>:</p><blockquote><p>“<em>The Caspian Pipeline Consortium, which handles most of Kazakhstan’s crude exports through Russia to the Black Sea, halted loading after one of its three moorings was damaged amid overnight Ukrainian attacks in the region.</em></p><p><em>‘As a result of a targeted terrorist attack by unmanned boats’ mooring 2 was ‘significantly damaged’ and ‘its further operation isn’t possible,’ the operator’s press office said in a statement.</em></p><p><em>All tankers were withdrawn from the CPC water area and shipments at the terminal will be carried out ‘in accordance with established rules once the threats from unmanned boats and drones have been eliminated,’ CPC said.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!fLAo!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fff816c8c-bf9b-49e1-8e5e-32163a92464f_1786x994.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!fLAo!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fff816c8c-bf9b-49e1-8e5e-32163a92464f_1786x994.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">All’s fair… | Ukrainska Pravda</figcaption></figure><p>Representing the valuable US strategic interests involved, the State Department delivered a formal <a href="https://caliber.az/en/post/washington-issues-demarche-to-kyiv-over-strikes-linked-to-cpc-terminal" target="_blank" rel="noopener">démarche</a> to the Ukrainian ambassador, a highly unusual move considering how dependent Kyiv has been on Washington’s support for the duration of the war.</p><p>It is through this historical context that we now speculate about recent military developments in the Black Sea. If our hunch is correct, the events of the past three weeks are a deeply troubling sign of what lies ahead for the Western powers as the war in Ukraine drags on to its bitter and inevitable end. It would also prove, yet again, that there is no such thing as a partial war, or one that can be reliably contained within predetermined confines once uncorked.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://newsletter.doomberg.com/p/over-target" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
