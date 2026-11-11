@@ -478,7 +478,7 @@ body.hide-others .sec-hidden{display:none!important;}
   .tl-card{gap:10px;}
   .tl-when{flex-basis:60px;flex-direction:row;}
   .tl-dot{flex-basis:24px;}
-  .ah-timeline::before{left:92px;}
+  .ah-timeline::before{left:82px;}   /* 60 + gap10 + dot col 24/2 = 82 — 修正原 92 偏移 */
   /* P0-3: title/score grid collapses to one column on phones so the badge
      drops below the headline instead of squeezing it */
   .tl-head{grid-template-columns:minmax(0,1fr);row-gap:8px;}
@@ -486,6 +486,50 @@ body.hide-others .sec-hidden{display:none!important;}
   .tl-score{grid-column:1;grid-row:2;justify-self:start;margin-top:0;}
   /* masthead top strip: keep the date block on one line, drop the price tag */
   .m-dateblock .db-g{white-space:nowrap;}
+}
+/* ── iPhone 细化（2026-11-11 移动适配）────────────────
+   目标 390-430px 竖屏。覆盖：报头字号、日期条换行、
+   触控目标、卡片宽度、安全区。 */
+@media (max-width:640px){
+  .wrap{padding:16px 14px calc(48px + env(safe-area-inset-bottom));}
+  .masthead h1{font-size:34px;line-height:2.6;}       /* Zapfino 墨迹留高 */
+  .m-quote{font-size:12.5px;margin:14px 0;}
+  .wx{padding:12px 0 0;}
+  .wx-today svg{width:28px;height:28px;}
+  .wx-now .t{font-size:26px;}
+  .m-date{flex-wrap:wrap;gap:4px 12px;font-size:11.5px;padding:10px 2px;}
+  .m-date .mid{letter-spacing:.2em;}
+  /* 信源导航横滚条：贴边露出滑动暗示 */
+  .snav{margin:0 -14px;padding:0 14px;}
+  /* 卡片轨道：卡片收窄到接近屏宽，一次看一张 */
+  .card{flex-basis:min(78vw,300px);width:min(78vw,300px);}
+  .cimg{height:150px;}
+  .railwrap{margin:0 -14px;}
+  .strip{padding:6px 14px 16px;}
+  .railwrap::before,.railwrap::after{width:28px;}
+  /* 时间线：日期列再收窄，正文 padding 收一点
+     （竖线 left 不动——481-640px 区间列宽与桌面一致，113px 仍正确；
+       ≤480px 的 82px 在前面的块里，顺序在其前不受本块影响） */
+  .tl-when{flex-basis:56px;}
+  .tl-body{padding:16px 16px 14px;}
+  .tl-title{font-size:15.5px;}
+  .tl-sum{font-size:13px;}
+  /* 触控目标：理由按钮/标签页 ≥44px 已有 min-height，这里保证 padding 足够 */
+  .snav-item{padding:14px 12px;}
+  .ah-tab{padding:14px 12px 12px;}
+  .tl-flag,.sr-flag{min-height:44px;padding:13px 10px;margin:-13px 0;}
+  /* 板块头/栏目头缩放 */
+  .vh-zh{font-size:21px;}
+  .vhead{gap:10px;padding-bottom:8px;margin-bottom:14px;}
+  .yd-lead h3{font-size:19px;}
+  .yd-lead p{font-size:13.5px;}
+  .yd-sec h5{font-size:15px;}
+  /* 精选列表 score 徽章触控面积 */
+  .sr-score{flex-basis:36px;font-size:13.5px;}
+  .hr-rank{flex-basis:28px;font-size:13px;}
+  .hot-row.top3 .hr-rank{font-size:17px;}
+  /* footer 换行 */
+  .footer .frow{justify-content:flex-start;}
 }
 </style>
 </head>
