@@ -91,13 +91,51 @@
   function idbSet(d){ idbOpen().then(function(db){ if(!db) return;
     try{ db.transaction('kv','readwrite').objectStore('kv').put(d,'data'); }catch(e){} }); }
 
+  /* ============ P1 已读记忆（v2.0.15）：localStorage gazette.read.v1 ============
+     点开原文 = 已读；卡片降墨不重排；徽章显示未读数；窗口滚动自动清理。 */
+  var READ_KEY = 'gazette.read.v1';
+  var LASTVISIT_KEY = 'gazette.lastvisit.v1';
+  function readGet(){
+    try{ var o = JSON.parse(localStorage.getItem(READ_KEY)) || {}; return (o.ids && o.ids instanceof Array) ? o : {ids:[]}; }
+    catch(e){ return {ids:[]}; }
+  }
+  function readSet(ids){ try{ localStorage.setItem(READ_KEY, JSON.stringify({ids:ids.slice(-5000), ts:Date.now()})); }catch(e){} }
+  function readHas(id){ var o=readGet(); return o.ids.indexOf(id)>=0; }
+  function readAdd(id){ var o=readGet(); if(o.ids.indexOf(id)<0){ o.ids.push(id); readSet(o.ids); } }
+  function readDel(id){ var o=readGet(); o.ids = o.ids.filter(function(x){return x!==id;}); readSet(o.ids); }
+  /* 条目稳定键：URL 优先（fin/fashion 都有 url；aihot 走 links.original→url→id） */
+  function readKey(it){
+    var u = itemUrl(it);
+    if(u && u !== '#') return u;
+    return (it.id || it.title || '').toString();
+  }
+  /* 启动时裁剪：不在当前数据里的已读 ID 清掉（跟 5 天窗口滚动） */
+  function readPrune(DATA){
+    var live = {};
+    var collect = function(list){ (list||[]).forEach(function(x){ var k=readKey(x); if(k) live[k]=1; }); };
+    if(DATA.aihot){ collect(DATA.aihot.feed); collect(DATA.aihot.selected); }
+    if(DATA.finnews) collect(DATA.finnews.items);
+    if(DATA.fashion) collect(DATA.fashion.items);
+    var o = readGet();
+    var keep = o.ids.filter(function(id){ return live[id]; });
+    if(keep.length !== o.ids.length) readSet(keep);
+  }
+  function lastVisitGet(){ try{ return parseInt(localStorage.getItem(LASTVISIT_KEY))||0; }catch(e){ return 0; } }
+  function lastVisitSet(){ try{ localStorage.setItem(LASTVISIT_KEY, String(Date.now())); }catch(e){} }
+
   /* ============ render(DATA) ============ */
   var __rendered = false;
   function render(DATA){
-    if(!DATA || !DATA.items || !DATA.items.length) return;
+    /* v2.0.12 P2: 遗留 items 板块已从数据源剔除——guard 改为检查任一内容板块有货 */
+    var hasContent = DATA && (
+      (DATA.aihot && ((DATA.aihot.feed&&DATA.aihot.feed.length)||(DATA.aihot.selected&&DATA.aihot.selected.length)||(DATA.aihot.hot&&DATA.aihot.hot.length)))
+      || (DATA.finnews && DATA.finnews.items && DATA.finnews.items.length)
+      || (DATA.fashion && DATA.fashion.items && DATA.fashion.items.length)
+    );
+    if(!hasContent) return;
     /* v1.6: fetch 到的新数据同步回 window.DATA，保证子菜单切换等交互读到最新 */
     window.DATA = DATA;
-    var items = DATA.items, AI = DATA.aihot || {};
+    var items = DATA.items || [], AI = DATA.aihot || {};  /* v2.0.12: items 已剔除，空数组兜底 */
     /* v1.1 dateblock fill
        P0-4: the date block is exactly three designed lines —
          ① 公历 + 星期（黑，600） ② 农历（砖红） ③ 中文大写（浅灰）
@@ -109,7 +147,7 @@
       var g = document.querySelector('.m-dateblock .db-g');
       var l = document.querySelector('.m-dateblock .db-l');
       var c = document.querySelector('.m-dateblock .db-c');
-      if (g) g.textContent = db.gregorian + ' · ' + db.weekday;
+      if (g) g.innerHTML = esc(db.gregorian) + '<span class="wk">' + esc(db.weekday||'') + '</span>';
       if (l) {
         var rawL = db.lunar || '';
         var zod = /(鼠|牛|虎|兔|龙|蛇|马|羊|猴|鸡|狗|猪)年/.exec(rawL);
@@ -122,7 +160,10 @@
          The weekday / lunar date already live in the top-left date block —
          printing them in both places made the corner read like debug output. */
       if (mdate && db.gregorian){
-        var digits = String(db.gregorian).replace(/\D/g,'');
+        /* v2.0.13 P0 fix: 期号恒定 8 位补零。gregorian 形如 "2026 年 11 月 6 日"，
+           直接去非数字会得到 2026116（7位）；按 年/月/日 拆开逐段补零再拼。 */
+        var mg = /(\d{4})\D+(\d{1,2})\D+(\d{1,2})/.exec(String(db.gregorian));
+        var digits = mg ? (mg[1] + ('0'+mg[2]).slice(-2) + ('0'+mg[3]).slice(-2)) : String(db.gregorian).replace(/\D/g,'');
         mdate.textContent = db.gregorian.replace(/ /g,'') + ' · NO.' + digits;
       }
     }
@@ -192,6 +233,10 @@ __rendered = true;
 
     /* ---- AIHOT modules ---- */
     renderFeed(AI); renderHot(AI); renderSelected(AI); renderDaily(AI); renderFinnews(DATA); renderFashion(DATA);
+    markLastReadLine(document.getElementById('ah-feedwrap'));
+    markLastReadLine(document.getElementById('fn-feedwrap'));
+    markLastReadLine(document.getElementById('fs-feedwrap'));
+    addUnreadButtons();
     renderWeather(DATA);
     initAihotTabs();
     initFnTabs();
@@ -294,7 +339,8 @@ __rendered = true;
          link — the headline already links out; a duplicate tab stop per card
          would triple the keyboard path through 112 cards). */
       var srcText = metaInner(f.source);
-      return '<li class="tl-card'+selCls+dayBreak+'" data-src="AIHOT">'
+      var rk = readKey(f);
+      return '<li class="tl-card'+selCls+dayBreak+(readHas(rk)?' tl-read':'')+'" data-src="AIHOT" data-rkey="'+esc(rk)+'">'
         +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
         +'<div class="tl-dot" aria-hidden="true"></div>'
         +'<div class="tl-body">'
@@ -464,7 +510,7 @@ __rendered = true;
       '<div class="wx-today">'
         +wxSvg(t.icon)
         +'<div class="wx-now">'
-          +'<div class="t">'+esc(t.nighttemp)+'–'+esc(t.daytemp)+'°</div>'
+          +'<div class="t"><span class="lo">'+esc(t.nighttemp)+'°</span>–'+esc(t.daytemp)+'<span class="dg">°C</span></div>'
           +'<div class="c">'+esc(t.zh)+' · '+esc(t.week_zh||'')+'</div>'
         +'</div>'
       +'</div>';
@@ -473,13 +519,12 @@ __rendered = true;
         +'<span class="d">'+esc(c.week_zh||c.date.slice(5))+'</span>'
         +wxSvg(c.icon)
         +'<span class="w">'+esc(c.zh)+'</span>'
-        +'<span class="tp">'+esc(c.nighttemp)+'<i>–</i>'+esc(c.daytemp)+'°</span>'
+        +'<span class="tp">'+esc(c.nighttemp)+'<i>–</i>'+esc(c.daytemp)+'°<i style="font-size:9px">C</i></span>'
       +'</div>';
     }).join('');
-    var srcTag = W.src === 'geo' ? ' · 定位' : ' · 高德天气';
     box.innerHTML = todayHtml
       + (rowsHtml ? '<div class="wx-days">'+rowsHtml+'</div>' : '')
-      + '<div class="wx-city">'+esc(W.city||'')+srcTag+'</div>';
+      + '<div class="wx-city"><span>'+esc(W.city||'')+'</span><span class="src">'+(W.src === 'geo' ? '已定位' : '高德天气')+'</span></div>';
   }
 
   /* ---- AIHOT yesterday's daily ---- */
@@ -593,7 +638,8 @@ __rendered = true;
         ? '<a class="tl-title" href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(f.title)+'</a>'
         : '<span class="tl-title" style="cursor:default">'+esc(f.title)+'</span>';
       var flag = f.reason ? '<button type="button" class="tl-flag" aria-expanded="false">理由 ▾</button>' : '';
-      return '<li class="tl-card tl-plain'+dayBreak+'" data-src="FIN NEWS">'
+      var rk = readKey(f);
+      return '<li class="tl-card tl-plain'+dayBreak+(readHas(rk)?' tl-read':'')+'" data-src="FIN NEWS" data-rkey="'+esc(rk)+'">'
         +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
         +'<div class="tl-dot" aria-hidden="true"></div>'
         +'<div class="tl-body">'
@@ -605,6 +651,7 @@ __rendered = true;
     }).join('') + '</ol>';
     html += '<div class="ah-more">— FIN NEWS · 共 '+list.length+' 条 · 当前「'+esc((FN_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||'')+'」'+shown.length+' 条 · 同花顺快讯 + Wind 深度 + 东财要闻 · 按时间倒序 —</div>';
     wrap.innerHTML = html;
+    markLastReadLine(wrap); addUnreadButtons();
   }
 
 /* ---- FASHIONABLE LIFE: 潮流生活时间瀑布（HYPEBEAST 全文 + 华丽志 + NOWRE现客）---- */
@@ -630,6 +677,7 @@ __rendered = true;
     syncFsCatUI(cat||'all');
     renderFashion(window.DATA);
   }
+  window.setFsCat = setFsCat; /* v2.0.3: expose for gazette-misc.js level-1 FASHION click (reset to all) */
   function initFsTabs(){
     var tabs = document.getElementById('fs-tabs'); if(!tabs || tabs.__bound) return; tabs.__bound = true;
     tabs.addEventListener('click', function(e){
@@ -701,7 +749,8 @@ __rendered = true;
       var enLine = f.title_en ? '<div class="fs-en">'+esc(f.title_en)+'</div>' : '';
       /* v1.7.1: 头图（HYPEBEAST CDN / NOWRE 原文页抓取），点击同跳原文 */
       var imgHtml = f.image ? '<a class="fs-img" href="'+esc(href||'#')+'" target="_blank" rel="noopener"><img src="'+esc(f.image)+'" alt="" loading="lazy" referrerpolicy="no-referrer"></a>' : '';
-      return '<li class="tl-card tl-plain'+dayBreak+'" data-src="FASHION">'
+      var rk = readKey(f);
+      return '<li class="tl-card tl-plain'+dayBreak+(readHas(rk)?' tl-read':'')+'" data-src="FASHION" data-rkey="'+esc(rk)+'">'
         +'<div class="tl-when"><div class="d1">'+d1+'</div><div class="d2">'+esc(d2)+'</div></div>'
         +'<div class="tl-dot" aria-hidden="true"></div>'
         +'<div class="tl-body">'
@@ -713,6 +762,7 @@ __rendered = true;
     }).join('') + '</ol>';
     html += '<div class="ah-more">— FASHIONABLE LIFE · 共 '+list.length+' 条（近 7 天滚动池）· 当前「'+esc((FS_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||'')+'」'+shown.length+' 条 · 按时间倒序 —</div>';
     wrap.innerHTML = html;
+    markLastReadLine(wrap); addUnreadButtons();
   }
 
 /* ---- sidebar source nav ---- */
@@ -729,6 +779,8 @@ __rendered = true;
       if(A&&!B) return -1; if(B&&!A) return 1;
       return counts[b]-counts[a] || order.indexOf(a)-order.indexOf(b);
     });
+    /* v2.0.12: items 剔除后 order 可能为空——AIHOT 板块永远要出，兜底注入 */
+    if(order.indexOf('AIHOT') < 0 && (AI.feed||[]).length) order.unshift('AIHOT');
     var zhNames = {'AIHOT':'AIHOT','Hacker News':'Hacker News','The Verge':'The Verge','sspai':'少数派','Pitchfork':'Pitchfork','BBC Football':'BBC Football','Sky Sports':'Sky Sports','Hypebeast':'Hypebeast','Highsnobiety':'Highsnobiety','FT中文网':'FT中文网','The Economist':'The Economist','BBC中文':'BBC中文'};
     var feedN0 = (AI.feed && AI.feed.length) ? AI.feed.length : 0;
     /* v1.8: 旧静态源（The Verge 等）不再计入"全部信源"——只有 AIHOT 精选 + FIN + FASHION */
@@ -747,8 +799,16 @@ __rendered = true;
     order.forEach(function(src){
       if(src !== 'AIHOT') return;
       var display = zhNames[src] || src;
-      var bN = (src==='AIHOT' && feedN0) ? feedN0 : counts[src];
-      badges += '<button class="snav-item'+(src===curView?' on':'')+'" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="'+(src===curView)+'"><span class="sn-name">'+esc(display)+'<i>'+esc(src)+'</i></span><span class="sn-badge">'+bN+'</span></button>';
+      /* P1 (v2.0.15): 徽章 = 未读数。AIHOT 按 feed+selected 计 */
+      var bN;
+      if(src === 'AIHOT'){
+        var seen = {};
+        var cntUnread = function(list){ var n=0; (list||[]).forEach(function(x){ var k=readKey(x); if(!seen[k]){ seen[k]=1; if(!readHas(k)) n++; } }); return n; };
+        bN = cntUnread(AI.feed) + cntUnread(AI.selected);
+      } else bN = counts[src];
+      if(bN === 0) bN = '✓';
+      badges += '<div class="snav-src">';   /* v2.0.10: DECO RAIL 三组廊柱包裹 */
+      badges += '<button class="snav-item'+(src===curView?' on':'')+'" data-filter="'+esc(src)+'" type="button" role="tab" aria-selected="'+(src===curView)+'"><span class="sn-name">'+esc(display)+'<i>'+(src==='AIHOT' ? 'AI · 前沿情报' : esc(src))+'</i></span>   <!-- v2.0.11: AIHOT 副题去重 --><span class="sn-badge">'+bN+'</span></button>';
       /* v1.2: AIHOT second-level menu */
       if(src==='AIHOT'){
         var feedN = feedN0 || (AI.selected||[]).length;
@@ -759,9 +819,12 @@ __rendered = true;
           +'<button class="snav-subitem'+(curAihotLit==='selected'?' on':'')+'" data-ahview="selected" type="button"><span class="sb-n">精选</span><span class="sb-badge">'+(AI.selected||[]).length+'</span></button>'
           +'<button class="snav-subitem'+(curAihotLit==='daily'?' on':'')+'" data-ahview="daily" type="button"><span class="sb-n">日报</span><span class="sb-badge">'+(AI.daily?'1':'0')+'</span></button>'
           +'</div>';
+        badges += '</div>';   /* v2.0.10: close AIHOT group */
+        badges += '<div class="snav-src">';   /* v2.0.10: open FIN NEWS group */
         /* v1.4.1: FIN NEWS as a top-level rail item AFTER the AIHOT sub-menu
            (sibling of AIHOT, below 日报) — user-approved placement */
-        badges += '<button class="snav-item'+(curView==='FIN NEWS'?' on':'')+'" data-filter="FIN NEWS" type="button" role="tab" aria-selected="'+(curView==='FIN NEWS')+'"><span class="sn-name">💰 FIN NEWS<i>同花顺 · Wind · 东财</i></span><span class="sn-badge">'+fnN+'</span></button>';
+        var fnUnread = ((window.DATA && window.DATA.finnews && window.DATA.finnews.items) || []).filter(function(x){return !readHas(readKey(x));}).length;
+      badges += '<button class="snav-item'+(curView==='FIN NEWS'?' on':'')+'" data-filter="FIN NEWS" type="button" role="tab" aria-selected="'+(curView==='FIN NEWS')+'"><span class="sn-name">💰 FIN NEWS<i>同花顺 · Wind · 东财</i></span><span class="sn-badge">'+(fnUnread || '✓')+'</span></button>';
         /* v1.6.1: FIN NEWS second-level sub-menu under the rail item
            (same pattern as AIHOT's 全部动态/精选/日报) — 快讯/要闻/公告/研究 */
         var fnItems = (window.DATA && window.DATA.finnews && window.DATA.finnews.items) || [];
@@ -776,24 +839,39 @@ __rendered = true;
           +'<button class="snav-subitem'+(curFnCat==='filing'?' on':'')+'" data-fncat="filing" type="button"><span class="sb-n">公告</span><span class="sb-badge">'+(fnCounts.filing||0)+'</span></button>'
           +'<button class="snav-subitem'+(curFnCat==='research'?' on':'')+'" data-fncat="research" type="button"><span class="sb-n">研究</span><span class="sb-badge">'+(fnCounts.research||0)+'</span></button>'
           +'</div>';
+        badges += '</div>';   /* v2.0.10: close FIN NEWS group */
+        badges += '<div class="snav-src">';   /* v2.0.10: open FASHION group */
         /* v2: FASHIONABLE LIFE 一级菜单 + 五档主题二级菜单（与 FIN NEWS 同构） */
         var fsList = (window.DATA && window.DATA.fashion && window.DATA.fashion.items) || [];
         var fsN = fsList.length;
         var fsCounts = {all: fsN};
         fsList.forEach(function(f){ var c = f.category || 'culture'; fsCounts[c] = (fsCounts[c]||0)+1; });
         var curFsCat = (curView==='FASHION') ? (document.body.getAttribute('data-fs-cat') || 'all') : null;
-        badges += '<button class="snav-item'+(curView==='FASHION'?' on':'')+'" data-filter="FASHION" type="button" role="tab" aria-selected="'+(curView==='FASHION')+'"><span class="sn-name">👕 FASHIONABLE LIFE<i>HYPEBEAST · 华丽志 · NOWRE现客</i></span><span class="sn-badge">'+fsN+'</span></button>';
+        var fsUnread = ((window.DATA && window.DATA.fashion && window.DATA.fashion.items) || []).filter(function(x){return !readHas(readKey(x));}).length;
+      badges += '<button class="snav-item'+(curView==='FASHION'?' on':'')+'" data-filter="FASHION" type="button" role="tab" aria-selected="'+(curView==='FASHION')+'"><span class="sn-name">👕 FASHIONABLE LIFE<i>HYPEBEAST · 华丽志 · NOWRE现客</i></span><span class="sn-badge">'+(fsUnread || '✓')+'</span></button>';
         badges += '<div class="snav-sub">'
-          +'<button class="snav-subitem'+(curFsCat==='all'?' on':'')+'" data-fscat="all" type="button"><span class="sb-n">全部动态</span><span class="sb-badge">'+(fsCounts.all||0)+'</span></button>'
           +'<button class="snav-subitem'+(curFsCat==='sneaker'?' on':'')+'" data-fscat="sneaker" type="button"><span class="sb-n">球鞋</span><span class="sb-badge">'+(fsCounts.sneaker||0)+'</span></button>'
+          /* v2.0.3: 二级「全部动态」移除——一级 FASHION 按钮=全部内容（点一级时 fsCat 重置为 all，见 gazette-misc.js FASHION 分支）；页内 fs-tabs 的 ALL 页签保留 */
           +'<button class="snav-subitem'+(curFsCat==='runway'?' on':'')+'" data-fscat="runway" type="button"><span class="sb-n">秀场服饰</span><span class="sb-badge">'+(fsCounts.runway||0)+'</span></button>'
           +'<button class="snav-subitem'+(curFsCat==='collab'?' on':'')+'" data-fscat="collab" type="button"><span class="sb-n">联名合作</span><span class="sb-badge">'+(fsCounts.collab||0)+'</span></button>'
           +'<button class="snav-subitem'+(curFsCat==='brand'?' on':'')+'" data-fscat="brand" type="button"><span class="sb-n">品牌动态</span><span class="sb-badge">'+(fsCounts.brand||0)+'</span></button>'
           +'<button class="snav-subitem'+(curFsCat==='culture'?' on':'')+'" data-fscat="culture" type="button"><span class="sb-n">生活方式</span><span class="sb-badge">'+(fsCounts.culture||0)+'</span></button>'
           +'</div>';
+        badges += '</div>';   /* v2.0.10: close FASHION group */
+        /* v2.1.1: 深度阅读一级菜单（与 AIHOT/FIN/FASHION 平级，FASHION 组之后；独立 JSON 按需拉取）
+           徽章=文章总数（未读统计待数据加载后由 drUpdateBadge 补写） */
+        var drN = (window.__drCount != null) ? window.__drCount : '…';
+        badges += '<div class="snav-src">'
+          +'<button class="snav-item'+(curView==='DEEPREADS'?' on':'')+'" data-filter="DEEPREADS" type="button" role="tab" aria-selected="'+(curView==='DEEPREADS')+'"><span class="sn-name">📚 深度阅读<i>六位大家 · 全文深读</i></span><span class="sn-badge" id="dr-snbadge">'+drN+'</span></button>'
+          +'</div>';
       }
     });
     nav.innerHTML = '<div class="snav-h">SOURCES · 信源</div>' + badges;
+    /* v2.0.10: DECO RAIL 初始组态——当前源所在组实心菱形 */
+    nav.querySelectorAll('.snav-src').forEach(function(g){
+      var srcBtn = g.querySelector('.snav-item');
+      if(srcBtn && srcBtn.classList.contains('on')) g.classList.add('on');
+    });
     /* sub-item clicks: AIHOT view switchers (data-ahview) or FIN NEWS
        category switchers (data-fncat) — never the source filter */
     if(!nav.__subBound){
@@ -818,6 +896,7 @@ __rendered = true;
           window.scrollTo({top:0,behavior:'smooth'});
           return;
         }
+        /* v2.1.1: 深度阅读已升级为一级菜单——旧子项路径删除（主按钮路径见 gazette-misc.js） */
         var aihotBtn = nav.querySelector('.snav-item[data-filter="AIHOT"]');
         /* make sure the AIHOT source filter is active so its sections are visible */
         if(aihotBtn && !aihotBtn.classList.contains('on')) aihotBtn.click();
@@ -907,6 +986,7 @@ __rendered = true;
 
   /* ============ loader ============ */
   function boot(){
+    applyTheme(localStorage.getItem('gazette.theme') || 'classic');
     window.addEventListener('error', function(e){
       var d = document.createElement('div');
       d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#8a1c1c;color:#fff;font:12px monospace;padding:6px 10px;z-index:99999;white-space:pre-wrap;';
@@ -917,7 +997,9 @@ __rendered = true;
        window.DATA directly (MV3 CSP forbids inline <script> JSON blocks),
        so nothing to parse here — window.DATA is either set or undefined. */
     /* 1. window.DATA (seed assignment or debug override) */
-    if(window.DATA){ render(window.DATA); lsSet(window.DATA); idbSet(window.DATA); }
+    /* P1: 记录本次访问时间（供「上次阅读」分隔线），先读旧值再覆盖 */
+    window.__prevVisit = lastVisitGet(); lastVisitSet();
+    if(window.DATA){ readPrune(window.DATA); render(window.DATA); lsSet(window.DATA); idbSet(window.DATA); bindReadOnce(); }
     /* 2. cache first-paint */
     var cached = lsGet();
     if(cached && !window.DATA){ render(cached); }
@@ -931,9 +1013,18 @@ __rendered = true;
     fetch(REMOTE_URL + '?t=' + bust, {cache:'no-cache'})
       .then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
       .then(function(d){
-        if(!d || !d.items || !d.items.length) throw new Error('bad payload');
+        /* v2.0.13a P2 fix: items 已从数据源剔除，payload 校验改为三板块任一有货
+           （与 render() 的 hasContent 同口径；旧校验会把好数据误判为 bad payload） */
+        var okPayload = d && (
+          (d.aihot && ((d.aihot.feed||[]).length || (d.aihot.selected||[]).length || (d.aihot.hot||[]).length))
+          || (d.finnews && (d.finnews.items||[]).length)
+          || (d.fashion && (d.fashion.items||[]).length)
+        );
+        if(!okPayload) throw new Error('bad payload');
+        readPrune(d);
         render(d);                       /* update cache + re-render */
         lsSet(d); idbSet(d);
+        bindReadOnce();
         hideFail();
       })
       .catch(function(){
@@ -945,6 +1036,75 @@ __rendered = true;
         }
       });
   }
+  /* P1 已读交互（v2.0.15）：document 级委托，绑一次。
+     ① 点击 .tl-title（真链接）→ 标已读 + 卡片即时降墨
+     ② 点击已读卡右上角 ● 恢复未读 */
+  function bindReadOnce(){
+    if(window.__readBound) return; window.__readBound = true;
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a.tl-title');
+      if(a){
+        var card = a.closest('.tl-card');
+        if(card){
+          var k = card.getAttribute('data-rkey');
+          if(k && !readHas(k)){ readAdd(k); card.classList.add('tl-read'); addUnreadButtons(); refreshBadges(); }
+        }
+        return;
+      }
+      var undo = e.target.closest && e.target.closest('.tl-unread');
+      if(undo){
+        var c2 = undo.closest('.tl-card');
+        if(c2){ var k2 = c2.getAttribute('data-rkey'); if(k2){ readDel(k2); c2.classList.remove('tl-read'); refreshBadges(); } }
+      }
+    }, true);
+  }
+
+  /* P1 (v2.0.15): 已读状态变化后即时刷新三徽章（不重渲染 snav） */
+  function refreshBadges(){
+    var d = window.DATA || {};
+    var ai = d.aihot || {}, seen = {};
+    var n = 0;
+    [ai.feed, ai.selected].forEach(function(list){
+      (list||[]).forEach(function(x){ var k=readKey(x); if(!seen[k]){ seen[k]=1; if(!readHas(k)) n++; } });
+    });
+    var nums = {};
+    nums['AIHOT'] = n;
+    nums['FIN NEWS'] = ((d.finnews||{}).items||[]).filter(function(x){return !readHas(readKey(x));}).length;
+    nums['FASHION'] = ((d.fashion||{}).items||[]).filter(function(x){return !readHas(readKey(x));}).length;
+    document.querySelectorAll('.snav-item .sn-badge').forEach(function(b){
+      var item = b.closest('.snav-item'); if(!item) return;
+      var f = item.getAttribute('data-filter');
+      if(f in nums) b.textContent = nums[f] || '✓';
+    });
+  }
+
+  /* P1 (v2.0.15): 已读卡统一补挂「恢复未读」角标（渲染后 DOM pass，一处覆盖三板块） */
+  function addUnreadButtons(){
+    document.querySelectorAll('.tl-card.tl-read').forEach(function(c){
+      if(!c.querySelector('.tl-unread')){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'tl-unread'; b.title = '恢复未读';
+        b.setAttribute('aria-label', '恢复未读');
+        b.textContent = '●';
+        c.appendChild(b);
+      }
+    });
+  }
+
+  /* P1 (v2.0.15): 「上次阅读」分隔线——首个已读卡前插入；距上次访问>4h 才显示 */
+  function markLastReadLine(wrap){
+    if(!wrap) return;
+    var prev = window.__prevVisit || 0;
+    if(!prev || (Date.now() - prev) < 4*3600*1000) return;
+    if(wrap.querySelector('.tl-lastread')) return;
+    var first = wrap.querySelector('.tl-read');
+    if(!first) return;
+    var dt = new Date(prev);
+    var label = (dt.getMonth()+1)+'月'+dt.getDate()+'日 '+p2(dt.getHours())+':'+p2(dt.getMinutes());
+    first.insertAdjacentHTML('beforebegin',
+      '<li class="tl-lastread" aria-hidden="true"><span>上次阅读 · '+label+'</span></li>');
+  }
+
   function showFail(hard){
     var el = document.getElementById('load-status');
     if(!el) return;
@@ -955,4 +1115,34 @@ __rendered = true;
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
+})();
+
+
+/* ================= v2.0.17: 主题系统 ================= */
+var THEMES = ['classic','salmon','snow','midnight'];
+var THEME_META = {
+  classic:  {zh:'米黄原版', dot:'#EFE6CE'},
+  salmon:   {zh:'FT 三文鱼粉', dot:'#FFF1E0'},
+  snow:     {zh:'雪白冷调', dot:'#FAFAF7'},
+  midnight: {zh:'夜刊暖黑', dot:'#1C1A17'}
+};
+function applyTheme(t){
+  if(THEMES.indexOf(t) < 0) t = 'classic';
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('gazette.theme', t);
+  var btn = document.getElementById('themeToggle');
+  if(btn){
+    btn.title = '配色：' + THEME_META[t].zh + '（点击切换）';
+    var dot = btn.querySelector('.th-dot');
+    if(dot) dot.style.background = THEME_META[t].dot;
+  }
+}
+(function(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('#themeToggle');
+    if(!btn) return;
+    var cur = localStorage.getItem('gazette.theme') || 'classic';
+    var next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
+    applyTheme(next);
+  });
 })();

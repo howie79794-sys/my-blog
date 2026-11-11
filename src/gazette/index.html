@@ -425,6 +425,11 @@ body[data-view="FIN NEWS"] #sec-fashion{display:none;}
    独立成版后规则没跟上 → AIHOT·日报视图右侧混出金融快讯） */
 body[data-view]:not([data-view=""]):not([data-view="FIN NEWS"]) #sec-finnews{display:none;}
 body[data-view]:not([data-view=""]):not([data-view="FASHION"]) #sec-fashion{display:none;}
+/* v2.1.0 深读互斥：非 DEEPREADS 视图藏深读板块；深读视图藏其它内容板块 */
+body[data-view]:not([data-view="DEEPREADS"]) #sec-deepreads{display:none;}
+body[data-view="DEEPREADS"] #sec-finnews,
+body[data-view="DEEPREADS"] #sec-fashion,
+body[data-view="DEEPREADS"] #sec-ai{display:none;}
 
 /* ================= filter mechanics + view transitions ================= */
 .src-empty{display:none;padding:48px 8px;text-align:center;font-family:var(--display);font-style:italic;
@@ -619,6 +624,11 @@ body.hide-others .sec-hidden{display:none!important;}
         <div class="vhead"><span class="vh-zh">潮流生活</span><span class="vh-en">FASHIONABLE LIFE · STYLE</span><span class="vh-n" id="fs-n"></span></div>
         <div class="ah-feedwrap" id="fs-feedwrap"></div>
       </section>
+      <!-- v2.1.0: 深度阅读板块（独立 JSON 按需拉取，见 gazette-deepreads.js） -->
+      <section class="ah" id="sec-deepreads">
+        <div class="vhead"><span class="vh-zh">深度阅读</span><span class="vh-en">DEEP READS · ESSAYS</span><span class="vh-n" id="dr-n"></span></div>
+        <div class="ah-feedwrap" id="dr-feedwrap"></div>
+      </section>
       <div id="load-status">数据加载失败，显示缓存</div>
     </main>
   </div>
@@ -628,8 +638,9 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261111b"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261111b"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261111b"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261111c"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261111c"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261111c"></script>
+<script src="/assets/gazette/gazette-deepreads.js?v=20261111c"></script>
 </body>
 </html>

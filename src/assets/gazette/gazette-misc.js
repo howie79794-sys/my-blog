@@ -62,8 +62,15 @@
     nav.querySelectorAll('.snav-item').forEach(function(b){
       var on = b===btn; b.classList.toggle('on',on); b.setAttribute('aria-selected',on);
     });
+    /* v2.0.10: DECO RAIL 组容器（实心菱形）跟随当前源 */
+    nav.querySelectorAll('.snav-src').forEach(function(g){
+      var srcBtn = g.querySelector('.snav-item');
+      g.classList.toggle('on', !!(srcBtn && srcBtn.classList.contains('on')));
+    });
     var f = btn.getAttribute('data-filter');
     document.body.setAttribute('data-view', f==='ALL' ? '' : f);
+    /* v2.1.1: 深度阅读一级按钮 → 拉取数据并渲染板块（drEnter 幂等，已加载则秒开） */
+    if(f==='DEEPREADS' && window.drEnter) window.drEnter();
     /* bug B: leaving the AIHOT source filter resets the AIHOT sub-view to feed,
        otherwise stale [data-aihot-view=daily] CSS rules keep hiding the timeline */
     if(f!=='AIHOT'){
@@ -87,7 +94,10 @@
       }
       if(f==='FASHION'){
         /* v2: FASHION categories — same mutual-exclusion pattern as FIN NEWS */
-        var gc = document.body.getAttribute('data-fs-cat') || 'all';
+        /* v2.0.3: 点一级 FASHION = 全部内容——二级「全部动态」已删，每次点一级把 fsCat 重置为 all 并重渲染（从球鞋等分类返回一级时也要回全部） */
+        var gc = 'all';
+        document.body.setAttribute('data-fs-cat', 'all');
+        if(window.setFsCat) window.setFsCat('all'); /* v2.0.3: reset + re-render via exposed setter */
         document.querySelectorAll('.snav-subitem[data-fscat]').forEach(function(t){
           t.classList.toggle('on', t.getAttribute('data-fscat')===gc);
         });
