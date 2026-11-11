@@ -487,38 +487,60 @@ body.hide-others .sec-hidden{display:none!important;}
   /* masthead top strip: keep the date block on one line, drop the price tag */
   .m-dateblock .db-g{white-space:nowrap;}
 }
-/* ── iPhone 细化（2026-11-11 移动适配）────────────────
-   目标 390-430px 竖屏。覆盖：报头字号、日期条换行、
-   触控目标、卡片宽度、安全区。 */
+/* ── iPhone 细化（2026-11-11 移动适配；11-11 二轮按 modern-web-guidance 重构）
+   准则依据：card.md「Adapt to available space」——窄容器下卡片吃满可用宽，
+   左侧日期列/圆点列/轴线退役，日期降为卡上方小字行；fluid-scaling——
+   元信息随容器缩放；css-layout——gap 收紧提升纵向密度。 */
 @media (max-width:640px){
-  .wrap{padding:16px 14px calc(48px + env(safe-area-inset-bottom));}
-  .masthead h1{font-size:34px;line-height:2.6;}       /* Zapfino 墨迹留高 */
-  .m-quote{font-size:12.5px;margin:14px 0;}
-  .wx{padding:12px 0 0;}
-  .wx-today svg{width:28px;height:28px;}
-  .wx-now .t{font-size:26px;}
-  .m-date{flex-wrap:wrap;gap:4px 12px;font-size:11.5px;padding:10px 2px;}
+  .wrap{padding:12px 12px calc(40px + env(safe-area-inset-bottom));--card-gap:18px;}
+  .masthead h1{font-size:27px;line-height:2.4;}       /* 手机屏报头瘦身：34→27px */
+  .masthead h1 .sig,.masthead-sig .sig{line-height:2.4;}  /* .sig 自带 3.2 行高，必须一并覆盖 */
+  .m-quote{font-size:11.5px;margin:8px 0;}
+  .wx{padding:8px 0 0;}
+  .wx .m-dateblock{display:flex;flex-wrap:wrap;gap:2px 8px;padding-bottom:7px;align-items:baseline;}
+  .wx .m-dateblock .db-l{display:none;}               /* 农历/干支与中文大写日期合并，省两行 */
+  .wx .m-dateblock .db-c{display:none;}
+  .wx-h{display:none;}                                 /* “WEATHER·天气”标题行省掉，图标自明 */
+  .wx-today{gap:10px;}
+  .wx-today svg{width:24px;height:24px;}
+  .wx-now .t{font-size:22px;}
+  .wx-now .c{font-size:10px;line-height:1.4;}
+  /* 三日预报：竖排三行 → 横排三小列（星期+图标+温度，描述词由图标表意） */
+  .wx-days{flex-direction:row;justify-content:space-between;gap:8px;padding-top:7px;border-top:1px solid var(--rule-soft);margin-top:7px;}
+  .wx-row{flex-direction:column;align-items:center;gap:2px;text-align:center;font-size:10px;}
+  .wx-row .d{width:auto;}
+  .wx-row .w{display:none;}
+  .m-date{flex-wrap:nowrap;gap:8px;font-size:11px;padding:8px 2px;justify-content:space-between;}
   .m-date .mid{letter-spacing:.2em;}
+  .m-date .right{display:none;}   /* 手机单行：藏 Weather 彩蛋行 */
   /* 信源导航横滚条：贴边露出滑动暗示 */
-  .snav{margin:0 -14px;padding:0 14px;}
+  .snav{margin:0 -12px;padding:0 12px;}
   /* 卡片轨道：卡片收窄到接近屏宽，一次看一张 */
   .card{flex-basis:min(78vw,300px);width:min(78vw,300px);}
   .cimg{height:150px;}
-  .railwrap{margin:0 -14px;}
-  .strip{padding:6px 14px 16px;}
-  .railwrap::before,.railwrap::after{width:28px;}
-  /* 时间线：日期列再收窄，正文 padding 收一点
-     （竖线 left 不动——481-640px 区间列宽与桌面一致，113px 仍正确；
-       ≤480px 的 82px 在前面的块里，顺序在其前不受本块影响） */
-  .tl-when{flex-basis:56px;}
-  .tl-body{padding:16px 16px 14px;}
+  .railwrap{margin:0 -12px;}
+  .strip{padding:6px 12px 16px;}
+  .railwrap::before,.railwrap::after{width:24px;}
+  /* ★ 时间线重构：左列（日期74+圆点46+gap32≈152px）退役，卡片 100% 宽；
+     日期降为卡上方一行小字，轴线/圆点随之消失（窄容器无轴空间） */
+  .tl-card{flex-direction:column;gap:2px;}
+  .tl-when{flex-basis:auto;justify-content:flex-start;gap:6px;padding-top:0;}
+  .tl-when .d1{font-size:12px;}
+  .tl-when .d2{font-size:9.5px;}
+  .tl-dot{display:none;}
+  .ah-timeline::before{display:none;}
+  .tl-daybreak .tl-body{border-top:none;}
+  .tl-daybreak .tl-when{padding-top:6px;}
+  .tl-body{padding:14px 15px 12px;}
   .tl-title{font-size:15.5px;}
-  .tl-sum{font-size:13px;}
+  .tl-sum{font-size:13px;margin-top:10px;}
+  .ah-timeline{padding:8px 0 0;}
   /* 触控目标：理由按钮/标签页 ≥44px 已有 min-height，这里保证 padding 足够 */
   .snav-item{padding:14px 12px;}
   .ah-tab{padding:14px 12px 12px;}
   .tl-flag,.sr-flag{min-height:44px;padding:13px 10px;margin:-13px 0;}
-  /* 板块头/栏目头缩放 */
+  /* 板块头/栏目头缩放 + 纵向密度（桌面 30/34px 节奏在手机太松） */
+  .vcol,.ah{padding:20px 0 24px;}
   .vh-zh{font-size:21px;}
   .vhead{gap:10px;padding-bottom:8px;margin-bottom:14px;}
   .yd-lead h3{font-size:19px;}
@@ -528,7 +550,8 @@ body.hide-others .sec-hidden{display:none!important;}
   .sr-score{flex-basis:36px;font-size:13.5px;}
   .hr-rank{flex-basis:28px;font-size:13px;}
   .hot-row.top3 .hr-rank{font-size:17px;}
-  /* footer 换行 */
+  /* footer 换行 + 收纵距 */
+  .footer{margin-top:24px;}
   .footer .frow{justify-content:flex-start;}
 }
 </style>
@@ -605,8 +628,8 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261111a"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261111a"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261111a"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261111b"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261111b"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261111b"></script>
 </body>
 </html>
