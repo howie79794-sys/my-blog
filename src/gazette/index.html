@@ -425,6 +425,74 @@ body[data-view="FIN NEWS"] #sec-fashion{display:none;}
    独立成版后规则没跟上 → AIHOT·日报视图右侧混出金融快讯） */
 body[data-view]:not([data-view=""]):not([data-view="FIN NEWS"]) #sec-finnews{display:none;}
 body[data-view]:not([data-view=""]):not([data-view="FASHION"]) #sec-fashion{display:none;}
+/* v2.1.0 深读板块组件样式（与扩展端 newtab.html 同源，同步时一起更新） */
+/* ================= v2.1.0 DEEP READS 深度阅读 ================= */
+#sec-deepreads .dr-wall { display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px; }
+@media(max-width:1080px) { #sec-deepreads .dr-wall { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:680px) { #sec-deepreads .dr-wall { grid-template-columns:1fr; } }
+#sec-deepreads .dr-author { display:flex;flex-direction:column;gap:2px;text-align:left;background:var(--card);
+  border:1px solid var(--rule-soft);border-radius:10px;padding:12px 14px;
+  cursor:pointer;box-shadow:var(--shadow-1);transition:box-shadow .2s var(--ease),translate .2s var(--ease),border-color .2s var(--ease);
+  font-family:var(--serif);color:var(--ink); }
+/* v2.1.4: 黄色左条去掉（四边统一细线）；hover 与文章卡同款（上移2px+红框+红晕投影，CSS translate 属性防边线稀释）；
+   .on（选中筛选中）态保留红色标识——用红框+米红底，不再依赖左条 */
+#sec-deepreads .dr-author:hover { translate:0 -2px;border-color:var(--accent);
+  box-shadow:var(--shadow-2),0 -4px 16px rgba(var(--accent-rgb),.45); }
+#sec-deepreads .dr-author.on { border-color:var(--accent);background:var(--accent-wash);box-shadow:var(--shadow-2); }
+#sec-deepreads .dra-name { font-family:var(--display);font-size:15px;font-weight:700; }
+#sec-deepreads .dra-en { font-size:10.5px;color:var(--gold);letter-spacing:.05em; }
+#sec-deepreads .dra-bio { font-size:11px;color:var(--dim);line-height:1.5;margin-top:4px; }
+#sec-deepreads .dra-cat { font-size:10px;color:var(--accent);margin-top:3px;letter-spacing:.05em; }
+#sec-deepreads .dra-n { font-size:9.5px;color:var(--faint);margin-top:5px;align-self:flex-end; }
+#sec-deepreads .dr-search { display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--rule-soft);
+  border-radius:10px;padding:9px 14px;margin-bottom:20px;box-shadow:var(--shadow-1); }
+#sec-deepreads .dr-sicon { color:var(--gold);font-size:14px; }
+#sec-deepreads .dr-search input { flex:1;border:none;outline:none;background:transparent;font-family:var(--serif);
+  font-size:13px;color:var(--ink); }
+#sec-deepreads .dr-search input::placeholder { color:var(--faint); }
+#sec-deepreads .dr-shint { font-size:10px;color:var(--faint);white-space:nowrap;letter-spacing:.06em; }
+#sec-deepreads .dr-month { position:relative;padding-left:22px;margin-bottom:30px; }
+#sec-deepreads .dr-month::before { content:'';position:absolute;left:5px;top:8px;bottom:-30px;width:1px;background:var(--rule); }
+#sec-deepreads .dr-mnode { position:relative;margin-bottom:12px; }
+#sec-deepreads .dr-mnode::before { content:'';position:absolute;left:-21px;top:6px;width:8px;height:8px;
+  background:var(--accent);transform:rotate(45deg); }
+#sec-deepreads .dr-mdate { font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:.04em; }
+#sec-deepreads .dr-mcount { font-size:10.5px;color:var(--faint);margin-left:9px;letter-spacing:.08em; }
+#sec-deepreads .dr-card { background:var(--card);border:1px solid var(--rule-soft);
+  border-radius:12px;padding:16px 18px;box-shadow:var(--shadow-1);margin-bottom:14px;
+  transition:box-shadow .2s var(--ease),translate .2s var(--ease),border-color .2s var(--ease); }
+/* v2.1.2: 小卡片 hover 动效——与其他板块 tl-card 同款（上移2px+红框+底部投影加深）。
+   用 CSS translate 属性而非 transform：走布局路径，border-top 红线不被合成层亚像素采样稀释（v2.0.22 教训）。
+   .open（展开全文）态豁免：长文阅读时不要浮动干扰。 */
+#sec-deepreads .dr-card:not(.open):hover { translate:0 -2px;border-color:var(--accent);
+  border-top-color:var(--accent);box-shadow:var(--shadow-2),0 -4px 16px rgba(var(--accent-rgb),.45); }
+#sec-deepreads .dr-card-head { display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;
+  color:var(--faint);text-transform:uppercase;margin-bottom:8px; }
+#sec-deepreads .dr-cat { color:var(--accent);font-weight:600; }
+#sec-deepreads .dr-title { font-family:var(--display);font-size:16px;line-height:1.4;margin-bottom:8px; }
+#sec-deepreads .dr-lead { font-size:12.5px;line-height:1.75;color:var(--dim); }
+#sec-deepreads .dr-full { display:none;font-size:14px;line-height:1.9;color:var(--ink);margin-top:12px;
+  padding-top:12px;border-top:1px dashed var(--rule); }
+#sec-deepreads .dr-full p { margin-bottom:11px; }
+#sec-deepreads .dr-full img { max-width:100%;height:auto;border-radius:6px;border:1px solid var(--rule-soft);
+  margin:8px 0 13px;background:var(--card); }
+#sec-deepreads .dr-full a { color:var(--accent-dark);text-decoration:underline;text-decoration-color:var(--rule);
+  text-underline-offset:3px; }
+#sec-deepreads .dr-full blockquote { border-left:3px solid var(--gold);padding:5px 13px;margin:9px 0;color:var(--dim);
+  background:rgba(176,141,62,.05);border-radius:0 8px 8px 0; }
+#sec-deepreads .dr-foot { margin-top:12px;display:flex;justify-content:space-between;align-items:center; }
+#sec-deepreads .dr-author-badge { font-size:10.5px;color:var(--gold);letter-spacing:.05em; }
+#sec-deepreads .dr-actions { display:flex;gap:14px;align-items:center; }
+#sec-deepreads .dr-toggle { border:1px solid var(--rule-soft);background:var(--paper);color:var(--accent-dark);
+  border-radius:7px;padding:4px 12px;font-size:11px;cursor:pointer;font-family:var(--serif);letter-spacing:.06em;
+  transition:all .2s var(--ease); }
+#sec-deepreads .dr-toggle:hover { background:var(--accent-wash);border-color:var(--accent); }
+/* v2.1.1: 展开后正文顶部收起条——贴正文开头，sticky 不随长文滚走 */
+#sec-deepreads .dr-fulltop { position:sticky;top:6px;z-index:5;display:flex;justify-content:flex-end;
+  margin:2px 0 10px;padding:4px 6px;background:linear-gradient(var(--paper) 72%,transparent); }
+#sec-deepreads .dr-toggle-top { box-shadow:0 1px 4px rgba(0,0,0,.10); }
+#sec-deepreads .dr-src-link { font-size:11px;color:var(--gold);text-decoration:none;
+  border-bottom:1px dotted var(--gold);letter-spacing:.08em; }
 /* v2.1.0 深读互斥：非 DEEPREADS 视图藏深读板块；深读视图藏其它内容板块 */
 body[data-view]:not([data-view="DEEPREADS"]) #sec-deepreads{display:none;}
 body[data-view="DEEPREADS"] #sec-finnews,
@@ -460,7 +528,10 @@ body.hide-others .sec-hidden{display:none!important;}
   .snav-sub{display:none;}   /* sub-views stay reachable via the AIHOT ah-tabs above the feed */
   .snav-item{flex:0 0 auto;width:auto;min-height:48px;border-left:none;border-bottom:3px solid transparent;padding:14px;}
   .snav-item.on{border-bottom-color:var(--accent);background:none;}
-  .sn-name{flex-direction:row;align-items:baseline;gap:6px;}
+  .sn-name{flex-direction:row;align-items:baseline;gap:6px;white-space:nowrap;}
+  /* css-layout 准则：flex 子项长文本默认不收缩——窄容器必须 min-width:0 + nowrap
+     否则"深度阅读"四字被逐字挤成竖排（11-11 手机端实测报障） */
+  .snav-item{flex:0 0 auto;}
   .sn-name em,.sn-name i{display:none;}
   .main{width:100%;max-width:100%;overflow-x:clip;}
 }
@@ -638,9 +709,9 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="/assets/gazette/gazette-seed.js?v=20261111c"></script>
-<script src="/assets/gazette/gazette-app.js?v=20261111c"></script>
-<script src="/assets/gazette/gazette-misc.js?v=20261111c"></script>
-<script src="/assets/gazette/gazette-deepreads.js?v=20261111c"></script>
+<script src="/assets/gazette/gazette-seed.js?v=20261111d"></script>
+<script src="/assets/gazette/gazette-app.js?v=20261111d"></script>
+<script src="/assets/gazette/gazette-misc.js?v=20261111d"></script>
+<script src="/assets/gazette/gazette-deepreads.js?v=20261111d"></script>
 </body>
 </html>
