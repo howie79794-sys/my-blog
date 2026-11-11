@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noah, Brad DeLong, and Dan Wang discuss the Anthropic IPO · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 科技 · 中国观察</div>
+    <h1 class="title">Noah, Brad DeLong, and Dan Wang discuss the Anthropic IPO</h1>
+    <div class="byline">
+      <span class="author">诺亚·史密斯</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.noahpinion.blog/p/noah-brad-delong-and-dan-wang-discuss" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-09 · 567 words</span>
+    </div>
+    <div class="body"><p>Many longtime fans of my Hexapodia podcast with Brad DeLong have been begging us to bring it back. Well, here it is! Hexapodia will now be a series of Substack Live conversations that you can tune in to, and which will be recorded as podcasts and sent out as emails. </p><p>Our first episode was a little rocky, as I got the time wrong and ended up arriving 20 minutes late. But Dan and Brad are both brilliant people, so you can watch them talk for a while before I show up! The topic of our discussion was the Anthropic IPO, inspired by my post about it last week:</p><p>I give the bull case for Anthropic, while Dan and Brad are both more skeptical. I think this quote sums up my side of the argument:</p><blockquote><p>My bull case [for Anthropic] is not envisioning a world where Anthropic rules all businesses, rules 100% of every industry, or close to it. I’m also not envisioning a case where AI replaces human beings in their jobs.</p><p>I’m envisioning a change in the <em>capital structure</em> of the efficiently producing economy. I’m envisioning…a world where in order to succeed in any industry, you must create a tie-up with a frontier AI company that offers you access to an internal proprietary frontier model that will be months ahead of any model distilled from it. And…that doing this will require not purchasing services…at arm’s length from that company, but tying up your capital structure with that company so that you become in some sense a subsidiary of that company. I am envisioning that. </p><p>So I’m saying that instead of something where…AI is like oil and everyone has to buy oil or the things made downstream from oil…instead of that sort of arm of length world, I’m envisioning a world in which every company in order to succeed must become a subsidiary of Anthropic, OpenAI, [or] Google…and Anthropic is simply the biggest of those fish in a oligopolistic ecosystem of a few conglomerates competing against each other via their little subsidiaries in every single industry at the same time.</p></blockquote><p>Interestingly, some economists at Google Deepmind just released a paper with a model in which this sort of thing happens. From the abstract of <a href="https://arxiv.org/pdf/2611.05417" target="_blank" rel="noopener">Imas, Koh, and Legg (2026)</a>:</p><blockquote><p>When will advances in AI lead to economic transformation? We develop a model of how intelligence…matters for organizations….AI expertise is reproducible while humans’ are in fixed supply, and AIs may not face the same human limits on coordination….When AI is more capable than the average human, organizations of complementary humans can nonetheless outperform AI. Increases in AI competence can change the composition of workers within firms and decrease firm size. As AI coordination improves, however, this can <strong>break the Coasean ceiling on firm size</strong> and the market structure undergoes <strong>a phase transition toward large, concentrated AI-heavy firms</strong>. [emphasis mine]</p></blockquote><p>I was envisioning a slightly more complex version, in which humans and AI are complements, where humans have private data that AI is better at using, and where one big conglomerate enters every industry but retains human workers. But I think Imas et al.’s model gets at some of the basic dynamics here. </p><p><em>Financial disclosure: I have no current position in Anthropic, but unless something major changes, I will probably buy Anthropic stock when it IPOs. I own stock in TypeSafe, an Anthropic competitor.</em></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.noahpinion.blog/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.noahpinion.blog/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.noahpinion.blog/p/noah-brad-delong-and-dan-wang-discuss?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.noahpinion.blog/p/noah-brad-delong-and-dan-wang-discuss?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.noahpinion.blog/p/noah-brad-delong-and-dan-wang-discuss" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>

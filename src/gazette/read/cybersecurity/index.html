@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cybersecurity and Financial Stability · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Cybersecurity and Financial Stability</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/cybersecurity/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-10 · 1204 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Banks have traditionally been concerned with financial risks such as credit losses, liquidity shortages, and market volatility. But as financial institutions become increasingly dependent on digital infrastructure, a different source of vulnerability is emerging: cybersecurity. A cyberattack may initially appear to be a technology problem. </p>
+
+
+
+<p class="wp-block-paragraph">Yet when banks rely on interconnected payment systems, cloud services, and third-party technology providers, a disruption affecting one institution can spread to others. What begins as an operational failure may ultimately undermine confidence in the financial system. This raises an important question: Are individual banks investing enough in cybersecurity to protect not only themselves but also the broader financial system? And could the threat of a bank run change how much protection banks are willing to provide?</p>
+
+
+
+Cybersecurity and Financial Stability
+
+
+
+<ul class="wp-block-list">
+<li>Anand, Duley and Gai</li>
+
+
+
+<li>Review of Finance, 2026</li>
+
+
+
+<li>A version of this paper can be found <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4073158" target="_blank" rel="noopener">here</a></li>
+
+
+
+<li>Want to read our summaries of academic finance papers? Check out our <a href="https://alphaarchitect.com/category/architect-academic-insights/academic-research-insight/" target="_blank" rel="noopener">Academic Research Insight</a> category</li>
+</ul>
+
+
+
+Key Academic Insights
+
+
+
+<p class="wp-block-paragraph"><strong>Cybersecurity Is a Public Good and the Weakest Link Matters</strong></p>
+
+
+
+<p class="wp-block-paragraph">Banks increasingly depend on shared digital infrastructure. While this reduces costs, it also creates vulnerabilities that extend beyond individual institutions.</p>
+
+
+
+<p class="wp-block-paragraph">An attacker who compromises one bank may exploit weaknesses in a shared service, potentially disrupting other institutions.<br />Cybersecurity therefore resembles a <em>weakest-link public good</em>. Investments by one bank can protect others, while inadequate defenses at one institution can weaken the entire network.</p>
+
+
+
+<p class="wp-block-paragraph">This creates a problem: banks may not fully consider the benefits their cybersecurity investments provide to the broader financial system.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Banks Have Incentives to Underinvest in Cybersecurity</strong></p>
+
+
+
+<p class="wp-block-paragraph">The authors identify a classic economic problem: free-riding.</p>
+
+
+
+<p class="wp-block-paragraph">Because cybersecurity investments benefit other institutions, banks may prefer to rely partly on protection provided by their peers.<br />Individually, this can seem rational. Cybersecurity is expensive, and not all its benefits accrue to the bank making the investment.<br />Collectively, however, these decisions can leave the financial system insufficiently protected.</p>
+
+
+
+<p class="wp-block-paragraph">The model shows that decentralized cybersecurity decisions may produce inefficient outcomes. Importantly, the inefficiency does not always involve underinvestment.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The Threat of Bank Runs Can Encourage Greater Cybersecurity Investment</strong></p>
+
+
+
+<p class="wp-block-paragraph">A surprising finding is that the possibility of a bank run can encourage banks to strengthen their cybersecurity defenses. A successful cyberattack may disrupt operations and undermine creditor confidence. Depositors or other creditors could respond by withdrawing funds or refusing to renew financing.</p>
+
+
+
+<p class="wp-block-paragraph">Banks anticipating these consequences have stronger incentives to prevent attacks. The authors therefore identify two opposing forces: free-riding discourages cybersecurity investment, while the threat of a run encourages it. When rollover risk is sufficiently high, banks may even invest more in cybersecurity than would be socially optimal.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Cybersecurity and Operational Resilience Are Not the Same Thing</strong></p>
+
+
+
+<p class="wp-block-paragraph">The paper distinguishes between preventing cyberattacks and limiting their consequences.</p>
+
+
+
+<p class="wp-block-paragraph">Cybersecurity investments reduce the likelihood of a successful intrusion. Operational resilience measures, such as backup systems and recovery procedures, help institutions continue functioning after an attack.</p>
+
+
+
+<p class="wp-block-paragraph">Banks must allocate resources between these two objectives.</p>
+
+
+
+<p class="wp-block-paragraph">The model predicts that more intense cyber threats can encourage greater investment in operational resilience. Higher rollover risk, by contrast, strengthens incentives for preventative cybersecurity.</p>
+
+
+
+<p class="wp-block-paragraph">The implication is important: preventing attacks and preparing for disruptions are complementary objectives, but they compete for limited resources.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Financial Regulation Can Help Address Cybersecurity Externalities</strong></p>
+
+
+
+<p class="wp-block-paragraph">Because banks share infrastructure, their cybersecurity decisions affect one another. The authors examine how regulation can help align individual incentives with system-wide financial stability. Potential measures include minimum cybersecurity standards, negligence rules, cyber hygiene requirements, and regulations influencing bank funding structures.</p>
+
+
+
+<p class="wp-block-paragraph">The paper also highlights the importance of understanding connections between banks and technology providers. Mapping these dependencies could support cybersecurity stress tests and help regulators identify vulnerabilities that individual institutions might overlook.</p>
+
+
+
+Practical Applications for Investment Advisors
+
+
+
+<p class="wp-block-paragraph">I<strong>nclude Cybersecurity in Financial Institution Risk Assessments</strong></p>
+
+
+
+<p class="wp-block-paragraph">Financial institution analysis traditionally emphasizes capital adequacy, profitability, credit quality, and liquidity.<br />This research suggests that cybersecurity and operational resilience deserve attention alongside these measures.<br />A financially sound institution may still face serious operational vulnerabilities.</p>
+
+
+
+<p class="wp-block-paragraph">Advisors evaluating financial sector investments should therefore consider cybersecurity governance, technology dependencies, and business continuity arrangements.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Look Beyond Individual Institutions to Shared Technology Providers</strong><br />Portfolio diversification does not necessarily eliminate exposure to shared technological vulnerabilities. Different banks, custodians, and financial service providers may rely on the same digital infrastructure. A disruption affecting a critical provider could therefore influence several institutions simultaneously. Advisors should recognize this potential concentration risk, particularly when evaluating financial sector exposures.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Evaluate Preparedness for Disruptions, Not Just Prevention</strong><br />Cybersecurity assessments often focus on preventing unauthorized access. The paper highlights the equally important role of operational resilience. Advisors conducting institutional due diligence can examine recovery procedures, backup systems, and business continuity plans. The relevant question is not only whether an institution can prevent an attack, but whether it can continue operating when prevention fails.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Recognize Cyber Risk as a Potential Financial Stability Scenario</strong></p>
+
+
+
+<p class="wp-block-paragraph">Cyberattacks can interact with traditional financial risks. A prolonged disruption could undermine confidence, trigger withdrawals, and create liquidity pressures. For advisors involved in portfolio construction or scenario analysis, this suggests considering cyber-related operational shocks alongside conventional market and credit risks.</p>
+
+
+
+<p class="wp-block-paragraph">The objective is not to predict a cyber-induced <a href="https://alphaarchitect.com/tactically-adjusting-everything-in-a-financial-crisis-bad-idea/" target="_blank" rel="noopener">financial crisis</a>, but to recognize how technological disruptions could amplify existing financial vulnerabilities.</p>
+
+
+
+How to Explain This to Clients
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">“Banks can be financially strong and still face serious problems if their technology stops working. Today, financial institutions rely on interconnected digital systems. A cyberattack affecting one bank or technology provider could therefore disrupt several institutions. This research explains how such disruptions might become financial problems. If creditors lose confidence, they may withdraw funds, potentially creating liquidity pressures. The study also shows why cybersecurity requires cooperation. One bank’s security decisions can affect the safety of others. For investors, the lesson is that financial stability depends on more than strong balance sheets. It also requires secure technology and the ability to recover from disruptions.”</p>
+</blockquote>
+
+
+
+The Most Important Chart from the Paper
+
+
+
+<p class="wp-block-paragraph">Figure 1: Failure conditions for a bank following a successful cyber attack.</p>
+
+
+
+<figure class="aligncenter size-fusion-600"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/2026-10-21-17_14_24-ssrn-4073158.pdf-1-600x386.webp" referrerpolicy="no-referrer" loading="lazy" alt=""></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+Abstract
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<h3 id="h-" class="wp-block-heading"></h3>
+
+
+
+<p class="wp-block-paragraph">Cyber risk exposes banks to operational disruptions that can trigger runs. A bank chooses its cybersecurity by trading off protection against attacks with remaining resilient if an attack succeeds. Cybersecurity functions as a risk-management decision: it reduces the bank’s exposure to adverse outcomes but entails lower balance-sheet returns. Equilibrium cybersecurity depends on whether failure is driven by insolvency or illiquidity. When failure is insolvency-driven, bank and creditor actions reinforce one another: greater cybersecurity leads to a higher debt burden, which strengthens incentives for protection. When failure is illiquidity-driven, additional cybersecurity lowers the debt burden, eliminating the bank’s private risk–return trade-off. Socially optimal cybersecurity differs from the private choice, and corrective instruments must target either the protection or resilience margins. We extend the model to a system-wide environment in which cybersecurity is a public good, highlighting free-riding and the need for targeted regulation.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</blockquote>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p><a href="https://alphaarchitect.com/cybersecurity/" target="_blank" rel="noopener">Cybersecurity and Financial Stability</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/cybersecurity/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
