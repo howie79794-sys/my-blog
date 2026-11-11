@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>India is quietly doing great · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 科技 · 中国观察</div>
+    <h1 class="title">India is quietly doing great</h1>
+    <div class="byline">
+      <span class="author">诺亚·史密斯</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.noahpinion.blog/p/india-is-quietly-doing-great" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-11 · 1693 words</span>
+    </div>
+    <div class="body"><figure><a href="https://substackcdn.com/image/fetch/$s_!pQ8H!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1c9f730d-8548-4656-ac33-b06664a1edde_832x624.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!pQ8H!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1c9f730d-8548-4656-ac33-b06664a1edde_832x624.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo via Ojhayogesh via <a href="https://commons.wikimedia.org/wiki/File:Aerial_view_at_construction_site_at_Chenab_Bridge.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure><p><a href="https://www.noahpinion.blog/p/why-im-becoming-a-china-bear" target="_blank" rel="noopener">My last post</a> was about how for the first time, I’m becoming bearish on China’s continued economic and technological outperformance. A number of people asked me whether I was similarly bearish about India. The answer is no — I’m actually more <em>bullish</em> on India than I have been in a while. In fact, I had been meaning to write a post about that, so this gives me a good opportunity to do so. </p><p>The reason I’m bullish on India and bearish on China is that we’re asking the two countries to do two different things. When we think of China’s future success, we think of whether it’ll eclipse the combined economies of the U.S. and its allies, seize the lead in artificial intelligence, reach Taiwan or Korea’s level of income, or dominate Asia. I’m increasingly skeptical about its ability to do all of those things. But India’s job right now is a lot simpler — it just has to escape poverty and become an upper middle income country. And this I think it can do. </p><p>In both GDP terms and in terms of the Human Development Index (which combines GDP with education and health), India is around where China was in the late 2000s. </p><figure><a href="https://substackcdn.com/image/fetch/$s_!r7F4!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffd622968-ecb6-448d-a121-1777ac52bc32_1020x720.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!r7F4!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffd622968-ecb6-448d-a121-1777ac52bc32_1020x720.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://ourworldindata.org/grapher/human-development-index?tab=line&country=IND~CHN" target="_blank" rel="noopener">OWID</a></figcaption></figure><p>It’s easy to forget, but in the 2000s, people still thought of China as a basically developing country — its cities choked with smog, its rural areas still mired in poverty, its economy driven by cheap labor and lax environmental protections, and so forth. The challenge now for India is to make the leap that China made in the 2010s — to build abundant high-quality roads, trains, housing, and energy, provide decent jobs and livelihoods to the majority of its people, and catch up to the frontier of technology. </p><p>A lot of people don’t seem to realize how good of a start India has made. For one thing, extreme poverty in India has mostly been conquered over the last two decades:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!71AZ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F975ea2d5-36ea-4daf-be06-3415100a9062_1020x732.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!71AZ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F975ea2d5-36ea-4daf-be06-3415100a9062_1020x732.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://ourworldindata.org/grapher/distribution-of-population-poverty-thresholds?country=~IND" target="_blank" rel="noopener">OWID</a></figcaption></figure><p>This is an incredible accomplishment — a full tenth of humanity saved from deprivation. And what’s remarkable is that — unlike China — India managed to do this incredible poverty reduction while <em>also </em>reducing inequality:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!Ejwi!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb8219d07-bc57-42eb-9297-d28685e173bc_1422x640.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!Ejwi!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb8219d07-bc57-42eb-9297-d28685e173bc_1422x640.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://documents1.worldbank.org/curated/en/099722104222534584/pdf/IDU-25f34333-d3a3-44ae-8268-86830e3bc5a5.pdf" target="_blank" rel="noopener">World Bank</a></figcaption></figure><p>How did India manage this feat? <a href="https://documents1.worldbank.org/curated/en/099722104222534584/pdf/IDU-25f34333-d3a3-44ae-8268-86830e3bc5a5.pdf" target="_blank" rel="noopener">The World Bank says</a> that it was due to the two usual suspects — economic growth and redistribution:</p><blockquote><p>Over the past decade, India has made remarkable progress in reducing poverty across both monetary and non-monetary dimensions, recording one of the fastest poverty declines in the world…This progress was mainly driven by strong consumption growth, <strong>rising employment</strong>, especially among women, and <strong>expanded social transfers</strong>, including food subsidies. [emphasis mine]</p></blockquote><p>A strong welfare state is <a href="https://www.reuters.com/world/india/indias-finance-minister-unveils-budget-says-economy-going-through-profound-2024-02-01/" target="_blank" rel="noopener">certainly important</a>, but economic growth has to take the lion’s share of the credit here; without growth, there’s simply less of a pie to redistribute in the first place. And India’s growth has certainly been impressive. Ever since the pandemic, India has been growing faster than China:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!e1Yr!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faf250b82-5033-43f8-9c9e-5a4ef08d96a7_1020x720.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!e1Yr!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faf250b82-5033-43f8-9c9e-5a4ef08d96a7_1020x720.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://ourworldindata.org/grapher/gdp-per-capita-growth?tab=line&time=2001..latest&country=CHN~IND" target="_blank" rel="noopener">OWID</a></figcaption></figure><p>Now, India isn’t growing as fast as China did when China was at $10,000 of per capita GDP. Back in the late 2000s and early 2010s, China was still growing at close to double-digit rates; it didn’t slow down to India’s current rate until 2014, at which point it was 40% richer than India is now. But 6.5% is still a very healthy growth rate — it represents almost a doubling of living standards every decade. </p><p>And <a href="https://professional.content.cirrus.bloomberg.com/professional2023/insights/regional-analysis/india-long-term-outlook/" target="_blank" rel="noopener">Bloomberg expects</a> Indian growth to accelerate even further, to 8% by the end of the decade. Neelkanth Mishra, the executive director of the World Bank, <a href="https://www.bloomberg.com/news/articles/2026-09-04/world-bank-s-mishra-pushes-back-on-doubts-over-india-growth" target="_blank" rel="noopener">points out</a> that because India’s recovery from the pandemic recession is still incomplete, there’s plenty of room for a growth acceleration.</p><p>You’d expect this kind of growth to transform every part of Indian society and culture, and this appears to be exactly what’s happening. Arjun Ramani has a great in-depth report from his travels across India, focusing on how economic development is changing life on the ground:</p><a href="https://arjunramani.substack.com/p/india-dispatch?utm_source=substack&utm_campaign=post_embed&utm_medium=web&embedding_publication_id=35345" target="_blank" rel="noopener">Economy ClassDispatches from IndiaBefore starting my PhD, I spent the past three years as a journalist for The Economist. The final year was the best. I was based in India, lived between Mumbai and New Delhi, and travelled across 10 states and over 30 cities and villages as the country carried out history’s largest election. I was responsible for the paper’s India economics coverage, wh…Read morea year ago · 167 likes · 11 comments · Arjun Ramani</a><p>How is India producing this rapid growth? India is long past the point where you can tell a simple story about the country’s economic progress — manufacturing, finance, real estate, business services, IT, and a bunch of other sectors are <a href="https://www.wsj.com/economy/central-banking/indias-economy-posts-robust-growth-despite-mideast-energy-shock-5094156a" target="_blank" rel="noopener">all growing at once</a>. </p><p>How is India managing to grow so fast? <em>The Economist</em> <a href="https://www.economist.com/finance-and-economics/2026/01/22/the-ascent-of-indias-economy" target="_blank" rel="noopener">mostly credits liberalizing reforms</a> and prudent macroeconomic policy:</p><blockquote><p>A programme of fiscal consolidation has cut the budget deficit from 9.2% of gdp in fiscal 2021 (when it was bloated by pandemic spending) towards a target of 4.4% for fiscal 2026. Excluding interest payments, the deficit will be only around 0.9% of gdp…With inflation under control, interest rates have been cut by 1.25 percentage points over the past year…</p><p>The decline in inflation is not just limited to food, points out Sonal Varma of Nomura, a bank. Earlier reforms, such as the creation of a digital-payments infrastructure, which made prices more transparent, as well as the RBI’s shift to an inflation-targeting regime in 2016, have helped reduce inflation expectations and are now paying off. The RBI has also built up its stock of foreign-exchange reserves. A banking sector clean-up and reforms to the bankruptcy code have kept the financial system stable…</p><p>The longer term looks even more promising, thanks to a vigorous reform effort…A long-mooted cut in the number of labour codes, from 29 to four, was enacted in November. A cap of 74% on foreign direct investment in the insurance industry has been lifted. Nuclear power has been opened up to the private sector. Financial-market regulation has been overhauled…The states have also pursued reforms. Allowing women to work after dark, for instance, means textile and electronics factories can stay open later.</p></blockquote><p>I have to say, I’m skeptical of this story. Fiscal probity is well and good, but India’s long-term borrowing rates haven’t come down all that much:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!crGQ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6776761f-d2b5-4084-877d-a7c0abc09a36_1320x465.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!crGQ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6776761f-d2b5-4084-877d-a7c0abc09a36_1320x465.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>A stable financial system is very good, but it’s not clear how that automatically accelerates growth. And most of the real structural reform <em>The Economist</em> mentions is in the future. It’s possible for businesses’ <em>expectations</em> of structural reform to drive growth, but as the article mentions, domestic private-sector investment <a href="https://urbanomics.substack.com/p/indian-economys-private-investment" target="_blank" rel="noopener">isn’t really driving the boom</a>. FDI is <a href="https://data.worldbank.org/indicator/BX.KLT.DINV.WD.GD.ZS?locations=IN" target="_blank" rel="noopener">sluggish too</a> (or at least was until this year).</p><p>One bright spot is government investment, which has increased by a factor of four since before the pandemic, in spite of the country’s falling debt levels:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!1a5g!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7aba6a9f-6f14-458a-88c7-e435803e9651_880x706.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!1a5g!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7aba6a9f-6f14-458a-88c7-e435803e9651_880x706.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Source: <a href="https://www.reuters.com/world/india/s-india-budget-walks-tightrope-between-revenue-strain-spending-needs-2026-02-01/" target="_blank" rel="noopener">Reuters</a></figcaption></figure><p>The Indian government has been on a tremendous infrastructure-building boom — correcting one of the country’s notorious chronic deficiencies. Highway spending has <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2098788&lang=2&reg=48&utm_source=chatgpt.com" target="_blank" rel="noopener"> increased by a factor of five over the last decade</a>. Central government railway spending has <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2238111&lang=2&reg=48&utm_source=chatgpt.com" target="_blank" rel="noopener">risen eightfold</a>.</p><p>This is boosting growth in the short term, but in the long term it’ll make both manufacturing and consumption a lot easier in India. It’s also changing the physical look and feel of the country, much as China’s own modernization did in the 2000s and 2010s (if not as rapidly). India is now building its own bullet trains:</p><p>I recently saw an example of a Japanese man who <a href="https://x.com/jtssingh/status/2117361489824583713" target="_blank" rel="noopener">declared</a> that he was impressed by how clean and quiet Indian subways were, compared to Japanese ones!</p><figure><a href="https://substackcdn.com/image/fetch/$s_!SPLl!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faee96c4d-b67a-4389-8bcc-26f0d8743f89_762x770.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!SPLl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faee96c4d-b67a-4389-8bcc-26f0d8743f89_762x770.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>Another important factor in India’s growth story — and another long-standing deficiency that’s now beginning to be corrected — is the growth in Indian manufacturing. </p><p>The old story of India’s economy is that it had “leapfrogged” manufacturing and gone straight to services — call centers, business process outsourcing, software outsourcing, and the like. That concealed a quiet disappointment that India hadn’t managed to get on the same industrialization bus that has carried so many other countries out of poverty. But India’s current growth is very broad-based — manufacturing is growing right alongside services. <em>The Economist</em> <a href="https://www.economist.com/business/2026/10/08/indian-manufacturings-moment-may-finally-have-arrived" target="_blank" rel="noopener">has some details</a>:</p><blockquote><p>Manufacturing output in August, the most recent figure available, was 9% higher than the year before, thanks in particular to surging production of cars and electronics…India’s rising manufacturing output…reflects its growing appeal as a place to make things. In dollar terms India’s electronics exports were up by 90% in August, year on year, with American-bound iPhones accounting for a large share of that.</p></blockquote><p>Another encouraging sign is the breadth of India’s manufacturing growth. Whereas Bangladesh’s manufacturing boom last decade was powered mostly by the garment industry, India is making and exporting <a href="https://etedge-insights.com/industry/manufacturing/indias-engineering-exports-hit-a-record-122-43-billion-can-the-momentum-last/" target="_blank" rel="noopener">a bunch of different high-tech products</a>:</p><blockquote><p>The strength of India’s engineering exports lies partly in the diversity of its product segments. Automobiles remained the largest contributor in FY 2025–26, accounting for 21.9% of total engineering exports. Industrial machinery followed with an 18% share, while iron and steel products accounted for 16.9%…Electrical machinery contributed 12.5%, other engineering products 12.7%, and non-ferrous metals and products 11.6%.</p></blockquote><p>And keep in mind, this is all in spite of China’s attempts to <a href="https://x.com/kyleichan/status/2104168123268042895" target="_blank" rel="noopener">throttle Indian industrialization</a> by <a href="https://www.bloomberg.com/news/articles/2026-11-02/china-s-5-000-ton-digging-machines-are-a-trade-war-risk-to-india" target="_blank" rel="noopener">denying them key technological exports</a> and factory expertise. Competitive pressure from a more established economic power is not something China itself had to deal with, since the U.S. wholeheartedly supported China’s industrialization in the 1990s and 2000s. </p><p>Whether India’s growth boom can continue past the next couple of years is an open question. Private investment will have to rise, and probably FDI as well. India is also going to need to correct its bigger structural issues at some point — especially bad rural education, <a href="https://www.wsj.com/world/india/india-economy-women-work-labor-46bfb0f0" target="_blank" rel="noopener">female underemployment</a>, and incomplete urbanization.</p><p>But for now, India looks like a big economic success story — perhaps the brightest in the entire world right now. It’s less visible than China’s rapid rise two decades earlier, but it’ll be no less world-shaking when it happens. More people should be taking notice.</p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.noahpinion.blog/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.noahpinion.blog/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.noahpinion.blog/p/india-is-quietly-doing-great?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.noahpinion.blog/p/india-is-quietly-doing-great?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.noahpinion.blog/p/india-is-quietly-doing-great" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
