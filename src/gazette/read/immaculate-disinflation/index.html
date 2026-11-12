@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>Immaculate Disinflation · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Immaculate Disinflation</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/immaculate-disinflation" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-12 · 846 words</span>
+    </div>
+    <div class="body"><p>(This is another grumpy economist weekly rant script, <a href="https://www.thefreedomfrequency.org/p/immaculate-disinflation" target="_blank" rel="noopener">here)</a></p><p>Today I’m going to talk about immaculate disinflation — lower inflation without recession. </p><p class="cta-caption">Thanks for reading The Grumpy Economist! Subscribe for free to receive new posts and support my work.</p><p>Inflation is stuck above 3% — 3.7% in the September CPI. The hard question for the Fed, and Congress, is how to bring it down. If inflation grows to 4 or 5%, that question will be more pressing. </p><p>The usual medicine is higher interest rates. But that might cause a recession. Indeed, that’s the point. The conventional Phillips curve says that lower output and more unemployment are the central causes of lower inflation. Brace yourself for the 1970s and early 1980s. </p><p>It doesn’t have to be that way. Immaculate disinflation—without recession or unemployment— is possible.  </p><p>Even in conventional Phillips curve doctrine, inflation is driven by people’s expectations of future inflation as well as by employment. If businesses expect higher inflation next year, they raise prices now. If people expect higher inflation next year, they are willing to pay higher prices now, and they demand higher wages. </p><p>This was the idea behind forward guidance, back when interest rates were zero and the Fed wanted more inflation. The Fed promised to tolerate future inflation. The Fed hoped that expectation would raise inflation right away. </p><p>Conversely, If the Fed can get people to believe inflation will be lower next year, then inflation can come down now, immaculately.</p><p>But the Fed can’t change expectations with speeches alone. Speeches by public officials telling us to trust in a bright future are the last thing in short supply.  And inflation is not just a self-fulfilling prophecy, unhinged from economics. </p><p>So how to lower expectations? Standard monetary economics prescribes a durable precommitment to action, not just words. Fed Chair Kevin Warsh is doing a good job of persuading Fed-watchers that he really is an inflation hawk. That helps. But is it enough? Inflation is still rising though perhaps less than it might be otherwise. </p><p>Just what will that hawk <em>do </em>if inflation surges? If inflation surges to 1979 levels, will the Fed really repeat 1980, interest rates over 15% despite a brutal recession?  If people really believe that, inflation won’t surge to 1979 levels in the first place. But if people doubt that commitment, then hawkish talk will do little. Look up the cute “whip inflation now” buttons from the 1970s.  And it could be harder now, when higher interest rates also raise deficits and threaten the too-big-to-fail banks, and unlikely Congressional and Administration support.</p><p>The Fed’s “strategy” discussions are attempts to create that commitment. But they tend to be a bit vague with too many outs. </p><p>And even so, will higher rates alone work? The 1980s featured important fiscal, tax, spending, and economic reforms too. Without those, it is doubtful that higher interest rates alone would have durably lowered inflation. </p><p>The best way to lower inflation expectations is to credibly lower the underlying causes of inflation. </p><p>There have been nearly immaculate disinflations in the past. The most classic examples are the ends of hyperinflations following WWI. When the German, Austrian, and Hungarian governments solved the long-running fiscal problems that had caused them to print money, inflation stopped on a dime — with no high interest rates, with looser money, and with no recession. When countries including New Zealand, Israel, Sweden and Canada adopted inflation-targeting in the 1990s, their inflation also dropped suddenly without high interest rates or recession. Those reforms also included tax and spending reforms and microeconomic liberalizations. In Argentina, Javier Milei moved budgets from chronic deficit to surplus — yes, it can be done. Inflation dropped from 25% per month to 2% per month, without a deep recession or high interest rates. </p><p>Conversely, higher interest rates without fiscal and economic reform have failed in the past, and led to only greater inflation. </p><p>A durable end to persistent inflation comes from fiscal and economic reform along with monetary credibility. Done right, disinflation can be immaculate. Expected inflation collapses, and actual inflation with it, with no recession. Alas, the central bank cannot do it alone.</p><p><em>Update</em></p><p>I wrote this before the Brazil business of the last few blog posts and before the mid-term election. The major point is to remind people that immaculate disinflation is possible. Inflation is not mechanically tied to interest rates as most people believe. </p><p>A grand long-term fiscal reform seems pretty unlikely now. Brazil points an uncomfortable direction for US economic future. Steady small primary deficits, unresolved social programs, and desires for greater spending from the most recently elected politicians. Check. Inflation trundling along at 4% or so. Check. The central bank fights inflation with higher  and higher interest rates, producing higher and higher interest costs on the debt but not really bringing inflation down. Brazil is one step ahead of us there with 9% real rates of interest, but that may be the US near future.  The big difference: the US economy is booming and Brazil’s is stagnating. I hope that spares us Brazil’s conundrum. </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/immaculate-disinflation?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/immaculate-disinflation?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/immaculate-disinflation" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
