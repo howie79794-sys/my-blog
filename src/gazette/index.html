@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="apple-touch-icon" href="/assets/gazette/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital@0;1&display=swap" rel="stylesheet">
 <link rel="preload" href="https://my-blog-howie79.vercel.app/assets/gazette-news.json" as="fetch" crossorigin="anonymous">
 <title>HOWIE GAZETTE · The Morning Tab · 个人日报 v1.3</title>
 <style>
@@ -21,6 +24,7 @@
   --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
   --rule:#C8C0B0; --rule-soft:#DDD5C2;
   --accent:#B14427; --accent-dark:#93331B;
+  --gold:#B08D3E;   /* v2.0.4: Art-Deco 报头金饰（与扩展版一致） */
   --accent-wash:rgba(177,68,39,.07);
   --accent-tint:rgba(177,68,39,.12);
   --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
@@ -53,14 +57,23 @@ a{color:inherit;}
    below the box and land on the quote.  line-height 3.2 makes the box
    exactly as tall as the ink → no collision, and no extra white space
    above the signature because the ink fills the box. */
-.masthead h1{font-family:var(--display);font-weight:900;letter-spacing:.045em;   /* v1.9.2: font-size moved to cqw clamp above */
-  line-height:3.2;color:var(--ink);padding-bottom:0;}
-.masthead h1 em{font-style:italic;color:var(--accent);}
-.masthead-sig .sig{font-family:"Zapfino","Snell Roundhand",cursive;font-size:.94em;line-height:3.2;
-  color:#1F1A14;letter-spacing:.01em;padding-right:.06em;}
-.masthead-sig .poss{font-family:Georgia,serif;font-style:italic;font-size:.62em;color:var(--accent);margin:0 .1em 0 .06em;}
-.m-quote{font-family:var(--display);font-style:italic;font-size:15px;color:var(--dim);
-  margin:var(--s6) 0 var(--s6);letter-spacing:.02em;line-height:1.6;}
+/* v2.0.4 (D 方案 Art-Deco 报头，与扩展版统一): Zapfino 签名退役 → Cinzel 双行刊名 + 金饰。
+   结构：上金线+菱形 → GORDON ZHUANG'S / GAZETTE 双行 → 中文引语 → 下金线+菱形。 */
+.masthead h1{margin:0;flex:1;display:flex;flex-direction:column;justify-content:center;font-family:Cinzel,Georgia,serif;font-weight:700;color:var(--ink);
+  line-height:1.3;letter-spacing:.12em;font-size:inherit;}
+.masthead h1 .m-row1{display:block;font-size:clamp(20px,5.6cqw,52px);letter-spacing:.16em;}
+.masthead h1 .m-row2{display:block;font-size:clamp(28px,7.2cqw,76px);letter-spacing:.35em;margin-top:1px;
+  padding-left:.28em;}   /* 左移补偿 letter-spacing 尾部空隙，保持光学居中 */
+.masthead h1 .m-amp{color:var(--gold);}
+.m-deco{display:flex;align-items:center;gap:12px;margin:0 2%;}
+.m-deco .dl{flex:1;border-top:1px solid var(--gold);}
+.m-deco .dd{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);}
+.m-deco.top{margin-bottom:6px;}
+.m-deco.bot{margin-top:6px;}
+.m-quote{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(13px,1.95cqw,15px);color:var(--dim);
+  margin:10px 0 10px;letter-spacing:.02em;line-height:1.45;}
+.masthead .m-center{min-width:0;container-type:inline-size;
+  display:flex;flex-direction:column;justify-content:stretch;}
 /* ---- v1.9 masthead weather column (left of the signature line) ---- */
 /* 报纸天气小栏：与签名行同高，砖红细规线分隔，继承纸/墨/砖红语言。
    布局：.masthead 改为 grid（左 20% 天气 | 中 auto 签名+引语），期号条仍全宽
@@ -537,7 +550,8 @@ body.hide-others .sec-hidden{display:none!important;}
   .main{width:100%;max-width:100%;overflow-x:clip;}
 }
 @media (max-width:960px){
-  .masthead h1{font-size:46px;}   /* v1.9.2: block layout below 960px — cqw off, fixed size back */
+  .masthead h1 .m-row1{font-size:20px;}   /* 双行报头平板档：cqw off，固定值 */
+  .masthead h1 .m-row2{font-size:30px;}
   /* v1.9: weather column drops below the signature on narrow screens */
   .masthead{display:block;}
   .m-center{container-type:normal;}
@@ -570,8 +584,8 @@ body.hide-others .sec-hidden{display:none!important;}
    元信息随容器缩放；css-layout——gap 收紧提升纵向密度。 */
 @media (max-width:640px){
   .wrap{padding:12px 12px calc(40px + env(safe-area-inset-bottom));--card-gap:18px;}
-  .masthead h1{font-size:27px;line-height:2.4;}       /* 手机屏报头瘦身：34→27px */
-  .masthead h1 .sig,.masthead-sig .sig{line-height:2.4;}  /* .sig 自带 3.2 行高，必须一并覆盖 */
+  .masthead h1 .m-row1{font-size:17px;letter-spacing:.14em;}  /* 手机屏报头瘦身（Art-Deco 双行版） */
+  .masthead h1 .m-row2{font-size:25px;letter-spacing:.3em;padding-left:.28em;}
   .m-quote{font-size:11.5px;margin:8px 0;}
   .wx{padding:8px 0 0;}
   .wx .m-dateblock{display:flex;flex-wrap:wrap;gap:2px 8px;padding-bottom:7px;align-items:baseline;}
@@ -646,8 +660,13 @@ body.hide-others .sec-hidden{display:none!important;}
       <div id="wx-body"></div>
     </aside>
     <div class="m-center">
-      <h1 class="masthead-sig"><span class="sig">Gordon Zhuang</span><span class="poss">’s</span> <em>Gazette</em></h1>
-      <div class="m-quote">「每一个新标签页，都值得一份好报纸。」</div>
+      <!-- v2.0.4 (D 方案 Art-Deco 报头): 与扩展版统一，Zapfino 签名退役 → Cinzel 双行刊名 + 金饰 -->
+      <div class="m-deco top" aria-hidden="true"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <h1><span class="m-row1">GORDON ZHUANG<span class="m-amp">’S</span></span><span class="m-row2">GAZETTE</span></h1>
+      <div class="m-deco bot" aria-hidden="true"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div class="m-quote-row" style="display:flex;align-items:center;justify-content:center;position:relative;">
+        <div class="m-quote">「每一个新标签页，都值得一份好报纸。」</div>
+      </div>
     </div>
     <div class="m-date">
       <span>2026年10月26日 · NO.20261026</span>
