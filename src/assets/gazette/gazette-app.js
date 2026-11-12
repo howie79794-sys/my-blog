@@ -75,6 +75,17 @@
 
   /* ============ data cache (localStorage primary, IndexedDB mirror) ============ */
   function lsGet(){ try{ var s=localStorage.getItem(CACHE_KEY); return s?JSON.parse(s):null; }catch(e){ return null; } }
+  /* MWG 优化 #1 (2026-11-12): fetch 超时保护 —— AbortController 8s 兜底。
+     网络抖动时不再让新标签页干等，立即走缓存/seed 降级路径。 */
+  function fetchT(url, opts, ms){
+    ms = ms || 8000;
+    if(typeof AbortController === 'undefined') return fetch(url, opts);
+    var ctl = new AbortController();
+    var timer = setTimeout(function(){ ctl.abort(); }, ms);
+    opts = opts || {};
+    opts.signal = ctl.signal;
+    return fetch(url, opts).finally(function(){ clearTimeout(timer); });
+  }
   function lsSet(d){ try{ var s=JSON.stringify(d); if(s.length<=LS_MAX) localStorage.setItem(CACHE_KEY,s); }catch(e){} }
   function idbOpen(){ return new Promise(function(res){ 
     if(!window.indexedDB) return res(null);
@@ -83,13 +94,15 @@
       rq.onsuccess=function(){ res(rq.result); }; rq.onerror=function(){ res(null); };
     }catch(e){ res(null); } });
   }
-  function idbGet(){ return idbOpen().then(function(db){ return new Promise(function(res){
+  /* MWG 优化 #3: async/await 改写（skill 军规 #5） */
+  function idbGetRaw(db){ return new Promise(function(res){
     if(!db) return res(null);
     try{ var tx=db.transaction('kv','readonly').objectStore('kv').get('data');
       tx.onsuccess=function(){ res(tx.result||null); }; tx.onerror=function(){ res(null); };
-    }catch(e){ res(null); } }); }); }
-  function idbSet(d){ idbOpen().then(function(db){ if(!db) return;
-    try{ db.transaction('kv','readwrite').objectStore('kv').put(d,'data'); }catch(e){} }); }
+    }catch(e){ res(null); } }); }
+  async function idbGet(){ return idbGetRaw(await idbOpen()); }
+  async function idbSet(d){ var db = await idbOpen(); if(!db) return;
+    try{ db.transaction('kv','readwrite').objectStore('kv').put(d,'data'); }catch(e){} }
 
   /* ============ P1 已读记忆（v2.0.15）：localStorage gazette.read.v1 ============
      点开原文 = 已读；卡片降墨不重排；徽章显示未读数；窗口滚动自动清理。 */
@@ -312,26 +325,28 @@ __rendered = true;
   }
 
   /* ---- AIHOT timeline card stream (v1.2) ---- */
-  function tlHtml(list, label){
-    if(!list || !list.length) return '';
-    list = list.slice().sort(function(a,b){
+  /* MWG 优化 #2 (2026-11-12): tlCards 拆出单卡模板；tlRenderChunked 分帧渲染 ——
+     首屏 20 条同步出，其余按 rAF 批次追加（skill 军规 #6：大批 DOM 更新不阻塞主线程）。
+     dayBreak 依赖前一张卡的日期，分片时由 prevDayKey 跨批传递。 */
+  function tlSort(list){
+    return list.slice().sort(function(a,b){
       var da=new Date(a.publishedAt||0), db=new Date(b.publishedAt||0);
       return db-da || (b.score||0)-(a.score||0); });
-    var maxScore = list.reduce(function(m,x){return Math.max(m,x.score||0);},0);
-    var lastDay = '';
-    var html = '<ol class="ah-timeline">' + list.map(function(f){
+  }
+  function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
+    return list.map(function(f){
       var d = new Date(f.publishedAt||'');
       var ok = !isNaN(d);
       var d1 = ok ? p2(d.getDate()) : '—';
       var d2 = ok ? (d.getMonth()+1)+'月 '+p2(d.getHours())+':'+p2(d.getMinutes()) : '';
       var dayKey = ok ? d.toDateString() : '';
-      var dayBreak = (dayKey && dayKey!==lastDay) ? ' tl-daybreak' : '';
-      if(dayKey) lastDay = dayKey;
+      var dayBreak = (dayKey && dayKey!==state.lastDay) ? ' tl-daybreak' : '';
+      if(dayKey) state.lastDay = dayKey;
       var selCls = f.selected ? '' : ' tl-plain';
       var score = (f.score!=null) ? f.score : '';
       /* P1-4: only the top band keeps the solid brick fill; the rest is a
          quiet tint chip so the badge never outshouts the headline. */
-      var scoreCls = (f.score||0) >= Math.max(maxScore-8, (maxScore||0)*0.85) ? ' hi' : '';
+      var scoreCls = (f.score||0) >= Math.max(state.maxScore-8, (state.maxScore||0)*0.85) ? ' hi' : '';
       var selTag = f.selected ? '<span class="tl-sel">精选</span>' : '';
       var cat = f.category ? '<span class="tl-cat">'+esc(f.category)+'</span>' : '';
       var flag = f.reason ? '<button type="button" class="tl-flag" aria-expanded="false">理由 ▾</button>' : '';
@@ -350,9 +365,35 @@ __rendered = true;
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
           +(f.reason?'<div class="tl-reason">'+esc(f.reason)+'</div>':'')
         +'</div></li>';
-    }).join('') + '</ol>';
-    html += '<div class="ah-more">— '+esc(label)+' · 共 '+list.length+' 条 · 按时间倒序 —</div>';
-    return html;
+    });
+  }
+  function tlRenderChunked(ol, list, label){
+    var FIRST = 20, BATCH = 30;
+    var gen = (ol.__gen = (ol.__gen || 0) + 1);   /* 代际绑定到 ol 节点：同轮多列表互不干扰，重渲染换节点自然作废 */
+    var state = { lastDay:'', maxScore: list.reduce(function(m,x){return Math.max(m,x.score||0);},0) };
+    var cards = tlCards(list, state);
+    ol.innerHTML = cards.slice(0, FIRST).join('');
+    var i = FIRST;
+    (function next(){
+      if(gen !== ol.__gen || !ol.isConnected) return;   /* 已被新渲染替换，丢弃 */
+      if(i >= cards.length){
+        var foot = document.createElement('div');
+        foot.className = 'ah-more';
+        foot.textContent = '— ' + label + ' · 共 ' + list.length + ' 条 · 按时间倒序 —';
+        ol.parentNode.appendChild(foot);
+        return;
+      }
+      requestAnimationFrame(function(){
+        if(gen !== ol.__gen || !ol.isConnected) return;
+        ol.insertAdjacentHTML('beforeend', cards.slice(i, i+BATCH).join(''));
+        i += BATCH;
+        next();
+      });
+    })();
+  }
+  function tlHtml(list, label){
+    if(!list || !list.length) return '';
+    return '<ol class="ah-timeline" data-tllabel="'+esc(label)+'"></ol>';
   }
   function renderFeed(AI){
     var wrap = document.getElementById('ah-feedwrap'); if(!wrap) return;
@@ -364,6 +405,10 @@ __rendered = true;
     wrap.innerHTML = ''
       + '<div class="tl-group tl-group-feed">'+tlHtml(feedList,'AIHOT 时间线 · 全部动态')+'</div>'
       + '<div class="tl-group tl-group-sel">'+tlHtml(selList,'AIHOT 精选')+'</div>';
+    /* MWG #2: 分帧填充两个 timeline（首屏 20 条同步，其余 rAF 批次） */
+    var ols = wrap.querySelectorAll('ol.ah-timeline');
+    if(ols[0]) tlRenderChunked(ols[0], tlSort(feedList), 'AIHOT 时间线 · 全部动态');
+    if(ols[1]) tlRenderChunked(ols[1], tlSort(selList), 'AIHOT 精选');
     if(!wrap.__flagBound){
       wrap.addEventListener('click', function(e){
         var b = e.target.closest('.tl-flag'); if(!b) return;
@@ -473,7 +518,10 @@ __rendered = true;
       var lat = pos.coords.latitude, lon = pos.coords.longitude;
       var u = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon
         + '&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4';
-      fetch(u).then(function(r){ return r.json(); }).then(function(d){
+      (async function(){
+        var d;
+        try{ var r0 = await fetchT(u); d = await r0.json(); }catch(e){ return; /* 静默: 保留管线兜底 */ }
+        {
         if(!d || !d.daily || !d.daily.time || !d.daily.time.length) return;
         var casts = d.daily.time.map(function(t, i){
           var code = d.daily.weather_code[i];
@@ -491,15 +539,17 @@ __rendered = true;
         /* 城市名: bigdatacloud 反查（免 key），失败显示「本地」 */
         var gu = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + lat
                + '&longitude=' + lon + '&localityLanguage=zh';
-        fetch(gu).then(function(r){ return r.json(); }).then(function(g){
+        try{
+          var rg = await fetchT(gu); var g = await rg.json();
           renderWeatherData({
             city: (g && (g.city || g.locality || g.principalSubdivision)) || '本地',
             casts: casts, src: 'geo'
           });
-        }).catch(function(){
+        }catch(e){
           renderWeatherData({city: '本地', casts: casts, src: 'geo'});
-        });
-      }).catch(function(){ /* 静默: 保留管线兜底 */ });
+        }
+      }
+      })();
     }, function(){ /* 用户拒绝授权或超时: 保留管线兜底 */ },
     {timeout: 8000, maximumAge: 30 * 60 * 1000});
   }
@@ -729,8 +779,9 @@ __rendered = true;
       var zhName = (FS_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh || curCat;
       wrap.innerHTML = '<div class="src-empty" style="display:block">「'+esc(zhName)+'」暂无内容</div>'; return;
     }
+    /* MWG #2 (2026-11-12): fashion 230 条改分帧渲染（首屏 20 + rAF 批 30） */
     var lastDay = '';
-    var html = '<ol class="tl-list">' + shown.map(function(f){
+    var cards = shown.map(function(f){
       var d = f.published ? new Date(f.published) : null;
       var ok = !!(d && !isNaN(d.getTime()));
       var d1 = ok ? p2(d.getDate()) : '—';
@@ -759,10 +810,32 @@ __rendered = true;
           +'<div class="tl-tags">'+kindTag+'<span class="tl-src"><b>来源：</b>'+esc(f.source||'')+'</span></div>'
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
         +'</div></li>';
-    }).join('') + '</ol>';
-    html += '<div class="ah-more">— FASHIONABLE LIFE · 共 '+list.length+' 条（近 7 天滚动池）· 当前「'+esc((FS_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||'')+'」'+shown.length+' 条 · 按时间倒序 —</div>';
-    wrap.innerHTML = html;
-    markLastReadLine(wrap); addUnreadButtons();
+    });
+    var ol = document.createElement('ol');
+    ol.className = 'tl-list';
+    var gen = (ol.__gen = 1);
+    wrap.innerHTML = '';
+    wrap.appendChild(ol);
+    var FIRST = 20, BATCH = 30, i = 0;
+    ol.innerHTML = cards.slice(0, FIRST).join('');
+    i = FIRST;
+    (function fsNext(){
+      if(gen !== ol.__gen || !ol.isConnected) return;   /* 已被新渲染替换，丢弃 */
+      if(i >= cards.length){
+        var foot = document.createElement('div');
+        foot.className = 'ah-more';
+        foot.textContent = '— FASHIONABLE LIFE · 共 ' + list.length + ' 条（近 7 天滚动池）· 当前「' + ((FS_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||'') + '」' + shown.length + ' 条 · 按时间倒序 —';
+        wrap.appendChild(foot);
+        markLastReadLine(wrap); addUnreadButtons();
+        return;
+      }
+      requestAnimationFrame(function(){
+        if(gen !== ol.__gen || !ol.isConnected) return;
+        ol.insertAdjacentHTML('beforeend', cards.slice(i, i+BATCH).join(''));
+        i += BATCH;
+        fsNext();
+      });
+    })();
   }
 
 /* ---- sidebar source nav ---- */
@@ -1010,9 +1083,12 @@ __rendered = true;
     /* 3. fetch remote — cache-bust with seed's generated_at so a new deploy
        (new seed => new query param) always bypasses the browser disk cache */
     var bust = (window.DATA && window.DATA.generated_at) ? encodeURIComponent(window.DATA.generated_at) : '0';
-    fetch(REMOTE_URL + '?t=' + bust, {cache:'no-cache'})
-      .then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
-      .then(function(d){
+    /* MWG 优化 #3: async/await 改写（skill 军规 #5） */
+    (async function(){
+      try{
+        var r = await fetchT(REMOTE_URL + '?t=' + bust, {cache:'no-cache'});
+        if(!r.ok) throw new Error('http '+r.status);
+        var d = await r.json();
         /* v2.0.13a P2 fix: items 已从数据源剔除，payload 校验改为三板块任一有货
            （与 render() 的 hasContent 同口径；旧校验会把好数据误判为 bad payload） */
         var okPayload = d && (
@@ -1026,15 +1102,15 @@ __rendered = true;
         lsSet(d); idbSet(d);
         bindReadOnce();
         hideFail();
-      })
-      .catch(function(){
+      }catch(e){
         /* silent: cache/seed already rendered */
         if(document.querySelector('.strip') || document.getElementById('ah-hot').children.length){
           showFail();
         } else {
           showFail(true);
         }
-      });
+      }
+    })();
   }
   /* P1 已读交互（v2.0.15）：document 级委托，绑一次。
      ① 点击 .tl-title（真链接）→ 标已读 + 卡片即时降墨

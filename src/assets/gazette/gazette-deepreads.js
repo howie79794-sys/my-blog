@@ -11,16 +11,28 @@
       : 'https://my-blog-howie79.vercel.app/assets/gazette-deepreads.json';
   }
 
+  /* MWG 优化 #1: fetch 超时保护（8s），超时走空态降级 */
+  function fetchT(url, opts, ms){
+    ms = ms || 8000;
+    if(typeof AbortController === 'undefined') return fetch(url, opts);
+    var ctl = new AbortController();
+    var timer = setTimeout(function(){ ctl.abort(); }, ms);
+    opts = opts || {};
+    opts.signal = ctl.signal;
+    return fetch(url, opts).finally(function(){ clearTimeout(timer); });
+  }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 
-  function drLoad(cb){
+  /* MWG 优化 #3: async/await 改写（skill 军规 #5） */
+  async function drLoad(cb){
     if(DR_STATE.loaded) { cb && cb(); return; }
     var bust = Date.now();
-    fetch(drUrl() + '?t=' + bust, {cache:'no-cache'})
-      .then(function(r){ return r.json(); })
-      .then(function(d){ DR_STATE.data = d; DR_STATE.loaded = true; drUpdateBadge(d); cb && cb(); })
-      .catch(function(){ /* 降级：留空态提示 */ cb && cb(true); });
+    try{
+      var r = await fetchT(drUrl() + '?t=' + bust, {cache:'no-cache'});
+      var d = await r.json();
+      DR_STATE.data = d; DR_STATE.loaded = true; drUpdateBadge(d); cb && cb();
+    }catch(e){ /* 降级：留空态提示 */ cb && cb(true); }
   }
 
   /* v2.1.1: 数据到位后回写侧栏一级菜单徽章（renderSnav 渲染时可能数据未到） */
