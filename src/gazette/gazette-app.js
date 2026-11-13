@@ -388,9 +388,18 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
       var foot = cards[i].querySelector('.mx-foot');
       if(!foot) continue;
       var sum = cards[i].querySelector('.tl-sum');
-      if(!sum) continue;   /* 无摘要卡片本就没有按钮意义 */
-      var clipped = sum.scrollHeight > sum.clientHeight + 2;   /* 2行截断中 */
-      if(!clipped) foot.hidden = true;
+      if(!sum){ foot.hidden = true; continue; }   /* 无摘要卡片 */
+      /* line-clamp 下 scrollHeight==clientHeight，需临时解除 clamp 才能测真实溢出 */
+      var prev = sum.style.webkitLineClamp;
+      sum.style.webkitLineClamp = 'none';
+      var fullH = sum.scrollHeight;
+      sum.style.webkitLineClamp = prev;
+      var clipped = fullH > sum.clientHeight + 1;
+      /* 保留按钮的条件：摘要被截断（看不全） 或 全文比摘要多出实质内容（还有更多没露出） */
+      var body = cards[i].querySelector('.mx-full .mx-body');
+      var more = body ? body.textContent.length : 0;
+      var sm = sum.textContent.length;
+      if(!clipped && more <= sm + 40) foot.hidden = true;
     }
   }
   function tlRenderChunked(ol, list, label){
