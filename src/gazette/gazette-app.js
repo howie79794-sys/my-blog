@@ -376,7 +376,7 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
           +'<div class="tl-tags">'+selTag+cat+'<span class="tl-src">'+srcText+'</span>'+flag+'</div>'
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
           +(f.reason?'<div class="tl-reason">'+esc(f.reason)+'</div>':'')
-          +(f.fulltext && f.fulltext.length > (f.summary||'').length + 60 ? tlFullHtml(f) : '')
+          +(f.fulltext && f.fulltext.length > 85 ? tlFullHtml(f) : '')   /* v2.2.4: >85字≈超过折叠态2行可见容量 */
         +'</div></li>';
     });
   }
