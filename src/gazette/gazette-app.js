@@ -397,11 +397,11 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
       var foot = cards[i].querySelector('.mx-foot');
       if(!foot) continue;
       var sum = cards[i].querySelector('.tl-sum');
-      if(!sum){ foot.hidden = true; continue; }   /* 无摘要卡片 */
+      if(!sum){ foot.style.display = 'none'; continue; }   /* 无摘要卡片 */
       var body = cards[i].querySelector('.mx-full .mx-body');
       var more = body ? body.textContent.length : 0;
       var sm = sum.textContent.length;
-      if(!sum.textContent.trim()){ foot.hidden = true; continue; }
+      if(!sum.textContent.trim()){ foot.style.display = 'none'; continue; }
       /* 关键：.tl-sum 有 content-visibility:auto（未入视口时内容不渲染，scrollHeight 不可信）。
          测量时临时置 visible + 解除 line-clamp，再按行高算折叠态可见高度。 */
       var prevCV = sum.style.contentVisibility;
@@ -415,7 +415,8 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
       var clampedH = 2 * lh;                 /* 折叠态固定 2 行 */
       var clipped = fullH > clampedH + 1;    /* 实际需要 >2 行 */
       /* 保留按钮的条件：摘要被截断（看不全） 或 全文比摘要多出实质内容（还有更多没露出） */
-      if(!clipped && more <= sm + 40) foot.hidden = true;
+      if(!clipped && more <= sm + 40) foot.style.display = 'none';
+      else foot.style.display = '';
     }
   }
   function tlRenderChunked(ol, list, label){
