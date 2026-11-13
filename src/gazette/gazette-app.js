@@ -691,7 +691,7 @@ __rendered = true;
       /* v2.2.1: 妙想条目支持原位展开全文（深际阅读同款交互），fulltext 按 \n\n 分段 */
       /* v2.2.2: 妙想展开全文复刻 deepreads 交互——右下角按钮 + 展开后顶部 sticky 收起条 */
       var mxFull = '', mxBtn = '';
-      if(f.fulltext && (f.source||'').indexOf('妙想') === 0){
+      if(f.fulltext){   /* v2.2.3: 任何带 fulltext 的条目都可展开（妙想研报/公告 + 东财补全的公告全文） */
         var paras = f.fulltext.split('\n\n').filter(function(x){ return x.trim(); });
         mxFull = '<div class="mx-full" hidden>'
           +'<div class="mx-fulltop"><button type="button" class="dr-toggle mx-toggle" aria-expanded="true">▴ 收起全文</button></div>'
