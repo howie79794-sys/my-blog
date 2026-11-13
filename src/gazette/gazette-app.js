@@ -381,6 +381,15 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
     });
   }
 
+  /* v2.2.5: 字体加载完成后再复测一次（首测时 webfont 未就绪，测量可能偏差） */
+  function tlPruneAfterFonts(){
+    if(document.__mxFontPrune) return;
+    document.__mxFontPrune = true;
+    var go = function(){ tlPruneExpandBtns(document); };
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(go).catch(go);
+    else setTimeout(go, 800);
+  }
+
   /* v2.2.5: 真实溢出检测——tl-sum 未被 CSS 截断且全文无增量的卡片，不显示展开钮 */
   function tlPruneExpandBtns(scope){
     var cards = (scope || document).querySelectorAll('.tl-card');
@@ -755,7 +764,7 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
     }).join('') + '</ol>';
     html += '<div class="ah-more">— FIN NEWS · 共 '+list.length+' 条 · 当前「'+esc((FN_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||'')+'」'+shown.length+' 条 · 同花顺快讯 + Wind 深度 + 东财要闻 · 按时间倒序 —</div>';
     wrap.innerHTML = html;
-    tlPruneExpandBtns(wrap);   /* v2.2.5: 显示全的卡片不显示展开钮 */
+    tlPruneExpandBtns(wrap); tlPruneAfterFonts();   /* v2.2.5: 显示全的卡片不显示展开钮 */
     markLastReadLine(wrap); addUnreadButtons();
     /* v2.2.1: 妙想条目展开全文/收起（原位，deepreads 同款交互） */
     if(!wrap.__mxBound){
@@ -1305,6 +1314,7 @@ function applyTheme(t){
 ;(function(){
 
   /* v2.2.4: 展开全文全局委托——覆盖 finnews（妙想/公告）+ tl 卡片（快讯/要闻/AIHOT） */
+  tlPruneAfterFonts();
   if(!document.__mxDelgBound){
     document.__mxDelgBound = true;
     document.addEventListener('click', function(e){
