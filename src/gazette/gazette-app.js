@@ -1285,6 +1285,7 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
+  tlPruneAfterFonts();   /* v2.2.5: 字体就绪后全局复测裁剪——与定义同 IIFE，作用域安全 */
 })();
 
 
@@ -1319,8 +1320,8 @@ function applyTheme(t){
 
 ;(function(){
 
-  /* v2.2.4: 展开全文全局委托——覆盖 finnews（妙想/公告）+ tl 卡片（快讯/要闻/AIHOT） */
-  tlPruneAfterFonts();
+  /* v2.2.4: 展开全文全局委托——覆盖 finnews（妙想/公告）+ tl 卡片（快讯/要闻/AIHOT）
+     注意：tlPruneAfterFonts 定义在上一个 IIFE 内，不能在这里调用（v2.2.5 曾因此 ReferenceError 导致委托未绑定） */
   if(!document.__mxDelgBound){
     document.__mxDelgBound = true;
     document.addEventListener('click', function(e){
