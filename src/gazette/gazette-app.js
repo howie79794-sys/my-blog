@@ -380,12 +380,26 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
         +'</div></li>';
     });
   }
+
+  /* v2.2.5: 真实溢出检测——tl-sum 未被 CSS 截断且全文无增量的卡片，不显示展开钮 */
+  function tlPruneExpandBtns(scope){
+    var cards = (scope || document).querySelectorAll('.tl-card');
+    for(var i = 0; i < cards.length; i++){
+      var foot = cards[i].querySelector('.mx-foot');
+      if(!foot) continue;
+      var sum = cards[i].querySelector('.tl-sum');
+      if(!sum) continue;   /* 无摘要卡片本就没有按钮意义 */
+      var clipped = sum.scrollHeight > sum.clientHeight + 2;   /* 2行截断中 */
+      if(!clipped) foot.hidden = true;
+    }
+  }
   function tlRenderChunked(ol, list, label){
     var FIRST = 20, BATCH = 30;
     var gen = (ol.__gen = (ol.__gen || 0) + 1);   /* 代际绑定到 ol 节点：同轮多列表互不干扰，重渲染换节点自然作废 */
     var state = { lastDay:'', maxScore: list.reduce(function(m,x){return Math.max(m,x.score||0);},0) };
     var cards = tlCards(list, state);
     ol.innerHTML = cards.slice(0, FIRST).join('');
+    tlPruneExpandBtns(ol);
     var i = FIRST;
     (function next(){
       if(gen !== ol.__gen || !ol.isConnected) return;   /* 已被新渲染替换，丢弃 */
@@ -399,6 +413,7 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
       requestAnimationFrame(function(){
         if(gen !== ol.__gen || !ol.isConnected) return;
         ol.insertAdjacentHTML('beforeend', cards.slice(i, i+BATCH).join(''));
+        tlPruneExpandBtns(ol);
         i += BATCH;
         next();
       });
@@ -729,6 +744,7 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
     }).join('') + '</ol>';
     html += '<div class="ah-more">— FIN NEWS · 共 '+list.length+' 条 · 当前「'+esc((FN_CATS.filter(function(c){return c.key===curCat;})[0]||{}).zh||'')+'」'+shown.length+' 条 · 同花顺快讯 + Wind 深度 + 东财要闻 · 按时间倒序 —</div>';
     wrap.innerHTML = html;
+    tlPruneExpandBtns(wrap);   /* v2.2.5: 显示全的卡片不显示展开钮 */
     markLastReadLine(wrap); addUnreadButtons();
     /* v2.2.1: 妙想条目展开全文/收起（原位，deepreads 同款交互） */
     if(!wrap.__mxBound){
@@ -868,6 +884,7 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
     wrap.appendChild(ol);
     var FIRST = 20, BATCH = 30, i = 0;
     ol.innerHTML = cards.slice(0, FIRST).join('');
+    tlPruneExpandBtns(ol);
     i = FIRST;
     (function fsNext(){
       if(gen !== ol.__gen || !ol.isConnected) return;   /* 已被新渲染替换，丢弃 */
@@ -882,6 +899,7 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
       requestAnimationFrame(function(){
         if(gen !== ol.__gen || !ol.isConnected) return;
         ol.insertAdjacentHTML('beforeend', cards.slice(i, i+BATCH).join(''));
+        tlPruneExpandBtns(ol);
         i += BATCH;
         fsNext();
       });
