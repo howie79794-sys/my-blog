@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" href="https://my-blog-howie79.vercel.app/assets/gazette-news.json" as="fetch" crossorigin="anonymous">
+<title>HOWIE GAZETTE · The Morning Tab · 个人日报 v1.3</title>
+<style>
+/* ============================================================
+   HOWIE GAZETTE v1.3 — The Morning Tab
+   type scale   : 76 masthead / 26-19 section heads / 16.5-14 card
+                  titles / 13.5-12.5 body / 10-11 meta (spacing caps)
+   space scale  : 4 8 12 16 24 32 48 64
+   color tokens : paper #F5F0E6 · ink #1F1A14 · accent #B14427
+                  faint #6A665E (AA on paper) · rule #C8C0B0
+   ============================================================ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07);
+  --accent-tint:rgba(177,68,39,.12);
+  --gold:#B08D3E;   /* v2.0.17: 侧栏菱形/报头金色收编为变量（此前 var(--gold) 未定义被浏览器兜底，顺手修复） */
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+  --r:12px;
+  /* v1.3.1 spacing scale — one scale for the whole paper */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s6:24px; --s8:32px;
+  --card-gap:32px;          /* v2.0.22: 24→32 卡距加宽——hover 上移 2px + 邻卡阴影 8px 后仍有安全净空，顶边红框不再被压（用户 11-07 反馈二次实测） */
+}
+/* ================= v2.0.17: 主题系统 =================
+   classic=米黄原版 · salmon=FT三文鱼粉 · snow=雪白冷调 · midnight=夜刊暖黑
+   已读降墨/分隔线/红点等对比效果通过 --ink-rgb/--accent-rgb 主题化，各主题下均生效 */
+html[data-theme="classic"]{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --gold:#B08D3E; --ink-rgb:31,26,20; --accent-rgb:177,68,39;
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+}
+html[data-theme="salmon"]{
+  --bg:#F2E7DB; --paper:#FFF1E0; --card:#FFFAF3;
+  --ink:#33302E; --dim:#66605A; --faint:#8A837B;
+  --rule:#D8C7B8; --rule-soft:#E8DACB;
+  --accent:#990F3D; --accent-dark:#7A0C30;
+  --accent-wash:rgba(153,15,61,.06); --accent-tint:rgba(153,15,61,.11);
+  --gold:#8C6D2F; --ink-rgb:51,48,46; --accent-rgb:153,15,61;
+  --shadow-1:0 1px 3px rgba(120,80,60,.09),0 2px 8px rgba(120,80,60,.07);
+  --shadow-2:0 3px 8px rgba(120,80,60,.12),0 10px 24px rgba(120,80,60,.12);
+}
+html[data-theme="snow"]{
+  --bg:#ECEAE4; --paper:#FAFAF7; --card:#FFFFFF;
+  --ink:#121212; --dim:#4A4842; --faint:#6E6C66;
+  --rule:#DFDDD7; --rule-soft:#EAE8E2;
+  --accent:#C0392B; --accent-dark:#A93226;
+  --accent-wash:rgba(192,57,43,.06); --accent-tint:rgba(192,57,43,.10);
+  --gold:#B08D3E; --ink-rgb:18,18,18; --accent-rgb:192,57,43;
+  --shadow-1:0 1px 3px rgba(40,40,40,.08),0 2px 8px rgba(40,40,40,.06);
+  --shadow-2:0 3px 8px rgba(40,40,40,.11),0 10px 24px rgba(40,40,40,.11);
+}
+html[data-theme="midnight"]{
+  --bg:#0E0D0B; --paper:#1C1A17; --card:#262320;
+  --ink:#D8D2C4; --dim:#A29C8E; --faint:#7E786C;
+  --rule:#3A362F; --rule-soft:#2E2B25;
+  --accent:#D96A4A; --accent-dark:#C2573A;
+  --accent-wash:rgba(217,106,74,.09); --accent-tint:rgba(217,106,74,.14);
+  --gold:#C9A961; --ink-rgb:216,210,196; --accent-rgb:217,106,74;
+  --shadow-1:0 1px 3px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.30);
+  --shadow-2:0 3px 8px rgba(0,0,0,.45),0 10px 24px rgba(0,0,0,.40);
+}
+
+html{background:var(--bg);}
+body{font-family:var(--serif);color:var(--ink);background:var(--bg);line-height:1.68;-webkit-font-smoothing:antialiased;}
+a{color:inherit;}
+.wrap{max-width:1600px;margin:0 auto;background:var(--paper);padding:32px 48px 72px;box-shadow:0 0 40px rgba(120,100,60,.18);}
+
+/* ================= masthead (v1.3.1) =================
+   Explicit three layers, spaced with the scale tokens:
+     ① (removed v1.9.3: 顶部标语条 .m-top —— 日期块移入天气栏)
+     ① 报头主体 .masthead   (签名体行 → 引语 → 期号条)
+     ② 期号/天气条 .m-date  (thick ink rule)
+   The Zapfino signature has very long ascenders/descenders, so the
+   signature line owns a tall line-box (1.5) + 10px bottom padding and
+   the quote sits ≥32px below it — no more stroke/subtitle collision. */
+/* P0-1: the signature line must CONTAIN the Zapfino ink, not just the
+   line box.  Zapfino's ascent+descent is ~3.2em (measured 132+95px at
+   71px), so line-height 1.05 let the descender of "Zhuang" punch ~44px
+   below the box and land on the quote.  line-height 3.2 makes the box
+   exactly as tall as the ink → no collision, and no extra white space
+   above the signature because the ink fills the box. */
+/* v2.0.4 (D 方案 Art-Deco 报头): Zapfino 签名退役 → Cinzel 双行刊名 + 金饰。
+   结构：上金线+菱形 → GORDON ZHUANG'S / GAZETTE 双行 → 中文引语 → 下金线+菱形。
+   高度 ~285px @1440 视口，比 Zapfino 版(354px)矮——Cinzel 行高紧凑无 Zapfino 的 3.2em 虚胖。
+   微调采纳视觉评审：GAZETTE 与引语间距加大、菱形缩小、金色饱和度微提。 */
+.masthead h1{margin:0;flex:1;display:flex;flex-direction:column;justify-content:center;font-family:Cinzel,Georgia,serif;font-weight:700;color:var(--ink);
+  line-height:1.3;letter-spacing:.12em;}
+.masthead h1 .m-row1{display:block;font-size:clamp(26px,5.6cqw,52px)   /* v2.0.6 精修: 上排体量+8% 平衡层级 */;letter-spacing:.16em;}   /* v2.0.5: 放大 */
+.masthead h1 .m-row2{display:block;font-size:clamp(38px,7.2cqw,76px);letter-spacing:.35em;margin-top:1px;   /* v2.0.6 精修: 视觉宽度贴近金线内缘 */
+  /* 左移补偿 letter-spacing 尾部空隙，保持光学居中；v2.0.4 评审收紧 .3em→.28em */
+  padding-left:.28em;}
+.masthead h1 .m-amp{color:var(--gold);}
+.m-deco{display:flex;align-items:center;gap:12px;margin:0 2%;}   /* v2.0.6: 拉宽（8%→2% 边距） */
+.m-deco .dl{flex:1;border-top:1px solid var(--gold);}
+.m-deco .dd{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);}
+.m-deco.top{margin-bottom:6px;}   /* v2.0.6 */
+.m-deco.bot{margin-top:6px;}   /* v2.0.6 */
+.m-quote{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(13px,1.95cqw,15px);color:var(--dim);
+  margin:10px 0 10px;letter-spacing:.02em;line-height:1.45;}   /* v2.0.8 精修: 与分界线距离收窄 */
+/* ---- v1.9 masthead weather column (left of the signature line) ---- */
+/* 报纸天气小栏：与签名行同高，砖红细规线分隔，继承纸/墨/砖红语言。
+   布局：.masthead 改为 grid（左 20% 天气 | 中 auto 签名+引语），期号条仍全宽
+   v1.9.2 自适应：① 天气列封顶 240px（14 寸屏不再吞掉签名空间）
+   ② .m-center 是 container，签名/引语字号用 cqw 缩放 —— Gazette 永远单行 */
+.masthead{display:grid;grid-template-columns:minmax(150px,min(22%,240px)) 1fr;column-gap:var(--s6);text-align:center;padding:var(--s2) 0 0;
+  border-bottom:2px solid var(--ink);box-shadow:0 5px 0 -3.5px var(--rule);}   /* v2.0.8 精修: 粗黑减重+细灰可见度增强 */
+.masthead .m-date{grid-column:1 / -1;}
+.masthead .m-center{min-width:0;container-type:inline-size;
+  display:flex;flex-direction:column;justify-content:stretch;}   /* v2.0.6: deco 贴顶底，标题弹性撑满 */
+.masthead h1{font-size:inherit;}   /* v2.0.4: 字号移入 .m-row1/.m-row2（双行各自 clamp） */
+.m-quote{font-size:clamp(13px,1.95cqw,15px);}
+/* ---- v2.0.16 天气/日期面板重设计：网格化 + 安全边距 + 层级分级 ---- */
+.wx{align-self:stretch;text-align:left;border-right:1px solid var(--rule);
+  padding:14px 18px 12px 2px;display:flex;flex-direction:column;gap:0;}
+/* 日期块：主日期放大做锚点，次信息两级弱化，底部留白不压线 */
+.wx .m-dateblock{display:grid;gap:3px;padding-bottom:14px;border-bottom:1px solid var(--rule-soft);}
+.wx .m-dateblock .db-g{font-family:var(--display);font-size:17px;font-weight:700;color:var(--ink);letter-spacing:.02em;line-height:1.3;}
+.wx .m-dateblock .db-g .wk{font-family:var(--sans);font-size:11px;font-weight:400;color:var(--dim);letter-spacing:.08em;margin-left:8px;}
+.wx .m-dateblock .db-l{font-family:var(--sans);font-size:11px;color:var(--dim);letter-spacing:.03em;}
+.wx .m-dateblock .db-l b{font-weight:400;color:var(--faint);margin-right:4px;}
+.wx .m-dateblock .db-c{font-family:var(--sans);font-size:10px;color:var(--faint);letter-spacing:.14em;}
+/* 栏目眉：紧贴内容，弱化英文孤立感 */
+.wx-h{font-family:var(--sans);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin:12px 0 9px;}
+/* 今日：图标+温度两列网格，图标对位温度视觉中心 */
+.wx-today{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:center;gap:0 12px;padding-bottom:12px;}
+.wx-today svg{width:32px;height:32px;justify-self:center;opacity:.85;}
+.wx-now .t{font-family:var(--display);font-size:27px;font-weight:700;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.wx-now .t .lo{color:var(--dim);font-weight:400;}
+.wx-now .t .dg{font-size:16px;font-weight:400;color:var(--dim);margin-left:1px;}
+.wx-now .c{font-family:var(--sans);font-size:11px;color:var(--dim);line-height:1.5;margin-top:4px;letter-spacing:.02em;}
+/* 三日预报：真正的列网格——星期/图标/描述/温度四列，行距呼吸 */
+.wx-days{display:grid;gap:0;border-top:1px solid var(--rule-soft);padding-top:10px;}
+.wx-row{display:grid;grid-template-columns:34px 20px minmax(0,1fr) auto;align-items:center;column-gap:8px;
+  font-family:var(--sans);font-size:11px;color:var(--dim);min-height:26px;}
+.wx-row .d{color:var(--ink);font-weight:500;letter-spacing:.05em;}
+.wx-row svg{width:14px;height:14px;justify-self:center;opacity:.8;}
+.wx-row .w{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wx-row .tp{font-variant-numeric:tabular-nums;color:var(--ink);padding-left:6px;}
+.wx-row .tp i{font-style:normal;color:var(--faint);padding:0 1px;}
+/* 城市行：去红、降级、独立留白（归属整个天气模块而非预报列表） */
+.wx-city{display:flex;align-items:center;gap:5px;margin-top:12px;padding-top:9px;border-top:1px solid var(--rule-soft);
+  font-family:var(--sans);font-style:normal;font-size:10.5px;color:var(--faint);letter-spacing:.04em;}
+.wx-city::before{content:'';width:6px;height:6px;border-radius:50%;border:1px solid var(--accent);opacity:.7;flex:none;}
+.wx-city .src{margin-left:auto;font-size:9.5px;letter-spacing:.08em;}
+.m-date{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+  border-top:2.5px solid var(--ink);border-bottom:1px solid var(--rule);
+  padding:var(--s2) 2px;margin-top:0;font-size:12.5px;color:var(--dim);}   /* v2.0.5: 期号条收紧 */
+.m-date .mid{font-family:var(--sans);font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;}
+.m-date .right{font-family:var(--display);font-style:italic;color:var(--faint);}
+
+/* ================= layout: sidebar + main ================= */
+.layout{display:flex;gap:44px;align-items:flex-start;}
+.main{flex:1 1 auto;min-width:0;}
+.snav{flex:0 0 240px;width:240px;position:sticky;top:0;align-self:flex-start;   /* v2.0.11: 196→240 加宽，副题/徽章不再叠字 */
+  background:var(--paper);border-right:1px solid var(--rule);padding:16px 0 24px;}
+/* P3-1: sticky sidebar must never exceed the viewport — with FASHIONABLE
+   LIFE's 4 sub-menus (全部动态/球鞋/秀场服饰/联名合作) the source list
+   (ALL + AIHOT + 3 subs + FIN NEWS + 4 subs + FASHION + 4 subs, min-height
+   44px each ≈ 19 rows) grows taller than the screen; sticky pinned it at
+   top with no scroll container, making the bottom rows physically
+   unreachable. Cap it at the viewport and let it scroll its own content;
+   scrollbar themed from the paper palette per the "browser surfaces belong
+   to the design" rule. */
+.snav{max-height:100vh;overflow-y:auto;overscroll-behavior:contain;}
+.snav::-webkit-scrollbar{width:6px;}
+.snav::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px;}
+.snav::-webkit-scrollbar-thumb:hover{background:var(--rule-soft);}
+.snav::-webkit-scrollbar-track{background:transparent;scrollbar-width:thin;}
+.snav-h{font-family:var(--sans);font-size:10px;letter-spacing:.28em;color:var(--faint);
+  text-transform:uppercase;padding:4px 16px 12px;border-bottom:1px solid var(--rule-soft);margin-bottom:8px;}
+/* P2-1: every source row shares one vertical padding (12px), the red
+   selection bar is a separate absolutely-positioned element inset 8px top
+   and bottom, and sub-items sit clearly deeper than their parent. */
+.snav-item{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  width:100%;min-height:44px;background:none;border:none;border-left:3px solid transparent;cursor:pointer;text-align:left;
+  font-family:var(--serif);color:var(--dim);padding:12px 12px 12px 13px;
+  transition:color .18s var(--ease),background .18s var(--ease);}
+.snav-item::before{content:"";position:absolute;left:-3px;top:8px;bottom:8px;width:3px;
+  background:transparent;border-radius:0 2px 2px 0;transition:background .18s var(--ease);}
+.snav-item:hover{color:var(--ink);background:var(--accent-wash);}
+.snav-item.on{color:var(--accent);background:var(--accent-wash);}
+.snav-item.on::before{background:var(--accent);}
+.snav-item:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.snav-item.on .sn-badge{background:var(--accent);color:#FBF8F0;border-color:var(--accent);}
+.sn-name{font-size:13.5px;font-weight:600;line-height:1.3;display:flex;flex-direction:column;gap:3px;min-width:0;}
+.sn-name em,.sn-name i{font-style:normal;font-family:var(--sans);font-weight:400;font-size:9.5px;
+  letter-spacing:.14em;color:var(--faint);text-transform:uppercase;}
+.snav-item.on .sn-name em,.snav-item.on .sn-name i{color:var(--accent-dark);}
+.sn-badge{flex:0 0 auto;flex-shrink:0;font-family:var(--sans);font-size:10px;min-width:24px;text-align:center;
+  border:1px solid var(--rule);border-radius:999px;padding:2px 7px;color:var(--dim);background:var(--card);
+  font-variant-numeric:tabular-nums;}
+.snav-sub{margin:var(--s1) 0 var(--s2);padding-left:0;}
+.snav-sub .snav-subitem{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  width:100%;min-height:44px;background:none;border:none;cursor:pointer;text-align:left;font-family:var(--serif);
+  color:var(--dim);padding:12px 10px 12px 26px;font-size:12.5px;line-height:1.3;
+  transition:color .18s var(--ease),background .18s var(--ease);}
+.snav-sub .snav-subitem::before{content:"";position:absolute;left:10px;top:9px;bottom:9px;width:2px;
+  background:transparent;border-radius:0 2px 2px 0;transition:background .18s var(--ease);}
+.snav-sub .snav-subitem:hover{color:var(--ink);background:var(--accent-wash);}
+.snav-sub .snav-subitem.on{color:var(--accent);background:var(--accent-wash);}
+.snav-sub .snav-subitem.on::before{background:var(--accent);}
+.snav-sub .snav-subitem:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.snav-sub .sb-n{font-weight:600;}
+.snav-sub .sb-badge{font-family:var(--sans);font-size:10px;color:var(--faint);letter-spacing:.04em;
+  font-variant-numeric:tabular-nums;}
+.snav-sub .snav-subitem.on .sb-badge{color:var(--accent-dark);}
+body[data-aihot-view] .snav-item[data-filter="AIHOT"] .sn-badge{display:none;}
+
+/* ================= v2.0.10: DECO RAIL 侧栏（方案三，与 Art-Deco 报头同母题） =================
+   信源=廊柱节点（金菱形+竖线轴），子分类挂节点下。选中源=实心菱形。
+   交互逻辑/触摸目标不变（snav-item 44px、snav-subitem 44px 原样）。 */
+.snav-src{position:relative;padding:0 16px 14px 34px;}
+.snav-src::before{content:"";position:absolute;left:22px;top:8px;bottom:6px;width:1px;background:var(--rule);}
+.snav-src::after{content:"";position:absolute;left:18.5px;top:6px;width:8px;height:8px;
+  border:1.5px solid var(--gold);transform:rotate(45deg);background:var(--paper);z-index:1;}
+.snav-src.on::after{background:var(--gold);}
+.snav-src .snav-item{padding:8px 10px 8px 0;min-height:40px;border-radius:2px;}
+.snav-src .snav-item::before{display:none;}   /* 旧红条由菱形实心替代 */
+.snav-src .snav-item .sn-name{flex-direction:column;align-items:flex-start;gap:3px;
+  min-width:0;overflow-wrap:anywhere;}   /* v2.0.11: 主名/副题竖排，徽章统一同行顶部对齐 */
+.snav-src .snav-item .sn-name i{font-size:8.5px;}
+.snav-src .snav-sub{margin:2px 0 0;padding-left:12px;}
+.snav-src .snav-sub .snav-subitem{min-height:36px;padding:7px 10px 7px 12px;}
+.snav-src .snav-sub .snav-subitem::before{content:"";position:absolute;left:0;top:50%;width:5px;height:1px;
+  background:var(--rule);border-radius:0;}
+.snav-src .snav-sub .snav-subitem.on::before{background:var(--accent);width:7px;}
+
+/* ================= section headers (unified across the paper) ================= */
+.vhead{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);
+  padding-bottom:10px;margin-bottom:20px;flex-wrap:wrap;}
+.vh-zh{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:.02em;}
+.vh-en{font-family:var(--sans);font-size:10.5px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;}
+.vh-n{margin-left:auto;font-family:var(--sans);font-size:10.5px;color:var(--faint);letter-spacing:.08em;white-space:nowrap;}
+
+/* ================= horizontal card rail ================= */
+.vcol{padding:30px 0 34px;border-bottom:1px solid var(--rule);}
+.railwrap{position:relative;margin:0 -28px;}
+.railwrap::before,.railwrap::after{content:"";position:absolute;top:0;bottom:0;width:52px;z-index:3;pointer-events:none;transition:opacity .3s;}
+.railwrap::before{left:0;background:linear-gradient(90deg,var(--paper) 0%,rgba(239,230,206,0) 100%);}
+.railwrap::after{right:0;background:linear-gradient(270deg,var(--paper) 0%,rgba(239,230,206,0) 100%);}
+.railwrap.at-start::before{opacity:0;}
+.railwrap.at-end::after{opacity:0;}
+.rail{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;outline:none;}
+.rail::-webkit-scrollbar{display:none;}
+.rail:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.rail.dragging{cursor:grabbing;scroll-behavior:auto;}
+.rail.snap{scroll-behavior:smooth;}
+/* P1-3: one card gap everywhere in the paper (--card-gap = 24px) */
+.strip{display:flex;gap:var(--card-gap);padding:6px 28px 16px;width:max-content;}
+.card{flex:0 0 272px;width:272px;text-decoration:none;display:flex;flex-direction:column;background:var(--card);
+  border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow-1);
+  transition:transform .22s var(--ease),box-shadow .22s var(--ease),border-color .22s var(--ease);
+  user-select:none;-webkit-user-drag:none;overflow:hidden;}
+.card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow-2);}
+.cimg{height:172px;overflow:hidden;border-bottom:1px solid var(--rule);}
+.cimg img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;filter:saturate(.9) sepia(.06);}
+.cbody{padding:14px 18px 16px;display:flex;flex-direction:column;gap:6px;min-height:112px;}
+.ct-zh{font-size:15px;font-weight:700;line-height:1.5;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.ct-en{font-family:var(--display);font-style:italic;font-size:12px;color:var(--faint);line-height:1.45;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.ct-src{font-family:var(--sans);font-size:10px;color:var(--faint);letter-spacing:.05em;margin-top:auto;padding-top:8px;}
+/* text-list variant of a rail section */
+.vmore{margin-top:16px;border-top:1px solid var(--rule);padding-top:14px;}
+.vm-h{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.26em;color:var(--accent);text-transform:uppercase;margin-bottom:10px;}
+.vmore ol{list-style:none;}
+.vmore ol.cols2{columns:2;column-gap:44px;}
+.vmore li{break-inside:avoid;padding:11px 0;border-bottom:1px dotted var(--rule-soft);}
+.vmore li:last-child{border-bottom:none;}
+.vmore a{text-decoration:none;display:block;}
+.vmore .t{font-size:14px;font-weight:600;line-height:1.55;}
+.vmore a:hover .t{color:var(--accent);}
+.tz-line{font-family:var(--display);font-style:italic;font-size:12.5px;color:var(--faint);line-height:1.5;margin-top:2px;}
+/* P1-1: one meta language everywhere —
+   来源：X / 平台：X · 作者：Y  — plain text, fields separated by ·
+   `b` = the field label (medium weight), value = quiet grey. */
+.vmore .m{font-family:var(--sans);font-size:10.5px;color:var(--faint);margin-top:5px;letter-spacing:.06em;display:flex;gap:6px;flex-wrap:wrap;}
+.vmore .m .src{color:var(--faint);font-weight:400;}
+.hr-sub b,.sr-meta b,.vmore .m b,.catcol .li-m b,.yd-sec .m b,.yd-flashes .f-s b,
+.tl-src b,.ct-src b{font-weight:600;color:var(--dim);}
+.hr-sub .sep,.sr-meta .sep,.vmore .m .sep,.catcol .li-m .sep,.yd-sec .m .sep,
+.yd-flashes .f-s .sep,.tl-src .sep,.ct-src .sep{color:var(--rule);padding:0 1px;}
+
+/* ================= text grid sections ================= */
+.texgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;padding:30px 0 34px;border-bottom:1px solid var(--rule);}
+.catcol{min-width:0;}
+.catcol h4{font-family:var(--display);font-size:21px;font-weight:700;padding-bottom:9px;border-bottom:2px solid var(--accent);display:inline-block;}
+.catcol .h4n{font-size:12px;color:var(--faint);font-style:italic;margin-left:4px;}
+.catcol .cn{font-family:var(--sans);font-size:10px;letter-spacing:.28em;color:var(--accent);margin:10px 0 12px;text-transform:uppercase;}
+.catcol ol{list-style:none;counter-reset:item;}
+.catcol li{counter-increment:item;padding:12px 0 12px 32px;position:relative;border-bottom:1px dotted var(--rule-soft);}
+.catcol li:last-child{border-bottom:none;}
+.catcol li::before{content:counter(item,decimal-leading-zero);position:absolute;left:0;top:14px;
+  font-family:var(--display);font-size:12px;font-style:italic;color:var(--accent);}
+.catcol a{text-decoration:none;display:block;}
+.catcol .t{font-size:14px;font-weight:600;line-height:1.6;}
+.catcol a:hover .t{color:var(--accent);}
+.catcol .li-m{font-family:var(--sans);font-size:10.5px;color:var(--faint);margin-top:4px;letter-spacing:.04em;}
+
+/* ================= AIHOT modules ================= */
+.ah{padding:16px 0 22px;border-bottom:1px solid var(--rule);}   /* v2.0.9: 紧凑化 30/34→16/22 */
+.ah .vhead{margin-bottom:18px;}
+/* AIHOT sub-view tabs */
+.ah-tabs{display:flex;gap:var(--s1);border-bottom:2px solid var(--ink);}
+.ah-tab{font-family:var(--sans);font-size:12.5px;letter-spacing:.12em;color:var(--dim);background:none;border:none;
+  cursor:pointer;min-height:38px;padding:11px 18px 9px;border-bottom:2px solid transparent;margin-bottom:-2px;   /* v2.0.9: 紧凑化 */
+  transition:color .18s var(--ease),border-color .18s var(--ease);}
+.ah-tab:hover{color:var(--ink);}
+.ah-tab.on{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
+.ah-tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.ah-tab .tn{font-family:var(--display);font-style:italic;font-size:10.5px;color:var(--faint);margin-left:6px;}
+.ah-feedwrap{position:relative;}
+/* timeline card stream — P2-2: node↔card spacing 28–36px */
+.ah-timeline{list-style:none;position:relative;padding:var(--s4) 0 var(--s2);}
+/* the rule runs through the centre of the timeline dots:
+   when-column 74 + column gap 16 + half of the 46px dot column = 113px */
+.ah-timeline::before{content:"";position:absolute;left:113px;top:0;bottom:0;width:1px;background:var(--rule);}
+/* v2.0.12 P3: 长列表渲染裁剪——视口外卡片跳过 paint/layout（浏览器原生），
+       contain-intrinsic-size 保持滚动条高度稳定，含 image 的卡片用实测高度防跳动 */
+/* ---- P1 已读记忆（v2.0.15）：降墨 + 恢复角标 + 上次阅读分隔线 ---- */
+.tl-card.tl-read .tl-title{color:rgba(var(--ink-rgb),.42);font-weight:400;}
+.tl-card.tl-read .tl-sum{opacity:.55;}
+/* v2.2.2: 妙想全文展开——复刻 deepreads 交互（右下角按钮 + 顶部 sticky 收起条 + paper 正文） */
+#fn-feedwrap .dr-toggle{border:1px solid var(--rule-soft);background:var(--paper);color:var(--accent-dark);
+  border-radius:7px;padding:4px 12px;font-size:11px;cursor:pointer;font-family:var(--serif);letter-spacing:.06em;
+  transition:all .2s var(--ease);}
+#fn-feedwrap .dr-toggle:hover{background:var(--accent-wash);border-color:var(--accent);}
+.mx-foot{display:flex;justify-content:flex-end;margin-top:10px;}
+.mx-full{margin-top:10px;border-top:1px dashed var(--rule-soft);border-bottom:1px dashed var(--rule-soft);}
+.mx-fulltop{position:sticky;top:6px;z-index:5;display:flex;justify-content:flex-end;
+  margin:2px 0 10px;padding:4px 6px;background:linear-gradient(var(--paper) 72%,transparent);}
+#fn-feedwrap .mx-fulltop .dr-toggle{box-shadow:0 1px 4px rgba(0,0,0,.10);}
+.mx-body{padding:2px 4px 12px;font-size:13.5px;line-height:1.85;color:var(--ink,#333);}
+.mx-body p{margin:0 0 10px;}
+.mx-body p:last-of-type{margin-bottom:0;}
+.tl-card.tl-read .fs-en{opacity:.45;}
+.tl-card.tl-read .tl-dot::before{border-color:rgba(var(--ink-rgb),.28);background:transparent !important;}
+.tl-card.tl-read .tl-when .d1{color:rgba(var(--ink-rgb),.42);}
+.tl-card.tl-read .tl-when .d2{color:rgba(var(--ink-rgb),.32);}
+.tl-card.tl-read .fs-img{opacity:.72;filter:saturate(.8);}
+.tl-card.tl-read{position:relative;}
+/* 恢复未读：已读卡 hover 右上角出现 ● */
+.tl-unread{position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;
+  border:none;background:transparent;color:rgba(var(--ink-rgb),.45);font-size:10px;line-height:18px;
+  cursor:pointer;opacity:0;transition:opacity .15s;padding:0;}
+.tl-card.tl-read:hover .tl-unread{opacity:.9;}
+.tl-unread:hover{color:var(--accent);}
+/* 上次阅读分隔线 */
+.tl-lastread{list-style:none;display:flex;align-items:center;gap:10px;margin:2px 0 6px;}
+.tl-lastread::before,.tl-lastread::after{content:'';flex:1;border-top:1px dashed rgba(var(--accent-rgb),.5);}
+.tl-lastread span{font-size:11px;letter-spacing:.14em;color:var(--accent);white-space:nowrap;}
+.tl-card{position:relative;display:flex;gap:var(--s4);padding:0 0 var(--card-gap);}
+  /* v2.0.22 根治: cv:auto 从卡片级下放到摘要级——卡片级 cv 在视口边缘跳格渲染时连 border 一起跳过
+     （translateY 位移后顶边落进裁切带，像素实测丢线）；摘要才是渲染大头，骨架永远完整 */
+.tl-card .tl-sum{content-visibility:auto;contain-intrinsic-size:auto 66px;}
+.tl-card.tl-daybreak .tl-body{border-top:2px solid var(--rule-soft);}
+/* 时间线左列日期时间横向同行（用户定稿，勿改竖排）
+   d1 日期数字 600 字重 + d2 灰小字 tabular-nums，间距 6px
+   19.4 + 6 + 48.5 ≈ 74px — the column never changes width */
+.tl-when{flex:0 0 74px;display:flex;flex-direction:row;align-items:baseline;justify-content:flex-end;
+  gap:6px;padding-top:var(--s4);white-space:nowrap;}
+.tl-when .d1{font-family:var(--display);font-weight:600;font-size:15px;color:var(--ink);line-height:1;
+  letter-spacing:.01em;}
+.tl-when .d2{font-family:var(--sans);font-size:9.5px;color:var(--faint);letter-spacing:.02em;line-height:1;
+  font-variant-numeric:tabular-nums;}
+.tl-dot{flex:0 0 46px;display:flex;justify-content:center;padding-top:10px;position:relative;}   /* v2.0.9: 紧凑化 */
+.tl-dot::before{content:"";position:absolute;left:50%;transform:translateX(-50%);top:14px;width:11px;height:11px;   /* v2.0.9: 与 dot 列收紧同步 */
+  border-radius:50%;background:var(--paper);border:2.5px solid var(--accent);z-index:2;
+  transition:transform .2s var(--ease),background .2s var(--ease),border-color .2s var(--ease);}
+.tl-card.tl-plain .tl-dot::before{border-color:var(--rule);}
+/* P2-2: hover a card → its timeline node lights up */
+.tl-card:hover .tl-dot::before,.tl-card.tl-linked .tl-dot::before{
+  transform:translateX(-50%) scale(1.35);background:var(--accent);
+  border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-wash);}
+.tl-card:hover .tl-when .d1,.tl-card.tl-linked .tl-when .d1{color:var(--accent-dark);}
+.tl-card:hover .tl-when .d2,.tl-card.tl-linked .tl-when .d2{color:var(--dim);}
+/* P1-3: card rhythm — padding 20/22, title→tags 10, tags→summary 12, summary 2 lines */
+.tl-body{flex:1;min-width:0;background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
+  padding:20px 22px 18px;box-shadow:var(--shadow-1);
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease);}
+.tl-card:hover .tl-body{position:relative;z-index:2;transform:translateY(-2px);border-color:var(--accent);
+  box-shadow:var(--shadow-2),0 -4px 16px rgba(var(--accent-rgb),.45);}
+  /* v2.0.22 根治: translateY 会把卡片提升合成层，Chromium 对独立合成层的 1px border-top 做亚像素采样，
+     深色主题下顶边线被稀释为 0px（像素级对照实验证实：无位移红线完整 (213,126,98)，加位移后消失）。
+     改用 CSS translate 属性 + transition——动画保留，但走布局路径，边框随盒模型整体重绘，四边完整。 */
+  /* v2.0.21: 保留上移动画（用户要求），顶边可见性用「向上红色光晕」解决——
+     光晕随卡片自身绘制，压过上方卡投影，深浅主题下顶边都有红衬底 */
+.tl-card.tl-daybreak .tl-body:hover{border-top-color:var(--accent);}   /* v2.0.19: daybreak 顶边灰线不再压掉 hover 红框 */
+/* P0-3: title / score safe area — title never runs under the score badge.
+   grid: [title 1fr] [score auto]; the title column reserves a 96px gutter. */
+.tl-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;
+  column-gap:var(--s4);row-gap:var(--s2);}
+.tl-title{font-size:16px;font-weight:700;line-height:1.6;color:var(--ink);text-decoration:none;
+  grid-column:1;grid-row:1;min-width:0;overflow-wrap:break-word;}
+.tl-title:hover{color:var(--accent);}
+/* P2-3: visible keyboard focus ring on every card title link */
+.tl-title:focus-visible,.sr-title:focus-visible,.catcol a:focus-visible,
+.vmore a:focus-visible,.yd-sec .t:focus-visible,.yd-flashes .f-t:focus-visible,
+.card:focus-visible,.hot-row:focus-visible{
+  outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+/* P1-4: score badge — quieter: smaller, tabular-nums, brick fill only for the top band */
+.tl-score{grid-column:2;grid-row:1;justify-self:end;font-family:var(--sans);font-size:9.5px;font-weight:600;
+  letter-spacing:.06em;font-variant-numeric:tabular-nums;
+  color:var(--accent-dark);background:var(--accent-tint);border:1px solid rgba(177,68,39,.28);
+  border-radius:999px;padding:2px 9px;margin-top:3px;white-space:nowrap;}
+.tl-score.hi{color:#FBF8F0;background:var(--accent);border-color:var(--accent);font-weight:700;}
+/* P1-2: four visual languages, consistent site-wide
+   ① 分类 = 描边胶囊（灰墨） ② 精选 = 实心浅砖红 ③ 来源/作者 = 纯文本 ④ 理由 = 次级文字按钮 */
+.tl-tags{display:flex;gap:var(--s2);align-items:center;flex-wrap:wrap;margin-top:10px;}
+.tl-sel{font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;color:var(--accent-dark);
+  background:var(--accent-tint);border:1px solid rgba(177,68,39,.28);border-radius:2px;padding:1px 7px;}
+.tl-cat,.sr-meta .cat{font-family:var(--sans);font-size:9.5px;color:var(--dim);border:1px solid var(--rule);
+  border-radius:999px;padding:0 9px;line-height:1.8;}
+.tl-src{font-family:var(--sans);font-size:11px;color:var(--faint);letter-spacing:.03em;}
+/* P1-1: unified structured meta line — 平台/作者 fields joined by · */
+.tl-src b{font-weight:600;color:var(--dim);}
+.tl-src .sep{color:var(--rule);padding:0 2px;}
+.tl-src a{color:var(--accent-dark);text-decoration:none;border-bottom:1px dotted var(--accent-dark);}
+.tl-src a:hover{color:var(--accent);}
+.tl-cat.tl-echo{background:var(--accent);color:var(--card);font-weight:600;}
+.tl-sum{font-size:13.5px;color:var(--dim);line-height:1.7;margin-top:12px;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.tl-reason{display:none;margin-top:var(--s3);padding:10px 12px;background:var(--accent-wash);border-left:3px solid var(--accent);
+  font-size:12.5px;color:var(--dim);line-height:1.75;}
+.tl-reason::before{content:"入选理由 · ";font-family:var(--sans);font-size:10px;letter-spacing:.2em;color:var(--accent);}
+.tl-card.open .tl-reason{display:block;}
+/* P1-2 ④: 理由 = 次级文字按钮（无边框，hover 才显描边）
+   44px hit target, 19px visual chip: the button box is padded to 44px but
+   pulled back with a -12px vertical margin and the paint is clipped to the
+   content box, so the tag row keeps its tight rhythm (P1-3) while the
+   target stays accessible. */
+.tl-flag,.sr-flag{position:relative;font-family:var(--sans);font-size:10px;letter-spacing:.08em;
+  background:transparent;background-clip:content-box;color:var(--faint);
+  border:0;border-radius:999px;padding:12px 10px;margin:-12px 0;cursor:pointer;line-height:1.7;
+  min-width:44px;transition:color .18s var(--ease),box-shadow .18s var(--ease),background-color .18s var(--ease);}
+.tl-flag:hover,.sr-flag:hover{color:var(--accent-dark);background-color:var(--accent-wash);
+  box-shadow:inset 0 0 0 1px var(--rule);}
+.tl-flag:focus-visible,.sr-flag:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+/* v1.7: FASHIONABLE LIFE 英文原题行（tz-line 同构） */
+#sec-fashion .fs-en{font-family:var(--sans);font-size:10.5px;color:var(--faint);margin:2px 0 4px;letter-spacing:.02em;}
+/* v1.7.1: FASHIONABLE LIFE 卡片头图 */
+#sec-fashion .fs-img{display:block;margin:0 0 10px;border-radius:6px;overflow:hidden;border:1px solid var(--rule);}
+#sec-fashion .fs-img img{display:block;width:100%;height:auto;max-height:340px;object-fit:cover;}
+/* ================= v2.1.0 DEEP READS 深度阅读 ================= */
+#sec-deepreads .dr-wall{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+@media(max-width:1080px){#sec-deepreads .dr-wall{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:680px){#sec-deepreads .dr-wall{grid-template-columns:1fr;}}
+#sec-deepreads .dr-author{display:flex;flex-direction:column;gap:2px;text-align:left;background:var(--card);
+  border:1px solid var(--rule-soft);border-radius:10px;padding:12px 14px;
+  cursor:pointer;box-shadow:var(--shadow-1);transition:box-shadow .2s var(--ease),translate .2s var(--ease),border-color .2s var(--ease);
+  font-family:var(--serif);color:var(--ink);}
+/* v2.1.4: 黄色左条去掉（四边统一细线）；hover 与文章卡同款（上移2px+红框+红晕投影，CSS translate 属性防边线稀释）；
+   .on（选中筛选中）态保留红色标识——用红框+米红底，不再依赖左条 */
+#sec-deepreads .dr-author:hover{translate:0 -2px;border-color:var(--accent);
+  box-shadow:var(--shadow-2),0 -4px 16px rgba(var(--accent-rgb),.45);}
+#sec-deepreads .dr-author.on{border-color:var(--accent);background:var(--accent-wash);box-shadow:var(--shadow-2);}
+#sec-deepreads .dra-name{font-family:var(--display);font-size:15px;font-weight:700;}
+#sec-deepreads .dra-en{font-size:10.5px;color:var(--gold);letter-spacing:.05em;}
+#sec-deepreads .dra-bio{font-size:11px;color:var(--dim);line-height:1.5;margin-top:4px;}
+#sec-deepreads .dra-cat{font-size:10px;color:var(--accent);margin-top:3px;letter-spacing:.05em;}
+#sec-deepreads .dra-n{font-size:9.5px;color:var(--faint);margin-top:5px;align-self:flex-end;}
+#sec-deepreads .dr-search{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--rule-soft);
+  border-radius:10px;padding:9px 14px;margin-bottom:20px;box-shadow:var(--shadow-1);}
+#sec-deepreads .dr-sicon{color:var(--gold);font-size:14px;}
+#sec-deepreads .dr-search input{flex:1;border:none;outline:none;background:transparent;font-family:var(--serif);
+  font-size:13px;color:var(--ink);}
+#sec-deepreads .dr-search input::placeholder{color:var(--faint);}
+#sec-deepreads .dr-shint{font-size:10px;color:var(--faint);white-space:nowrap;letter-spacing:.06em;}
+#sec-deepreads .dr-month{position:relative;padding-left:22px;margin-bottom:30px;}
+#sec-deepreads .dr-month::before{content:'';position:absolute;left:5px;top:8px;bottom:-30px;width:1px;background:var(--rule);}
+#sec-deepreads .dr-mnode{position:relative;margin-bottom:12px;}
+#sec-deepreads .dr-mnode::before{content:'';position:absolute;left:-21px;top:6px;width:8px;height:8px;
+  background:var(--accent);transform:rotate(45deg);}
+#sec-deepreads .dr-mdate{font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:.04em;}
+#sec-deepreads .dr-mcount{font-size:10.5px;color:var(--faint);margin-left:9px;letter-spacing:.08em;}
+#sec-deepreads .dr-card{background:var(--card);border:1px solid var(--rule-soft);
+  border-radius:12px;padding:16px 18px;box-shadow:var(--shadow-1);margin-bottom:14px;
+  transition:box-shadow .2s var(--ease),translate .2s var(--ease),border-color .2s var(--ease);}
+/* v2.1.2: 小卡片 hover 动效——与其他板块 tl-card 同款（上移2px+红框+底部投影加深）。
+   用 CSS translate 属性而非 transform：走布局路径，border-top 红线不被合成层亚像素采样稀释（v2.0.22 教训）。
+   .open（展开全文）态豁免：长文阅读时不要浮动干扰。 */
+#sec-deepreads .dr-card:not(.open):hover{translate:0 -2px;border-color:var(--accent);
+  border-top-color:var(--accent);box-shadow:var(--shadow-2),0 -4px 16px rgba(var(--accent-rgb),.45);}
+#sec-deepreads .dr-card-head{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;
+  color:var(--faint);text-transform:uppercase;margin-bottom:8px;}
+#sec-deepreads .dr-cat{color:var(--accent);font-weight:600;}
+#sec-deepreads .dr-title{font-family:var(--display);font-size:16px;line-height:1.4;margin-bottom:8px;}
+#sec-deepreads .dr-lead{font-size:12.5px;line-height:1.75;color:var(--dim);}
+#sec-deepreads .dr-full{display:none;font-size:14px;line-height:1.9;color:var(--ink);margin-top:12px;
+  padding-top:12px;border-top:1px dashed var(--rule);}
+#sec-deepreads .dr-full p{margin-bottom:11px;}
+#sec-deepreads .dr-full img{max-width:100%;height:auto;border-radius:6px;border:1px solid var(--rule-soft);
+  margin:8px 0 13px;background:var(--card);}
+#sec-deepreads .dr-full a{color:var(--accent-dark);text-decoration:underline;text-decoration-color:var(--rule);
+  text-underline-offset:3px;}
+#sec-deepreads .dr-full blockquote{border-left:3px solid var(--gold);padding:5px 13px;margin:9px 0;color:var(--dim);
+  background:rgba(176,141,62,.05);border-radius:0 8px 8px 0;}
+#sec-deepreads .dr-foot{margin-top:12px;display:flex;justify-content:space-between;align-items:center;}
+#sec-deepreads .dr-author-badge{font-size:10.5px;color:var(--gold);letter-spacing:.05em;}
+#sec-deepreads .dr-actions{display:flex;gap:14px;align-items:center;}
+#sec-deepreads .dr-toggle{border:1px solid var(--rule-soft);background:var(--paper);color:var(--accent-dark);
+  border-radius:7px;padding:4px 12px;font-size:11px;cursor:pointer;font-family:var(--serif);letter-spacing:.06em;
+  transition:all .2s var(--ease);}
+#sec-deepreads .dr-toggle:hover{background:var(--accent-wash);border-color:var(--accent);}
+/* v2.1.1: 展开后正文顶部收起条——贴正文开头，sticky 不随长文滚走 */
+#sec-deepreads .dr-fulltop{position:sticky;top:6px;z-index:5;display:flex;justify-content:flex-end;
+  margin:2px 0 10px;padding:4px 6px;background:linear-gradient(var(--paper) 72%,transparent);}
+#sec-deepreads .dr-toggle-top{box-shadow:0 1px 4px rgba(0,0,0,.10);}
+#sec-deepreads .dr-src-link{font-size:11px;color:var(--gold);text-decoration:none;
+  border-bottom:1px dotted var(--gold);letter-spacing:.08em;}
+/* v1.5.1: FIN NEWS 理由按钮展开态 */
+#sec-finnews .tl-card.open .tl-flag,#sec-fashion .tl-card.open .tl-flag{color:var(--accent) !important;background-color:var(--accent-wash) !important;box-shadow:inset 0 0 0 1px var(--accent) !important;}
+#sec-finnews .tl-card .tl-reason,#sec-fashion .tl-card .tl-reason{display:none;}
+#sec-finnews .tl-card.open .tl-reason,#sec-fashion .tl-card.open .tl-reason{display:block;}
+.tl-card.open .tl-flag,.sel-row.open .sr-flag{color:var(--accent);background-color:var(--accent-wash);
+  box-shadow:inset 0 0 0 1px var(--accent);}
+.ah-more{text-align:center;font-family:var(--display);font-style:italic;font-size:13px;color:var(--faint);
+  padding:10px 0 4px;}
+/* hot ranks */
+.hot-list{list-style:none;columns:2;column-gap:48px;}
+.hot-row{break-inside:avoid;display:flex;gap:14px;align-items:flex-start;text-decoration:none;
+  padding:13px 4px 13px 0;border-bottom:1px dotted var(--rule-soft);}
+.hot-row:hover .hr-title{color:var(--accent);}
+.hr-rank{flex:0 0 34px;font-family:var(--display);font-weight:900;font-size:15px;line-height:1.2;text-align:center;
+  color:var(--accent-dark);background:none;border:1px solid var(--accent);padding:3px 0 4px;opacity:.85;letter-spacing:.02em;}
+.hot-row.top3 .hr-rank{font-size:20px;background:var(--accent);color:var(--paper);border:none;padding:3px 0 4px;opacity:1;}
+.hr-main{min-width:0;flex:1;}
+.hr-title{display:block;font-weight:600;font-size:14.5px;line-height:1.55;color:var(--ink);}
+.hot-row.top3 .hr-title{font-size:16.5px;font-weight:700;}
+.hr-sub{display:block;font-family:var(--sans);font-size:10.5px;color:var(--faint);margin-top:4px;letter-spacing:.04em;}
+.hr-badge{flex:0 0 auto;font-family:var(--sans);font-size:10px;letter-spacing:.08em;color:var(--accent-dark);
+  border:1px solid var(--rule);border-radius:999px;padding:2px 9px;margin-top:3px;white-space:nowrap;
+  font-variant-numeric:tabular-nums;}
+/* selected list */
+.sel-list{list-style:none;}
+.sel-row{display:flex;gap:14px;align-items:flex-start;padding:16px 4px 16px 0;border-bottom:1px dotted var(--rule-soft);}
+.sel-row:last-child{border-bottom:none;}
+/* P1-4: score chip quieter than the headline */
+.sr-score{flex:0 0 40px;text-align:center;font-family:var(--display);font-weight:900;font-size:15px;
+  color:var(--dim);background:var(--paper);border:1px solid var(--rule);padding:4px 0 5px;margin-top:2px;border-radius:4px;
+  font-variant-numeric:tabular-nums;}
+.sr-score.hi{color:#FBF8F0;background:var(--accent);border-color:var(--accent);}
+.sr-main{min-width:0;flex:1;}
+.sr-title{font-size:15px;font-weight:600;line-height:1.55;color:var(--ink);text-decoration:none;}
+.sr-title:hover{color:var(--accent);}
+/* P1-1/P1-2: unified structured meta line (来源/平台/作者 + 分类胶囊 + 日期) */
+.sr-meta{font-family:var(--sans);font-size:10.5px;color:var(--faint);margin-top:5px;letter-spacing:.04em;
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.sr-meta .sep{color:var(--rule);}
+.sr-meta b{font-weight:600;color:var(--dim);}
+.sr-reason{display:none;font-size:13px;color:var(--dim);line-height:1.75;margin-top:8px;padding:10px 12px;
+  background:var(--card);border-left:3px solid var(--accent);}
+.sr-reason::before{content:"入选理由 · ";font-family:var(--sans);font-size:10px;letter-spacing:.2em;color:var(--accent);}
+.sel-row.open .sr-reason{display:block;}
+/* yesterday's daily */
+.yd-datebar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+  font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+  border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding:8px 2px;margin-bottom:18px;}
+.yd-datebar .yd-d{font-family:var(--display);font-style:italic;font-size:13px;color:var(--dim);
+  letter-spacing:.06em;text-transform:none;}
+.yd-lead{border:1px solid var(--rule);border-left:4px solid var(--accent);background:var(--card);border-radius:0 var(--r) var(--r) 0;
+  padding:18px 22px 16px;margin-bottom:22px;}
+.yd-lead .yk{font-family:var(--sans);font-size:10px;letter-spacing:.26em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;}
+.yd-lead h3{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.35;margin-bottom:10px;}
+.yd-lead h3 a{text-decoration:none;color:var(--ink);}
+.yd-lead h3 a:hover{color:var(--accent);}
+.yd-lead p{font-size:14px;color:var(--dim);line-height:1.85;text-indent:2em;}
+.yd-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 48px;}
+.yd-sec h5{font-family:var(--display);font-size:17px;font-weight:700;color:var(--ink);
+  border-bottom:2px solid var(--accent);display:inline-block;padding-bottom:6px;}
+.yd-sec .n{font-size:11.5px;color:var(--faint);font-style:italic;margin-left:4px;}
+.yd-sec ul{list-style:none;margin-top:6px;}
+.yd-sec li{padding:11px 0 11px 24px;position:relative;border-bottom:1px dotted var(--rule-soft);}
+.yd-sec li::before{content:"◆";position:absolute;left:2px;top:13px;font-size:8px;color:var(--accent);}
+.yd-sec li:last-child{border-bottom:none;}
+.yd-sec .t{font-size:14px;font-weight:600;line-height:1.55;color:var(--ink);text-decoration:none;display:block;}
+.yd-sec .t:hover{color:var(--accent);}
+.yd-sec .s{display:block;font-size:12.5px;color:var(--dim);line-height:1.7;margin-top:4px;}
+.yd-sec .m{font-family:var(--sans);font-size:10px;color:var(--faint);margin-top:4px;letter-spacing:.05em;}
+.yd-flashes{margin-top:20px;border-top:1px solid var(--rule);padding-top:14px;}
+.yd-flashes ol{list-style:none;}
+.yd-flashes li{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px dotted var(--rule-soft);font-size:13.5px;}
+.yd-flashes li:last-child{border-bottom:none;}
+.yd-flashes .f-d{flex:0 0 auto;font-family:var(--sans);font-size:10px;color:var(--accent);letter-spacing:.06em;}
+.yd-flashes .f-t{color:var(--ink);text-decoration:none;font-weight:600;}
+.yd-flashes .f-t:hover{color:var(--accent);}
+.yd-flashes .f-s{font-family:var(--sans);font-size:10px;color:var(--faint);margin-left:auto;white-space:nowrap;}
+
+/* ================= AIHOT sub-view visibility =================
+   Every rule carries the body[data-view="AIHOT"] prefix (bug B fix):
+   the whole newspaper (ALL) always shows every AIHOT module and both
+   timeline groups, regardless of the remembered sub-view. */
+body[data-view="AIHOT"][data-aihot-view="feed"] #sec-aihot-pulse,
+body[data-view="AIHOT"][data-aihot-view="feed"] #sec-aihot-daily,
+body[data-view="AIHOT"][data-aihot-view="feed"] #sec-aihot-selected,
+body[data-view="AIHOT"][data-aihot-view="feed"] .tl-group-sel{display:none;}
+body[data-view="AIHOT"][data-aihot-view="selected"] #sec-aihot-pulse,
+body[data-view="AIHOT"][data-aihot-view="selected"] #sec-aihot-daily,
+body[data-view="AIHOT"][data-aihot-view="selected"] #sec-aihot-selected,
+body[data-view="AIHOT"][data-aihot-view="selected"] .tl-group-feed{display:none;}
+body[data-view="AIHOT"][data-aihot-view="daily"] #sec-aihot-pulse,
+body[data-view="AIHOT"][data-aihot-view="daily"] #sec-aihot-selected,
+body[data-view="AIHOT"][data-aihot-view="daily"] #sec-aihot-feed{display:none;}
+body[data-view="AIHOT"][data-aihot-view="daily"] .tl-group-feed,
+body[data-view="AIHOT"][data-aihot-view="daily"] .tl-group-sel{display:none !important;}
+/* P3-2: #sec-ai (the 人工智能 texgrid rendered from data items) was never
+   part of any view-mutual-exclusion rule — it leaked into every AIHOT
+   sub-view and stuck to the bottom of the paper. It belongs to the WHOLE
+   paper only (like the pre-v1.8 extra sections), so hide it in any
+   specific source view, same as finnews/fashion rules below. */
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-ai{display:none;}
+/* and inside AIHOT it must never show: the AIHOT feed already lists these
+   items — the texgrid is a duplicate from the paper-wide renderer */
+body[data-view="AIHOT"] #sec-ai{display:none;}
+/* P3-2b REVERTED: hiding #sec-aihot-feed in selected view was wrong — the
+   selected timeline (.tl-group-sel) renders INSIDE the feed section; the
+   original rules already hide .tl-group-feed there (line ~419). Do not
+   touch the feed section itself in sub-views. */
+/* non-AIHOT source views: timeline "selected" mirror group never shows */
+body:not([data-view="AIHOT"]) .tl-group-sel{display:none;}
+/* v1.4.1 fix: single-source views other than AIHOT show ONLY their own
+   sections — hide the whole AIHOT skeleton (tabs, empty feed frame, daily)
+   so FIN NEWS starts directly at its own board (user rule 2026-10-28) */
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-feed,
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-pulse,
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-selected,
+body[data-view]:not([data-view=""]):not([data-view="AIHOT"]) #sec-aihot-daily{display:none;}
+/* v1.7: FASHIONABLE LIFE 板块视图互斥（同 v1.4.1 规则：单源视图只显示自己的板） */
+body[data-view="FIN NEWS"] #sec-fashion{display:none;}
+/* v1.9.4 fix: FIN NEWS 同样互斥——非 FIN NEWS 视图（含 AIHOT·日报）不再显示金融快讯板块。
+   原规则只写了 FASHION 视图下隐藏（v1.4.1 时 FIN NEWS 曾是 AIHOT 报纸的一个版面，
+   独立成版后规则没跟上 → AIHOT·日报视图右侧混出金融快讯） */
+body[data-view]:not([data-view=""]):not([data-view="FIN NEWS"]) #sec-finnews{display:none;}
+body[data-view]:not([data-view=""]):not([data-view="FASHION"]) #sec-fashion{display:none;}
+/* v2.1.0: 深度阅读只在 DEEPREADS 视图显示；其他视图时隐藏（含 ALL）——按需拉取不拖慢首屏 */
+body[data-view]:not([data-view="DEEPREADS"]) #sec-deepreads{display:none;}
+body[data-view="DEEPREADS"] #sec-finnews,
+body[data-view="DEEPREADS"] #sec-fashion,
+body[data-view="DEEPREADS"] #sec-ai{display:none;}
+
+/* ================= filter mechanics + view transitions ================= */
+.src-empty{display:none;padding:48px 8px;text-align:center;font-family:var(--display);font-style:italic;
+  color:var(--faint);font-size:16px;}
+[data-src],[data-src-extra]{transition:opacity .2s var(--ease);}
+body.hide-others [data-src].dimmed,body.hide-others [data-src-extra].dimmed{display:none!important;}
+body.hide-others .sec-hidden{display:none!important;}
+#sec-aihot-feed .ah-feedwrap,#ah-feedwrap{animation:gvfade .2s var(--ease);}
+@keyframes gvfade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+/* ================= footer ================= */
+.footer{margin-top:40px;padding-top:16px;border-top:2.5px solid var(--ink);font-family:var(--sans);font-size:11px;color:var(--faint);letter-spacing:.05em;}
+.footer .frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+#load-status{display:none;margin:16px 0 0;padding:12px 16px;border:1px dashed var(--accent);
+  color:var(--accent-dark);font-family:var(--sans);font-size:12px;letter-spacing:.05em;background:var(--card);border-radius:var(--r);}
+
+/* ================= responsive ================= */
+@media (min-width:1000px) and (max-width:1380px){
+  .vmore ol.cols2{columns:1;}
+}
+@media (max-width:999px){
+  .layout{flex-direction:column;gap:0;}
+  .snav{position:static;width:100%;flex:none;display:flex;flex-wrap:nowrap;overflow-x:auto;
+    border-right:none;border-bottom:1px solid var(--rule);padding:0;scrollbar-width:none;-ms-overflow-style:none;
+    gap:0;scroll-snap-type:x proximity;}
+  .snav::-webkit-scrollbar{display:none;}
+  .snav-h{display:none;}
+  .snav-sub{display:none;}   /* sub-views stay reachable via the AIHOT ah-tabs above the feed */
+  .snav-item{flex:0 0 auto;width:auto;min-height:48px;border-left:none;border-bottom:3px solid transparent;padding:14px;}
+  .snav-item.on{border-bottom-color:var(--accent);background:none;}
+  .sn-name{flex-direction:row;align-items:baseline;gap:6px;}
+  .sn-name em,.sn-name i{display:none;}
+  .main{width:100%;max-width:100%;overflow-x:clip;}
+}
+@media (max-width:960px){
+  .masthead h1{font-size:46px;}   /* v1.9.2: block layout below 960px — cqw off, fixed size back */
+  /* v1.9: weather column drops below the signature on narrow screens */
+  .masthead{display:block;}
+  .m-center{container-type:normal;}
+  .wx{border-right:none;border-top:1px solid var(--rule);padding:var(--s4) 0 0;margin-top:var(--s4);}
+  .wrap{padding:20px 18px 52px;}
+  .vmore ol.cols2{columns:1;}
+  .hot-list{columns:1;}
+  .yd-grid{grid-template-columns:1fr;}
+  .railwrap{margin:0 -18px;}
+  .strip{padding:6px 18px 16px;}
+}
+@media (max-width:480px){
+  /* bug D: timeline titles must wrap, never clip — kill the desktop min-width
+     and stack head → title / score on their own lines */
+  .tl-card{gap:10px;}
+  .tl-when{flex-basis:60px;flex-direction:row;}
+  .tl-dot{flex-basis:24px;}
+  .ah-timeline::before{left:92px;}
+  /* P0-3: title/score grid collapses to one column on phones so the badge
+     drops below the headline instead of squeezing it */
+  .tl-head{grid-template-columns:minmax(0,1fr);row-gap:8px;}
+  .tl-title{grid-column:1;grid-row:1;min-width:0;overflow-wrap:anywhere;}
+  .tl-score{grid-column:1;grid-row:2;justify-self:start;margin-top:0;}
+  /* masthead top strip: keep the date block on one line, drop the price tag */
+  .m-dateblock .db-g{white-space:nowrap;}
+}
+@media (max-width:480px){
+  /* bug D: timeline titles must wrap, never clip — kill the desktop min-width
+     and stack head → title / score on their own lines */
+  .tl-card{gap:10px;}
+  .tl-when{flex-basis:60px;flex-direction:row;}
+  .tl-dot{flex-basis:24px;}
+  .ah-timeline::before{left:82px;}   /* 60 + gap10 + dot col 24/2 = 82 — 修正原 92 偏移 */
+  /* P0-3: title/score grid collapses to one column on phones so the badge
+     drops below the headline instead of squeezing it */
+  .tl-head{grid-template-columns:minmax(0,1fr);row-gap:8px;}
+  .tl-title{grid-column:1;grid-row:1;min-width:0;overflow-wrap:anywhere;}
+  .tl-score{grid-column:1;grid-row:2;justify-self:start;margin-top:0;}
+  /* masthead top strip: keep the date block on one line, drop the price tag */
+  .m-dateblock .db-g{white-space:nowrap;}
+}
+/* ── iPhone 细化（2026-11-11 移动适配；二轮按 modern-web-guidance 重构）── */
+@media (max-width:640px){
+  .wrap{padding:12px 12px calc(40px + env(safe-area-inset-bottom));--card-gap:18px;}
+  .masthead h1{font-size:27px;line-height:2.4;}       /* 手机屏报头瘦身：34→27px */
+  .masthead h1 .sig,.masthead-sig .sig{line-height:2.4;}  /* .sig 自带 3.2 行高，必须一并覆盖 */
+  .m-quote{font-size:11.5px;margin:8px 0;}
+  .wx{padding:8px 0 0;}
+  .wx .m-dateblock{display:flex;flex-wrap:wrap;gap:2px 8px;padding-bottom:7px;align-items:baseline;}
+  .wx .m-dateblock .db-l{display:none;}               /* 农历/干支与中文大写日期合并，省两行 */
+  .wx .m-dateblock .db-c{display:none;}
+  .wx-h{display:none;}                                 /* “WEATHER·天气”标题行省掉，图标自明 */
+  .wx-today{gap:10px;}
+  .wx-today svg{width:24px;height:24px;}
+  .wx-now .t{font-size:22px;}
+  .wx-now .c{font-size:10px;line-height:1.4;}
+  /* 三日预报：竖排三行 → 横排三小列（星期+图标+温度，描述词由图标表意） */
+  .wx-days{flex-direction:row;justify-content:space-between;gap:8px;padding-top:7px;border-top:1px solid var(--rule-soft);margin-top:7px;}
+  .wx-row{flex-direction:column;align-items:center;gap:2px;text-align:center;font-size:10px;}
+  .wx-row .d{width:auto;}
+  .wx-row .w{display:none;}
+  .m-date{flex-wrap:nowrap;gap:8px;font-size:11px;padding:8px 2px;justify-content:space-between;}
+  .m-date .mid{letter-spacing:.2em;}
+  .m-date .right{display:none;}   /* 手机单行：藏 Weather 彩蛋行 */
+  /* 信源导航横滚条：贴边露出滑动暗示 */
+  .snav{margin:0 -12px;padding:0 12px;}
+  /* 卡片轨道：卡片收窄到接近屏宽，一次看一张 */
+  .card{flex-basis:min(78vw,300px);width:min(78vw,300px);}
+  .cimg{height:150px;}
+  .railwrap{margin:0 -12px;}
+  .strip{padding:6px 12px 16px;}
+  .railwrap::before,.railwrap::after{width:24px;}
+  /* ★ 时间线重构：左列（日期74+圆点46+gap32≈152px）退役，卡片 100% 宽；
+     日期降为卡上方一行小字，轴线/圆点随之消失（窄容器无轴空间） */
+  .tl-card{flex-direction:column;gap:2px;}
+  .tl-when{flex-basis:auto;justify-content:flex-start;gap:6px;padding-top:0;}
+  .tl-when .d1{font-size:12px;}
+  .tl-when .d2{font-size:9.5px;}
+  .tl-dot{display:none;}
+  .ah-timeline::before{display:none;}
+  .tl-daybreak .tl-body{border-top:none;}
+  .tl-daybreak .tl-when{padding-top:6px;}
+  .tl-body{padding:14px 15px 12px;}
+  .tl-title{font-size:15.5px;}
+  .tl-sum{font-size:13px;margin-top:10px;}
+  .ah-timeline{padding:8px 0 0;}
+  /* 触控目标：理由按钮/标签页 ≥44px 已有 min-height，这里保证 padding 足够 */
+  .snav-item{padding:14px 12px;}
+  .ah-tab{padding:14px 12px 12px;}
+  .tl-flag,.sr-flag{min-height:44px;padding:13px 10px;margin:-13px 0;}
+  /* 板块头/栏目头缩放 + 纵向密度（桌面 30/34px 节奏在手机太松） */
+  .vcol,.ah{padding:20px 0 24px;}
+  .vh-zh{font-size:21px;}
+  .vhead{gap:10px;padding-bottom:8px;margin-bottom:14px;}
+  .yd-lead h3{font-size:19px;}
+  .yd-lead p{font-size:13.5px;}
+  .yd-sec h5{font-size:15px;}
+  /* 精选列表 score 徽章触控面积 */
+  .sr-score{flex-basis:36px;font-size:13.5px;}
+  .hr-rank{flex-basis:28px;font-size:13px;}
+  .hot-row.top3 .hr-rank{font-size:17px;}
+  /* footer 换行 + 收纵距 */
+  .footer{margin-top:24px;}
+  .footer .frow{justify-content:flex-start;}
+}
+/* MWG 优化 #4 (2026-11-12): 无障碍——尊重系统「减弱动态效果」偏好，全局关闭过渡/动画 */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <aside class="wx" id="wx" aria-label="日期与天气预报">
+      <div class="m-dateblock">
+        <div class="db-g">2026 年 11 月 1 日</div>
+        <div class="db-l">农历九月廿三 · 丙午马年</div>
+        <div class="db-c">二〇二六年十一月一日</div>
+      </div>
+      <div class="wx-h">Weather · 天气</div>
+      <div id="wx-body"></div>
+    </aside>
+    <div class="m-center">
+      <!-- v2.0.4: D 方案 Art-Deco 报头（Zapfino 签名退役） -->
+      <div class="m-deco top" aria-hidden="true"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <h1><span class="m-row1">GORDON ZHUANG<span class="m-amp">’S</span></span><span class="m-row2">GAZETTE</span></h1>
+      <div class="m-deco bot" aria-hidden="true"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div class="m-quote-row" style="display:flex;align-items:center;justify-content:center;position:relative;">
+        <div class="m-quote">「一日之计，始于开卷。」</div>
+        <button id="themeToggle" aria-label="切换配色主题" title="切换配色主题"
+          style="position:absolute;right:0;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;border:1px solid var(--rule);background:var(--card);cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow-1);">
+          <span class="th-dot" style="width:12px;height:12px;border-radius:50%;border:1px solid var(--dim);display:block;"></span>
+        </button>
+      </div>   <!-- v2.0.7: slogan 更换（化用《增广贤文》"一日之计在于晨"） -->
+    </div>
+    <!-- v2.0.8: 期号条移除（用户决策）。日期/星期=左栏已有；MORNING EDITION=报头已足够；
+         Weather 彩蛋=无功能。结构线转移：原 2.5px 粗黑+1px 细灰双线移到 .masthead 底部，
+         维持报头/正文分界（impeccable: 结构线不随内容消失） -->
+</header>
+  <div class="layout">
+    <nav class="snav" id="snav" aria-label="信源导航">
+      <div class="snav-h">SOURCES · 信源</div>
+      <button class="snav-item" data-filter="AIHOT" type="button" role="tab" aria-selected="false"><span class="sn-name">AIHOT<i>EN · X/API</i></span><span class="sn-badge">12</span></button>
+    </nav>
+    <main class="main" id="main">
+      <section class="ah" id="sec-aihot-feed">
+        <div class="ah-tabs" id="ah-tabs">
+          <button type="button" class="ah-tab" data-ahview="feed">全部动态<span class="tn">TIMELINE</span></button>
+          <button type="button" class="ah-tab" data-ahview="selected">精选<span class="tn">SELECTED</span></button>
+          <button type="button" class="ah-tab" data-ahview="daily">日报<span class="tn">DAILY</span></button>
+        </div>
+        <div class="ah-feedwrap" id="ah-feedwrap"></div>
+      </section>
+      <section class="vcol ah" id="sec-aihot-pulse">
+        <div class="vhead"><span class="vh-zh">当前热点</span><span class="vh-en">THE PULSE · AIHOT</span><span class="vh-n" id="ah-hot-n"></span></div>
+        <ol class="hot-list" id="ah-hot"></ol>
+      </section>
+      <section class="vcol ah" id="sec-aihot-selected">
+        <div class="vhead"><span class="vh-zh">精选</span><span class="vh-en">SELECTED · AIHOT</span><span class="vh-n" id="ah-sel-n"></span></div>
+        <ol class="sel-list" id="ah-sel"></ol>
+      </section>
+      <section class="vcol ah" id="sec-aihot-daily">
+        <div class="vhead"><span class="vh-zh">昨日日报</span><span class="vh-en">YESTERDAY&#39;S PAPER · AIHOT</span><span class="vh-n" id="ah-daily-n"></span></div>
+        <div id="ah-daily"></div>
+      </section>
+
+      <section class="ah" id="sec-finnews">
+        <div class="vhead"><span class="vh-zh">金融快讯</span><span class="vh-en">FIN NEWS · MARKETS</span><span class="vh-n" id="fn-n"></span></div>
+        <div class="ah-tabs" id="fn-tabs">
+          <button type="button" class="ah-tab" data-fncat="flash">快讯<span class="tn">FLASH</span></button>
+          <button type="button" class="ah-tab" data-fncat="headline">要闻<span class="tn">HEADLINES</span></button>
+          <button type="button" class="ah-tab" data-fncat="filing">公告<span class="tn">FILINGS</span></button>
+          <button type="button" class="ah-tab" data-fncat="research">研究<span class="tn">RESEARCH</span></button>
+        </div>
+        <div class="ah-feedwrap" id="fn-feedwrap"></div>
+      </section>
+      <section class="ah" id="sec-fashion">
+        <div class="vhead"><span class="vh-zh">潮流生活</span><span class="vh-en">FASHIONABLE LIFE · STYLE</span><span class="vh-n" id="fs-n"></span></div>
+        <div class="ah-feedwrap" id="fs-feedwrap"></div>
+      </section>
+      <!-- v2.1.0: 深度阅读板块（独立 JSON 按需拉取，见 gazette-deepreads.js） -->
+      <section class="ah" id="sec-deepreads">
+        <div class="vhead"><span class="vh-zh">深度阅读</span><span class="vh-en">DEEP READS · ESSAYS</span><span class="vh-n" id="dr-n"></span></div>
+        <div class="ah-feedwrap" id="dr-feedwrap"></div>
+      </section>
+      <div id="load-status">数据加载失败，显示缓存</div>
+    </main>
+  </div>
+  <footer class="footer">
+    <div class="frow"><span id="f-sources">数据源</span></div>
+    <div class="frow"><span id="f-meta">The Morning Tab 浅色版 v1.3 · 远程 JSON + 缓存 + seed 降级</span><span>点标题跳原文 · 横滑轨支持双指/← → 键</span></div>
+    <div class="frow"><span id="aihot-ftime"></span></div>
+  </footer>
+</div>
+<script src="gazette-seed.js?v=20261113a"></script>
+<script src="gazette-app.js?v=20261113a"></script>
+<script src="gazette-misc.js?v=20261113a"></script>
+<script src="gazette-deepreads.js?v=20261113a"></script>
+</body>
+</html>
