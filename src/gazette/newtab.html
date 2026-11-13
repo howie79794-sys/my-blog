@@ -347,6 +347,11 @@ body[data-aihot-view] .snav-item[data-filter="AIHOT"] .sn-badge{display:none;}
   transition:all .2s var(--ease);}
 #fn-feedwrap .dr-toggle:hover{background:var(--accent-wash);border-color:var(--accent);}
 .mx-foot{display:flex;justify-content:flex-end;margin-top:10px;}
+/* v2.2.4: dr-toggle 全局化——tl 卡片（快讯/要闻/AIHOT）与 finnews 同款按钮 */
+.tl-body .dr-toggle{border:1px solid var(--rule-soft);background:var(--paper);color:var(--accent-dark);
+  font-family:var(--display);font-size:12px;letter-spacing:.08em;padding:3px 12px;border-radius:999px;cursor:pointer;}
+.tl-body .dr-toggle:hover{background:var(--accent-wash);border-color:var(--accent);}
+.tl-body .mx-fulltop .dr-toggle{box-shadow:0 1px 4px rgba(0,0,0,.10);}
 .mx-full{margin-top:10px;border-top:1px dashed var(--rule-soft);border-bottom:1px dashed var(--rule-soft);}
 .mx-fulltop{position:sticky;top:6px;z-index:5;display:flex;justify-content:flex-end;
   margin:2px 0 10px;padding:4px 6px;background:linear-gradient(var(--paper) 72%,transparent);}
@@ -889,9 +894,9 @@ body.hide-others .sec-hidden{display:none!important;}
     <div class="frow"><span id="aihot-ftime"></span></div>
   </footer>
 </div>
-<script src="gazette-seed.js?v=20261113b"></script>
-<script src="gazette-app.js?v=20261113b"></script>
-<script src="gazette-misc.js?v=20261113b"></script>
-<script src="gazette-deepreads.js?v=20261113b"></script>
+<script src="gazette-seed.js?v=20261113c"></script>
+<script src="gazette-app.js?v=20261113c"></script>
+<script src="gazette-misc.js?v=20261113c"></script>
+<script src="gazette-deepreads.js?v=20261113c"></script>
 </body>
 </html>

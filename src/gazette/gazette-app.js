@@ -333,7 +333,19 @@ __rendered = true;
       var da=new Date(a.publishedAt||0), db=new Date(b.publishedAt||0);
       return db-da || (b.score||0)-(a.score||0); });
   }
-  function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
+  
+  /* v2.2.4: tl 卡片（快讯/要闻/AIHOT动态）展开全文——复用妙想/公告同款交互 */
+  function tlFullHtml(f){
+    var paras = String(f.fulltext||'').split(/\n\n+/).filter(function(x){return x.trim();});
+    var pHtml = paras.map(function(x){ return '<p>'+esc(x)+'</p>'; }).join('');
+    return '<div class="mx-foot"><button type="button" class="dr-toggle" data-mx="1">展开全文 ▾</button></div>'
+      + '<div class="mx-full" hidden>'
+      + '<div class="mx-fulltop"><button type="button" class="dr-toggle" data-mxtop="1">▴ 收起全文</button></div>'
+      + '<div class="mx-body">'+pHtml+'</div>'
+      + '<div class="mx-fullend"><button type="button" class="dr-toggle" data-mxend="1">▴ 收起全文</button></div>'
+      + '</div>';
+  }
+function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
     return list.map(function(f){
       var d = new Date(f.publishedAt||'');
       var ok = !isNaN(d);
@@ -364,6 +376,7 @@ __rendered = true;
           +'<div class="tl-tags">'+selTag+cat+'<span class="tl-src">'+srcText+'</span>'+flag+'</div>'
           +(f.summary?'<div class="tl-sum">'+esc(f.summary)+'</div>':'')
           +(f.reason?'<div class="tl-reason">'+esc(f.reason)+'</div>':'')
+          +(f.fulltext && f.fulltext.length > (f.summary||'').length + 60 ? tlFullHtml(f) : '')
         +'</div></li>';
     });
   }
@@ -1258,4 +1271,22 @@ function applyTheme(t){
     var next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
     applyTheme(next);
   });
+})();
+
+;(function(){
+
+  /* v2.2.4: 展开全文全局委托——覆盖 finnews（妙想/公告）+ tl 卡片（快讯/要闻/AIHOT） */
+  if(!document.__mxDelgBound){
+    document.__mxDelgBound = true;
+    document.addEventListener('click', function(e){
+      var b = e.target.closest('.dr-toggle[data-mx], .dr-toggle[data-mxtop], .dr-toggle[data-mxend]');
+      if(!b) return;
+      var card = b.closest('.tl-card'); if(!card) return;
+      var full = card.querySelector('.mx-full'); if(!full) return;
+      var open = full.hidden;
+      full.hidden = !open;
+      var main = card.querySelector('.mx-foot .dr-toggle');
+      if(main) main.textContent = open ? '▴ 收起全文' : '展开全文 ▾';
+    });
+  }
 })();
