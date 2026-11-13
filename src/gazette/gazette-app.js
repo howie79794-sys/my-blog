@@ -401,14 +401,19 @@ function tlCards(list, state){ /* state = {lastDay, maxScore}，跨批共享 */
       var body = cards[i].querySelector('.mx-full .mx-body');
       var more = body ? body.textContent.length : 0;
       var sm = sum.textContent.length;
-      var ch = sum.clientHeight;
-      if(!ch){ continue; }   /* 容器隐藏（未渲染/被 CSS 隐藏）→ 无法测量，保持默认显示 */
-      /* line-clamp 下 scrollHeight==clientHeight，需临时解除 clamp 才能测真实溢出 */
-      var prev = sum.style.webkitLineClamp;
+      if(!sum.textContent.trim()){ foot.hidden = true; continue; }
+      /* 关键：.tl-sum 有 content-visibility:auto（未入视口时内容不渲染，scrollHeight 不可信）。
+         测量时临时置 visible + 解除 line-clamp，再按行高算折叠态可见高度。 */
+      var prevCV = sum.style.contentVisibility;
+      var prevClamp = sum.style.webkitLineClamp;
+      sum.style.contentVisibility = 'visible';
       sum.style.webkitLineClamp = 'none';
       var fullH = sum.scrollHeight;
-      sum.style.webkitLineClamp = prev;
-      var clipped = fullH > ch + 1;
+      var lh = parseFloat(getComputedStyle(sum).lineHeight) || 22;
+      sum.style.webkitLineClamp = prevClamp;
+      sum.style.contentVisibility = prevCV;
+      var clampedH = 2 * lh;                 /* 折叠态固定 2 行 */
+      var clipped = fullH > clampedH + 1;    /* 实际需要 >2 行 */
       /* 保留按钮的条件：摘要被截断（看不全） 或 全文比摘要多出实质内容（还有更多没露出） */
       if(!clipped && more <= sm + 40) foot.hidden = true;
     }
