@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>I’m feeling more optimistic about American politics · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 科技 · 中国观察</div>
+    <h1 class="title">I’m feeling more optimistic about American politics</h1>
+    <div class="byline">
+      <span class="author">诺亚·史密斯</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.noahpinion.blog/p/im-feeling-more-optimistic-about" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-14 · 1367 words</span>
+    </div>
+    <div class="body"><figure><a href="https://substackcdn.com/image/fetch/$s_!0o6H!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdc5843a6-59b4-4c76-9897-3fc3a9503220_1020x680.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!0o6H!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdc5843a6-59b4-4c76-9897-3fc3a9503220_1020x680.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo by <a href="https://unsplash.com/@ajkontephotos?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Abdullah Konte</a> on <a href="https://unsplash.com/photos/the-capitol-washington-U7uGKMgXrqo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></figcaption></figure><p>“Partisanship is a helluva drug,” as they say. When your preferred party is in power, the sun seems to shine a little brighter, the birds sing a little more sweetly, and there’s a spring in your step as you walk past the homeless encampments and sterile single-family-home-only neighborhoods of your American city. Foreigners from countries where politics is less contentious, like Japan, will never know this joy. </p><p>Anyway, this natural partisan sentiment makes it very hard for me to write about developments in American politics. I would like to give you some analysis that’s more informative than “Yay, <a href="https://x.com/RationalPurview/status/2120907367889997838" target="_blank" rel="noopener">Democrats won an election</a>!”. I <em>do </em>consider myself a Democrat, after all (even though I’m registered as an Independent). There has never been a point in my entire life when I’d have told you that the Republican presidential candidate was a better pick than the Democrat (though 2012 was fairly close). I <a href="https://www.noahpinion.blog/p/are-the-democrats-going-to-save-us" target="_blank" rel="noopener">regularly bemoan</a> the state of the Democratic Party, but somehow the Republicans always find some way to be Even Worse.</p><p>This has been the unfortunate reality for most people in America for years now. <a href="https://www.pewresearch.org/politics/2026/05/01/americans-continue-to-view-both-the-republican-and-democratic-parties-negatively/" target="_blank" rel="noopener">Disgust and dissatisfaction</a> with both parties have grown, as both have become <a href="https://news.gallup.com/poll/655190/political-parties-historically-polarized-ideologically.aspx/" target="_blank" rel="noopener">more extremist</a>. But there was little they could do except keep voting for the lesser of two evils, while <a href="https://www.aljazeera.com/news/2024/12/26/two-thirds-of-us-adults-tuning-out-political-news-poll-finds" target="_blank" rel="noopener">tuning out</a> political news and expressing anger at the whole system. It got so bad that in my New Year’s essay, I even entertained the notion that liberal democracy itself had suffered a generational failure:</p><p>To be honest, I still entertain that notion. Reading that essay again, there’s not much I would change. But on the margin, recent events have made me feel more optimistic about where American politics is going. </p><p>A lot of this is downstream of the midterm elections. Trump has turned the Republican Party into something truly awful, and it’s refreshing to see America punish the GOP for going along with that transformation:</p><p>But my optimism isn’t just about the fact that Democrats won — it’s also about <em>how</em> they won, and what they seem likely to do with their victory. Here I’ve been pleasantly surprised so far. And there are also some scattered signs that our leaders are starting to take our substantive policy challenges more seriously, instead of just relying on partisanship and culture wars. Basically, I see three broad positive trends:</p><ol><li><p>The Democrats are not becoming extremist at the rate I had feared.</p></li><li><p>There is some real bipartisan movement on good policymaking at the federal level.</p></li><li><p>The nation is waking up to the problem of corruption, and holding the perpetrators to account.</p></li></ol><h4>Liberals, not leftists, are leading the anti-Trump charge</h4><p>Over the past few years, I’ve watched the emergence of a leftist faction within the Democratic Party, which <a href="https://www.noahpinion.blog/p/the-democrats-have-their-own-maga" target="_blank" rel="noopener">I’ve likened to MAGA on the right</a>. This faction had its roots in the Bernie insurgency of 2016-2020, but it has grown beyond that. The Palestine movement both invigorated the leftists and radicalized them, shifting the locus of power in left-of-center activism away from Black activists, identitarian movements, and anti-capitalism, and toward explicitly anti-American “decolonial” ideas. </p><p>As recently as this summer, I believed that a Democratic victory in the midterms would be led by this hard-left vanguard:</p><p>Here’s what I wrote:</p><blockquote><p>Democrats have spent their political capital moving to the left…[They are selecting] candidates who are so far to the left that they end up frightening and/or offending many voters, and then basically daring people to keep voting for the Republicans…</p><p>When DSA-type candidates were just winning in deep blue cities, it was possible to think that they would remain a small, limited faction within the party. But Francesca Hong is going to be the Democratic nominee in a <em>statewide </em>race. So is Abdul El-Sayed, who, while not a member of the DSA, is closely aligned with them (especially on Israel, which <a href="https://www.theatlantic.com/ideas/2026/07/michigan-election-el-sayed-stevens-zionism/688101/" target="_blank" rel="noopener">he focuses on a lo</a>t)…This, increasingly, is who the Democrats <em>are </em>now.</p></blockquote><p>Well, happily, I was wrong about this. <a href="https://www.nytimes.com/2026/08/12/us/elections/david-crowley-wisconsin-governors-primary.html" target="_blank" rel="noopener">Francesca Hong was actually defeated</a> in the Democratic primary race just a few days later in a stunning upset, showing that even partisan Democrats aren’t sold on the DSA faction. </p><p>Even more importantly, the hard left didn’t end up leading the anti-Trump charge in the midterms, as I had expected. Despite the blue wave, most of the high-profile DSA-faction candidates performed significantly worse than their normie Democrat counterparts. Jeff Maurer has great data on this:</p><a href="https://www.imightbewrong.org/p/how-leftists-and-moderates-did-in?utm_source=substack&utm_campaign=post_embed&utm_medium=web&embedding_publication_id=35345" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!bmBA!,w_56,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fe27cdb45-513d-4438-bd19-657129f3a04a_573x573.png" referrerpolicy="no-referrer" loading="lazy" alt="">I Might Be WrongHow Leftists and Moderates Did in the MidtermsThree months ago, I wrote a post “setting up the goal posts” to measure how individual candidates did in the midterms. I did that for two reasons: First, I did it to be a dick. I feel that liberals can be too polite, and we bite our tongues in response to the hate and idiocy that DSA types are trying to smuggle into the mainstream — I see a role for a t…Read more10 days ago · 307 likes · 140 comments · Jeff Maurer</a><p>And the same voters who powered the big Democratic victories also endorsed a lot of centrist policies at the ballot box. Here’s <a href="https://www.washingtonpost.com/opinions/2026/11/04/america-voted-blue-not-socialist/" target="_blank" rel="noopener">the </a><em><a href="https://www.washingtonpost.com/opinions/2026/11/04/america-voted-blue-not-socialist/" target="_blank" rel="noopener">Washington Post</a></em>:</p><blockquote><p>Voters in North Carolina elected a Democratic senator…giving former governor Roy Cooper an overwhelming win. At the same time, <a href="https://www.wunc.org/politics/2026-11-04/voters-approve-constitutional-amendments-around-voter-id-and-capping-taxes" target="_blank" rel="noopener">they approved</a> three [Republican] measures…The first would add a constitutional requirement for a levy limit on property taxes…The second would cap the state income tax at 3.5 percent…The third would require photo ID for voting…</p><p>In Wisconsin, Democrat David Crowley won the gubernatorial election…Those same voters approved an initiative…to ban affirmative action in state institutions…Iowa voters elected Democrats as governor and senator while amending their constitution to make it substantially harder to raise state income taxes…Ohio….went blue for Senate and governor. At the same time, two-thirds of voters backed an amendment to require photo ID for voting…</p><p>Moderates and independents drove Democratic gains in all these places.</p></blockquote><p>Voters in several blue and purple states also <a href="https://x.com/AidenBuzzetti/status/2118015811935994036" target="_blank" rel="noopener">approved measures</a> to restrict women’s sports teams by biological sex.</p><p>There’s also a general indefinable “vibe shift” in the air. Anecdotally, people I talk to are less ashamed to voice full-throated support for the kind of liberalism that Barack Obama typified in the early 2010s. Meanwhile, liberal influencers online are beginning to <a href="https://x.com/Awk20000/status/2120867200261345691" target="_blank" rel="noopener">push back more strongly</a> on leftist shouters. </p><p>And in Congress, the sheer scale of the Democrats’ victory means that the DSA faction will be effectively disempowered. Because marginal victories tend to be won by moderates in purple states, the leadership in both the House and the Senate is likely to be held by moderates like Hakeem Jeffries and Chuck Schumer. This is driving the DSA factionalist types apoplectic with rage:</p><p>Note that the knives are already coming out for Jon Ossoff, whose potential as a 2028 presidential contender <a href="https://kalshi.com/markets/kxpresnomd/democratic-primary-winner/kxpresnomd-28" target="_blank" rel="noopener">surged</a> after his massive midterm victory. But who can leftists <a href="https://x.com/NYMag/status/2120985953078780074" target="_blank" rel="noopener">run against Ossoff</a>? Enthusiasm around AOC has dimmed, and there’s no obvious replacement. </p><p>If they fail to find a candidate for 2028, and if Democrats take back the White House with a normie liberal, the leftist faction faces the real possibility that the window of America’s decade of unrest will limp to a close without them. That would, of course, be good for the nation. </p><h4>Smart policy is starting to win (and “the groups” are starting to lose)</h4><p>Even moderate politicians, of course, often support unworkable or inadvisable policies. On the Democratic side, the worst problems are anti-development policies at <a href="https://www.noahpinion.blog/p/blue-states-dont-build-red-states" target="_blank" rel="noopener">the state</a> and <a href="https://www.noahpinion.blog/p/the-blue-cities-must-be-fixed" target="_blank" rel="noopener">local level</a>. “Progressive” policies have made it prohibitively difficult and/or expensive to build housing, roads, trains, power stations, and transmission lines across much of the country, freezing our built environment in the 1970s. I’ve been loudly complaining about this for years now:</p><p>This was a big part of my pessimism about politics. What’s the use of kicking out the Republicans, if the Democrats are just going to decide that “open space” and <a href="https://www.latimes.com/local/lanow/la-me-ln-silverlake-gas-station-20180820-story.html" target="_blank" rel="noopener">historic gas stations</a> are more important than giving the middle class a place to live and power for their homes? </p><p>Now there are signs that at long last, America’s leaders recognize this problem and are taking action to fix it.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.noahpinion.blog/p/im-feeling-more-optimistic-about" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
