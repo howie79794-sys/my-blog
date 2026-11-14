@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>Is the Illiquidity Premium Really Gone? · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">Is the Illiquidity Premium Really Gone?</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/illiquidity-premium/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-13 · 2472 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Greg Leonard, author of the August 2026 SSRN working paper “<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7308878" target="_blank" rel="noopener">Revealing the Illiquidity Premium: The Role of Short Sale Constrained Stocks</a>,” argues that the apparently weak illiquidity premium in U.S. equities is partly a measurement problem. The premium may not have disappeared; rather, it can be obscured by stocks that are both illiquid and expensive to short. It is a working paper that has not been peer reviewed, so the figures may change.</p>
+
+
+
+<p class="wp-block-paragraph">The central implication is important for investors and researchers: illiquidity and short-sale constraints should not be treated as separate effects. Stocks with high borrowing costs tend to be illiquid, but they also tend to have low expected returns. Combining them indiscriminately with other illiquid stocks can make the measured illiquidity premium look smaller than it is.</p>
+
+
+
+<strong>What the paper examined</strong>
+
+
+
+<p class="wp-block-paragraph">Economic theory predicts that investors demand higher expected returns to hold illiquid assets—if it is costly or difficult to sell a security quickly without moving its price, an investor should require compensation for bearing that implementation risk.</p>
+
+
+
+<p class="wp-block-paragraph">This relationship has appeared in many markets. Yet, recent work has suggested that the equity-market illiquidity premium—the excess return of illiquid stocks over liquid stocks—has weakened (see for example <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1099829" target="_blank" rel="noopener">research about the illiquidity premium</a> and <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3257038" target="_blank" rel="noopener">illiquidity and stock returns</a>) markedly or even vanished.</p>
+
+
+
+<p class="wp-block-paragraph">Leonard re-examines that conclusion. He studies U.S. common stocks listed on the NYSE, Amex, and Nasdaq, using:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Amihud’s illiquidity measure</strong>, which approximates price impact by dividing absolute daily returns by dollar trading volume.</li>
+
+
+
+<li><strong>Equity loan fees</strong>, or the cost of borrowing shares to establish and maintain a short position.</li>
+
+
+
+<li>Monthly portfolio sorts that go long the most illiquid quintile of stocks and short the most liquid quintile—an illiquidity-minus-liquidity, or “IML,” portfolio.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">His data sample spans the period July 1964-March 2022 for the broad illiquidity-premium analysis, with equity-loan-fee data available from July 2013 through March 2022.</p>
+
+
+
+<p class="wp-block-paragraph">The paper labels stocks in the highest quintile of loan fees as “special,” meaning they are relatively costly to borrow and therefore more short-sale constrained. The other 80% are described as general collateral stocks.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>The core argument</strong></p>
+
+
+
+<p class="wp-block-paragraph">Leonard’s argument is straightforward:</p>
+
+
+
+<ol class="wp-block-list">
+<li><strong>Illiquid stocks should earn higher expected returns</strong>, because investors require compensation for greater trading costs and price impact.</li>
+
+
+
+<li><strong>Hard-to-short stocks tend to earn lower expected returns</strong>, consistent with the idea that pessimistic investors have difficulty expressing negative views through short selling.</li>
+
+
+
+<li>High-loan-fee stocks are disproportionately found among illiquid stocks.</li>
+
+
+
+<li>Therefore, an illiquid-stock portfolio can be contaminated by hard-to-short stocks whose low expected returns offset the conventional illiquidity premium.</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">In the paper’s recent sample, 28% of stocks in the illiquid leg of the IML portfolio were short-sale constrained, compared with fewer than 1% in the liquid leg. That asymmetry means that the high-illiquidity portfolio is not simply a basket of stocks bearing liquidity risk or trading frictions; it also contains a concentrated exposure to short-sale constraints.</p>
+
+
+
+<strong>Key findings</strong>
+
+
+
+<p class="wp-block-paragraph"><strong>1. The recent illiquidity premium looks weak before controlling for short-sale constraints</strong></p>
+
+
+
+<p class="wp-block-paragraph">From July 2013 through March 2022, the paper finds that the conventional illiquidity premium was modest or negative, depending on the sample and risk adjustment.</p>
+
+
+
+<p class="wp-block-paragraph">For all stocks, the equal-weighted long-most-illiquid/short-most-liquid portfolio had:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tr><td class="has-text-align-center" data-align="center"><strong>Measure</strong></td><td class="has-text-align-center" data-align="center"><strong>Monthly result</strong></td></tr><tr><td class="has-text-align-center" data-align="center">Raw IML return</td><td class="has-text-align-center" data-align="center">-0.32%</td></tr><tr><td class="has-text-align-center" data-align="center">FF5* alpha</td><td class="has-text-align-center" data-align="center">0.17%</td></tr><tr><td class="has-text-align-center" data-align="center">FF5* alpha excluding short-sale-constrained stocks</td><td class="has-text-align-center" data-align="center">0.49%</td></tr></table></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+<p class="wp-block-paragraph">“FF5*” refers to a Fama-French five-factor-style adjustment excluding the size factor, which the author omits because size and the Amihud illiquidity measure are closely related (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2553889" target="_blank" rel="noopener">size is a proxy for illiquidity</a>).</p>
+
+
+
+<p class="wp-block-paragraph">The headline result is that excluding the highest-loan-fee stocks increased the all-stock FF5* illiquidity alpha from 0.17% to 0.49% per month. The 0.33% monthly increase was statistically significant.</p>
+
+
+
+<p class="wp-block-paragraph">That is the paper’s principal claim in the all-stock sample: over the 105 months from July 2013 through March 2022, the FF5* illiquidity alpha rises from 0.17% a month (t = 0.87) to 0.49% (t = 2.42) after high-loan-fee stocks are removed. The 0.33% increase (t = 3.53) is the robust result. In the ex-microcap sample the level after removal is only 0.10% (t = 0.46), so the change, not a large remaining premium, is the result that holds up.</p>
+
+
+
+<figure class="wp-block-image size-fusion-1200"><img src="https://alphaarchitect.com/wp-content/uploads/2026/10/all-stocks-1-1198x516.webp" referrerpolicy="no-referrer" loading="lazy" alt=""><figcaption class="wp-element-caption">Source: Leonard (working paper), Table IV; recreated by Alpha Architect.</figcaption></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+<p class="wp-block-paragraph">Monthly equal-weighted IML, all stocks, July 2013–March 2022. FF5* drops the size factor.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>2. The effect is not limited to microcaps</strong></p>
+
+
+
+<p class="wp-block-paragraph">A fair objection is that results involving illiquidity and borrowing costs may simply reflect tiny, speculative, microcap securities. Leonard therefore repeats key tests after excluding stocks below the 10th percentile of NYSE market-cap breakpoints.</p>
+
+
+
+<p class="wp-block-paragraph">The pattern remains directionally similar:</p>
+
+
+
+<ul class="wp-block-list">
+<li>The FF5* illiquidity alpha is -0.18% per month when all non-microcap stocks are included.</li>
+
+
+
+<li>It rises to 0.10% after excluding high-loan-fee stocks.</li>
+
+
+
+<li>The 0.28% improvement is statistically significant.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">While the economic magnitude is smaller in the ex-microcap sample, and the resulting 0.10% alpha is not statistically significant on its own, the change after removing constrained stocks is significant, which supports the broader identification argument.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>3. Costly-to-borrow stocks are meaningfully less liquid</strong></p>
+
+
+
+<p class="wp-block-paragraph">The data show a substantial relationship between loan fees and illiquidity. Across all stocks, the rank correlation between Amihud illiquidity and loan fees is 0.47; excluding microcaps, it is still 0.27.<a href="https://drive.google.com/file/d/1MTeRka3lJJo_6TU_0G3tllyN7FVSWXGw/view" target="_blank" rel="noopener">Download the paper (PDF)</a></p>
+
+
+
+<p class="wp-block-paragraph">Special stocks (highest loan fees) also tend to be:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Smaller.</li>
+
+
+
+<li>More volatile.</li>
+
+
+
+<li>More thinly owned by institutions.</li>
+
+
+
+<li>More heavily shorted.</li>
+
+
+
+<li>More price-sensitive to trading activity.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">For the ex-microcap sample, the median annual loan fee was 1.05% for special stocks versus 0.56% for general-collateral stocks; at the 90th percentile, special-stock fees reached 7.97% annually.</p>
+
+
+
+<p class="wp-block-paragraph">The association itself is not proof of causality. The paper’s contribution is to propose—and test—mechanisms through which the borrowing cost can may worsen liquidity.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>4. Borrowing costs raise liquidity providers’ inventory costs</strong></p>
+
+
+
+<p class="wp-block-paragraph">The model distinguishes between two costs borne by liquidity providers, such as market makers or other traders absorbing temporary order imbalances.</p>
+
+
+
+<p class="wp-block-paragraph">The first is the inventory-carrying cost. If a liquidity provider accommodates buy orders, it may end up short the stock. A higher stock-borrow fee then raises the cost of carrying that short position until inventory can be unwound.</p>
+
+
+
+<p class="wp-block-paragraph">The model predicts an asymmetry: high borrow fees should especially increase the compensation required to provide liquidity to buy order flow, because that is when the liquidity provider becomes short.</p>
+
+
+
+<p class="wp-block-paragraph">The empirical proxy is a short-term <a href="https://alphaarchitect.com/combining-reversals/" target="_blank" rel="noopener">reversal</a> strategy: buy recent losers and short recent winners. In the ex-microcap sample (Table V), the top illiquidity quintile earned short-term reversal profits of 0.42% per month before high-loan-fee stocks were removed, with 0.38% coming from the short leg. After removing high-loan-fee stocks, total reversal profits fell to 0.09%, and the short-leg return fell to 0.06%.</p>
+
+
+
+<p class="wp-block-paragraph">Still in the ex-microcap top illiquidity quintile (Table VI): The result is particularly vivid among special stocks in the most illiquid quintile:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tr><td><strong>Group</strong></td><td class="has-text-align-center" data-align="center"><strong>FF5* alpha</strong></td><td class="has-text-align-center" data-align="center"><strong>Reversal return</strong></td><td class="has-text-align-center" data-align="center"><strong>Reversal short leg</strong></td><td class="has-text-align-center" data-align="center"><strong>Short leg after borrow fee</strong></td></tr><tr><td>General collateral</td><td class="has-text-align-center" data-align="center">0.13%</td><td class="has-text-align-center" data-align="center">0.09%</td><td class="has-text-align-center" data-align="center">0.06%</td><td class="has-text-align-center" data-align="center">0.04%</td></tr><tr><td>Special / high-loan-fee</td><td class="has-text-align-center" data-align="center">-0.80%</td><td class="has-text-align-center" data-align="center">0.63%</td><td class="has-text-align-center" data-align="center">0.51%</td><td class="has-text-align-center" data-align="center">0.20%</td></tr></table></figure>
+
+
+
+<p class="has-text-align-center wp-block-paragraph"><em>The results are hypothetical results and are NOT an indicator of future results and do NOT represent returns that any investor actually attained. Indexes are unmanaged and do not reflect management or trading fees, and one cannot invest directly in an index</em>.</p>
+
+
+
+<p class="wp-block-paragraph">All figures are monthly.</p>
+
+
+
+<p class="wp-block-paragraph">In other words, high-loan-fee stocks exhibit stronger short-term reversal, especially on the short side, and much of that return falls away once realized borrow costs are deducted. That is consistent with costly short inventory being an important friction.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>5. Borrowing costs also increase adverse-selection costs</strong></p>
+
+
+
+<p class="wp-block-paragraph">The second channel is adverse selection. A liquidity provider worries that the investor on the other side of a trade may be informed.</p>
+
+
+
+<p class="wp-block-paragraph">The paper’s model predicts that when a stock becomes more expensive to short, an informed trader who still chooses to short it must have a more negative signal to justify paying the borrowing fee. Consequently, sell orders in hard-to-borrow stocks can carry more adverse information. Likewise, when liquidity providers become short while filling buy orders, higher borrowing costs magnify their losses if those buy orders prove informed.</p>
+
+
+
+<p class="wp-block-paragraph">The author estimates immediate and permanent price impact using returns and signed order imbalance. The permanent component is designed to isolate the information-related part of price impact.</p>
+
+
+
+<p class="wp-block-paragraph">Using within-stock variation and controls for size, short interest, analyst-forecast dispersion, institutional ownership, and passive ownership, a one-percentage-point rise in the annualized loan fee is associated with a 0.197 rise in immediate price impact and a 0.155 rise in permanent price impact (Table VII, stock fixed effects). A 10-point fee rise would add about 1.55 to permanent impact, against a sample average of 1.85. The paper reports a 0.33% monthly increase in the all-stock FF5* premium (t = 3.53); the rounded 0.17% and 0.49% figures differ by 0.32.</p>
+
+
+
+<p class="wp-block-paragraph">This is evidence consistent with the claim that hard-to-borrow conditions are associated with higher temporary inventory costs and a higher informational cost of providing liquidity.</p>
+
+
+
+<strong>Why this differs from earlier theory</strong>
+
+
+
+<p class="wp-block-paragraph">Some classic models predict that short-sale restrictions can improve liquidity. The logic is that if restrictions mainly remove informed pessimistic traders from the market, market makers face less adverse selection and can quote tighter spreads.</p>
+
+
+
+<p class="wp-block-paragraph">Leonard argues that this logic fits a ban imposed on some traders but not necessarily on market makers or designated liquidity providers. It is less applicable to normal U.S. equity lending, where any trader who remains short generally must eventually borrow stock and pay the loan fee.</p>
+
+
+
+<p class="wp-block-paragraph">That distinction matters:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><tr><td><strong>Type of constraint</strong></td><td><strong>Predicted liquidity effect</strong></td></tr><tr><td>Short-sale ban that primarily removes informed short sellers</td><td>Liquidity can improve because adverse selection may fall</td></tr><tr><td>Higher cost of borrowing stock that also affects liquidity providers</td><td>Liquidity can deteriorate because inventory and adverse-selection costs rise</td></tr></table></figure>
+
+
+
+<p class="wp-block-paragraph">The paper’s theoretical and empirical focus is the second mechanism: ordinary stock-borrow costs in modern equity markets, rather than crisis-era outright short-sale bans.</p>
+
+
+
+<strong>Historical interpretation</strong>
+
+
+
+<p class="wp-block-paragraph">The author cannot directly extend the loan-fee analysis back before 2013 because comprehensive equity-lending data are limited. Instead, the paper uses the asymmetry in short-term reversal returns as an indirect signal of how exposed illiquid portfolios may have been to short-sale constraints historically.</p>
+
+
+
+<p class="wp-block-paragraph">The evidence suggests that costly-to-borrow stocks likely affected illiquid-stock portfolios in earlier decades, but less strongly than in the post-2013 sample. The author also points to Regulation SHO and subsequent amendments—particularly measures that reduced avenues for maintaining short positions without borrowing—as a possible reason the linkage between borrowing costs and liquidity strengthened over time.</p>
+
+
+
+<p class="wp-block-paragraph">This historical discussion is suggestive rather than conclusive. It is an inference from a model-based diagnostic, not a direct test using loan-fee data from the earlier periods.</p>
+
+
+
+<strong>Investor takeaways</strong>
+
+
+
+<p class="wp-block-paragraph"><strong>1. “Illiquid” is not a clean standalone factor</strong></p>
+
+
+
+<p class="wp-block-paragraph">An illiquidity screen can inadvertently load on stocks that are difficult and costly to short. These companies may have low expected returns for reasons related to disagreement, limits to arbitrage, speculative demand, or constrained pessimistic trading.</p>
+
+
+
+<p class="wp-block-paragraph">For factor research, a raw illiquidity portfolio may therefore mix two opposing effects:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Positive expected-return compensation for bearing illiquidity.</li>
+
+
+
+<li>Negative expected-return exposure associated with short-sale constraints.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">That mixture can make the measured illiquidity premium appear weak, unstable, or absent.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>2. Loan fees are economically important conditioning variables</strong></p>
+
+
+
+<p class="wp-block-paragraph">For long-only investors, stock-borrow data may still be informative even though they do not short stocks themselves. High loan fees can flag a segment where conventional valuation, liquidity, momentum, volatility, or reversal signals may behave differently.</p>
+
+
+
+<p class="wp-block-paragraph">For long-short investors, borrow fees are even more direct. A gross backtest that ignores financing and stock-borrow costs can materially overstate implementable alpha, especially for reversal strategies that short recent winners in hard-to-borrow stocks.</p>
+
+
+
+<p class="wp-block-paragraph">The paper’s special-stock reversal results illustrate the point: the short-leg reversal return is 0.51% per month before deducting borrow costs but only 0.20% after the realized fee adjustment.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>3. Separate liquidity measurement from tradability</strong></p>
+
+
+
+<p class="wp-block-paragraph">Amihud illiquidity is useful as a broad proxy for price impact, but it is not synonymous with implementation cost. A robust investment process should separately monitor:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Bid-ask spreads.</li>
+
+
+
+<li>Market depth and expected price impact.</li>
+
+
+
+<li>Trading volume and capacity.</li>
+
+
+
+<li>Short availability.</li>
+
+
+
+<li>Borrow fees and recall risk.</li>
+
+
+
+<li>Securities-lending supply.</li>
+
+
+
+<li>The potential for crowding or one-sided demand.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">The paper’s results using bid-ask spreads in the appendix point in the same general direction: removing high-loan-fee stocks strengthens the estimated illiquidity premium among all stocks.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>4. The finding is most relevant for research, not a turnkey strategy</strong></p>
+
+
+
+<p class="wp-block-paragraph">The paper estimates a premium using equal-weighted, monthly rebalanced academic portfolios. That design is appropriate for identifying expected-return differences, but it is not automatically an investable strategy.</p>
+
+
+
+<p class="wp-block-paragraph">Real-world implementation can face substantial frictions:</p>
+
+
+
+<ul class="wp-block-list">
+<li>The most illiquid securities are costly to trade.</li>
+
+
+
+<li>Equal weighting tilts toward smaller firms.</li>
+
+
+
+<li>Capacity may be limited.</li>
+
+
+
+<li>Turnover and market impact can be high.</li>
+
+
+
+<li>Short-sale data can be delayed, incomplete, or unavailable to many investors.</li>
+
+
+
+<li>Borrow conditions can change rapidly, and short availability can disappear entirely.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Thus, the appropriate takeaway is not simply “buy illiquid stocks while avoiding high-fee stocks.” It is that the expected-return effect of illiquidity should be evaluated jointly with shorting frictions and actual implementation costs.</p>
+
+
+
+<strong>Bottom line</strong>
+
+
+
+<p class="wp-block-paragraph">Leonard’s paper offers a compelling explanation for why the equity illiquidity premium has looked weak in recent data: the most illiquid portfolios include a disproportionate number of hard-to-borrow stocks, and those stocks have earned unusually low risk-adjusted returns in this sample.</p>
+
+
+
+<p class="wp-block-paragraph">After removing stocks in the top quintile of loan fees, the paper finds that the recent all-stock illiquidity alpha rises from 0.17% to 0.49% per month. It further presents evidence that higher borrowing costs worsen liquidity by increasing both the cost of carrying short inventory and the adverse-selection cost faced by liquidity providers.<a href="https://drive.google.com/file/d/1MTeRka3lJJo_6TU_0G3tllyN7FVSWXGw/view" target="_blank" rel="noopener">Download the paper (PDF)</a></p>
+
+
+
+<p class="wp-block-paragraph">For investors, the broader lesson is that liquidity risk, short-sale constraints, and trading implementation are deeply connected. Any attempt to measure or harvest an illiquidity premium should account explicitly for the cost and availability of stock borrowing—not just volume, spreads, or price impact.</p>
+
+
+
+<p class="wp-block-paragraph"><em>Larry Swedroe is the author or co-author of 18 books on investing, including his latest</em> <a href="https://www.amazon.com/Enrich-Your-Future-Successful-Investing/dp/1394245440/" target="_blank" rel="noopener"><em>Enrich Your Future</em></a><em>. He is also a consultant to RIAs as an educator on investment strategies. He has spent decades helping advisors and investors apply the evidence from academic finance to real-world portfolios. This article is for informational and educational purposes only and should not be construed as specific investment, accounting, legal, or tax advice.</em></p>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p><a href="https://alphaarchitect.com/illiquidity-premium/" target="_blank" rel="noopener">Is the Illiquidity Premium Really Gone?</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/illiquidity-premium/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
