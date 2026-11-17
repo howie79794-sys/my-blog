@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>AI task force · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">AI task force </h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/ai-task-force" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-17 · 1865 words</span>
+    </div>
+    <div class="body"><p>I had the privilege of attending the Fed’s AI (or SI) task force conference, “<a href="https://www.frbsf.org/news-and-media/events/2026/11/productivity-and-jobs-task-force-conference/" target="_blank" rel="noopener">Reading the signals: How will SI reshape the economy?</a>” at the San Francisco Fed. The conference was live-streamed at that link, so I won’t do too much summary. </p><p>The conference was full of very knowledgeable and thoughtful people. They discussed the usual questions: how fast is AI diffusing, when will it show up in productivity, job losses and gains and so on. Some interesting insights below. </p><p>But first, the question that was not asked: What does this all mean for monetary policy? This is a Fed conference after all, and the Fed is not the new Department of AI Regulation and Policy. I suspect that the Fed people, led by Fed Chair Kevin Warsh and SF bank president Mary Daly, may have felt they can handle the monetary policy end, or perhaps they want to get the facts first without dwelling too much now on the implications, so people don’t shade the facts.  Warsh also said his goal was to understand potential scenarios and be ready to react, not to make forecasts which always turn out wrong. </p><p>In any case, I’ll jump that gun. What does AI and productivity and jobs mean for monetary (and financial regulation) policy? </p><p>AI is surely a “supply” not a “demand” force. A natural implication of the AI revolution is that r*, the “noninflationary real rate of interest” is higher. We need more capital for data centers and building all those AI enabled robots and  implementation investments. The marginal product of capital is higher, the economic growth rate is higher.   So, as I see it, a natural implication is that the Fed should get ready to see higher interest rates as a result of a booming economy, rather than fear higher interest rates as a cause of recession.</p><p>A similar issue shows up in employment. The panelists all discussed the possibility of a surge in unemployment. They were all clear and wise about this. The issue is churn, reallocation, not mass unemployment.  Someone who works chasing down bills in the back office of a small-town hospital may need some time to find a new job, and we might see a higher unemployment rate in the meantime. Unemployment is job search. </p><p>Should the Fed respond to such higher unemployment, if it happens, with lower interest rates? I think not. “Reallocation” or “job churn” unemployment is not “lack of demand” unemployment. If there is a lot of job churn in an otherwise booming economy, that’s a rise in the “natural rate” u*, and stimulating the economy even more is a questionable response.  </p><p>The Fed is limited in its tools as well as its mandate. It does have an “employment” mandate. But the sorts of labor-market issues that may arise with a fast transition to AI are really not that related to short-term interest rates and overall “demand.”  Indeed, lowering rates might speed the transition and lead to even larger churn unemployment! </p><p>Nick Bloom put the issue and tension well, though I think unintentionally, by stressing the need for flexible labor markets and robust social insurance in the same sentence.  Yes, in a time of technological churn it has to be easy for people to get new jobs. And it is natural to want to protect people who have trouble in that churn. But much labor market stasis comes from the protective policies: support such as unemployment insurance that disincentivizes getting new jobs, social programs tied to place, protections for old companies and old jobs. Europe specializes in the latter. The tension of insurance vs. incentives will be with us always. And the Fed has little to do with this crucial issue.  </p><p>The panelists discussed when and how much AI might contribute to productivity growth. Productivity growth adds to real GDP growth, but it’s non-inflationary. y*, or "potential output” goes up. </p><p>Warsh asked about deflationary pressures, how productivity increases might lower prices. That could happen, but I remember that prices are in the end nominal and not real. So, the Fed (and Congress) ultimately face a choice of higher wages and the same prices or the same wages and lower prices. I think we need to have a serious discussion whether supply driven deflation is bad at all. A booming economy making everything cheaper for the same wages is not the same as 1933. </p><p>So the lesson I see four reasons that the Fed should prepare not to mistake “supply” for “demand,” in the five stars r*, y*, u* and pi*. </p><p>It is also striking that the Fed sees such a deep dive into the economy as a necessary part of its job. Perhaps a limited mandate to just worry about the price level would simplify its task.</p><p>In the first panel, Kevin Warsh asked “what do you see as the biggest danger.” My answer:  AI could be swallowed up by the national security / regulatory / industrial policy / protection / luddite state. Europe has already done to its AI what it did to nuclear power, fossil fuel development, and much else, and its protections for specific jobs and businesses rather than jobs and businesses in general are sapping its dynamism. Gina Raimondo and Marc Andreessen spoke vividly in the last panel. Raimondo noted how very popular data center bans are, and how average Americans react to “AI” with fear and horror. They may vote to stop it in its tracks. Andreesen, the most pessimistic panelists, and eloquent throughout, noted that it is a bumpy road from the lab to productivity. He gave the example of civilian nuclear power, which could have given us climate-friendly energy abundance but was stopped in its tracks. There is not much the Fed can or should do about any of this either. </p><p>Jon Levin also pointed to the potential financial impacts of a 1999 repricing of risk (a polite term). Now, an equity price fall is not the end of the world. It would reflect a lower expectation of AI profits, but isn’t the cause itself of much damage. Unless… there is a lot of hidden debt here. There is a missing Fed task force on financial regulation, who should be awake all night figuring out where the debt and especially short-term debt is buried. </p><p>There were many reports of surging small businesses due to AI. Stripe is seeing a doubling of new firms.  Dan Huttenlocher explained that AI is taking over back office, functions making small service businesses more productive. This showed up in a “jobs” and “what will humans do” context, optimistically. </p><p>As labor gets more productive, do we lose jobs or gain them, as output expands? None of the business titans were firing. As they see remarkable productivity gains, they expand the quantity and more importantly the quality of output. One reports that AI allows customer service — ordering spare parts — to take hours, not days and weeks. Others talked about mass customization. Svenja Gudell reports that 2/3 of job postings that mention AI are not technical. They are jobs where people are asked to use AI not to make AI. The AI buildout to regular industry is the productivity story. </p><p>That said, AI still hallucinates and is not good with edge cases. Note how slow self-driving cars have been to show up. Jim Liefer emphasized just how much testing needs to happen before you set loose an AI robot. That is a limiting factor to the speed with which it will widely diffuse. </p><p>Cyber security (of course) came up. Patrick Collison noted that the TCP/Linux stack everyone thought the most robust software around turned out to be “festooned with bugs.” Max Levchin asked us to look up “buffer overflow” and missing if statements. Briefly, things can go wrong in rare cases, and building robust software requires a lot of if statements to detect rare cases. A huge software issue for the next few years is rapidly fixing all the legacy software. </p><p>An interrelated set of issues came up as Warsh asked whether we would see service price deflation, as we have seen huge price declines in electronics and other manufactured goods. My first reaction, based on what I had heard so far, is that this will be difficult to measure. We’re not going to get the same service at a lower price, as much as we are going to get vastly better services at the same price. Suppose your AI enabled doctor gives a much better diagnosis the first time around. Well, you pay the doctor the same amount (or more!). How do we measure the quality improvement in order to say it was a price decline. </p><p>Jon Levin emphasized the AI enhanced doctor, pointing out that humans will stay in the loop. Marc Andreesen was characteristically blunt. Don’t worry about employment. Humans are radically protected by government already. A machine can’t belong to union, get hairdresser certification let alone doctor credentials to prescribe drugs, it can’t teach a unionized K-12 school, and so on. </p><p>Andreesen went on: If you disaggregate, to sectors with rapid change and turnover like electronics, media and entertainment, vs. slow changing and government involved sectors like health, eduction, housing, law, and government, two things happen. Prices fall in the former, and they slowly disappear from GDP. They become light light and Google Maps, basically free. And the latter are not allowed to have large job changes, feature-restricted supply and cartels, subsidized demand, and thus rising prices. In the end, the whole economy is the DMV. </p><p>There were a few mentions of capital vs. labor, and other doom scenarios. Reminder: rents go to the scarce resource. The cheap stuff slowly disappears from GDP and profits, and all the benefits end up with consumer surplus. </p><p>We should say “consumer surplus” more often. We focus on outputs, profits, wages, who makes money, but huge consumer surplus of basically free stuff is where the growth economy goes. </p><p>As AI gets more capable, what it does gets cheaper, and humans stay the scarce resource. To some this was the explosion of human agency and creativity. Answering an airline phone bank is no more fun than a repetitive factory job. Also, I note, “capital” is us. We are all stockholders, directly through pension and 401(k) funds, indirectly through capital taxes.  Worrying about some hypothetical threat to the distribution of income seems a waste of time, especially given how badly the current distribution worriers are doing in replications. </p><p>This was a great event. I also see how important it is for the Fed to talk to businesses, get the anecdote as well as the data, and share ideas which forges consensus. Regional Feds are important to that two-way communication. This event could not have happened in DC (I write on a three-hour delayed United flight to DC!) For years, the Hoover Monetary Policy Conferences have stressed the need to step back and think of larger structural issues. I flatter myself that the “task forces” were a bit inspired by that effort.  Kevin Warsh and Mary Daly show an impressive convening power to get top business and academic leaders to come together and think seriously. </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/ai-task-force?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/ai-task-force?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/ai-task-force" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
