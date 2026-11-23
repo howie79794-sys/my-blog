@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>Concrete steps to free-market health care · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>货币 · 财政</div>
+    <h1 class="title">Concrete steps to free-market health care</h1>
+    <div class="byline">
+      <span class="author">约翰·科克伦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.grumpy-economist.com/p/concrete-steps-to-free-market-health" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-23 · 1951 words</span>
+    </div>
+    <div class="body"><p>Last week, I had the honor of speaking along with Casey Mulligan, HHS Chief economist and University of Chicago professor, at the <a href="https://www.youtube.com/watch?v=9ZLbClft6Yw" target="_blank" rel="noopener">ASPE Health Economics and Policy Forum</a> at Health and Human Services, organized by <a href="https://carey.jhu.edu/faculty/faculty-directory/ge-bai-phd" target="_blank" rel="noopener">Ge Bai</a>, nominated to be the HHS Assistant Secretary for Planning and Evaluation and Johns Hopkins professor. The topic was, of course, free-market health care. (<a href="https://www.johnhcochrane.com/research/articles" target="_blank" rel="noopener">Articles</a>, especially “After the ACA” and <a href="https://www.johnhcochrane.com/news-op-eds-overview/health-insurance" target="_blank" rel="noopener">Op-Eds</a>.) I guess the top points I’ll emphasize about the talk were: 1) Health care and insurance are complex personal services that the market is perfectly capable of providing. 2) Please always state the question before jumping to the answer. The incredible mess of current US health care and insurance regulation does not follow as a minimally crafted answer to specific documented market failures, or to specific social problems like “how do we provide health care for homeless people.”   </p><p>I was a little reluctant. I haven’t written about health care in a while. Also, I focus on how free market health care can work, and why the standard objections are wrong. I really don’t know that much about the detailed Rube-Goldberg machinery of our health care mess. So, when asked, “yes, but what would you fix first?,” I usually don’t have good answers. I can’t stand the mess. Throw it out. Most health economists, by constrast, know a great deal about the mess. Alas, great knowledge of the leaves leads them often to miss the forest. If we just tweak this reimbursement formula… Also, people tend to go in to this field because they want to advise the government how to fix problems, and the HHS hands out a huge amount of money for health policy research, which all seems to end up with “more government” not “burn it down and let the market rip.” That’s not an accusation, but it is the natural order of things. Casey and Ge, on the other hand, are excellent economists who have the patience to understand the workings of the machine and guide it in a productive free-market direction.  </p><p>All of which is throat-clearing for this post. In preparation for our chat, Casey compiled this short list of examples of small steps he and the others in the Trump economic team have taken to move us towards better health care and insurance on market principles. It’s a good example of the deregulatory effort going on quietly at many agencies.  It is just a few examples put together for a fireside chat, not an exhaustive list. And, Casey emphasized, “the sequence was my assessment of harmony with your After-ACA paper, rather than chronological or priority order.” But I thought this somewhat idiosyncratic examination of leaves in the free market forest might still be interesting. Explanations are entirely mine, not Casey’s, so don’t blame him if I get it wrong. </p><p>Here we go</p><ol><li><p><strong>Multiyear catastrophic insurance (Trump 47).</strong> The 2027 Marketplace rule permits catastrophic-plan contracts lasting up to ten consecutive plan years beginning in 2027. Premiums are set annually, not fixed for ten years. <a href="https://urldefense.com/v3/__https://www.cms.gov/newsroom/fact-sheets/hhs-notice-benefit-payment-parameters-2027-final-rule__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5FsYoyyvA$" target="_blank" rel="noopener">CMS summary</a>; <a href="https://urldefense.com/v3/__https://www.cms.gov/files/document/cms-9883-f-patient-protection.pdf__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5Gw7pF_bw$" target="_blank" rel="noopener">final rule</a>.</p></li></ol><p>Many people don’t need first-dollar insurance. They can pay cash. But they do need what-if-you-get cancer catastrophic insurance. It would be better if it were permanent and guaranteed renewable, of course. But this can bridge until they get on employer or ACA plans. It would work a lot better if the cash market had not been destroyed, and many competitive suppliers were competing for your cash business. </p><blockquote><p><strong>2. Individual coverage HRAs (Trump 45 and 47).</strong> A 2019 rule permits employers to reimburse employees for individually selected health insurance with tax-preferred funds, beginning in 2020. The Trump 47 regulatory agenda lists a planned rule to streamline administrative requirements and expand employers’ ability to offer ICHRAs. The agenda entry is public, but it is not itself a published proposed rule. <a href="https://urldefense.com/v3/__https://www.dol.gov/newsroom/releases/ebsa/ebsa20190613__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5ECfDH0Yg$" target="_blank" rel="noopener">2019 announcement</a>; <a href="https://urldefense.com/v3/__https://www.reginfo.gov/public/do/eAgendaViewRule?RIN=0938-AW00&pubId=202510__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5HXRMSx6w$" target="_blank" rel="noopener">2026 regulatory agenda</a>.</p></blockquote><p>The tax deduction for employer provided group insurance is one of the original sins. Half of that original sin is that you couldn’t get the tax deduction for individual, portable insurance that you take with you if you lose your job. The government created the preexisting conditions problem right there.  This provision fixes that central problem! Like pensions vs. 401(k)s, portability is great. </p><blockquote><p><strong>3. Generic-drug competition (Trump 45).</strong> This is when the Rx CPI began falling for the first time in 46 years.</p></blockquote><p>Competition is good. </p><blockquote><p><strong>4. Physician supply and accreditation (Trump 47).</strong> The Education Department’s October 2026 final rule lowers barriers to recognition of new accrediting agencies, including by removing the two-year operating requirement, and facilitates institutional choice of accreditors. This could support competition and innovation in medical education. Effective July 1, 2027, with optional early implementation beginning January 1, 2027. <a href="https://urldefense.com/v3/__https://www.federalregister.gov/documents/2026/10/30/2026-22174/accreditation-innovation-and-modernization-the-secretarys-recognition-of-accrediting-agencies__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5FG16wkHA$" target="_blank" rel="noopener">Federal Register final rule</a>.</p></blockquote><p>Medical school accreditation is an important restriction on doctor supply. And the accreditation bodies have been part of the sharp move to DEI and politics.  </p><blockquote><p><strong>5. Scope of practice (Trump 45 and 47).</strong> CMS permanently permitted specified nonphysician practitioners to supervise diagnostic tests under Medicare, within their scope of practice and state law and subject to applicable physician collaboration or supervision requirements. Separately, the Rural Health Transformation Program (RHTP) scores state policies that expand the scope of practice for specified nonphysician clinicians. <a href="https://urldefense.com/v3/__https://www.cms.gov/newsroom/fact-sheets/final-policy-payment-and-quality-provisions-changes-medicare-physician-fee-schedule-calendar-year-1__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5GRzmM5NA$" target="_blank" rel="noopener">CMS 2021 physician fee schedule</a>; <a href="https://urldefense.com/v3/__https://hcai.ca.gov/wp-content/uploads/2026/07/NOFO.pdf*page=87__;Iw!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5F4bN7TRg$" target="_blank" rel="noopener">RHTP funding notice</a>.</p></blockquote><p>Lots and lots of things do not need to be done by actual doctors. </p><blockquote><p><strong>6. HSAs and direct primary care (Trump 47).</strong> The 2025 reconciliation law made qualifying bronze and catastrophic plans compatible with health savings accounts beginning in 2026 and allowed qualifying direct-primary-care arrangements and tax-free payment of their periodic fees. <a href="https://urldefense.com/v3/__https://www.irs.gov/newsroom/treasury-irs-provide-guidance-on-new-tax-benefits-for-health-savings-account-participants-under-the-one-big-beautiful-bill__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5FRPyQ3Vg$" target="_blank" rel="noopener">IRS guidance</a>.</p></blockquote><p>Google says, “To use and contribute to a Health Savings Account (HSA), you must be enrolled in an HSA-eligible high-deductible health plan (HDHP), have no disqualifying health coverage, not be enrolled in Medicare, and not be claimable as a dependent on someone else’s tax return.”  Well, why the heck not? All the benefits of consumers making purchasing decisions needs consumers making purchasing decisions. Savings provides a lot of insurance. Again, though, we need a visible and competitive cash market to make HSAs work. At least though they can help with big annual deductibles.  </p><blockquote><p><strong>7. Ambulatory surgery (Trump 47).</strong> CMS expanded the ambulatory surgical center covered-procedure list for 2026 and restarted a phased elimination of the inpatient-only list; the 2027 rule continues the phaseout. <a href="https://urldefense.com/v3/__https://www.cms.gov/newsroom/fact-sheets/calendar-year-2026-hospital-outpatient-prospective-payment-system-opps-ambulatory-surgical-center__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5GcsWrC7w$" target="_blank" rel="noopener">2026 rule</a>; <a href="https://urldefense.com/v3/__https://www.cms.gov/newsroom/press-releases/medicare-outpatient-final-rule-expands-surgical-options-lowers-out-pocket-costs-340b-drugs__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5HX0JRsmQ$" target="_blank" rel="noopener">2027 rule</a>.</p><p><strong>8. Site-neutral payments (Trump 45 and 47).</strong> Medicare moved certain off-campus hospital outpatient services toward physician-office-equivalent payment, reducing an ownership-based advantage over independent offices. <a href="https://urldefense.com/v3/__https://www.cms.gov/newsroom/fact-sheets/calendar-year-2027-hospital-outpatient-prospective-payment-system-opps-ambulatory-surgical-center-0__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5ED5KvhpA$" target="_blank" rel="noopener">CMS 2027 rule summary</a>.</p></blockquote><p>“You, provide free or low cost services and emergency rooms, to this population.” “Ok, but where are we going to make up the money?” “We’ll pay you twice as much for x procedure than we pay the clinic down the street.” Then, those clinics slowly disappear (surprise surprise) and heath costs explode. What the government pays for a service should not depend on where the services is provided, and then flow to the lowest cost provision. Subsidize directly not through competition-killing  cross-subsidies. </p><blockquote><p><strong>9. Occupational licensing (RHTP, Trump 47).</strong> CMS scores state participation in interstate licensing compacts for physicians, nurses, emergency medical personnel, psychologists, and physician assistants, facilitating practice across state lines. <a href="https://urldefense.com/v3/__https://hcai.ca.gov/wp-content/uploads/2026/07/NOFO.pdf*page=83__;Iw!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5HOSzpkew$" target="_blank" rel="noopener">RHTP funding notice</a>.</p></blockquote><p>Occupational licensing is state by state, a big barrier to doctors and nurses moving to places that need them. I can’t even call my California doctor when I’m out of state. Moving easily across state lines will help. </p><blockquote><p><strong>10. Certificate-of-need laws (RHTP, Trump 47).</strong> CMS scores states with fewer certificate-of-need restrictions more favorably, encouraging the reduction of barriers to new facilities and services. <a href="https://urldefense.com/v3/__https://hcai.ca.gov/wp-content/uploads/2026/07/NOFO.pdf*page=80__;Iw!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5E3IpS53A$" target="_blank" rel="noopener">RHTP funding notice</a>.</p></blockquote><p>Believe it or not, there still are certificate of need laws. To start a hospital, or even buy new equipment or expand, you have to get permission, and the other hospitals in the region can object that you’ll cut in to their business. United Airlines dreams of such power. Hilariously, CON laws were a previous “cost cutting” idea, on the idea that hospitals were “overinvesting” in new technology. </p><blockquote><p><strong>11. Other RHTP state-policy incentives (Trump 47).</strong> CMS also considers the absence of state short-term-insurance restrictions beyond federal guidance, policies supporting remote care, and factors concerning health and lifestyle, SNAP waivers, and nutrition continuing medical education. For the RHTP items, existing policies and eligible commitments can receive credit toward a portion of program funding; these are not federal mandates, and a commitment is not proof that a reform has been enacted. <a href="https://urldefense.com/v3/__https://hcai.ca.gov/wp-content/uploads/2026/07/NOFO.pdf*page=52__;Iw!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5Ep_8FGOQ$" target="_blank" rel="noopener">RHTP funding notice</a>; <a href="https://urldefense.com/v3/__https://www.cms.gov/newsroom/fact-sheets/rural-health-transformation-program-year-2-awards__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5Elj4nfhA$" target="_blank" rel="noopener">CMS program fact sheet</a>.</p></blockquote><p>?</p><blockquote><p><strong>12. Association health plans (Trump 47 agenda).</strong> The Labor Department plans rule making to establish criteria for employer groups or associations to sponsor an association health plan under ERISA. <a href="https://urldefense.com/v3/__https://www.reginfo.gov/public/do/eAgendaViewRule?pubId=202510&RIN=1210-AC43__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5F-6xyrcw$" target="_blank" rel="noopener">2026 regulatory agenda</a>; <a href="https://urldefense.com/v3/__https://www.govinfo.gov/content/pkg/FR-2024-04-30/html/2024-08985.htm__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5HIkKhoBQ$" target="_blank" rel="noopener">2024 rescission</a>.</p></blockquote><p>I guess this makes it easier to offer employer based insurance? </p><blockquote><p><strong>13. Short-term, limited-duration insurance (Trump 47 agenda).</strong> The agencies plan to revise the federal definition to expand coverage options. The 2024 rule generally limits new policies sold or issued from September 1, 2024 to an initial term of at most three months and total duration of at most four months; states may impose tighter restrictions. <a href="https://urldefense.com/v3/__https://www.reginfo.gov/public/do/eAgendaViewRule?pubId=202510&RIN=0938-AV92__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5G6YSK-Mg$" target="_blank" rel="noopener">2026 regulatory agenda</a>; <a href="https://urldefense.com/v3/__https://www.federalregister.gov/documents/2024/04/03/2024-06551/short-term-limited-duration-insurance-and-independent-noncoordinated-excepted-benefits-coverage__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5G6fM6nAw$" target="_blank" rel="noopener">2024 final rule</a>.</p></blockquote><p>The government generally pictures people who either don’t work or are in jobs that last a lifetime and you retire with a gold watch. People between jobs have a problem. I guess the objection to this and short-term plans is that everyone should be forced into the ACA plans to help cross subsidize others.  </p><blockquote><p><strong>14. Price transparency (Trump 45 and 47).</strong> Hospital and insurer disclosure rules make prices and negotiated rates available; subsequent insurer-data changes aim to improve that information. <a href="https://urldefense.com/v3/__https://www.cms.gov/newsroom/fact-sheets/cy-2020-hospital-outpatient-prospective-payment-system-opps-policy-changes-hospital-price__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5F32zaxVw$" target="_blank" rel="noopener">Hospital rule</a>; <a href="https://urldefense.com/v3/__https://www.cms.gov/newsroom/fact-sheets/transparency-coverage-final-rules-cms-9882-f__;!!G92We9drHetJ8EofZw!ZsF8lKBH3fXcy_dXczsP7XOPpJKrdKvDp4irr7dx2HP1gf3Twjvr_ceaTBcREbVRD6xmhWXRNcq1FHMRKhrBpoVbi5EaCkodYA$" target="_blank" rel="noopener">insurer rule</a>.</p></blockquote><p>Prices are notoriously non transparent. In my view this is a result of a poorly competitive industry, as a competitive one bombards you with price information. Hospitals want to hide their prices, and changing that fact is likely to be the most effective answer. But that’s unfair to Casey who put a lot of effort in this one. Mandated price disclosure certainly will help even if it’s not a panacea.  </p><p>I anticipate some objections from friends in the health-government industrial complex. The Rube Goldberg design, if you want to call it design, of the current system does have interlocking parts. If you let healthy young people have catastrophic insurance, they won’t sit around and cross subsidize sicker people via huge premiums. Well, building a system on cross-subsidies was a mistake in the first place. Insurance is an ex-post cross subsidy, not an ex-ante cross subsidy, and it’s easy to design health insurance without cross-subsidies.  So I think that actually an advantage. Pulling out one column will hasten the demise of the castle. </p><p>Baby steps on the way to a freer market. We need both vision and baby steps. It’s important to know  where we  want to go in 20 years. It’s also important to understand the current system and be able to fix it bit by bit. </p><p><em>Update:</em></p><p>Casey also just posted an essay on <a href="https://www.city-journal.org/article/medicaid-expansion-work-requirements" target="_blank" rel="noopener">why Medicaid needs work requirements</a>, one of the most politically controversial topics. Essentially the whole California wealth tax was sold as offsetting the “drastic cuts” that imposing and enforcing work requirements would imply. To his points I would add one: our social programs taken together impose a roughly 100% marginal tax rate on work. Earn a dollar, lose a dollar of benefits. Medicaid includes cliffs. A work requirement helps to offset this strong disincentive. It’s not perfect—it encourages any work, and the least painful rather than the most gainful work. But it helps. </p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.grumpy-economist.com/p/concrete-steps-to-free-market-health?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.grumpy-economist.com/p/concrete-steps-to-free-market-health?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.grumpy-economist.com/p/concrete-steps-to-free-market-health" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
