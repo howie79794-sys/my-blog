@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>Everything is Awesome · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>能源 · 宏观</div>
+    <h1 class="title">Everything is Awesome</h1>
+    <div class="byline">
+      <span class="author">Doomberg</span><span class="dot">◆</span>
+      <span class="src"><a href="https://newsletter.doomberg.com/p/everything-is-awesome" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-24 · 1330 words</span>
+    </div>
+    <div class="body"><p><em>“All I know is just what I read in the papers, and that’s an alibi for my ignorance.”</em> – Will Rogers</p><p>Rarely has the House of Saud been so vulnerable. Under the stewardship of Crown Prince and Prime Minister Mohammed bin Salman (MBS), the Kingdom has been propping up one side of an ugly civil war in Yemen with the finest Western weapons oil money can overpay for, backing what legacy media outlets call “the internationally recognized government” operating out of Aden.</p><p>Power is rarely made durable by mere proclamation, and a ragtag group of rebels—headlined by an outfit colloquially known as Houthis and the Blowships—has a decidedly different view of local legitimacy, one that it seems more than capable of backing by force. For reasons that are decades in the making, the outcome of this struggle is seen as existential for MBS, both politically and, well, you know the rest.</p><p>Judging by the alarming-to-Riyadh pace at which Saudi-backed forces are collapsing in the face of the Houthi onslaught, the final battle for Aden is fast approaching, and its outcome will undoubtedly be reported as shocking in hindsight. The clues are there for all those willing to look, and the Blowships have made them difficult to miss by <a href="https://www.reuters.com/world/middle-east/houthi-attacks-saudi-arabia-2026-11-19/" target="_blank" rel="noopener">broadening their sights</a> to include high-profile symbols of the MBS era:</p><blockquote><p>“<em>On October 14 the Houthis said they had struck Aramco’s headquarters ​in Dhahran, Saudi ⁠Arabia’s main eastern oil city. Three people with knowledge of the matter said that attack caused extensive damage.</em></p><p><em>On November 8, the Houthis said they had hit the Aramco building in Riyadh’s financial district. The attack caused visible damage to several floors of the tower. Saudi authorities said the damage came after they ⁠intercepted a ​projectile.</em></p><p><em>A strike on November 19 hit a tower belonging to the Public Investment Fund, ​Saudi Arabia’s sovereign wealth fund. The Houthis did not immediately claim responsibility for the attack. Three people familiar with the matter said the strike was caused by a Houthi missile.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!sYdc!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F60722c43-00ab-4088-95fa-4009f8581909_2370x1332.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!sYdc!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F60722c43-00ab-4088-95fa-4009f8581909_2370x1332.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Stepped in mud, got new brown shoes | Saudi Press Agency</figcaption></figure><p>As with most perfect storms, worries have a way of stacking up in quick succession, and the Houthi avalanche comes on the heels of nine months of definitely-not-a-forever-war-just-one-that-never-ends involving the US, Israel, and Iran, which Tehran surely knows MBS enthusiastically supported before he suddenly didn’t. The constipation in the Strait of Hormuz has led to rumors of a Saudi funding crisis, the existence of which has been largely kept secret by a stifling censorship regime. Our friend at the popular Substack <em>PauloMacro</em> <a href="https://paulomacro.substack.com/p/metals-get-the-business" target="_blank" rel="noopener">speculated</a> that the recent downdraft in gold prices was linked to the House of Saud’s declining fortunes and financial excesses. We suspect he is right:</p><blockquote><p>“<em>In the meantime precious metals are getting annihilated, and while everyone points fingers at a tightening Fed or draining liquidity, I think the answer is much simpler — gold holders need cash instead, and urgently so. Which brings us back to my recent obsession around Saudi, its equity market (KSA ETF), its sovereign CDS [credit default swaps], and... it’s [stet] banks…</em></p><p><em>I think the Saudi situation is highly vulnerable here, and shockingly invisible (like everything in the press in that part of the world right now). There is a clear deposit shortage in Saud.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!SIEz!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1f11d578-78cc-44e2-9d86-40333bb6bb45_1942x1088.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!SIEz!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1f11d578-78cc-44e2-9d86-40333bb6bb45_1942x1088.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Lost my job, there’s a new opportunity | Getty</figcaption></figure><p>Meanwhile, in the happy talk halls of the 31st Conference of the Parties (COP31) to the UN Framework Convention on Climate Change, the Crown Prince’s proxies have fought off the charge of a fiercely motivated army of do-gooders in the war on carbon. Precious few were even aware that COP31 was actually held this year—let alone in nearby Turkey, which apparently now chooses to identify as Türkiye—but reports from the front indicate its mission seems to be <a href="https://www.nytimes.com/2026/11/22/climate/cop31-climate-summit-ends-climate.html" target="_blank" rel="noopener">derailing</a>:</p><blockquote><p>“<em>The United Nations climate talks broke down on Sunday with no final agreement after long-building tensions paralyzed the negotiations, pitting nations seeking to wind down the era of fossil fuels against those aiming to prolong it.</em></p><p><em>The European Union, as well as many smaller countries vulnerable to climate disasters and rising sea levels, rejected a proposed agreement they said stripped out crucial protections and favored countries that export oil, gas and coal. A group of oil producers, led by Saudi Arabia and including Russia, had blocked any mention of fossil fuels, the root cause of global warming.</em></p><p><em>It was the first time U.N. climate talks broke down over a final agreement since COP15 in Copenhagen in 2009.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!GYiS!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F978e073d-8a76-4f03-8117-7e3f344783ea_1592x1058.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!GYiS!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F978e073d-8a76-4f03-8117-7e3f344783ea_1592x1058.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">It’s awesome to win, and it’s awesome to lose | Getty</figcaption></figure><p>For European Union (EU) bureaucrats, retaining their steadfast opposition to hydrocarbons at a time when their fiefdoms are in existentially short supply—and bursting at the seams with angry populism as a result—is decidedly on brand. So troubling is the pickle in which the EU finds itself that no less an august body than the US Federal Reserve Board has taken notice. In a <em>FEDS Notes</em> <a href="https://www.federalreserve.gov/econres/notes/feds-notes/europes-natural-gas-outlook-for-the-upcoming-winter-2026-2027-20261120.html" target="_blank" rel="noopener">essay</a> published on Friday that echoes what we have been foreshadowing <a href="https://newsletter.doomberg.com/p/no-laffan-matter" target="_blank" rel="noopener">since March</a>, the interest-rate gods modeled the suite of potential outcomes facing the Old Continent this winter:</p><blockquote><p>“<em>Against this backdrop, this note considers under what conditions Europe could face gas shortages during the 2026–27 winter. Following the analysis in Rua (2023) of Europe’s energy position ahead of the 2023–24 winter, this note projects EU gas inventories through June 2027, under a Baseline and two adverse scenarios. The projections suggest that Europe can get through an average winter without running out of gas, and through a harsh winter too, albeit with stocks lower than it has tolerated in the past. However, a notable decline in LNG imports would leave storage nearly empty by the spring.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!JfqG!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F731cad6e-ec49-4116-a7ce-eac81c0caca3_2428x1434.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!JfqG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F731cad6e-ec49-4116-a7ce-eac81c0caca3_2428x1434.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Dip my body in chocolate frostin’ | Getty</figcaption></figure><p>With broad swaths of buffoonery to choose from, you could be forgiven for missing what future swarm-agent historians will dutifully report as the most important news story of 2026, at least thus far. Just four years after ChatGPT sprung the age of artificial intelligence (AI) on the world, frontier models have gone from being unable to count the number of times the letter “r” appears in “strawberry”—it’s three, for those humans still reading this—to helping mathematicians <a href="https://www.nytimes.com/2026/11/20/science/anthropic-ai-math-riemann-hypothesis.html" target="_blank" rel="noopener">prove</a> one of the most foundational math hypotheses in history:</p><blockquote><p>“<em>The Riemann hypothesis, often considered the most important unsolved problem in mathematics, may be the latest to be conquered by artificial intelligence.</em></p><p><em>On Friday, Levent Alpoge, a mathematician at Anthropic, posted a four-page note on his personal website saying that he had completed a proof of the hypothesis by collaborating with Claude, the company’s AI system. He did not include a traditional mathematical paper to describe the proof, but instead linked to computer code that he claimed would verify the result.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!cdOh!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7cee8886-3550-4d04-b608-37c63ce8cebd_1024x683.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!cdOh!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7cee8886-3550-4d04-b608-37c63ce8cebd_1024x683.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Have you heard the news? Everyone’s talkin’ | Getty</figcaption></figure><p>While normies are left to ponder the specific importance of this advance, it is the rate of change in technological progress that matters most. In Ray Kurzweil’s spookily prescient 2005 tome <em>The Singularity Is Near</em>, the futurist observed that the doubling time of technology was shrinking exponentially and made the jarring prediction that soon it would take but a single day. Among the many forecasts that seemed outlandish at the time, Kurzweil posited that AI would surpass human-level intelligence by 2029. On a log chart, we suppose he was close enough.</p><p>We close by emphasizing the often-overlooked subtitle of Kurzweil’s book: <em>When Humans Transcend Biology</em>. In his vision, biological brains would merge with machine intelligence by 2045, ushering in a new epoch that would see human intelligence multiplied “<em>roughly a millionfold</em>.” We suspect that by 2030, Kurzweil will be viewed as a techno-pessimist.</p><p>Alas, as everyone from Ursula to Warsh to MBS to the Green Chicken knows, there’s no room for pessimism. What, don’tcha know? Everything. Is. Awesome.</p><p><em><strong>“</strong></em>♡<em><strong> Like” this piece, Dave—or HAL might not open that door.</strong></em></p><figure><a href="https://substackcdn.com/image/fetch/$s_!iWrZ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5344189b-3be6-40c0-b739-f17b36b3ff77_1562x1044.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!iWrZ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5344189b-3be6-40c0-b739-f17b36b3ff77_1562x1044.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://newsletter.doomberg.com/p/everything-is-awesome" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
