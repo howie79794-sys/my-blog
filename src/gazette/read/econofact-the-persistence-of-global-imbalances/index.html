@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>EconoFact: “The Persistence of Global Imbalances” · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 能源计量</div>
+    <h1 class="title">EconoFact: “The Persistence of Global Imbalances”</h1>
+    <div class="byline">
+      <span class="author">门齐·钦</span><span class="dot">◆</span>
+      <span class="src"><a href="https://econbrowser.com/archives/2026/11/econofact-the-persistence-of-global-imbalances" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-24 · 761 words</span>
+    </div>
+    <div class="body"><p>Today, I do a rundown on global imbalances 2026 on <a href="https://econofact.org/the-persistence-of-global-imbalances" target="_blank" rel="noopener">Econofact</a>.</p>
+
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/11/weo_ca_combined_web-1.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/11/weo_ca_combined_web-1.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p>From the <a href="https://econofact.org/the-persistence-of-global-imbalances" target="_blank" rel="noopener">memo</a>:</p>
+<blockquote>
+<h3>The Issue:</h3>
+<p>Global imbalances, which refers to the pattern of surpluses and deficits across countries, have been widening since the pandemic reaching about 3.8 percent of world income in 2025, according to the International Monetary Fund’s October 2026 <a href="https://www.imf.org/-/media/files/publications/weo/2026/october/english/ch1.pdf" target="_blank" rel="noopener">World Economic Outlook</a>. The increase is driven to a large extent by developments in the world’s two largest economies: the United States and China. Although global imbalances remain below the peaks reached before the 2008 global financial crisis, they are <a href="https://www.ft.com/content/1bbd3463-1022-4c98-9840-df9b671a3d41?syn-25a6b1a6=1" target="_blank" rel="noopener">fueling political and economic tensions</a> and their upward trend and persistence raises <a href="https://www.imf.org/en/publications/fandd/issues/2026/09/back-to-basics-a-world-seeking-balance-manasa-patnam" target="_blank" rel="noopener">questions about their sustainability</a>. But resolving global imbalances is challenging and requires domestic policy changes that can be politically difficult for the relevant actors.</p></blockquote>
+<p>Two major points, the first based in my work with <a href="https://www.ssc.wisc.edu/~mchinn/Chinn_Ito_CAB.pdf" target="_blank" rel="noopener">Hiro Ito</a>:</p>
+<blockquote>
+<ul>
+<li><strong>The United States’ net international borrowing went towards financing both the government budget deficit and private investment.</strong> An important driver of the U.S. current account deficit is government borrowing that has been <a href="https://econofact.org/addressing-rising-us-debt" target="_blank" rel="noopener">large by historical standards</a> for an economy that is not facing a crisis. A country’s government budget deficit could reasonably be expected to decrease when its economy is near full employment as tax receipts rise and spending to support the safety net falls. But this is not the case in the United States; the CBO estimates a budget deficit amounting to <a href="https://www.cbo.gov/publication/61882" target="_blank" rel="noopener">5.8 percent of GDP</a> in the current fiscal year, well above its 3.8 percent average over the past half-century, even as the economy currently is near full employment. Reducing government borrowing would contribute to shrinking the current account deficit. Estimates suggest that for high income countries, <a href="https://www.sciencedirect.com/science/article/pii/S0261560624002250" target="_blank" rel="noopener">each percentage point reduction in the budget deficit reduces the current account deficit by 0.35-0.40 percentage points</a>. For example, reducing the budget deficit by 3 percent of GDP would reduce the U.S. current account deficit by about 1.1 percent of GDP. Hence, fiscal policies provide one way of reducing the U.S. side of the global imbalances. But not all of the borrowing behind the U.S. current account deficit has been driven by government borrowing. Private investment in the first three quarters of 2026 was <a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank" rel="noopener">18 percent of GDP</a> driven largely by capital investment related to data centers and the expanding capacity for Artificial Intelligence. The AI investment could provide for a productivity boom and higher income in the future which would facilitate the repayment of borrowing from abroad. But if expectations are downgraded this might result in a reversal in equity inflow – which currently finances the bulk of the current account –spurring a disruptive drop in AI related equity wealth.</li>
+<li><strong>China’s current account surplus, estimated to be <a href="https://www.imf.org/en/blogs/articles/2026/07/30/rising-global-imbalances-underscore-need-to-confront-domestic-distortions" target="_blank" rel="noopener">0.6</a> to <a href="https://www.cfr.org/articles/chinas-customs-bop-gap-is-not-a-customs-problem" target="_blank" rel="noopener">0.7 percent of world GDP</a></strong><strong>, mostly reflects its large surplus in international trade of goods.</strong> The most recent surge in the country’s exports is partly the result of an unprecedented real estate contraction that began in 2021 which depressed growth in domestic household spending and consumption and made the country increasingly dependent on exports to fuel economic growth (see <a href="https://econofact.org/chinas-export-dominance-a-sign-of-both-economic-strength-and-weakness" target="_blank" rel="noopener">here</a>). The large value of Chinese exports of goods relative to its imports of goods means that jobs have been reallocated away from countries importing Chinese goods. For the European Union, the current surge in imports from China is contributing to the displacement of <a href="https://www.iif.com/LinkClick.aspx?fileticket=P0zl7_rvJjs%3D&portalid" target="_blank" rel="noopener">key industries, including Electric Vehicles as well as other capital goods</a>. Although Europe’s current account remains in surplus (exports exceed imports), the Euro area current account surplus has fallen from 103 billion Euros in the 3rd quarter of 2024 to 73 billion Euros in the 3rd quarter this year, against a backdrop of slowing employment growth. The rapid growth of cheaper Chinese exports is exacerbating <a href="https://www.brookings.edu/articles/europes-china-shock-2-0-where-does-it-go-from-here/" target="_blank" rel="noopener">protectionist pressures</a> in Europe. If this leads to measures that reduce the inflow of Chinese goods, it could threaten Chinese economic growth, which accounts for a substantial portion of global growth.</li>
+</ul>
+</blockquote>
+<p>In 2007, the US CA deficit was 5% of GDP; in 2026, it’s forecasted by the IMF to be 3.9%. One major difference between now and then was the source of the financing of the US current account deficit: the official sector (central banks) in the 2000’s; more private — and price sensitive — sources today. This can be seen in the holdings of US debt by the foreign sector:</p>
+<p><a href="https://econbrowser.com/wp-content/uploads/2026/11/debt_composition_gdp2.png" target="_blank" rel="noopener"><img src="https://econbrowser.com/wp-content/uploads/2026/11/debt_composition_gdp2.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a></p>
+<p><em><strong>Figure 1:</strong> Debt held by the public, as ratio to GDP, by Fed (tan bar), by foreign official (dark green bar), foreign private (light green bar), and rest (blue bar). Source: Treasury, and BEA.</em></p>
+
+
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://econbrowser.com/archives/2026/11/econofact-the-persistence-of-global-imbalances" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
