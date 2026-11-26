@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>How to make Thanksgiving even better · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>宏观 · 科技 · 中国观察</div>
+    <h1 class="title">How to make Thanksgiving even better</h1>
+    <div class="byline">
+      <span class="author">诺亚·史密斯</span><span class="dot">◆</span>
+      <span class="src"><a href="https://www.noahpinion.blog/p/how-to-make-thanksgiving-even-better" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-26 · 2136 words</span>
+    </div>
+    <div class="body"><figure><a href="https://substackcdn.com/image/fetch/$s_!vmmn!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14f3ac74-09da-47fe-96aa-506ded1ce24e_1053x702.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!vmmn!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14f3ac74-09da-47fe-96aa-506ded1ce24e_1053x702.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo by <a href="https://unsplash.com/@jimmy_conover?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Jimmy Conover</a> on <a href="https://unsplash.com/photos/brown-and-white-wooden-house-fyEin27bHZ8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></figcaption></figure><p>Just to be clear, I <em>like </em>Thanksgiving. In fact, I like holidays in general. My favorites are Christmas and New Year’s, but I also love the 4th of July, Valentine’s Day, and Halloween. I like Labor Day and Memorial Day, despite the fact that most people don’t seem to get off work these days. I enjoy Mother’s Day and Father’s Day, even though my parents are no longer with us. St. Patrick’s Day and Cinco de Mayo are fun, even though I don’t drink much alcohol. Passover and Purim are underrated Jewish religious holidays, and Hanukkah is an excellent alternative Christmas. I’m sure Diwali will be a party once Hindu culture becomes more common in America. Juneteenth was a Texas holiday long before it became a national one. Columbus Day is fun mainly for seeing people get mad online. Presidents’ Day is…a day, I guess.</p><p>But OK, Thanksgiving. It has lots to recommend it. For one thing, <em>everyone </em>gets off work, which is not true for any other holiday except Christmas. It’s a great opportunity for most people to see their families. And since it’s on a Thursday, almost everyone gets at least four or five consecutive days off in a row (European friends, I assure you that this is a big deal in America). I also like pie,<a href="#footnote-1" target="_blank" rel="noopener">1</a> and Thanksgiving is a prime time for pie. Also, Thanksgiving is conveniently situated midway between Halloween and Christmas, making the last two months of the year feel like one big rolling holiday season. </p><p>For many years, though, I’ve felt like Thanksgiving could stand to have a major upgrade in our culture. Despite its advantages, the holiday as it stands has several big weaknesses.</p><p>First of all, it involves a lot of frantic rushing around. You fly or drive out to see your family on Wednesday, you eat a big dinner, you hang out for one or two more days, and then you fly right back for three more weeks of work before Christmas, with barely any time to relax. The air congestion is horrendous, and the roads aren’t much better. Contrast this with Christmas/New Year’s, which for many people is a week or more of vacation.</p><p>Unfortunately, I don’t think the timing of Thanksgiving is fixable. American culture being what it is, a second country-wide “vacation week” would be a big ask. And if we do get a second vacation week, it should really be in the spring, to balance out the relative lack of national holidays in that season. </p><p>Thanksgiving’s second big weakness — that not everyone has a family they can visit — has already been fixed, with the advent of Friendsgivings. This has also turned Thanksgiving into a much-needed “dinner-party holiday”. Americans already have lots of holidays where they go out and party and drink alcohol (or your equally attractive non-alcoholic beverage of choice). It’s nice to have one cozy, low-key holiday where you invite all your friends over, show off your cooking skills, and chill on the couch. Friendsgivings also spread out the Thanksgiving holiday season beyond simply the 5-day weekend. </p><p>But there are still some ways that I feel Thanksgiving could be significantly improved.</p><p>One is that other than the dinner, Thanksgiving is kind of thin on associated traditions. Halloween has costumes and spooky house decorations. Christmas has gift-giving and cheerful house decorations. The 4th of July and New Years have fireworks. Valentine’s Day has gift-giving. Thanksgiving just has…dinner. There’s nothing wrong with dinner, but I feel like we can do more.</p><p>One idea is to add <strong>a tradition of gift-giving</strong>. We have holidays where you give presents to your family and friends (Christmas/Hanukkah, birthdays), and a holiday where you give presents to your lover (Valentine’s). But what about a holiday when you give out little minor gifts to your acquaintances and associates — your coworkers, neighbors, and so on? Ideally, these would be little individually wrapped snacks or other food items, like the omiyage boxes in Japan:</p><figure><a href="https://substackcdn.com/image/fetch/$s_!N2NL!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F202b3352-1e9b-445d-aea2-77146a4752ba_961x639.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!N2NL!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F202b3352-1e9b-445d-aea2-77146a4752ba_961x639.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo by Jorge from Brazil via <a href="https://commons.wikimedia.org/wiki/File:Japanese_Omiyage_in_2014_%2813335201323%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure><p>In fact, I borrowed this whole idea from Japan. While Valentine’s Day is a purely romantic holiday in America, in Japan people <a href="https://en.wikipedia.org/wiki/Giri_choco" target="_blank" rel="noopener">bring chocolates for coworkers and friends</a> — and there’s another holiday on March 14th called <a href="https://en.wikipedia.org/wiki/White_Day" target="_blank" rel="noopener">White Day</a> when people do the same.<a href="#footnote-2" target="_blank" rel="noopener">2</a></p><p>A tradition of broad-based giving of minor gifts on Thanksgiving would fit with the general theme of “giving thanks”, since it’s basically a way to give thanks for all of your social ties. And it would be a way to celebrate our broad social networks, which are both more economically and more psychologically important than we tend to appreciate. It would also lead to a burst of society-wide creativity, as stores competed to create ever-more-creative gift boxes. </p><p>A second new Thanksgiving tradition could be <strong>house decorations</strong>. Yes, it would be a pain in the butt to decorate your house for Halloween, Christmas, AND Thanksgiving, three months in a row. But there are some ambitious home-decorators out there. And there are probably lots of people who would like to do house decorations, but who don’t want to do the spooky Halloween theme, and for whom Christmas is too religious. Thanksgiving decorations could be a way to accommodate that group, and raise the percentage of homes in any given neighborhood that have decorations at the end of the year.</p><p>What would Thanksgiving decorations be? Fall colors and pumpkins and such are obvious, but I think we need something more. One idea is to do creative illumination, like the “illumination” you see in Japan around the wintertime. </p><figure><a href="https://substackcdn.com/image/fetch/$s_!u9Ex!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F30e27284-6fce-4df5-8272-1c9bfe163219_936x624.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!u9Ex!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F30e27284-6fce-4df5-8272-1c9bfe163219_936x624.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo by <a href="https://unsplash.com/@xyrene_sohtaro?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Xyrene</a> on <a href="https://unsplash.com/photos/pink-and-green-trees-near-river-during-daytime-fgk5dKLW-pc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></figcaption></figure><figure><a href="https://substackcdn.com/image/fetch/$s_!1uXG!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3da2904b-2513-4176-a605-3ee81ccc0aa6_960x640.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!1uXG!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3da2904b-2513-4176-a605-3ee81ccc0aa6_960x640.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo by Oilstreet via <a href="https://commons.wikimedia.org/wiki/File:2019_Osaka_City_Midosuji_illumination02-r.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure><figure><a href="https://substackcdn.com/image/fetch/$s_!2K2X!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0176e95-1748-4293-b28f-618eaac8d83c_960x720.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!2K2X!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0176e95-1748-4293-b28f-618eaac8d83c_960x720.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Photo by Miyuki Meinaka via <a href="https://commons.wikimedia.org/wiki/File:Flower_Fantasy_20th_Anniversary_3.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure><p>These are public displays, obviously, but Americans have always done this kind of thing with their individual houses. Thanksgiving could be an opportunity for people to show off their creative lighting skills, without being bound to the themes of Halloween and Christmas. Also, you could leave Thanksgiving lights up until after New Year’s, making them longer-lasting than either Halloween or Christmas lights.</p><p>So there are two ideas — both vaguely Japan-inspired — for adding new traditions to Thanksgiving. But what about the big existing tradition? </p><p>Let’s talk about Thanksgiving dinner. Lots of people love turkey and stuffing and cranberries and the rest of the traditional Thanksgiving foods, but to me they feel a little dated. I’m sure they constituted an absolute feast back in the late 1800s, but today they feel a little like those polygonal graphics from 1990s video games — “good for the time”.</p><figure><a href="https://substackcdn.com/image/fetch/$s_!HNfh!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0ef5b42-410f-4cd7-ac1b-f3f4c3282577_985x687.jpeg" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!HNfh!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0ef5b42-410f-4cd7-ac1b-f3f4c3282577_985x687.jpeg" referrerpolicy="no-referrer" loading="lazy" alt=""></a></figure><p>There’s nothing wrong with roast turkey, but it can be a little dry and gamey, even if you baste it correctly. Cranberries are not necessarily the yummiest fruit out there. Stuffing is fine, I like bread, but it takes a skilled chef to make it taste like more than just “bread”. It’s not that Thanksgiving dinner is bad; it’s that I feel like for the most important “dinner” holiday of the year, we should have a dinner that stands out a little more in the modern age of globalized ingredient supply chains. </p><p>Now before you get mad at me, I know that lots of people love the traditional Thanksgiving meal, and I am absolutely <em>not</em> suggesting that anyone be pressured to change it if they don’t want to. Instead, I think our country should come up with <em>variants </em>on the traditional meal — specifically, <em>ethnic </em>variants, mixing in elements from various countries’ cuisines. </p><p>In fact, this is already starting to happen. <a href="https://cooking.nytimes.com/recipes/793280238-gochujang-cranberry-sauce" target="_blank" rel="noopener">Gochujang cranberry sauce</a> is starting to become a thing. So are <a href="https://www.usatoday.com/story/entertainment/dining/2026/11/04/changing-tradition-thanksgiving-gen-z/92006420007/" target="_blank" rel="noopener">some other international ingredients</a>:</p><blockquote><p>From <a href="https://www.tiktok.com/@takestwoeggs/video/7441752873077148958?q=spicy%20thanksgiving&t=1792686339215" target="_blank" rel="noopener">gochujang Brussels sprouts</a> to <a href="https://www.tiktok.com/@annaandthekitch/video/7583148559898381599?q=harissa%20glaze%20thanksgiving&t=1792686706607" target="_blank" rel="noopener">harissa honey-glazed carrots</a>, food trend experts and chefs are expecting your traditional Thanksgiving meal to be spicier…With younger generations hosting Friendsgiving…people aren’t necessarily giving up traditional dishes, but they’re changing them. People are starting to mix recipes and add flavors like gochujang, chili crisp, miso and harissa into Thanksgiving must-haves like turkey and green bean casserole…</p><p>Different cultures are adding to the changes in these dishes, according to Rowena Scherer, a chef, author of the cookbook "A Taste of The World: Celebrating Global Flavors" (The Collective Book Studio, 2024) and founder and CEO of global cooking-kit brand <a href="https://www.awin1.com/cread.php?awinmid=91233&awinaffid=522691&campaign=&clickref=FoodEat2Explore_u5pJbPbobPEgErmrpZqI7JU&clickref2=&clickref3=&clickref4=&clickref5=&clickref6=&ued=https%3A%2F%2Feat2explore.com%2F&platform=pl" target="_blank" rel="noopener">eat2explore</a>. You might see gochujang, chili crisp, miso and harissa show up in glazes, butters and dressings, while dumplings, empanadas and spring rolls might be part of an appetizer…</p><p>"The turkey isn't going anywhere, but it's getting a makeover with a spice rub, a citrus-chili marinade or a chimichurri on the side. The pumpkin pie stays, maybe next to a tres leches or a mochi dessert," said Scherer.</p></blockquote><p>Here’s a tweet I recently saw that made me actually crave a Thanksgiving dinner for the first time in many years:</p><p>Partly, this just mirrors the worldwide trend in restaurant food that you see with <a href="https://www.noahpinion.blog/p/where-to-eat-in-san-francisco" target="_blank" rel="noopener">New American bistros</a> and creative izakayas in Japan — as supply chains have globalized and international ingredients have become cheap and accessible, people are experimenting with novel combinations.</p><p>But for Thanksgiving specifically, I think there’s something more here. Thanksgiving is a purely American holiday (though Canada has its own version). What does it celebrate? It’s more than just a harvest festival. It’s traditionally a time of giving thanks, but as a nation, what are we giving thanks for?</p><p>The answer is that <em>we’re giving thanks for being in America</em>. <a href="https://en.wikipedia.org/wiki/Thanksgiving_(United_States)" target="_blank" rel="noopener">The typical Thanksgiving story</a> is about the founding of the Plymouth colony in Massachusetts, often involving cooperation with local Native American tribes. The Plymouth settlers were not technically <em>immigrants</em> — there was no official jurisdiction that invited them in — but the idea of newcomers from distant lands being welcomed to American shores by the existing inhabitants is clearly a tale about <em>immigration</em>. </p><p>Immigration is central to America’s story of who we are as a nation. An <a href="https://www.ipsos.com/sites/default/files/ct/news/documents/2026-04/Ipsos%20America%20250%20Poll%20Topline.pdf?utm_source=chatgpt.com" target="_blank" rel="noopener">overwhelming majority of Americans</a> — including <a href="https://www.ipsos.com/sites/default/files/ct/news/documents/2024-09/Syracuse%20University%20Ipsos%20Poll%20Topline%209.27.2024.pdf?utm_source=chatgpt.com" target="_blank" rel="noopener">77% of Republicans</a> — agree that the U.S. is a “nation of immigrants”. In <a href="https://prri.org/research/creating-more-inclusive-public-spaces-two-years-later/?utm_source=chatgpt.com" target="_blank" rel="noopener">a 2024 poll</a>, immigration came in third in a list of things Americans want to commemorate with new monuments, right after patriotism and community service.</p><p>Commemorating the fact that we’re all here, sharing this nation and this land, seems like the perfect purpose for this quintessentially American national holiday. And as such, why should we not create variants of the traditional Thanksgiving dinner that reflect both native North American ingredients and others brought from around the world?</p><p>Let’s have Mexican Thanksgiving dinner, Korean Thanksgiving dinner, Indian Thanksgiving dinner. Let’s have celebrity chefs vie to create the most iconic versions of these variants. Let’s have mixed Thanksgiving dinners made from foods from all of these places — just as our culture is a mixed one, made up of ingredients from all over the world. The purpose isn’t just to spice up the traditional turkey-and-stuffing meal, but to remind us that Thanksgiving is a holiday with a higher meaning than simply an opportunity to get together and eat.</p><p>This idea is about more than just adding traditions to Thanksgiving; it’s about giving America a second major holiday in which we celebrate our nation itself. On the Fourth of July, we celebrate the institutional founding of the United States, and hopefully the principles of that founding as well. But I think we need a holiday where we celebrate the <em>people </em>that make up our country. We are a composite people, gathered from all corners of the Earth, and we should have a day where we come together and give thanks that somehow, we all landed here together in this great cooperative enterprise.<a href="#footnote-3" target="_blank" rel="noopener">3</a></p><p>But in any case, whether you like this idea or not, and however you happen to celebrate Thanksgiving, I hope you have a great one. I’m thankful for all of you, my excellent readers, and I’m looking forward to the next year of blogging for you. Happy holidays!</p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.noahpinion.blog/subscribe?&quot;,&quot;text&quot;:&quot;Subscribe now&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.noahpinion.blog/subscribe?" target="_blank" rel="noopener">Subscribe now</a></p><p class="button-wrapper" data-attrs="{&quot;url&quot;:&quot;https://www.noahpinion.blog/p/how-to-make-thanksgiving-even-better?utm_source=substack&utm_medium=email&utm_content=share&action=share&quot;,&quot;text&quot;:&quot;Share&quot;,&quot;action&quot;:null,&quot;class&quot;:null}" data-component-name="ButtonCreateButton"><a href="https://www.noahpinion.blog/p/how-to-make-thanksgiving-even-better?utm_source=substack&utm_medium=email&utm_content=share&action=share" target="_blank" rel="noopener">Share</a></p><a href="#footnote-anchor-1" target="_blank" rel="noopener">1</a><p>Except for pecan pie, for some reason. And lemon meringue pie and cherry pie. </p><a href="#footnote-anchor-2" target="_blank" rel="noopener">2</a><p>Traditionally, women bring chocolates for coworkers on Valentine’s, and men bring marshmallows, white chocolate, or flowers on White Day. In recent years, though, both holidays feature more general snack-giving by both genders, to a broader range of recipients.</p><a href="#footnote-anchor-3" target="_blank" rel="noopener">3</a><p>Obviously, there will be some people who oppose that expansion of Thanksgiving’s meaning, for political reasons. Rightists will object strongly to the notion that America is a nation of immigrants, preferring their (deeply unpopular) view that the nation is based on European DNA alone. Leftists will object strongly to the notion that the nation should be celebrated at all, as they view America’s very existence as rooted in genocide and imperialism. As usual, I urge everyone to ignore the views of both rightists and leftists.</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://www.noahpinion.blog/p/how-to-make-thanksgiving-even-better" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
