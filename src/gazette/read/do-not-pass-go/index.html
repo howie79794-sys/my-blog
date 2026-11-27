@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>Do Not Pass Go · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>能源 · 宏观</div>
+    <h1 class="title">Do Not Pass Go</h1>
+    <div class="byline">
+      <span class="author">Doomberg</span><span class="dot">◆</span>
+      <span class="src"><a href="https://newsletter.doomberg.com/p/do-not-pass-go" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-28 · 647 words</span>
+    </div>
+    <div class="body"><p><em>“Later machines will all be designed by ultraintelligent machines, and who am I to guess what principles they will devise?”</em> – Irving John Good</p><p>When Isidore Jacob Gudak was born to Polish immigrant parents in London on December 9, 1916, few could have envisioned the impact his work would have on the future of computational science. Like many new arrivals to Britain, Gudak’s name was later anglicized for assimilation purposes, and Irving John “Jack” Good’s prodigious talent for mathematics was recognized at an exceptionally early age. Legend has it that by age 9 he had both deduced that the square root of 2 was irrational and found solutions to Pell’s equation—intellectual milestones on his journey to earning a doctorate at Jesus College, Cambridge, in 1941.</p><figure><a href="https://substackcdn.com/image/fetch/$s_!ObFI!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0da292d1-6735-4de4-9e2a-8c1ce57642ed_1560x1094.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!ObFI!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0da292d1-6735-4de4-9e2a-8c1ce57642ed_1560x1094.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Strong nerd vibes | Virginia Tech Science Magazine</figcaption></figure><p>In popular culture, Good is probably best known for his provocative <a href="https://www.sciencedirect.com/science/chapter/bookseries/abs/pii/S0065245808604180" target="_blank" rel="noopener">1966 paper</a>, “Speculations Concerning the First Ultraintelligent Machine,” which appeared in the appropriately titled journal <em>Advances in Computers</em>. Here’s the oft-quoted money shot:</p><blockquote><p>“<em>Let an ultraintelligent machine be defined as a machine that can far surpass all the intellectual activities of any man however clever. Since the design of machines is one of these intellectual activities, an ultraintelligent machine could design even better machines; there would then unquestionably be an ‘intelligence explosion,’ and the intelligence of man would be left far behind. Thus the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.</em>”</p></blockquote><p>In the modern era of rapid advances in artificial intelligence (AI), creating Good’s ultraintelligent machine has morphed into the vigorous and controversial pursuit of recursive self-improvement (RSI) by frontier labs, including Google, SpaceX, newly public Anthropic, and still-private OpenAI. Under RSI, AI models master the art of improving themselves, rapidly leading to the intelligence explosion foreseen by Good six decades ago. Although nobody truly knows what RSI will look like, more than enough contemporary prodigies have expressed <a href="https://www.cnbc.com/amp/2026/09/11/anthropic-openai-ai-existential-concerns.html" target="_blank" rel="noopener">extreme alarm</a> at the uncontrolled nature of the experiment humanity has embarked upon to raise concern. A recent article in <em>TechCrunch</em> <a href="https://techcrunch.com/2026/11/02/anthropic-warns-that-its-very-close-to-rsi-capability-aka-self-building-ai/" target="_blank" rel="noopener">frames</a> the current discourse:</p><blockquote><p>“<em>To the AI doomers, RSI represents the cataclysm from which there is no return, in which AI builds itself into something powerful enough that it slips beyond human control and may be indifferent to the damage it causes while achieving its goals.</em></p><p><em>To AI enthusiasts, RSI, or some version of AI reliably using itself to improve, represents the technology’s promise, where it becomes a tool of unimaginable productivity, scientific discovery, and more.</em>”</p></blockquote><figure><a href="https://substackcdn.com/image/fetch/$s_!Fzb2!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff0070dbb-8335-4b57-92cb-6beaf638b085_2406x1592.png" target="_blank" rel="noopener"><img src="https://substackcdn.com/image/fetch/$s_!Fzb2!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff0070dbb-8335-4b57-92cb-6beaf638b085_2406x1592.png" referrerpolicy="no-referrer" loading="lazy" alt=""></a><figcaption class="image-caption">Escape velocity | Getty</figcaption></figure><p>Presumably lurking under the “<em>and more</em>” umbrella are ultrapowerful weapons envisioned by military enthusiasts in the halls of the Pentagon, for it does not take much in the way of AI expertise to deduce that the winning side in the RSI race will possess tools with vast destructive powers. Among the more benign embodiments that mere human conjecture has credibly pondered is an effective end-run around all known encryption technologies, which smarter people than we fear may result from <a href="https://news.mit.edu/2009/explainer-pnp" target="_blank" rel="noopener">proving P = NP</a>, which they tell us has something to do with polynomial time and its nondeterministic cousin. (Reimann who?)</p><p>Rumors that RSI has indeed been birthed beyond the public’s view have accelerated to the point where one need not be an insider to have heard confirmatory murmurs from someone who is, and such is the backdrop against which we now ponder the bizarre happenings at Nvidia over the past several weeks. Under the premise that the American government believed it had unlocked the geopolitical equivalent of God mode, what might we expect to see in the way of headlines, and are they consistent with the rash of difficult-to-explain ones the world has been treated to thus far in November? Call us crazy, but…</p></div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://newsletter.doomberg.com/p/do-not-pass-go" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
