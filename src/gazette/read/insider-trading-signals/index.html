@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-touch-icon" content="/assets/gazette/apple-touch-icon.png">
+<title>When Insider Trading Signals Reach You, the Alpha is Already Gone · HOWIE GAZETTE</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --bg:#F5F0E6; --paper:#EFE6CE; --card:#FBF8F0;
+  --ink:#1F1A14; --dim:#544E42; --faint:#6A665E;
+  --rule:#C8C0B0; --rule-soft:#DDD5C2;
+  --accent:#B14427; --accent-dark:#93331B;
+  --accent-wash:rgba(177,68,39,.07); --accent-tint:rgba(177,68,39,.12);
+  --shadow-1:0 1px 3px rgba(87,70,40,.10),0 2px 8px rgba(87,70,40,.08);
+  --shadow-2:0 3px 8px rgba(87,70,40,.13),0 10px 24px rgba(87,70,40,.13);
+  --ease:cubic-bezier(.25,.5,.35,1);
+  --sans:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Noto Sans SC",sans-serif;
+  --serif:Georgia,"Times New Roman","Songti SC","Noto Serif SC","SimSun",serif;
+  --display:Georgia,"Playfair Display","Times New Roman",serif;
+}
+html{ background:var(--bg); }
+body{ font-family:var(--serif); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; line-height:1; }
+.sheet{ max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+
+/* ── 刊头 ─────────────────────────────── */
+.masthead{ text-align:center; padding:18px 0 14px; border-bottom:3px double var(--ink); }
+.masthead .brand{ font-family:var(--display); font-size:30px; letter-spacing:2px;
+  font-weight:700; }
+.masthead .brand em{ color:var(--accent); font-style:normal; }
+.masthead .tagline{ font-family:var(--sans); font-size:10px; letter-spacing:3px;
+  color:var(--faint); text-transform:uppercase; margin-top:6px; }
+
+/* ── 文章头 ───────────────────────────── */
+article{ padding-top:26px; }
+.crumb{ font-family:var(--sans); font-size:10.5px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.crumb .sep{ color:var(--rule); margin:0 8px; }
+h1.title{ font-family:var(--display); font-size:34px; line-height:1.22;
+  font-weight:700; margin-bottom:14px; text-wrap:balance; }
+.byline{ display:flex; align-items:center; gap:10px; font-family:var(--sans);
+  font-size:12.5px; color:var(--dim); padding:12px 0; margin-bottom:24px;
+  border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft); }
+.byline .author{ font-weight:700; color:var(--ink); }
+.byline .dot{ color:var(--accent); }
+.byline .src a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.byline .meta{ margin-left:auto; color:var(--faint); font-size:11.5px; }
+
+/* ── 正文 ─────────────────────────────── */
+.body{ font-size:16.5px; line-height:1.85; color:var(--ink); }
+.body p{ margin-bottom:1.15em; text-align:justify; }
+.body h2,.body h3{ font-family:var(--display); line-height:1.3; margin:1.6em 0 .6em;
+  font-weight:700; }
+.body h2{ font-size:23px; border-bottom:1px solid var(--rule-soft); padding-bottom:6px; }
+.body h3{ font-size:19px; }
+.body blockquote{ border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:12px 18px; margin:1.4em 0; color:var(--dim); font-size:15.5px; }
+.body blockquote p{ margin-bottom:.5em; }
+.body ul,.body ol{ padding-left:1.4em; margin-bottom:1.15em; }
+.body li{ margin-bottom:.4em; }
+.body a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.body img{ max-width:100%; border-radius:6px; margin:1em auto; display:block;
+  border:1px solid var(--rule-soft); }
+.body code,.body pre{ font-family:Menlo,Consolas,monospace; font-size:13.5px; }
+.body pre{ background:#0F172A; color:#E2E8F0; border-radius:8px; padding:14px 16px;
+  overflow-x:auto; margin:1.2em 0; line-height:1.6; white-space:pre-wrap; }
+.body code{ background:var(--paper); padding:1px 5px; border-radius:3px; }
+.body pre code{ background:none; padding:0; }
+.body strong{ font-weight:700; }
+.body hr{ border:none; border-top:1px solid var(--rule); margin:2em auto; width:38%; }
+.body table{ width:100%; border-collapse:collapse; margin:1.2em 0; font-size:14.5px; }
+.body th,.body td{ border:1px solid var(--rule); padding:8px 10px; text-align:left; }
+.body th{ background:var(--paper); font-family:var(--sans); font-size:13px;
+  letter-spacing:.5px; }
+/* 首字下沉（仅长文） */
+.dropcap .body > p:first-of-type::first-letter{
+  font-family:var(--display); font-size:52px; line-height:.82;
+  float:left; padding:6px 10px 0 0; color:var(--accent); font-weight:700; }
+
+/* ── 文末 ─────────────────────────────── */
+.endplug{ margin-top:40px; padding-top:16px; border-top:3px double var(--ink);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:11.5px; color:var(--faint);
+  letter-spacing:1px; }
+.endplug .diamond{ color:var(--accent); }
+.endplug a{ color:var(--accent-dark); text-decoration:none;
+  border-bottom:1px dotted var(--accent); }
+.back{ display:block; text-align:center; margin-top:26px; font-family:var(--sans);
+  font-size:12px; letter-spacing:2px; }
+.back a{ color:var(--faint); text-decoration:none; }
+.back a:hover{ color:var(--accent); }
+
+/* ── Mobile · iPhone (2026-11-11 移动适配) ───────────────
+   390-430px 竖屏：justify 关掉（窄屏大空隙）、表格转横滚、
+   byline 允许换行、标题/刊头缩放、安全区 padding。 */
+html{ -webkit-text-size-adjust:100%; }
+@media (max-width:640px){
+  .sheet{ max-width:100%; padding:16px 16px calc(56px + env(safe-area-inset-bottom)); }
+  .masthead{ padding:14px 0 12px; }
+  .masthead .brand{ font-size:22px; letter-spacing:1.2px; }
+  .masthead .tagline{ font-size:9px; letter-spacing:2px; margin-top:5px; }
+  article{ padding-top:18px; }
+  .crumb{ font-size:9.5px; letter-spacing:1.5px; margin-bottom:10px; }
+  h1.title{ font-size:24px; line-height:1.28; margin-bottom:10px; }
+  .byline{ flex-wrap:wrap; gap:6px 10px; font-size:11.5px; padding:10px 0; margin-bottom:18px; }
+  .byline .meta{ margin-left:0; font-size:10.5px; }
+  .body{ font-size:16px; line-height:1.8; }
+  .body p{ text-align:left; }
+  .body h2{ font-size:20px; }
+  .body h3{ font-size:17px; }
+  .body blockquote{ padding:10px 14px; font-size:14.5px; margin:1.2em 0; }
+  .body table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; font-size:13.5px; }
+  .dropcap .body > p:first-of-type::first-letter{ font-size:44px; padding:4px 8px 0 0; }
+  .endplug{ flex-wrap:wrap; justify-content:center; text-align:center; gap:6px 14px;
+    font-size:10.5px; letter-spacing:.5px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">HOWIE <em>GAZETTE</em></div>
+    <div class="tagline">Deep Reads · 深度阅读</div>
+  </header>
+  <article class="dropcap">
+    <div class="crumb">DEEP READS<span class="sep">◆</span>量化投资 · 因子</div>
+    <h1 class="title">When Insider Trading Signals Reach You, the Alpha is Already Gone</h1>
+    <div class="byline">
+      <span class="author">韦斯利·格雷</span><span class="dot">◆</span>
+      <span class="src"><a href="https://alphaarchitect.com/insider-trading-signals/" target="_blank" rel="noopener">原文出处 ↗</a></span>
+      <span class="meta">2026-11-28 · 1551 words</span>
+    </div>
+    <div class="body">
+<p class="wp-block-paragraph">Sixty years of academic literature agrees: legal insider trading carries information. When corporate insiders buy their own stock in the open market, future returns tend to be positive. Cluster buying by multiple insiders at once is even more predictive. The signal is real — so why can’t most investors act on it?</p>
+
+
+
+<p class="wp-block-paragraph">That’s the central question Tommi Johnsen, PhD and collaborator Svetlana Shasharina, PhD set out to examine in a May 2026 study about <a href="https://tommijohnsen.substack.com/p/most-of-the-insider-trading-alpha?r=5jnw1h&utm_campaign=post&utm_medium=web&triedRedirect=true" target="_blank" rel="noopener">insider trading alpha</a>. Using a live daily sentiment pipeline covering 536 US-listed tickers across all nine GICS sectors, they added an SEC <a href="https://www.investopedia.com/terms/f/form4.asp" target="_blank" rel="noopener">Form 4</a> (when company insiders, like directors and officers or shareholders with over 10% ownership, alter their stock holdings, they must file SEC Form 4) channel and observed five days of output (May 19–23, 2026). While the sample is deliberately small — a sanity check, not a result — the findings cut straight to the heart of why insider trading strategies are harder to execute than the academic literature implies.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>What the authors examined</strong></p>
+
+
+
+<p class="wp-block-paragraph">The study focused on two types of insider trading signals derived from SEC Form 4 filings: cluster buys (at least two or three or more distinct insiders buying in a rolling 20-day window) and large single-director purchases (averaging $1M+ in value, with no 10b5-1 plan—a regulation that allows insiders of public companies to set up a trading plan for selling stocks they own). For each signal, the authors measured excess returns in three windows — the day before the signal surfaced in the pipeline, the day of, and the day after — relative to the cross-sectional mean of the 536-ticker universe.</p>
+
+
+
+<p class="wp-block-paragraph">The authors also stress-tested the cluster definition against a known weakness in academic filters, and added a new contextual test for a billion-dollar Form 4 transaction — Volkswagen AG’s $1.0 billion closing purchase of Rivian shares — to distinguish strategic investor activity from genuine officer-level conviction buys.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Key findings</strong></p>
+
+
+
+<p class="wp-block-paragraph">1. The standard cluster filter has a noise problem. The widely-used definition of a cluster buy — two, three or more distinct insiders making open-market purchases in a short window — flagged Taiwan Semiconductor (TSM) as a strong buy signal. On inspection, 27 of 28 insider transactions were executed on the same day at the same price ($71.82), with individual sizes between $1,900 and $11,500. This is the statistical signature of an Employee Stock Purchase Plan allocation, not independent conviction buying. The gold-standard “routine versus opportunistic” academic filter (<a href="https://protect.checkpoint.com/v2/r01/___https:/papers.ssrn.com/sol3/papers.cfm?abstract_id=1692517___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjJjNTUyODlkODgyYTg1ZTE4MzFlMjRmOWZmZmZlZTkxOjc6MjA2Yjo5NmE2NmY0ZWZhMGVhNWU1OWI5YzQxMGMwODdiZGUzOTA4Njc5NzllMjNkMzFiZjEzZjQzMzQzNWUxNWFiM2QzOnA6VDpO" target="_blank" rel="noopener">Cohen-Malloy-Pomorski</a>) didn’t catch it.</p>
+
+
+
+<p class="wp-block-paragraph">The authors propose two practical additions: drop individual transactions below $10,000 from the cluster count, and reject any cluster where 80%+ of buys share the same date and price. This removed TSM from subsequent runs while preserving three genuine clusters (ONON, GEHC, SPGI).</p>
+
+
+
+<p class="wp-block-paragraph">2. Cluster signal alpha is largely front-run. This is the study’s most significant finding. Across the three surviving cluster tickers, prior-day excess return averaged +1.61%, while same-day and next-day excess returns were essentially zero.</p>
+
+
+
+<p class="wp-block-paragraph"><br />ONON showed +2.63% prior-day excess followed by −0.80% the next day. SPGI printed +3.91% prior-day and −0.56% after. This pattern is consistent with findings of the January 2026 <a href="https://protect.checkpoint.com/v2/r01/___https:/papers.ssrn.com/sol3/papers.cfm?abstract_id=5966834___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjJjNTUyODlkODgyYTg1ZTE4MzFlMjRmOWZmZmZlZTkxOjc6YmIwMTpmZWQzNjZjOTdmMTczZmRlYTkyNjE5MGIyY2NhOWVkMmY3NWI1MWE2ZDVjNmViODIyZDY3ZmMzMWY1NjFiOGY1OnA6VDpO" target="_blank" rel="noopener">study</a> “The Death of Insider Trading Alpha: Most Returns Occur Before Public Disclosure<strong>”</strong> by Omer Ozlen and Ozken Batumoglu, which found that 70–80% of insider trading alpha lives in the window between the transaction date and when the Form 4 becomes public — a period during which ordinary investors have no visibility at all.</p>
+
+
+
+<p class="wp-block-paragraph">3. Large single-director purchases behave differently. Where clusters are largely priced in before disclosure, large discretionary director buys concentrated their price move on the day of filing itself. Six transactions averaging over $1M in value showed +0.80% prior-day excess, +3.55% same-day, and +0.74% next-day. The standout was WGS — a $60M director purchase — with +4.00% same-day excess. Five of the six were positive.</p>
+
+
+
+<p class="wp-block-paragraph">The authors offer a plausible explanation: a single large director filing may take time for relevant trading desks to identify, whereas multiple Form 4s arriving in the same window create a more conspicuous public event that gets arbitraged faster. The result is a practical asymmetry not addressed in the academic literature — individual large purchases may still offer a narrow, same-day actionable window.</p>
+
+
+
+<p class="wp-block-paragraph">4. Beneficial owner transactions need separate treatment. Volkswagen’s $1B closing purchase of Rivian shares filed as a Form 4 but carried no informational value — the investment had been publicly announced 18 months prior. The return pattern reflected a known event re-pricing at formal close (−2.81% prior, −2.39% same-day, +4.27% next-day), not insider conviction. Mixing 10%-owner transactions with officer transactions in any Form 4 model introduces irreducible noise.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Implications for market efficiency</strong></p>
+
+
+
+<p class="wp-block-paragraph">The Efficient Market Hypothesis (EMH) has three forms. The weak form says prices reflect all past trading data. The semi-strong form says prices instantly reflect all publicly available information. The strong form says prices reflect all information — including private knowledge held by insiders.</p>
+
+
+
+<p class="wp-block-paragraph">The findings suggest that the market is more than <a href="https://alphaarchitect.com/debunking-semi-strong-market-efficiency/" target="_blank" rel="noopener">semi-strong efficient</a> with respect to publicly available Form 4 data — and less than fully efficient only in a narrow, hard-to-exploit window between transaction and filing. The market appears to absorb the informational content of insider purchases largely <em>before</em> that information becomes public — meaning prices are acting as if the market has strong-form efficiency for cluster buy signals, even though the mechanism isn’t the insiders themselves trading on private information. In other words, the alpha exists, but it belongs to those inside the information chain.</p>
+
+
+
+<p class="wp-block-paragraph">More likely, the pre-disclosure drift reflects information leakage and pattern recognition: options market activity, unusual volume, sector rotation signals, or simply that multiple insiders buying creates observable pre-filing footprints that sophisticated participants detect. The result is that by the time the Form 4 hits EDGAR and a daily pipeline surfaces the signal, the market has already done the work.</p>
+
+
+
+<p class="wp-block-paragraph">The one exception — large single-director purchases — suggests a partial inefficiency that survives a bit longer, perhaps because a single large transaction is harder to detect in pre-filing noise than a coordinated multi-officer pattern.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>Key investor takeaways</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>Daily pipelines on cluster signals are too slow. If you’re running a strategy that reads Form 4 filings at end of day and acts at the next open, you’re entering after most of the alpha has already been captured. The 70–80% pre-disclosure drift finding means you’re systematically late to a trade whose best days are behind it.</li>
+
+
+
+<li>Large director purchases may still offer a narrow edge. Single high-conviction director buys (think $1M+ discretionary, no 10b5-1 plan) showed meaningful same-day excess returns. This signal appears to lag the market slightly on disclosure — potentially offering a short action window for fast-moving investors.</li>
+
+
+
+<li>Filter quality matters enormously. Applying the academic cluster definition without modification lets ESPP allocations and programmatic compensation events pollute the signal. The authors’ proposed additions — a $10K minimum transaction threshold and a same-day/same-price concentration rule — are practically important and not yet in the published literature.</li>
+
+
+
+<li>Separate officer transactions from beneficial owners. A $1B Form 4 from a strategic investor closing an 18-month-old deal carries zero incremental information. Lumping it with officer buys distorts any return analysis. Beneficial owner (10%) filings require their own analytical framework.</li>
+
+
+
+<li>Cluster persistence is a signal feature worth tracking. The distinction between an event cluster (officers buying in one concentrated burst, then aging out) and a sustained cluster (new officer buys continuing to enter the window over days) is likely a meaningful predictor of forward returns — but remains untested. ONON’s multi-day persistence warrants separate treatment from SPGI’s one-day event.</li>
+
+
+
+<li>When insiders and news sentiment disagree, pay attention. Eight of 10 high-Form-4 tickers also appeared in the news sentiment sections of the same pipeline. Sometimes the signals agreed; sometimes they contradicted. WGS (insider buy confirmed by news) vs. SHAK (insider buy contradicted by news) point in opposite directions. That divergence, at scale, could itself be a tradeable signal.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"><strong>The bottom line</strong></p>
+
+
+
+<p class="wp-block-paragraph">The insider trading alpha is real — it just doesn’t belong to you by the time you can see it. The academic literature’s historical back tests were constructed on samples where execution lag was less critical, information diffusion was slower, and the market’s ability to front-run observable filing patterns was less developed. In 2026, the signal survives — but mostly as evidence of how quickly the market absorbs information, not as a reliable edge for investors acting on public data alone.</p>
+
+
+
+<p class="wp-block-paragraph">For sophisticated investors, the implications point toward either real-time data feeds with intraday execution capability, a sharper focus on large single-director purchases as the last remaining exploitable window, or a shift from short-term momentum strategies toward the longer-horizon question that the academic literature still answers affirmatively: do insiders, on average, buy before good long-run outcomes? That question isn’t addressed by this study — but it remains open, and potentially more durable.</p>
+
+
+
+<p class="wp-block-paragraph"><em>Larry Swedroe is the author or co-author of 18 books on investing, including his latest </em><a href="https://protect.checkpoint.com/v2/r01/___https:/www.amazon.com/Enrich-Your-Future-Successful-Investing/dp/1394245440/___.YXAzOnNhcmFncmlsbG86Yzpnb29nbGVfbWFpbF9hdHRhY2htZW50OjJjNTUyODlkODgyYTg1ZTE4MzFlMjRmOWZmZmZlZTkxOjc6OWIxNDpjODMzMzAyMDhlMzlkNDQwZWM0ZDY3MzllOWY4ZmQ2NmQzYThlZDZiNzNhMDI4ODhhMTJlNDc4ZTY5M2M0ZTEzOnA6VDpO" target="_blank" rel="noopener">Enrich Your Future</a><em>. He is also a consultant to RIAs as an educator on investment strategies. This article is for informational and educational purposes only and should not be construed as specific investment, accounting, legal, or tax advice.</em></p>
+<p><a href="https://alphaarchitect.com/insider-trading-signals/" target="_blank" rel="noopener">When Insider Trading Signals Reach You, the Alpha is Already Gone</a> was originally published at <a href="https://alphaarchitect.com" target="_blank" rel="noopener">Alpha Architect</a>. Please read the Alpha Architect <a href="https://alphaarchitect.com/disclosures" target="_blank" rel="noopener">disclosures</a> at your convenience.</p>
+</div>
+  </article>
+  <div class="endplug">
+    <span>◆ HOWIE GAZETTE · DEEP READS</span>
+    <span><a href="https://alphaarchitect.com/insider-trading-signals/" target="_blank" rel="noopener">Read original ↗</a></span>
+  </div>
+  <div class="back"><a href="/gazette/">← 返回 GAZETTE</a></div>
+</div>
+</body>
+</html>
